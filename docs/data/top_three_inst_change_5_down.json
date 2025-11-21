@@ -651,6 +651,13 @@
     "change": 0.0
   },
   {
+    "code": "00775B",
+    "name": "新光投等債15+",
+    "market": "TWSE",
+    "three_inst_ratio": 0.0,
+    "change": 0.0
+  },
+  {
     "code": "00783",
     "name": "富邦中証500",
     "market": "TWSE",
@@ -1281,6 +1288,13 @@
     "change": 0.0
   },
   {
+    "code": "01009T",
+    "name": "王道圓滿R1",
+    "market": "TWSE",
+    "three_inst_ratio": 0.0,
+    "change": 0.0
+  },
+  {
     "code": "02001L",
     "name": "富邦蘋果正二N",
     "market": "TWSE",
@@ -1297,13 +1311,6 @@
   {
     "code": "1101",
     "name": "台泥",
-    "market": "TWSE",
-    "three_inst_ratio": 0.0,
-    "change": 0.0
-  },
-  {
-    "code": "1101B",
-    "name": "台泥乙特",
     "market": "TWSE",
     "three_inst_ratio": 0.0,
     "change": 0.0
@@ -1388,13 +1395,6 @@
   {
     "code": "1217",
     "name": "愛之味",
-    "market": "TWSE",
-    "three_inst_ratio": 0.0,
-    "change": 0.0
-  },
-  {
-    "code": "1218",
-    "name": "泰山",
     "market": "TWSE",
     "three_inst_ratio": 0.0,
     "change": 0.0

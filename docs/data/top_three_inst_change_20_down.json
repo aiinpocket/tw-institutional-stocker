@@ -385,6 +385,13 @@
     "change": 0.0
   },
   {
+    "code": "00684R",
+    "name": "期元大美元指反1",
+    "market": "TWSE",
+    "three_inst_ratio": 0.0,
+    "change": 0.0
+  },
+  {
     "code": "00685L",
     "name": "群益臺灣加權正2",
     "market": "TWSE",
@@ -1269,13 +1276,6 @@
   {
     "code": "02001L",
     "name": "富邦蘋果正二N",
-    "market": "TWSE",
-    "three_inst_ratio": 0.0,
-    "change": 0.0
-  },
-  {
-    "code": "02001R",
-    "name": "富邦蘋果反一N",
     "market": "TWSE",
     "three_inst_ratio": 0.0,
     "change": 0.0

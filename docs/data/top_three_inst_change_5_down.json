@@ -147,13 +147,6 @@
     "change": 0.0
   },
   {
-    "code": "00643K",
-    "name": "群益深証中小+R",
-    "market": "TWSE",
-    "three_inst_ratio": 0.0,
-    "change": 0.0
-  },
-  {
     "code": "00645",
     "name": "富邦日本",
     "market": "TWSE",
@@ -392,6 +385,13 @@
     "change": 0.0
   },
   {
+    "code": "00684R",
+    "name": "期元大美元指反1",
+    "market": "TWSE",
+    "three_inst_ratio": 0.0,
+    "change": 0.0
+  },
+  {
     "code": "00685L",
     "name": "群益臺灣加權正2",
     "market": "TWSE",
@@ -471,6 +471,13 @@
   {
     "code": "00706L",
     "name": "期元大S&P日圓正2",
+    "market": "TWSE",
+    "three_inst_ratio": 0.0,
+    "change": 0.0
+  },
+  {
+    "code": "00707R",
+    "name": "期元大S&P日圓反1",
     "market": "TWSE",
     "three_inst_ratio": 0.0,
     "change": 0.0
@@ -1281,8 +1288,8 @@
     "change": 0.0
   },
   {
-    "code": "01004T",
-    "name": "土銀富邦R2",
+    "code": "01002T",
+    "name": "土銀國泰R1",
     "market": "TWSE",
     "three_inst_ratio": 0.0,
     "change": 0.0
@@ -1290,13 +1297,6 @@
   {
     "code": "02001L",
     "name": "富邦蘋果正二N",
-    "market": "TWSE",
-    "three_inst_ratio": 0.0,
-    "change": 0.0
-  },
-  {
-    "code": "02001R",
-    "name": "富邦蘋果反一N",
     "market": "TWSE",
     "three_inst_ratio": 0.0,
     "change": 0.0

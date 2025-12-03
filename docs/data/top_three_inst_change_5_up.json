@@ -154,6 +154,13 @@
     "change": 0.0
   },
   {
+    "code": "00643K",
+    "name": "群益深証中小+R",
+    "market": "TWSE",
+    "three_inst_ratio": 0.0,
+    "change": 0.0
+  },
+  {
     "code": "00645",
     "name": "富邦日本",
     "market": "TWSE",
@@ -478,6 +485,13 @@
   {
     "code": "00706L",
     "name": "期元大S&P日圓正2",
+    "market": "TWSE",
+    "three_inst_ratio": 0.0,
+    "change": 0.0
+  },
+  {
+    "code": "00707R",
+    "name": "期元大S&P日圓反1",
     "market": "TWSE",
     "three_inst_ratio": 0.0,
     "change": 0.0
@@ -1288,15 +1302,8 @@
     "change": 0.0
   },
   {
-    "code": "01009T",
-    "name": "王道圓滿R1",
-    "market": "TWSE",
-    "three_inst_ratio": 0.0,
-    "change": 0.0
-  },
-  {
-    "code": "01010T",
-    "name": "京城樂富R1",
+    "code": "01002T",
+    "name": "土銀國泰R1",
     "market": "TWSE",
     "three_inst_ratio": 0.0,
     "change": 0.0
@@ -1318,6 +1325,13 @@
   {
     "code": "1101",
     "name": "台泥",
+    "market": "TWSE",
+    "three_inst_ratio": 0.0,
+    "change": 0.0
+  },
+  {
+    "code": "1101B",
+    "name": "台泥乙特",
     "market": "TWSE",
     "three_inst_ratio": 0.0,
     "change": 0.0
@@ -1381,20 +1395,6 @@
   {
     "code": "1210",
     "name": "大成",
-    "market": "TWSE",
-    "three_inst_ratio": 0.0,
-    "change": 0.0
-  },
-  {
-    "code": "1215",
-    "name": "卜蜂",
-    "market": "TWSE",
-    "three_inst_ratio": 0.0,
-    "change": 0.0
-  },
-  {
-    "code": "1216",
-    "name": "統一",
     "market": "TWSE",
     "three_inst_ratio": 0.0,
     "change": 0.0

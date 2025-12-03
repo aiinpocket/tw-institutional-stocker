@@ -1302,6 +1302,13 @@
     "change": 0.0
   },
   {
+    "code": "1101B",
+    "name": "台泥乙特",
+    "market": "TWSE",
+    "three_inst_ratio": 0.0,
+    "change": 0.0
+  },
+  {
     "code": "1102",
     "name": "亞泥",
     "market": "TWSE",
@@ -1388,13 +1395,6 @@
   {
     "code": "1218",
     "name": "泰山",
-    "market": "TWSE",
-    "three_inst_ratio": 0.0,
-    "change": 0.0
-  },
-  {
-    "code": "1219",
-    "name": "福壽",
     "market": "TWSE",
     "three_inst_ratio": 0.0,
     "change": 0.0

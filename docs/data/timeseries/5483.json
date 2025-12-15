@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.7143440154986282,
     "three_inst_ratio_change_20": 0.18084011951118617
+  },
+  {
+    "date": "2025-12-08",
+    "code": "5483",
+    "name": "中美晶",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.6991790565724363,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.6991790565724363,
+    "three_inst_ratio_change_20": 0.15803942340680566
+  },
+  {
+    "date": "2025-12-09",
+    "code": "5483",
+    "name": "中美晶",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.684110164271418,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.684110164271418,
+    "three_inst_ratio_change_20": 0.4573867703041734
+  },
+  {
+    "date": "2025-12-10",
+    "code": "5483",
+    "name": "中美晶",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.6625909283278395,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.6625909283278395,
+    "three_inst_ratio_change_20": 0.4328730939872769
+  },
+  {
+    "date": "2025-12-11",
+    "code": "5483",
+    "name": "中美晶",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.6502122134363177,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.6502122134363177,
+    "three_inst_ratio_change_20": 0.4616211875228775
+  },
+  {
+    "date": "2025-12-12",
+    "code": "5483",
+    "name": "中美晶",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.6098447368240847,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.6098447368240847,
+    "three_inst_ratio_change_20": 0.4356342296994584
   }
 ]

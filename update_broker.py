@@ -279,6 +279,100 @@ def export_target_broker_trades(df: pd.DataFrame, output_path: str):
     print(f"Saved target broker trades to {output_path}")
 
 
+def build_broker_history(new_trades: pd.DataFrame, history_path: str) -> pd.DataFrame:
+    """
+    累積券商歷史交易數據
+    
+    Args:
+        new_trades: 今日新交易數據
+        history_path: 歷史數據 CSV 路徑
+    
+    Returns:
+        合併後的歷史數據
+    """
+    # 添加完整日期
+    today = date.today().isoformat()
+    new_trades = new_trades.copy()
+    new_trades["full_date"] = today
+    
+    # 載入歷史數據
+    if os.path.exists(history_path):
+        history = pd.read_csv(history_path)
+        # 移除今天的舊數據（如果有）
+        history = history[history["full_date"] != today]
+        # 合併
+        combined = pd.concat([history, new_trades], ignore_index=True)
+    else:
+        combined = new_trades
+    
+    # 只保留最近 60 天
+    if "full_date" in combined.columns:
+        combined["full_date"] = pd.to_datetime(combined["full_date"])
+        cutoff = datetime.now() - timedelta(days=60)
+        combined = combined[combined["full_date"] >= cutoff]
+        combined["full_date"] = combined["full_date"].dt.strftime("%Y-%m-%d")
+    
+    # 儲存
+    combined.to_csv(history_path, index=False, encoding="utf-8-sig")
+    
+    return combined
+
+
+def export_broker_trends(history_df: pd.DataFrame, output_path: str):
+    """
+    匯出券商買賣超趨勢數據供前端繪圖
+    
+    生成格式：
+    {
+        "updated": "...",
+        "brokers": {
+            "摩根大通": [
+                {"date": "2024-12-01", "net_vol": 1234, "cumulative": 5678},
+                ...
+            ]
+        }
+    }
+    """
+    if history_df.empty:
+        return
+    
+    # 只處理目標券商
+    target_df = filter_target_brokers(history_df)
+    if target_df.empty:
+        print("No target broker history found")
+        return
+    
+    # 按券商和日期彙總
+    daily = target_df.groupby(["broker_name", "full_date"]).agg({
+        "net_vol": "sum"
+    }).reset_index()
+    
+    daily = daily.sort_values(["broker_name", "full_date"])
+    
+    # 計算累計買賣超
+    brokers_data = {}
+    for broker_name in daily["broker_name"].unique():
+        broker_df = daily[daily["broker_name"] == broker_name].copy()
+        broker_df = broker_df.sort_values("full_date")
+        broker_df["cumulative"] = broker_df["net_vol"].cumsum()
+        
+        brokers_data[broker_name] = broker_df[["full_date", "net_vol", "cumulative"]].rename(
+            columns={"full_date": "date"}
+        ).to_dict(orient="records")
+    
+    result = {
+        "updated": datetime.now().isoformat(),
+        "brokers": brokers_data
+    }
+    
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
+    
+    print(f"Saved broker trends to {output_path}")
+
+
+
+
 def main():
     """主程式"""
     parser = argparse.ArgumentParser(description="更新券商分點交易數據")
@@ -341,6 +435,16 @@ def main():
     # 4.3 目標券商交易
     target_path = os.path.join(DOCS_DIR, "target_broker_trades.json")
     export_target_broker_trades(all_trades, target_path)
+    
+    # 4.4 累積歷史數據並生成趨勢圖數據
+    history_path = os.path.join(BROKER_DATA_DIR, "broker_history.csv")
+    history_df = build_broker_history(all_trades, history_path)
+    print(f"Broker history: {len(history_df)} records from {history_df['full_date'].nunique()} days")
+    
+    # 4.5 匯出券商趨勢數據
+    trends_path = os.path.join(DOCS_DIR, "broker_trends.json")
+    export_broker_trends(history_df, trends_path)
+
     
     # 5. 輸出統計摘要
     print("\n" + "=" * 60)

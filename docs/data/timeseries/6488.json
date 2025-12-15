@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.970838841742098,
     "three_inst_ratio_change_20": -0.31441954526613936
+  },
+  {
+    "date": "2025-12-08",
+    "code": "6488",
+    "name": "環球晶",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.9159832736447797,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.9159832736447797,
+    "three_inst_ratio_change_20": -0.42563534439426554
+  },
+  {
+    "date": "2025-12-09",
+    "code": "6488",
+    "name": "環球晶",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.860950760198319,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.860950760198319,
+    "three_inst_ratio_change_20": -0.4838051867262332
+  },
+  {
+    "date": "2025-12-10",
+    "code": "6488",
+    "name": "環球晶",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.8579979062512793,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.8579979062512793,
+    "three_inst_ratio_change_20": -0.4223382208908564
+  },
+  {
+    "date": "2025-12-11",
+    "code": "6488",
+    "name": "環球晶",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.8279586096383238,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.8279586096383238,
+    "three_inst_ratio_change_20": -0.3647414639686406
+  },
+  {
+    "date": "2025-12-12",
+    "code": "6488",
+    "name": "環球晶",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.8201608832710252,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.8201608832710252,
+    "three_inst_ratio_change_20": -0.3351003989688852
   }
 ]

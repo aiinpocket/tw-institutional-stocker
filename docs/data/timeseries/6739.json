@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.3735289376108335,
     "three_inst_ratio_change_20": 0.010747487774732667
+  },
+  {
+    "date": "2025-12-08",
+    "code": "6739",
+    "name": "竹陞科技",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.3735289376108335,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.3735289376108335,
+    "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-09",
+    "code": "6739",
+    "name": "竹陞科技",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.3735289376108335,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.3735289376108335,
+    "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-10",
+    "code": "6739",
+    "name": "竹陞科技",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.6959535708528133,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.6959535708528133,
+    "three_inst_ratio_change_20": 0.3224246332419798
+  },
+  {
+    "date": "2025-12-11",
+    "code": "6739",
+    "name": "竹陞科技",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.1645440378311567,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.1645440378311567,
+    "three_inst_ratio_change_20": 0.7910151002203232
+  },
+  {
+    "date": "2025-12-12",
+    "code": "6739",
+    "name": "竹陞科技",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.1645440378311567,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.1645440378311567,
+    "three_inst_ratio_change_20": 0.7910151002203232
   }
 ]

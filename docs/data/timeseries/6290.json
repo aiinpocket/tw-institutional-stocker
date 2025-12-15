@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.4956353789096957,
     "three_inst_ratio_change_20": 0.29763265937062894
+  },
+  {
+    "date": "2025-12-08",
+    "code": "6290",
+    "name": "良維",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4966411070089417,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4966411070089417,
+    "three_inst_ratio_change_20": 0.2980098074078461
+  },
+  {
+    "date": "2025-12-09",
+    "code": "6290",
+    "name": "良維",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.49764683510818786,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.49764683510818786,
+    "three_inst_ratio_change_20": 0.2973812273458175
+  },
+  {
+    "date": "2025-12-10",
+    "code": "6290",
+    "name": "良維",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4963896749841302,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4963896749841302,
+    "three_inst_ratio_change_20": 0.2961240672217599
+  },
+  {
+    "date": "2025-12-11",
+    "code": "6290",
+    "name": "良維",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.43918888933951095,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.43918888933951095,
+    "three_inst_ratio_change_20": 0.23917471360195205
+  },
+  {
+    "date": "2025-12-12",
+    "code": "6290",
+    "name": "良維",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.43918888933951095,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.43918888933951095,
+    "three_inst_ratio_change_20": 0.23917471360195205
   }
 ]

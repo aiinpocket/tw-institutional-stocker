@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.93400685477443,
     "three_inst_ratio_change_20": -0.09514111527526392
+  },
+  {
+    "date": "2025-12-08",
+    "code": "6138",
+    "name": "茂達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.8516432860407037,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.8516432860407037,
+    "three_inst_ratio_change_20": -0.18420197964101392
+  },
+  {
+    "date": "2025-12-09",
+    "code": "6138",
+    "name": "茂達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.7666228279929856,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.7666228279929856,
+    "three_inst_ratio_change_20": -0.2933327019640175
+  },
+  {
+    "date": "2025-12-10",
+    "code": "6138",
+    "name": "茂達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.7654697380307134,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.7654697380307134,
+    "three_inst_ratio_change_20": -0.29448579192628976
+  },
+  {
+    "date": "2025-12-11",
+    "code": "6138",
+    "name": "茂達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.764141293373718,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.764141293373718,
+    "three_inst_ratio_change_20": -0.2931353183304757
+  },
+  {
+    "date": "2025-12-12",
+    "code": "6138",
+    "name": "茂達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.756170625431744,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.756170625431744,
+    "three_inst_ratio_change_20": -0.30110598627244967
   }
 ]

@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.8980203544315399,
     "three_inst_ratio_change_20": 0.2034598344854246
+  },
+  {
+    "date": "2025-12-08",
+    "code": "3357",
+    "name": "臺慶科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8980203544315399,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8980203544315399,
+    "three_inst_ratio_change_20": 0.13191567303342078
+  },
+  {
+    "date": "2025-12-09",
+    "code": "3357",
+    "name": "臺慶科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8980203544315399,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8980203544315399,
+    "three_inst_ratio_change_20": 0.13191567303342078
+  },
+  {
+    "date": "2025-12-10",
+    "code": "3357",
+    "name": "臺慶科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8966472945658652,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8966472945658652,
+    "three_inst_ratio_change_20": 0.13054261316774607
+  },
+  {
+    "date": "2025-12-11",
+    "code": "3357",
+    "name": "臺慶科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.0701173846618197,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.0701173846618197,
+    "three_inst_ratio_change_20": 0.30401270326370056
+  },
+  {
+    "date": "2025-12-12",
+    "code": "3357",
+    "name": "臺慶科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.0554165295689422,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.0554165295689422,
+    "three_inst_ratio_change_20": 0.17072495042161107
   }
 ]

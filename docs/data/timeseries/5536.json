@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 5.122711443249176,
     "three_inst_ratio_change_20": -0.02095809565579554
+  },
+  {
+    "date": "2025-12-08",
+    "code": "5536",
+    "name": "聖暉*",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.265360277360913,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.265360277360913,
+    "three_inst_ratio_change_20": -0.4746942177174196
+  },
+  {
+    "date": "2025-12-09",
+    "code": "5536",
+    "name": "聖暉*",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.34272913654016,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.34272913654016,
+    "three_inst_ratio_change_20": 0.7266990987253239
+  },
+  {
+    "date": "2025-12-10",
+    "code": "5536",
+    "name": "聖暉*",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.715066771340286,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.715066771340286,
+    "three_inst_ratio_change_20": 1.4060943933930865
+  },
+  {
+    "date": "2025-12-11",
+    "code": "5536",
+    "name": "聖暉*",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 6.164612080196369,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 6.164612080196369,
+    "three_inst_ratio_change_20": 1.7266916036170912
+  },
+  {
+    "date": "2025-12-12",
+    "code": "5536",
+    "name": "聖暉*",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 6.320155724171313,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 6.320155724171313,
+    "three_inst_ratio_change_20": 1.8185671238924463
   }
 ]

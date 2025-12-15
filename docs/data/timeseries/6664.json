@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.0970500390494814,
     "three_inst_ratio_change_20": 0.02631865465748648
+  },
+  {
+    "date": "2025-12-08",
+    "code": "6664",
+    "name": "群翊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0970500390494814,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0970500390494814,
+    "three_inst_ratio_change_20": 0.02631865465748648
+  },
+  {
+    "date": "2025-12-09",
+    "code": "6664",
+    "name": "群翊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0970500390494814,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0970500390494814,
+    "three_inst_ratio_change_20": 0.02631865465748648
+  },
+  {
+    "date": "2025-12-10",
+    "code": "6664",
+    "name": "群翊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.10362970271385302,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.10362970271385302,
+    "three_inst_ratio_change_20": 0.032898318321858105
+  },
+  {
+    "date": "2025-12-11",
+    "code": "6664",
+    "name": "群翊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.19081024626677695,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.19081024626677695,
+    "three_inst_ratio_change_20": 0.12007886187478203
+  },
+  {
+    "date": "2025-12-12",
+    "code": "6664",
+    "name": "群翊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.19081024626677695,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.19081024626677695,
+    "three_inst_ratio_change_20": 0.12007886187478203
   }
 ]

@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.37340590774652943,
     "three_inst_ratio_change_20": 0.15630944975436115
+  },
+  {
+    "date": "2025-12-08",
+    "code": "3363",
+    "name": "上詮",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.37340590774652943,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.37340590774652943,
+    "three_inst_ratio_change_20": 0.14666071828804256
+  },
+  {
+    "date": "2025-12-09",
+    "code": "3363",
+    "name": "上詮",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.2470075255377559,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.2470075255377559,
+    "three_inst_ratio_change_20": 0.020262336079269028
+  },
+  {
+    "date": "2025-12-10",
+    "code": "3363",
+    "name": "上詮",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.18043127842015763,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.18043127842015763,
+    "three_inst_ratio_change_20": -0.04631391103832924
+  },
+  {
+    "date": "2025-12-11",
+    "code": "3363",
+    "name": "上詮",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.18043127842015763,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.18043127842015763,
+    "three_inst_ratio_change_20": -0.04631391103832924
+  },
+  {
+    "date": "2025-12-12",
+    "code": "3363",
+    "name": "上詮",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.18043127842015763,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.18043127842015763,
+    "three_inst_ratio_change_20": -0.04631391103832924
   }
 ]

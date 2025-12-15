@@ -298,7 +298,137 @@ async function loadTargetBrokers() {
   }
 }
 
+// ========== Broker Trend Chart ==========
+
+let brokerTrendChart = null;
+let brokerTrendsData = null;
+
+async function loadBrokerTrends() {
+  const select = document.getElementById("brokerSelect");
+  if (!select) return;
+
+  try {
+    brokerTrendsData = await fetchJson("data/broker_trends.json");
+
+    if (!brokerTrendsData.brokers || Object.keys(brokerTrendsData.brokers).length === 0) {
+      return;
+    }
+
+    // Populate broker select
+    select.innerHTML = '<option value="ALL">全部目標券商</option>';
+    Object.keys(brokerTrendsData.brokers).forEach(broker => {
+      const option = document.createElement("option");
+      option.value = broker;
+      option.textContent = broker;
+      select.appendChild(option);
+    });
+
+    // Add event listener
+    select.addEventListener("change", () => {
+      renderBrokerTrendChart(select.value);
+    });
+
+    // Initial render
+    renderBrokerTrendChart("ALL");
+  } catch (err) {
+    console.error("Failed to load broker trends:", err);
+  }
+}
+
+function renderBrokerTrendChart(selectedBroker) {
+  const ctx = document.getElementById("brokerTrendChart");
+  if (!ctx || !brokerTrendsData) return;
+
+  // Destroy existing chart
+  if (brokerTrendChart) {
+    brokerTrendChart.destroy();
+  }
+
+  const brokers = brokerTrendsData.brokers;
+  const datasets = [];
+
+  // Define colors for different brokers
+  const colors = [
+    "#ff6b6b", "#4ecdc4", "#ffe66d", "#a55eea", "#45aaf2",
+    "#fed330", "#26de81", "#fd9644", "#eb3b5a", "#2bcbba"
+  ];
+
+  let colorIndex = 0;
+  let allDates = new Set();
+
+  // Collect all dates
+  Object.values(brokers).forEach(data => {
+    data.forEach(d => allDates.add(d.date));
+  });
+  const sortedDates = Array.from(allDates).sort();
+
+  // Build datasets
+  Object.entries(brokers).forEach(([brokerName, data]) => {
+    if (selectedBroker !== "ALL" && brokerName !== selectedBroker) {
+      return;
+    }
+
+    // Create date -> cumulative map
+    const dateMap = {};
+    data.forEach(d => {
+      dateMap[d.date] = d.cumulative;
+    });
+
+    // Fill in missing dates with last known value
+    const values = [];
+    let lastValue = 0;
+    sortedDates.forEach(date => {
+      if (dateMap[date] !== undefined) {
+        lastValue = dateMap[date];
+      }
+      values.push(lastValue);
+    });
+
+    datasets.push({
+      label: brokerName,
+      data: values,
+      borderColor: colors[colorIndex % colors.length],
+      backgroundColor: "transparent",
+      borderWidth: 2,
+      tension: 0.3,
+      pointRadius: selectedBroker === "ALL" ? 0 : 3,
+    });
+
+    colorIndex++;
+  });
+
+  brokerTrendChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: sortedDates,
+      datasets: datasets,
+    },
+    options: {
+      responsive: true,
+      interaction: { mode: "index", intersect: false },
+      scales: {
+        x: {
+          ticks: { maxTicksLimit: 10, color: "#8b8b9e" },
+          grid: { color: "rgba(255,255,255,0.05)" },
+        },
+        y: {
+          title: { display: true, text: "累計買賣超 (張)", color: "#8b8b9e" },
+          ticks: { color: "#8b8b9e" },
+          grid: { color: "rgba(255,255,255,0.05)" },
+        },
+      },
+      plugins: {
+        legend: {
+          position: "bottom",
+          labels: { color: "#eaeaea", boxWidth: 12 },
+        },
+      },
+    },
+  });
+}
+
 // ========== Navigation ==========
+
 
 function initNavigation() {
   const navBtns = document.querySelectorAll(".nav-btn");
@@ -325,6 +455,7 @@ function initNavigation() {
         loadBrokerRanking();
         loadBrokerTrades();
         loadTargetBrokers();
+        loadBrokerTrends();
       }
     });
   });

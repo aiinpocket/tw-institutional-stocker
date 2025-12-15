@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.995465880431099,
     "three_inst_ratio_change_20": 1.1819324988212023
+  },
+  {
+    "date": "2025-12-08",
+    "code": "4931",
+    "name": "新盛力",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.995465880431099,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.995465880431099,
+    "three_inst_ratio_change_20": 1.1819324988212023
+  },
+  {
+    "date": "2025-12-09",
+    "code": "4931",
+    "name": "新盛力",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.995465880431099,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.995465880431099,
+    "three_inst_ratio_change_20": 1.1819324988212023
+  },
+  {
+    "date": "2025-12-10",
+    "code": "4931",
+    "name": "新盛力",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.995465880431099,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.995465880431099,
+    "three_inst_ratio_change_20": 1.1819324988212023
+  },
+  {
+    "date": "2025-12-11",
+    "code": "4931",
+    "name": "新盛力",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.995465880431099,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.995465880431099,
+    "three_inst_ratio_change_20": 1.1819324988212023
+  },
+  {
+    "date": "2025-12-12",
+    "code": "4931",
+    "name": "新盛力",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.995465880431099,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.995465880431099,
+    "three_inst_ratio_change_20": 1.1819324988212023
   }
 ]

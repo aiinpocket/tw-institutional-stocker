@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.010078501244362652,
     "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-08",
+    "code": "3218",
+    "name": "大學光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.010078501244362652,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.010078501244362652,
+    "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-09",
+    "code": "3218",
+    "name": "大學光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.010078501244362652,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.010078501244362652,
+    "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-10",
+    "code": "3218",
+    "name": "大學光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.010078501244362652,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.010078501244362652,
+    "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-11",
+    "code": "3218",
+    "name": "大學光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.010078501244362652,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.010078501244362652,
+    "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-12",
+    "code": "3218",
+    "name": "大學光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.010078501244362652,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.010078501244362652,
+    "three_inst_ratio_change_20": 0.0
   }
 ]

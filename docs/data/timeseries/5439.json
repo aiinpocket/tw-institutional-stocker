@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 11.519148562519828,
     "three_inst_ratio_change_20": 3.0658531269529288
+  },
+  {
+    "date": "2025-12-08",
+    "code": "5439",
+    "name": "高技",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 11.516997464026964,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.516997464026964,
+    "three_inst_ratio_change_20": 3.0185289601099434
+  },
+  {
+    "date": "2025-12-09",
+    "code": "5439",
+    "name": "高技",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 11.515921914780533,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.515921914780533,
+    "three_inst_ratio_change_20": 2.9937913274420183
+  },
+  {
+    "date": "2025-12-10",
+    "code": "5439",
+    "name": "高技",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 11.512695267041238,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.512695267041238,
+    "three_inst_ratio_change_20": 2.900218543002481
+  },
+  {
+    "date": "2025-12-11",
+    "code": "5439",
+    "name": "高技",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 11.492044721509755,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.492044721509755,
+    "three_inst_ratio_change_20": 2.854830364803073
+  },
+  {
+    "date": "2025-12-12",
+    "code": "5439",
+    "name": "高技",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 12.308386599551246,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 12.308386599551246,
+    "three_inst_ratio_change_20": 3.5076887573869797
   }
 ]

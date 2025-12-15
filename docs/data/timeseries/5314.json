@@ -625,5 +625,49 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.8708904109589041,
     "three_inst_ratio_change_20": -0.00410958904109604
+  },
+  {
+    "date": "2025-12-09",
+    "code": "5314",
+    "name": "世紀*",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8695205479452055,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8695205479452055,
+    "three_inst_ratio_change_20": -0.005479452054794609
+  },
+  {
+    "date": "2025-12-10",
+    "code": "5314",
+    "name": "世紀*",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8691780821917807,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8691780821917807,
+    "three_inst_ratio_change_20": -0.00582191780821939
+  },
+  {
+    "date": "2025-12-11",
+    "code": "5314",
+    "name": "世紀*",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8684931506849316,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8684931506849316,
+    "three_inst_ratio_change_20": -0.006506849315068508
+  },
+  {
+    "date": "2025-12-12",
+    "code": "5314",
+    "name": "世紀*",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8684931506849316,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8684931506849316,
+    "three_inst_ratio_change_20": -0.006506849315068508
   }
 ]

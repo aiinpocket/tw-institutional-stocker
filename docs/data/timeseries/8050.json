@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.031527741261387944,
     "three_inst_ratio_change_20": -0.001137548665967096
+  },
+  {
+    "date": "2025-12-08",
+    "code": "8050",
+    "name": "廣積",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.031527741261387944,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.031527741261387944,
+    "three_inst_ratio_change_20": -0.001137548665967096
+  },
+  {
+    "date": "2025-12-09",
+    "code": "8050",
+    "name": "廣積",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.031527741261387944,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.031527741261387944,
+    "three_inst_ratio_change_20": -0.001137548665967096
+  },
+  {
+    "date": "2025-12-10",
+    "code": "8050",
+    "name": "廣積",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.03039019259542085,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.03039019259542085,
+    "three_inst_ratio_change_20": -0.0022750973319341887
+  },
+  {
+    "date": "2025-12-11",
+    "code": "8050",
+    "name": "廣積",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.03039019259542085,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.03039019259542085,
+    "three_inst_ratio_change_20": -0.0022750973319341887
+  },
+  {
+    "date": "2025-12-12",
+    "code": "8050",
+    "name": "廣積",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.03039019259542085,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.03039019259542085,
+    "three_inst_ratio_change_20": -0.0022750973319341887
   }
 ]

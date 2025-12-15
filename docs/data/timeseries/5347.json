@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.5545101125788854,
     "three_inst_ratio_change_20": -0.4406190792186251
+  },
+  {
+    "date": "2025-12-08",
+    "code": "5347",
+    "name": "世界",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.5504161148822952,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.5504161148822952,
+    "three_inst_ratio_change_20": -0.44495062742184155
+  },
+  {
+    "date": "2025-12-09",
+    "code": "5347",
+    "name": "世界",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.5295057261814697,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.5295057261814697,
+    "three_inst_ratio_change_20": -0.4560612544651872
+  },
+  {
+    "date": "2025-12-10",
+    "code": "5347",
+    "name": "世界",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.5200266255775692,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.5200266255775692,
+    "three_inst_ratio_change_20": -0.4463156860251791
+  },
+  {
+    "date": "2025-12-11",
+    "code": "5347",
+    "name": "世界",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.519464558373433,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.519464558373433,
+    "three_inst_ratio_change_20": -0.4088030016594988
+  },
+  {
+    "date": "2025-12-12",
+    "code": "5347",
+    "name": "世界",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.5112797760168617,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.5112797760168617,
+    "three_inst_ratio_change_20": -0.34389120116109706
   }
 ]

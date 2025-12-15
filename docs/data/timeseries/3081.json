@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 8.99655762797391,
     "three_inst_ratio_change_20": 2.481966951270082
+  },
+  {
+    "date": "2025-12-08",
+    "code": "3081",
+    "name": "聯亞",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 8.99655762797391,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 8.99655762797391,
+    "three_inst_ratio_change_20": 2.481966951270082
+  },
+  {
+    "date": "2025-12-09",
+    "code": "3081",
+    "name": "聯亞",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 8.877666185188748,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 8.877666185188748,
+    "three_inst_ratio_change_20": 2.3630755084849193
+  },
+  {
+    "date": "2025-12-10",
+    "code": "3081",
+    "name": "聯亞",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 8.877666185188748,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 8.877666185188748,
+    "three_inst_ratio_change_20": 2.3630755084849193
+  },
+  {
+    "date": "2025-12-11",
+    "code": "3081",
+    "name": "聯亞",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 8.882908216984276,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 8.882908216984276,
+    "three_inst_ratio_change_20": 2.368317540280448
+  },
+  {
+    "date": "2025-12-12",
+    "code": "3081",
+    "name": "聯亞",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 8.880746554388182,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 8.880746554388182,
+    "three_inst_ratio_change_20": 2.3683175402804473
   }
 ]

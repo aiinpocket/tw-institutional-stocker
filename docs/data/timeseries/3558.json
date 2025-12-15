@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.4300646988317022,
     "three_inst_ratio_change_20": 0.16423730624675242
+  },
+  {
+    "date": "2025-12-08",
+    "code": "3558",
+    "name": "神準",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.5062572635853502,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.5062572635853502,
+    "three_inst_ratio_change_20": 0.24042987100040042
+  },
+  {
+    "date": "2025-12-09",
+    "code": "3558",
+    "name": "神準",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.5926088369728179,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.5926088369728179,
+    "three_inst_ratio_change_20": 0.3267814443878681
+  },
+  {
+    "date": "2025-12-10",
+    "code": "3558",
+    "name": "神準",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.6721877379377392,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.6721877379377392,
+    "three_inst_ratio_change_20": 0.4063603453527895
+  },
+  {
+    "date": "2025-12-11",
+    "code": "3558",
+    "name": "神準",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.6721877379377392,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.6721877379377392,
+    "three_inst_ratio_change_20": 0.4063603453527895
+  },
+  {
+    "date": "2025-12-12",
+    "code": "3558",
+    "name": "神準",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.6721877379377392,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.6721877379377392,
+    "three_inst_ratio_change_20": 0.4063603453527895
   }
 ]

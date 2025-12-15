@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 5.330170950704873,
     "three_inst_ratio_change_20": 1.0752645373643732
+  },
+  {
+    "date": "2025-12-08",
+    "code": "3264",
+    "name": "欣銓",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.328436858720034,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.328436858720034,
+    "three_inst_ratio_change_20": 1.073224429146916
+  },
+  {
+    "date": "2025-12-09",
+    "code": "3264",
+    "name": "欣銓",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.453547515209802,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.453547515209802,
+    "three_inst_ratio_change_20": 1.19970175413156
+  },
+  {
+    "date": "2025-12-10",
+    "code": "3264",
+    "name": "欣銓",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.523697656321231,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.523697656321231,
+    "three_inst_ratio_change_20": 1.271373815973213
+  },
+  {
+    "date": "2025-12-11",
+    "code": "3264",
+    "name": "欣銓",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.496610527485566,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.496610527485566,
+    "three_inst_ratio_change_20": 1.2148071233952678
+  },
+  {
+    "date": "2025-12-12",
+    "code": "3264",
+    "name": "欣銓",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.4868904318834835,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.4868904318834835,
+    "three_inst_ratio_change_20": 1.1858275901770883
   }
 ]

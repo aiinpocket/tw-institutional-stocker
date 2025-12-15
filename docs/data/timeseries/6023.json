@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.028127084216940476,
     "three_inst_ratio_change_20": -0.0003125231579660069
+  },
+  {
+    "date": "2025-12-08",
+    "code": "6023",
+    "name": "元大期",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.028127084216940476,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.028127084216940476,
+    "three_inst_ratio_change_20": -0.0003125231579660069
+  },
+  {
+    "date": "2025-12-09",
+    "code": "6023",
+    "name": "元大期",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.027814561058974473,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.027814561058974473,
+    "three_inst_ratio_change_20": -0.00031252315796600344
+  },
+  {
+    "date": "2025-12-10",
+    "code": "6023",
+    "name": "元大期",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.026251945269144445,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.026251945269144445,
+    "three_inst_ratio_change_20": -0.0015626157898300276
+  },
+  {
+    "date": "2025-12-11",
+    "code": "6023",
+    "name": "元大期",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.026251945269144445,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.026251945269144445,
+    "three_inst_ratio_change_20": -0.0012500926318640207
+  },
+  {
+    "date": "2025-12-12",
+    "code": "6023",
+    "name": "元大期",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.026251945269144445,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.026251945269144445,
+    "three_inst_ratio_change_20": -0.0012500926318640207
   }
 ]

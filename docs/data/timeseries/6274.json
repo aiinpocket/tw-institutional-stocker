@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 9.376865516752355,
     "three_inst_ratio_change_20": 2.398727467047747
+  },
+  {
+    "date": "2025-12-08",
+    "code": "6274",
+    "name": "台燿",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 9.498475805052237,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.498475805052237,
+    "three_inst_ratio_change_20": 2.516356466147336
+  },
+  {
+    "date": "2025-12-09",
+    "code": "6274",
+    "name": "台燿",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 9.664966080700884,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.664966080700884,
+    "three_inst_ratio_change_20": 2.475819703380707
+  },
+  {
+    "date": "2025-12-10",
+    "code": "6274",
+    "name": "台燿",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 9.83652345169536,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.83652345169536,
+    "three_inst_ratio_change_20": 1.7740269979834729
+  },
+  {
+    "date": "2025-12-11",
+    "code": "6274",
+    "name": "台燿",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 9.65356511617277,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.65356511617277,
+    "three_inst_ratio_change_20": 1.4596861188511898
+  },
+  {
+    "date": "2025-12-12",
+    "code": "6274",
+    "name": "台燿",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 9.635468347080526,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.635468347080526,
+    "three_inst_ratio_change_20": 1.466200955724398
   }
 ]

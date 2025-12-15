@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.015126795732647727,
     "three_inst_ratio_change_20": -0.0009454247332904824
+  },
+  {
+    "date": "2025-12-08",
+    "code": "8054",
+    "name": "安國",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.015126795732647727,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.015126795732647727,
+    "three_inst_ratio_change_20": -0.0009454247332904824
+  },
+  {
+    "date": "2025-12-09",
+    "code": "8054",
+    "name": "安國",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.015126795732647727,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.015126795732647727,
+    "three_inst_ratio_change_20": -0.0009454247332904824
+  },
+  {
+    "date": "2025-12-10",
+    "code": "8054",
+    "name": "安國",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.01323594626606676,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.01323594626606676,
+    "three_inst_ratio_change_20": -0.002836274199871449
+  },
+  {
+    "date": "2025-12-11",
+    "code": "8054",
+    "name": "安國",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.01323594626606676,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.01323594626606676,
+    "three_inst_ratio_change_20": -0.002836274199871449
+  },
+  {
+    "date": "2025-12-12",
+    "code": "8054",
+    "name": "安國",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.01323594626606676,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.01323594626606676,
+    "three_inst_ratio_change_20": -0.002836274199871449
   }
 ]

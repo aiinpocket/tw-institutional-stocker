@@ -1,5 +1,5 @@
 {
-  "updated": "2025-12-15T13:55:05.406854",
+  "updated": "2025-12-15T14:22:53.060348",
   "brokers": {
     "元大-三重": [
       {
@@ -413,13 +413,6 @@
     ],
     "元大證券": [
       {
-        "stock_code": "2330",
-        "net_vol": 599,
-        "side": "buy",
-        "pct": 2.61,
-        "rank": 5
-      },
-      {
         "stock_code": "2317",
         "net_vol": -277,
         "side": "sell",
@@ -541,13 +534,6 @@
     ],
     "凱基": [
       {
-        "stock_code": "2330",
-        "net_vol": -226,
-        "side": "sell",
-        "pct": 0.99,
-        "rank": 10
-      },
-      {
         "stock_code": "2317",
         "net_vol": 193,
         "side": "buy",
@@ -667,13 +653,6 @@
       }
     ],
     "凱基-台北": [
-      {
-        "stock_code": "2330",
-        "net_vol": 393,
-        "side": "buy",
-        "pct": 1.72,
-        "rank": 7
-      },
       {
         "stock_code": "2317",
         "net_vol": 271,
@@ -907,13 +886,6 @@
     ],
     "凱基-站前": [
       {
-        "stock_code": "2330",
-        "net_vol": 64,
-        "side": "buy",
-        "pct": 0.28,
-        "rank": 13
-      },
-      {
         "stock_code": "2882",
         "net_vol": -192,
         "side": "sell",
@@ -940,13 +912,6 @@
       }
     ],
     "台灣摩根士丹利": [
-      {
-        "stock_code": "2330",
-        "net_vol": -644,
-        "side": "sell",
-        "pct": 2.81,
-        "rank": 5
-      },
       {
         "stock_code": "2317",
         "net_vol": -1343,
@@ -1076,13 +1041,6 @@
     ],
     "大和國泰": [
       {
-        "stock_code": "2330",
-        "net_vol": -392,
-        "side": "sell",
-        "pct": 1.71,
-        "rank": 7
-      },
-      {
         "stock_code": "2317",
         "net_vol": 198,
         "side": "buy",
@@ -1157,15 +1115,6 @@
         "side": "buy",
         "pct": 0.67,
         "rank": 12
-      }
-    ],
-    "富邦-南京": [
-      {
-        "stock_code": "2330",
-        "net_vol": 64,
-        "side": "buy",
-        "pct": 0.28,
-        "rank": 14
       }
     ],
     "富邦-台北": [
@@ -1271,13 +1220,6 @@
       }
     ],
     "富邦證券": [
-      {
-        "stock_code": "2330",
-        "net_vol": 625,
-        "side": "buy",
-        "pct": 2.73,
-        "rank": 4
-      },
       {
         "stock_code": "2317",
         "net_vol": -1705,
@@ -1386,13 +1328,6 @@
     ],
     "摩根大通": [
       {
-        "stock_code": "2330",
-        "net_vol": 1609,
-        "side": "buy",
-        "pct": 7.02,
-        "rank": 1
-      },
-      {
         "stock_code": "2454",
         "net_vol": -123,
         "side": "sell",
@@ -1499,13 +1434,6 @@
       }
     ],
     "新加坡商瑞銀": [
-      {
-        "stock_code": "2330",
-        "net_vol": 1108,
-        "side": "buy",
-        "pct": 4.84,
-        "rank": 3
-      },
       {
         "stock_code": "2317",
         "net_vol": 296,
@@ -1635,13 +1563,6 @@
     ],
     "港商野村": [
       {
-        "stock_code": "2330",
-        "net_vol": -669,
-        "side": "sell",
-        "pct": 2.92,
-        "rank": 4
-      },
-      {
         "stock_code": "2317",
         "net_vol": 653,
         "side": "buy",
@@ -1742,13 +1663,6 @@
     ],
     "港商麥格理": [
       {
-        "stock_code": "2330",
-        "net_vol": -1093,
-        "side": "sell",
-        "pct": 4.77,
-        "rank": 2
-      },
-      {
         "stock_code": "2454",
         "net_vol": 32,
         "side": "buy",
@@ -1813,13 +1727,6 @@
       }
     ],
     "美商高盛": [
-      {
-        "stock_code": "2330",
-        "net_vol": -2115,
-        "side": "sell",
-        "pct": 9.23,
-        "rank": 1
-      },
       {
         "stock_code": "2317",
         "net_vol": 437,
@@ -1941,13 +1848,6 @@
       }
     ],
     "美林": [
-      {
-        "stock_code": "2330",
-        "net_vol": 1561,
-        "side": "buy",
-        "pct": 6.81,
-        "rank": 2
-      },
       {
         "stock_code": "2317",
         "net_vol": 186,

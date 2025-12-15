@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": -0.026141166586719604,
     "three_inst_ratio_change_20": -0.06957572030003834
+  },
+  {
+    "date": "2025-12-08",
+    "code": "4105",
+    "name": "東洋",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.027347681967645126,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.027347681967645126,
+    "three_inst_ratio_change_20": -0.07078223568096385
+  },
+  {
+    "date": "2025-12-09",
+    "code": "4105",
+    "name": "東洋",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.027347681967645126,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.027347681967645126,
+    "three_inst_ratio_change_20": -0.0691735485063965
+  },
+  {
+    "date": "2025-12-10",
+    "code": "4105",
+    "name": "東洋",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.028554197348570648,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.028554197348570648,
+    "three_inst_ratio_change_20": -0.07038006388732201
+  },
+  {
+    "date": "2025-12-11",
+    "code": "4105",
+    "name": "東洋",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.028554197348570648,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.028554197348570648,
+    "three_inst_ratio_change_20": -0.03338025887227273
+  },
+  {
+    "date": "2025-12-12",
+    "code": "4105",
+    "name": "東洋",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.028554197348570648,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.028554197348570648,
+    "three_inst_ratio_change_20": -0.03297808707863089
   }
 ]

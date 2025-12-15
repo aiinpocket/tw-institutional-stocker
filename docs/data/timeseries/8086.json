@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.3514500436180496,
     "three_inst_ratio_change_20": -0.04478004077049702
+  },
+  {
+    "date": "2025-12-08",
+    "code": "8086",
+    "name": "宏捷科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.3514500436180496,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.3514500436180496,
+    "three_inst_ratio_change_20": -0.04478004077049702
+  },
+  {
+    "date": "2025-12-09",
+    "code": "8086",
+    "name": "宏捷科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.3514500436180496,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.3514500436180496,
+    "three_inst_ratio_change_20": -0.04478004077049702
+  },
+  {
+    "date": "2025-12-10",
+    "code": "8086",
+    "name": "宏捷科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.3514500436180496,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.3514500436180496,
+    "three_inst_ratio_change_20": -0.04478004077049702
+  },
+  {
+    "date": "2025-12-11",
+    "code": "8086",
+    "name": "宏捷科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.3504323154187201,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.3504323154187201,
+    "three_inst_ratio_change_20": -0.04579776896982651
+  },
+  {
+    "date": "2025-12-12",
+    "code": "8086",
+    "name": "宏捷科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.3504323154187201,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.3504323154187201,
+    "three_inst_ratio_change_20": -0.04579776896982651
   }
 ]

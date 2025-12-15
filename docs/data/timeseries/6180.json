@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.7214059058447684,
     "three_inst_ratio_change_20": -0.04242035689819823
+  },
+  {
+    "date": "2025-12-08",
+    "code": "6180",
+    "name": "橘子",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.7169174223833257,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.7169174223833257,
+    "three_inst_ratio_change_20": -0.0508975904205905
+  },
+  {
+    "date": "2025-12-09",
+    "code": "6180",
+    "name": "橘子",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.7158900343319125,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.7158900343319125,
+    "three_inst_ratio_change_20": -0.05141954685713768
+  },
+  {
+    "date": "2025-12-10",
+    "code": "6180",
+    "name": "橘子",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.7131115850037425,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.7131115850037425,
+    "three_inst_ratio_change_20": -0.05369256457044158
+  },
+  {
+    "date": "2025-12-11",
+    "code": "6180",
+    "name": "橘子",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.7126124214246866,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.7126124214246866,
+    "three_inst_ratio_change_20": -0.045901396058532606
+  },
+  {
+    "date": "2025-12-12",
+    "code": "6180",
+    "name": "橘子",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.7071951290204799,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.7071951290204799,
+    "three_inst_ratio_change_20": -0.044039219601506474
   }
 ]

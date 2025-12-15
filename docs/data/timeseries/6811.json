@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.29916282660619076,
     "three_inst_ratio_change_20": -0.043426861926705085
+  },
+  {
+    "date": "2025-12-08",
+    "code": "6811",
+    "name": "宏碁資訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.2557359646794856,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.2557359646794856,
+    "three_inst_ratio_change_20": -0.08685372385341023
+  },
+  {
+    "date": "2025-12-09",
+    "code": "6811",
+    "name": "宏碁資訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.2557359646794856,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.2557359646794856,
+    "three_inst_ratio_change_20": -0.08685372385341023
+  },
+  {
+    "date": "2025-12-10",
+    "code": "6811",
+    "name": "宏碁資訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.2557359646794856,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.2557359646794856,
+    "three_inst_ratio_change_20": -0.08685372385341023
+  },
+  {
+    "date": "2025-12-11",
+    "code": "6811",
+    "name": "宏碁資訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.2557359646794856,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.2557359646794856,
+    "three_inst_ratio_change_20": -0.08685372385341023
+  },
+  {
+    "date": "2025-12-12",
+    "code": "6811",
+    "name": "宏碁資訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.2557359646794856,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.2557359646794856,
+    "three_inst_ratio_change_20": -0.08685372385341023
   }
 ]

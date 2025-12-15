@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.45533616882271016,
     "three_inst_ratio_change_20": -0.019543363937625458
+  },
+  {
+    "date": "2025-12-08",
+    "code": "8069",
+    "name": "元太",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4406450775625604,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4406450775625604,
+    "three_inst_ratio_change_20": -0.0774129509730172
+  },
+  {
+    "date": "2025-12-09",
+    "code": "8069",
+    "name": "元太",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4394786223789813,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4394786223789813,
+    "three_inst_ratio_change_20": -0.0346623206643531
+  },
+  {
+    "date": "2025-12-10",
+    "code": "8069",
+    "name": "元太",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4218753500458043,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4218753500458043,
+    "three_inst_ratio_change_20": -0.047569508608260536
+  },
+  {
+    "date": "2025-12-11",
+    "code": "8069",
+    "name": "元太",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4200118741885215,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4200118741885215,
+    "three_inst_ratio_change_20": -0.04891076248855136
+  },
+  {
+    "date": "2025-12-12",
+    "code": "8069",
+    "name": "元太",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4197555027666777,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4197555027666777,
+    "three_inst_ratio_change_20": -0.046297304561397135
   }
 ]

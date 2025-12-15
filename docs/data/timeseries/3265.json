@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.29061733352299784,
     "three_inst_ratio_change_20": 0.07192045122538834
+  },
+  {
+    "date": "2025-12-08",
+    "code": "3265",
+    "name": "台星科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.29061733352299784,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.29061733352299784,
+    "three_inst_ratio_change_20": 0.07192045122538834
+  },
+  {
+    "date": "2025-12-09",
+    "code": "3265",
+    "name": "台星科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.3104321517177477,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.3104321517177477,
+    "three_inst_ratio_change_20": 0.09173526942013818
+  },
+  {
+    "date": "2025-12-10",
+    "code": "3265",
+    "name": "台星科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.3104321517177477,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.3104321517177477,
+    "three_inst_ratio_change_20": 0.09173526942013818
+  },
+  {
+    "date": "2025-12-11",
+    "code": "3265",
+    "name": "台星科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.25318934359958145,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.25318934359958145,
+    "three_inst_ratio_change_20": -0.022750346816194256
+  },
+  {
+    "date": "2025-12-12",
+    "code": "3265",
+    "name": "台星科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.25318934359958145,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.25318934359958145,
+    "three_inst_ratio_change_20": -0.022750346816194256
   }
 ]

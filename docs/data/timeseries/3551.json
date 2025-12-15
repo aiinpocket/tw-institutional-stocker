@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.30871367255727,
     "three_inst_ratio_change_20": 0.36130132064464504
+  },
+  {
+    "date": "2025-12-08",
+    "code": "3551",
+    "name": "世禾",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.4452052825785802,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.4452052825785802,
+    "three_inst_ratio_change_20": 0.4977929306659553
+  },
+  {
+    "date": "2025-12-09",
+    "code": "3551",
+    "name": "世禾",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.862709030879059,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.862709030879059,
+    "three_inst_ratio_change_20": 0.9152966789664342
+  },
+  {
+    "date": "2025-12-10",
+    "code": "3551",
+    "name": "世禾",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.9108825402983447,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.9108825402983447,
+    "three_inst_ratio_change_20": 0.9634701883857199
+  },
+  {
+    "date": "2025-12-11",
+    "code": "3551",
+    "name": "世禾",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.9108825402983447,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.9108825402983447,
+    "three_inst_ratio_change_20": 0.9634701883857199
+  },
+  {
+    "date": "2025-12-12",
+    "code": "3551",
+    "name": "世禾",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.9911717226638217,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.9911717226638217,
+    "three_inst_ratio_change_20": 1.043759370751197
   }
 ]

@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.12931391278219795,
     "three_inst_ratio_change_20": -0.2992991368426679
+  },
+  {
+    "date": "2025-12-08",
+    "code": "5309",
+    "name": "系統電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.13035676691753828,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.13035676691753828,
+    "three_inst_ratio_change_20": -0.4823200375948916
+  },
+  {
+    "date": "2025-12-09",
+    "code": "5309",
+    "name": "系統電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.13087819398520842,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.13087819398520842,
+    "three_inst_ratio_change_20": -0.3467490000006518
+  },
+  {
+    "date": "2025-12-10",
+    "code": "5309",
+    "name": "系統電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.014078530827094132,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.014078530827094132,
+    "three_inst_ratio_change_20": -0.46354866315876603
+  },
+  {
+    "date": "2025-12-11",
+    "code": "5309",
+    "name": "系統電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.1256639233085069,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.1256639233085069,
+    "three_inst_ratio_change_20": -0.586084024061252
+  },
+  {
+    "date": "2025-12-12",
+    "code": "5309",
+    "name": "系統電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.11679966315811428,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.11679966315811428,
+    "three_inst_ratio_change_20": -0.4108845293240806
   }
 ]

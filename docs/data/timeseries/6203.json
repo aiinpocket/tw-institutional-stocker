@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.024271441118029955,
     "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-08",
+    "code": "6203",
+    "name": "海韻電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.024271441118029955,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.024271441118029955,
+    "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-09",
+    "code": "6203",
+    "name": "海韻電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.024271441118029955,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.024271441118029955,
+    "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-10",
+    "code": "6203",
+    "name": "海韻電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.014562864670817974,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.014562864670817974,
+    "three_inst_ratio_change_20": -0.009708576447211981
+  },
+  {
+    "date": "2025-12-11",
+    "code": "6203",
+    "name": "海韻電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.014562864670817974,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.014562864670817974,
+    "three_inst_ratio_change_20": -0.009708576447211981
+  },
+  {
+    "date": "2025-12-12",
+    "code": "6203",
+    "name": "海韻電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.014562864670817974,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.014562864670817974,
+    "three_inst_ratio_change_20": -0.009708576447211981
   }
 ]

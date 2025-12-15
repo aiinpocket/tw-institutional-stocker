@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.8481634929273386,
     "three_inst_ratio_change_20": 0.22414468629158002
+  },
+  {
+    "date": "2025-12-08",
+    "code": "8155",
+    "name": "博智",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8517498079080038,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8517498079080038,
+    "three_inst_ratio_change_20": 0.22773100127224521
+  },
+  {
+    "date": "2025-12-09",
+    "code": "8155",
+    "name": "博智",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8553361228886691,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8553361228886691,
+    "three_inst_ratio_change_20": 0.23131731625291052
+  },
+  {
+    "date": "2025-12-10",
+    "code": "8155",
+    "name": "博智",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8696813828113303,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8696813828113303,
+    "three_inst_ratio_change_20": 0.1882815364849273
+  },
+  {
+    "date": "2025-12-11",
+    "code": "8155",
+    "name": "博智",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8876129577146566,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8876129577146566,
+    "three_inst_ratio_change_20": 0.2062131113882536
+  },
+  {
+    "date": "2025-12-12",
+    "code": "8155",
+    "name": "博智",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8876129577146566,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8876129577146566,
+    "three_inst_ratio_change_20": 0.2062131113882536
   }
 ]

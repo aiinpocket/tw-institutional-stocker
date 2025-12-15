@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.5035594967203487,
     "three_inst_ratio_change_20": 0.00440136219586873
+  },
+  {
+    "date": "2025-12-08",
+    "code": "4772",
+    "name": "台特化",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.51845641492175,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.51845641492175,
+    "three_inst_ratio_change_20": 0.01388121923312391
+  },
+  {
+    "date": "2025-12-09",
+    "code": "4772",
+    "name": "台特化",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.532676200477633,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.532676200477633,
+    "three_inst_ratio_change_20": 0.04299792299040828
+  },
+  {
+    "date": "2025-12-10",
+    "code": "4772",
+    "name": "台特化",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.5475731186790345,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.5475731186790345,
+    "three_inst_ratio_change_20": 0.057894841191809654
+  },
+  {
+    "date": "2025-12-11",
+    "code": "4772",
+    "name": "台特化",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.5475731186790345,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.5475731186790345,
+    "three_inst_ratio_change_20": 0.057894841191809654
+  },
+  {
+    "date": "2025-12-12",
+    "code": "4772",
+    "name": "台特化",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.5475731186790345,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.5475731186790345,
+    "three_inst_ratio_change_20": 0.1046169937325685
   }
 ]

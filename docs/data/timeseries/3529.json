@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.502855126772675,
     "three_inst_ratio_change_20": -0.09700330807045932
+  },
+  {
+    "date": "2025-12-08",
+    "code": "3529",
+    "name": "力旺",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.462633491703148,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.462633491703148,
+    "three_inst_ratio_change_20": -0.16469778627137766
+  },
+  {
+    "date": "2025-12-09",
+    "code": "3529",
+    "name": "力旺",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.383581607574989,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.383581607574989,
+    "three_inst_ratio_change_20": -0.2517846233017229
+  },
+  {
+    "date": "2025-12-10",
+    "code": "3529",
+    "name": "力旺",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.3741673210912615,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.3741673210912615,
+    "three_inst_ratio_change_20": -0.346905074075436
+  },
+  {
+    "date": "2025-12-11",
+    "code": "3529",
+    "name": "力旺",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.3162728071133762,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.3162728071133762,
+    "three_inst_ratio_change_20": -0.42354781149175524
+  },
+  {
+    "date": "2025-12-12",
+    "code": "3529",
+    "name": "力旺",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.2680630897002594,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.2680630897002594,
+    "three_inst_ratio_change_20": -0.4771141641729968
   }
 ]

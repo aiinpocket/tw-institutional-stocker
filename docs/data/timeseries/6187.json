@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.6322709154916457,
     "three_inst_ratio_change_20": 0.017067098365681765
+  },
+  {
+    "date": "2025-12-08",
+    "code": "6187",
+    "name": "萬潤",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.6322709154916457,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.6322709154916457,
+    "three_inst_ratio_change_20": 0.017067098365681765
+  },
+  {
+    "date": "2025-12-09",
+    "code": "6187",
+    "name": "萬潤",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.6302065552417897,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.6302065552417897,
+    "three_inst_ratio_change_20": 0.015002738115825753
+  },
+  {
+    "date": "2025-12-10",
+    "code": "6187",
+    "name": "萬潤",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.6302065552417897,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.6302065552417897,
+    "three_inst_ratio_change_20": 0.015002738115825753
+  },
+  {
+    "date": "2025-12-11",
+    "code": "6187",
+    "name": "萬潤",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.628703700979895,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.628703700979895,
+    "three_inst_ratio_change_20": 0.01349988385393086
+  },
+  {
+    "date": "2025-12-12",
+    "code": "6187",
+    "name": "萬潤",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.628703700979895,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.628703700979895,
+    "three_inst_ratio_change_20": 0.01349988385393086
   }
 ]

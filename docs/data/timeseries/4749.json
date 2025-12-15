@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.3910530533053196,
     "three_inst_ratio_change_20": -0.22744902791475274
+  },
+  {
+    "date": "2025-12-08",
+    "code": "4749",
+    "name": "新應材",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.3910530533053196,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.3910530533053196,
+    "three_inst_ratio_change_20": -0.22744902791475274
+  },
+  {
+    "date": "2025-12-09",
+    "code": "4749",
+    "name": "新應材",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.3899746869677756,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.3899746869677756,
+    "three_inst_ratio_change_20": -0.10882873078492761
+  },
+  {
+    "date": "2025-12-10",
+    "code": "4749",
+    "name": "新應材",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.3899746869677756,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.3899746869677756,
+    "three_inst_ratio_change_20": -0.13039605753580474
+  },
+  {
+    "date": "2025-12-11",
+    "code": "4749",
+    "name": "新應材",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.4071207117347235,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.4071207117347235,
+    "three_inst_ratio_change_20": -0.09276107235552322
+  },
+  {
+    "date": "2025-12-12",
+    "code": "4749",
+    "name": "新應材",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.4933900187382325,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.4933900187382325,
+    "three_inst_ratio_change_20": 0.03125105646202142
   }
 ]

@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.0943658080562344,
     "three_inst_ratio_change_20": -0.031162644260581934
+  },
+  {
+    "date": "2025-12-08",
+    "code": "6613",
+    "name": "朋億*",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.09407403984641168,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.09407403984641168,
+    "three_inst_ratio_change_20": -0.03145441247040466
+  },
+  {
+    "date": "2025-12-09",
+    "code": "6613",
+    "name": "朋億*",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.09138643047751595,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.09138643047751595,
+    "three_inst_ratio_change_20": -0.03278729191351554
+  },
+  {
+    "date": "2025-12-10",
+    "code": "6613",
+    "name": "朋億*",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.08795590469770596,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.08795590469770596,
+    "three_inst_ratio_change_20": -0.03152639053097765
+  },
+  {
+    "date": "2025-12-11",
+    "code": "6613",
+    "name": "朋億*",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.08662045460957461,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.08662045460957461,
+    "three_inst_ratio_change_20": -0.03167934390969529
+  },
+  {
+    "date": "2025-12-12",
+    "code": "6613",
+    "name": "朋億*",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.08336473269115621,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.08336473269115621,
+    "three_inst_ratio_change_20": -0.030940283466311738
   }
 ]

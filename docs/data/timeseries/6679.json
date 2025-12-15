@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.965887702184989,
     "three_inst_ratio_change_20": 0.4547493889759835
+  },
+  {
+    "date": "2025-12-08",
+    "code": "6679",
+    "name": "鈺太",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.965887702184989,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.965887702184989,
+    "three_inst_ratio_change_20": 0.24010767737931926
+  },
+  {
+    "date": "2025-12-09",
+    "code": "6679",
+    "name": "鈺太",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.965887702184989,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.965887702184989,
+    "three_inst_ratio_change_20": 0.22555569693208788
+  },
+  {
+    "date": "2025-12-10",
+    "code": "6679",
+    "name": "鈺太",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.965887702184989,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.965887702184989,
+    "three_inst_ratio_change_20": 0.22555569693208788
+  },
+  {
+    "date": "2025-12-11",
+    "code": "6679",
+    "name": "鈺太",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.965887702184989,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.965887702184989,
+    "three_inst_ratio_change_20": 0.22191770182028003
+  },
+  {
+    "date": "2025-12-12",
+    "code": "6679",
+    "name": "鈺太",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.965887702184989,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.965887702184989,
+    "three_inst_ratio_change_20": 0.0
   }
 ]

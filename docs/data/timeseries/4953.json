@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.1342406130207858,
     "three_inst_ratio_change_20": 0.07872638519461644
+  },
+  {
+    "date": "2025-12-08",
+    "code": "4953",
+    "name": "緯軟",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.2012289934350567,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.2012289934350567,
+    "three_inst_ratio_change_20": 0.14571476560888735
+  },
+  {
+    "date": "2025-12-09",
+    "code": "4953",
+    "name": "緯軟",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.2668502640449547,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.2668502640449547,
+    "three_inst_ratio_change_20": 0.21133603621878536
+  },
+  {
+    "date": "2025-12-10",
+    "code": "4953",
+    "name": "緯軟",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.31276464682481775,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.31276464682481775,
+    "three_inst_ratio_change_20": 0.25725041899864837
+  },
+  {
+    "date": "2025-12-11",
+    "code": "4953",
+    "name": "緯軟",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.31276464682481775,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.31276464682481775,
+    "three_inst_ratio_change_20": 0.25725041899864837
+  },
+  {
+    "date": "2025-12-12",
+    "code": "4953",
+    "name": "緯軟",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.31276464682481775,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.31276464682481775,
+    "three_inst_ratio_change_20": 0.25725041899864837
   }
 ]

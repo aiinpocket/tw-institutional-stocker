@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": -0.006399901287922535,
     "three_inst_ratio_change_20": -0.006399901287922535
+  },
+  {
+    "date": "2025-12-08",
+    "code": "6263",
+    "name": "普萊德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.006399901287922535,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.006399901287922535,
+    "three_inst_ratio_change_20": -0.006399901287922535
+  },
+  {
+    "date": "2025-12-09",
+    "code": "6263",
+    "name": "普萊德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.006399901287922535,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.006399901287922535,
+    "three_inst_ratio_change_20": -0.006399901287922535
+  },
+  {
+    "date": "2025-12-10",
+    "code": "6263",
+    "name": "普萊德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.006399901287922535,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.006399901287922535,
+    "three_inst_ratio_change_20": -0.006399901287922535
+  },
+  {
+    "date": "2025-12-11",
+    "code": "6263",
+    "name": "普萊德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.006399901287922535,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.006399901287922535,
+    "three_inst_ratio_change_20": -0.006399901287922535
+  },
+  {
+    "date": "2025-12-12",
+    "code": "6263",
+    "name": "普萊德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.006399901287922535,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.006399901287922535,
+    "three_inst_ratio_change_20": -0.006399901287922535
   }
 ]

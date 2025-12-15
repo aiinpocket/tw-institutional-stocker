@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.1220044057727861,
     "three_inst_ratio_change_20": -0.0019179359143399188
+  },
+  {
+    "date": "2025-12-08",
+    "code": "3479",
+    "name": "安勤",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.1220044057727861,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.1220044057727861,
+    "three_inst_ratio_change_20": -0.0019179359143399188
+  },
+  {
+    "date": "2025-12-09",
+    "code": "3479",
+    "name": "安勤",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.1220044057727861,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.1220044057727861,
+    "three_inst_ratio_change_20": -0.0019179359143399188
+  },
+  {
+    "date": "2025-12-10",
+    "code": "3479",
+    "name": "安勤",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.12008509302002954,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.12008509302002954,
+    "three_inst_ratio_change_20": -0.0038372486670964767
+  },
+  {
+    "date": "2025-12-11",
+    "code": "3479",
+    "name": "安勤",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.12008509302002954,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.12008509302002954,
+    "three_inst_ratio_change_20": -0.0038372486670964767
+  },
+  {
+    "date": "2025-12-12",
+    "code": "3479",
+    "name": "安勤",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.12008509302002954,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.12008509302002954,
+    "three_inst_ratio_change_20": -0.0038372486670964767
   }
 ]

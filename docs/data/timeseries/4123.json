@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.12020088539472985,
     "three_inst_ratio_change_20": 0.025485215045439977
+  },
+  {
+    "date": "2025-12-08",
+    "code": "4123",
+    "name": "晟德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.12020088539472985,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.12020088539472985,
+    "three_inst_ratio_change_20": 0.025485215045439977
+  },
+  {
+    "date": "2025-12-09",
+    "code": "4123",
+    "name": "晟德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.11980678413114058,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.11980678413114058,
+    "three_inst_ratio_change_20": 0.025091113781850707
+  },
+  {
+    "date": "2025-12-10",
+    "code": "4123",
+    "name": "晟德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.11980678413114058,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.11980678413114058,
+    "three_inst_ratio_change_20": 0.025091113781850707
+  },
+  {
+    "date": "2025-12-11",
+    "code": "4123",
+    "name": "晟德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.11980678413114058,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.11980678413114058,
+    "three_inst_ratio_change_20": 0.025091113781850707
+  },
+  {
+    "date": "2025-12-12",
+    "code": "4123",
+    "name": "晟德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.11980678413114058,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.11980678413114058,
+    "three_inst_ratio_change_20": 0.025091113781850707
   }
 ]

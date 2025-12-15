@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.449125181228136,
     "three_inst_ratio_change_20": 0.18875655232682842
+  },
+  {
+    "date": "2025-12-08",
+    "code": "6279",
+    "name": "胡連",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.449125181228136,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.449125181228136,
+    "three_inst_ratio_change_20": 0.18875655232682842
+  },
+  {
+    "date": "2025-12-09",
+    "code": "6279",
+    "name": "胡連",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.449125181228136,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.449125181228136,
+    "three_inst_ratio_change_20": 0.18875655232682842
+  },
+  {
+    "date": "2025-12-10",
+    "code": "6279",
+    "name": "胡連",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.449125181228136,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.449125181228136,
+    "three_inst_ratio_change_20": 0.18875655232682842
+  },
+  {
+    "date": "2025-12-11",
+    "code": "6279",
+    "name": "胡連",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.449125181228136,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.449125181228136,
+    "three_inst_ratio_change_20": 0.18875655232682842
+  },
+  {
+    "date": "2025-12-12",
+    "code": "6279",
+    "name": "胡連",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.449125181228136,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.449125181228136,
+    "three_inst_ratio_change_20": 0.18875655232682842
   }
 ]

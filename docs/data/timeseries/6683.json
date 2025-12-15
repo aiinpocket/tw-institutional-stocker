@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.6516754375263332,
     "three_inst_ratio_change_20": -0.16018837570479705
+  },
+  {
+    "date": "2025-12-08",
+    "code": "6683",
+    "name": "雍智科技",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.7390509151834953,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.7390509151834953,
+    "three_inst_ratio_change_20": -0.07281289804763491
+  },
+  {
+    "date": "2025-12-09",
+    "code": "6683",
+    "name": "雍智科技",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.800941878523985,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.800941878523985,
+    "three_inst_ratio_change_20": -0.010921934707145198
+  },
+  {
+    "date": "2025-12-10",
+    "code": "6683",
+    "name": "雍智科技",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.800941878523985,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.800941878523985,
+    "three_inst_ratio_change_20": -0.010921934707145198
+  },
+  {
+    "date": "2025-12-11",
+    "code": "6683",
+    "name": "雍智科技",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8373483275478025,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8373483275478025,
+    "three_inst_ratio_change_20": 0.025484514316672313
+  },
+  {
+    "date": "2025-12-12",
+    "code": "6683",
+    "name": "雍智科技",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8591921969620929,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8591921969620929,
+    "three_inst_ratio_change_20": 0.04732838373096271
   }
 ]

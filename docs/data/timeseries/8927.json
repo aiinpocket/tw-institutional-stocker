@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.0002314277136450569,
     "three_inst_ratio_change_20": -0.00046285542729011385
+  },
+  {
+    "date": "2025-12-08",
+    "code": "8927",
+    "name": "北基",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0002314277136450569,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0002314277136450569,
+    "three_inst_ratio_change_20": -0.00046285542729011385
+  },
+  {
+    "date": "2025-12-09",
+    "code": "8927",
+    "name": "北基",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0002314277136450569,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0002314277136450569,
+    "three_inst_ratio_change_20": -0.00046285542729011385
+  },
+  {
+    "date": "2025-12-10",
+    "code": "8927",
+    "name": "北基",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0002314277136450569,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0002314277136450569,
+    "three_inst_ratio_change_20": -0.00046285542729011385
+  },
+  {
+    "date": "2025-12-11",
+    "code": "8927",
+    "name": "北基",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.0002314277136450569,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.0002314277136450569,
+    "three_inst_ratio_change_20": -0.0009257108545802276
+  },
+  {
+    "date": "2025-12-12",
+    "code": "8927",
+    "name": "北基",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.0002314277136450569,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.0002314277136450569,
+    "three_inst_ratio_change_20": -0.0009257108545802276
   }
 ]

@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 5.108824900058251,
     "three_inst_ratio_change_20": -1.7221703239068082
+  },
+  {
+    "date": "2025-12-08",
+    "code": "8299",
+    "name": "群聯",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.304887832444792,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.304887832444792,
+    "three_inst_ratio_change_20": -1.6408405149168361
+  },
+  {
+    "date": "2025-12-09",
+    "code": "8299",
+    "name": "群聯",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.547231298994674,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.547231298994674,
+    "three_inst_ratio_change_20": -1.467724207209609
+  },
+  {
+    "date": "2025-12-10",
+    "code": "8299",
+    "name": "群聯",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.632433956031789,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.632433956031789,
+    "three_inst_ratio_change_20": -1.4352891048147987
+  },
+  {
+    "date": "2025-12-11",
+    "code": "8299",
+    "name": "群聯",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.658357832647342,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.658357832647342,
+    "three_inst_ratio_change_20": -1.4737513269829732
+  },
+  {
+    "date": "2025-12-12",
+    "code": "8299",
+    "name": "群聯",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.798264468350331,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.798264468350331,
+    "three_inst_ratio_change_20": -1.1222903667048776
   }
 ]

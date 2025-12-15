@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": -0.1390418976535765,
     "three_inst_ratio_change_20": -0.15733688418694183
+  },
+  {
+    "date": "2025-12-08",
+    "code": "4933",
+    "name": "友輝",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.21344150955592886,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.21344150955592886,
+    "three_inst_ratio_change_20": -0.2317364960892942
+  },
+  {
+    "date": "2025-12-09",
+    "code": "4933",
+    "name": "友輝",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.2866214556893901,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.2866214556893901,
+    "three_inst_ratio_change_20": -0.30491644222275543
+  },
+  {
+    "date": "2025-12-10",
+    "code": "4933",
+    "name": "友輝",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.35858173605396043,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.35858173605396043,
+    "three_inst_ratio_change_20": -0.37687672258732574
+  },
+  {
+    "date": "2025-12-11",
+    "code": "4933",
+    "name": "友輝",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.35858173605396043,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.35858173605396043,
+    "three_inst_ratio_change_20": -0.37687672258732574
+  },
+  {
+    "date": "2025-12-12",
+    "code": "4933",
+    "name": "友輝",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.35858173605396043,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.35858173605396043,
+    "three_inst_ratio_change_20": -0.37687672258732574
   }
 ]

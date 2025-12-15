@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 12.613554012071479,
     "three_inst_ratio_change_20": 0.2567780155199486
+  },
+  {
+    "date": "2025-12-08",
+    "code": "6510",
+    "name": "精測",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 12.624228316416392,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 12.624228316416392,
+    "three_inst_ratio_change_20": 0.06830029880122801
+  },
+  {
+    "date": "2025-12-09",
+    "code": "6510",
+    "name": "精測",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 12.963366214460436,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 12.963366214460436,
+    "three_inst_ratio_change_20": 0.6209242837435021
+  },
+  {
+    "date": "2025-12-10",
+    "code": "6510",
+    "name": "精測",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 12.968855856694963,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 12.968855856694963,
+    "three_inst_ratio_change_20": 0.5776171061155768
+  },
+  {
+    "date": "2025-12-11",
+    "code": "6510",
+    "name": "精測",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 13.231138763455647,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 13.231138763455647,
+    "three_inst_ratio_change_20": 0.9252944476355527
+  },
+  {
+    "date": "2025-12-12",
+    "code": "6510",
+    "name": "精測",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 13.23418856469705,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 13.23418856469705,
+    "three_inst_ratio_change_20": 0.6447127334264504
   }
 ]

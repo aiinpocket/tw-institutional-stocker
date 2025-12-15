@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.3968985481600408,
     "three_inst_ratio_change_20": 0.029395786656522482
+  },
+  {
+    "date": "2025-12-08",
+    "code": "5904",
+    "name": "寶雅",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4006563988032523,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4006563988032523,
+    "three_inst_ratio_change_20": 0.03315363729973403
+  },
+  {
+    "date": "2025-12-09",
+    "code": "5904",
+    "name": "寶雅",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4006563988032523,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4006563988032523,
+    "three_inst_ratio_change_20": -0.005364331793184518
+  },
+  {
+    "date": "2025-12-10",
+    "code": "5904",
+    "name": "寶雅",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.3987774734816466,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.3987774734816466,
+    "three_inst_ratio_change_20": -0.012880033079607611
+  },
+  {
+    "date": "2025-12-11",
+    "code": "5904",
+    "name": "寶雅",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.43917436789617087,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.43917436789617087,
+    "three_inst_ratio_change_20": 0.022819548030902193
+  },
+  {
+    "date": "2025-12-12",
+    "code": "5904",
+    "name": "寶雅",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.43917436789617087,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.43917436789617087,
+    "three_inst_ratio_change_20": 0.014364384083676185
   }
 ]

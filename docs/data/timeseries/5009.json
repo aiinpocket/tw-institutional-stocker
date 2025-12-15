@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.4549238226902323,
     "three_inst_ratio_change_20": 0.10058572144487105
+  },
+  {
+    "date": "2025-12-08",
+    "code": "5009",
+    "name": "榮剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4549238226902323,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4549238226902323,
+    "three_inst_ratio_change_20": 0.10058572144487105
+  },
+  {
+    "date": "2025-12-09",
+    "code": "5009",
+    "name": "榮剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4549238226902323,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4549238226902323,
+    "three_inst_ratio_change_20": 0.10141563663831055
+  },
+  {
+    "date": "2025-12-10",
+    "code": "5009",
+    "name": "榮剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4549238226902323,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4549238226902323,
+    "three_inst_ratio_change_20": 0.10141563663831055
+  },
+  {
+    "date": "2025-12-11",
+    "code": "5009",
+    "name": "榮剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4544258735741685,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4544258735741685,
+    "three_inst_ratio_change_20": 0.10091768752224678
+  },
+  {
+    "date": "2025-12-12",
+    "code": "5009",
+    "name": "榮剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4544258735741685,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4544258735741685,
+    "three_inst_ratio_change_20": 0.10158161967699841
   }
 ]

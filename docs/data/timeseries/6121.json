@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.3586862455632727,
     "three_inst_ratio_change_20": -0.08647107704768886
+  },
+  {
+    "date": "2025-12-08",
+    "code": "6121",
+    "name": "新普",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.3456528172470554,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.3456528172470554,
+    "three_inst_ratio_change_20": -0.10843403645312799
+  },
+  {
+    "date": "2025-12-09",
+    "code": "6121",
+    "name": "新普",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.340866649133422,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.340866649133422,
+    "three_inst_ratio_change_20": -0.19735090866020677
+  },
+  {
+    "date": "2025-12-10",
+    "code": "6121",
+    "name": "新普",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.3353382005702217,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.3353382005702217,
+    "three_inst_ratio_change_20": -0.18688221337585165
+  },
+  {
+    "date": "2025-12-11",
+    "code": "6121",
+    "name": "新普",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.3282673440517296,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.3282673440517296,
+    "three_inst_ratio_change_20": -0.16421860177621062
+  },
+  {
+    "date": "2025-12-12",
+    "code": "6121",
+    "name": "新普",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.309477863334535,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.309477863334535,
+    "three_inst_ratio_change_20": -0.16367202818953008
   }
 ]

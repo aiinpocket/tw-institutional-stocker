@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.2057806467775198,
     "three_inst_ratio_change_20": -0.05087501071225983
+  },
+  {
+    "date": "2025-12-08",
+    "code": "4549",
+    "name": "桓達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.2057806467775198,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.2057806467775198,
+    "three_inst_ratio_change_20": -0.05087501071225983
+  },
+  {
+    "date": "2025-12-09",
+    "code": "4549",
+    "name": "桓達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.2057806467775198,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.2057806467775198,
+    "three_inst_ratio_change_20": -0.05087501071225983
+  },
+  {
+    "date": "2025-12-10",
+    "code": "4549",
+    "name": "桓達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.2057806467775198,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.2057806467775198,
+    "three_inst_ratio_change_20": -0.05087501071225983
+  },
+  {
+    "date": "2025-12-11",
+    "code": "4549",
+    "name": "桓達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.15315132535104414,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.15315132535104414,
+    "three_inst_ratio_change_20": -0.1035043321387355
+  },
+  {
+    "date": "2025-12-12",
+    "code": "4549",
+    "name": "桓達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.15315132535104414,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.15315132535104414,
+    "three_inst_ratio_change_20": -0.1035043321387355
   }
 ]

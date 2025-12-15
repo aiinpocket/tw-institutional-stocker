@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.11640439857980443,
     "three_inst_ratio_change_20": -0.001658287304068376
+  },
+  {
+    "date": "2025-12-08",
+    "code": "3374",
+    "name": "精材",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.11603589029001145,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.11603589029001145,
+    "three_inst_ratio_change_20": -0.0020267955938613608
+  },
+  {
+    "date": "2025-12-09",
+    "code": "3374",
+    "name": "精材",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.11529887371042549,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.11529887371042549,
+    "three_inst_ratio_change_20": -0.0027638121734473164
+  },
+  {
+    "date": "2025-12-10",
+    "code": "3374",
+    "name": "精材",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.11529887371042549,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.11529887371042549,
+    "three_inst_ratio_change_20": -0.0027638121734473164
+  },
+  {
+    "date": "2025-12-11",
+    "code": "3374",
+    "name": "精材",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.11345633226146064,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.11345633226146064,
+    "three_inst_ratio_change_20": -0.004606353622412171
+  },
+  {
+    "date": "2025-12-12",
+    "code": "3374",
+    "name": "精材",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.11345633226146064,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.11345633226146064,
+    "three_inst_ratio_change_20": -0.004606353622412171
   }
 ]

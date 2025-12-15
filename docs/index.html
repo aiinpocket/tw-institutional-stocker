@@ -109,6 +109,20 @@
       </p>
     </div>
 
+    <!-- 券商趨勢圖 -->
+    <div class="card">
+      <div class="card-header">
+        <h3>📈 目標券商累計買賣超趨勢</h3>
+        <div class="control-block">
+          <label for="brokerSelect">選擇券商：</label>
+          <select id="brokerSelect">
+            <option value="ALL">全部目標券商</option>
+          </select>
+        </div>
+      </div>
+      <canvas id="brokerTrendChart" height="200"></canvas>
+    </div>
+
     <div class="row">
       <div class="col">
         <div class="card">
@@ -128,6 +142,7 @@
                   <th>股票數</th>
                 </tr>
               </thead>
+
               <tbody>
               </tbody>
             </table>

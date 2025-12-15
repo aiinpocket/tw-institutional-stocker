@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.5465284949121525,
     "three_inst_ratio_change_20": 0.001485822119744018
+  },
+  {
+    "date": "2025-12-08",
+    "code": "3105",
+    "name": "穩懋",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.5672375387573363,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.5672375387573363,
+    "three_inst_ratio_change_20": 0.021514109870693576
+  },
+  {
+    "date": "2025-12-09",
+    "code": "3105",
+    "name": "穩懋",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.5671936646639448,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.5671936646639448,
+    "three_inst_ratio_change_20": 0.021470235777302116
+  },
+  {
+    "date": "2025-12-10",
+    "code": "3105",
+    "name": "穩懋",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.6034742375475133,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.6034742375475133,
+    "three_inst_ratio_change_20": 0.029680824179278975
+  },
+  {
+    "date": "2025-12-11",
+    "code": "3105",
+    "name": "穩懋",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.6034289481607866,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.6034289481607866,
+    "three_inst_ratio_change_20": 0.02963553479255232
+  },
+  {
+    "date": "2025-12-12",
+    "code": "3105",
+    "name": "穩懋",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.6246583481888812,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.6246583481888812,
+    "three_inst_ratio_change_20": 0.05086493482064691
   }
 ]

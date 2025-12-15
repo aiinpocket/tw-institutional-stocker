@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 11.809433969690938,
     "three_inst_ratio_change_20": 0.7971655271945881
+  },
+  {
+    "date": "2025-12-08",
+    "code": "3131",
+    "name": "弘塑",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 11.799165628851163,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.799165628851163,
+    "three_inst_ratio_change_20": 0.7834744060748893
+  },
+  {
+    "date": "2025-12-09",
+    "code": "3131",
+    "name": "弘塑",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 11.70675056129318,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.70675056129318,
+    "three_inst_ratio_change_20": 0.8758894736328688
+  },
+  {
+    "date": "2025-12-10",
+    "code": "3131",
+    "name": "弘塑",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 11.733448247476598,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.733448247476598,
+    "three_inst_ratio_change_20": 0.988156666814417
+  },
+  {
+    "date": "2025-12-11",
+    "code": "3131",
+    "name": "弘塑",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 11.733448247476598,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.733448247476598,
+    "three_inst_ratio_change_20": 1.2345968469690352
+  },
+  {
+    "date": "2025-12-12",
+    "code": "3131",
+    "name": "弘塑",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 11.74029380803645,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.74029380803645,
+    "three_inst_ratio_change_20": 1.1387589991311273
   }
 ]

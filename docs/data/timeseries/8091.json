@@ -636,5 +636,60 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.19620124399276317,
     "three_inst_ratio_change_20": -0.002564437218615545
+  },
+  {
+    "date": "2025-12-08",
+    "code": "8091",
+    "name": "翔名",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.19620124399276317,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.19620124399276317,
+    "three_inst_ratio_change_20": -0.002564437218615545
+  },
+  {
+    "date": "2025-12-09",
+    "code": "8091",
+    "name": "翔名",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.19620124399276317,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.19620124399276317,
+    "three_inst_ratio_change_20": -0.002564437218615545
+  },
+  {
+    "date": "2025-12-10",
+    "code": "8091",
+    "name": "翔名",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.1936349114029587,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.1936349114029587,
+    "three_inst_ratio_change_20": -0.005130769808420033
+  },
+  {
+    "date": "2025-12-11",
+    "code": "8091",
+    "name": "翔名",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.1936349114029587,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.1936349114029587,
+    "three_inst_ratio_change_20": -0.005130769808420033
+  },
+  {
+    "date": "2025-12-12",
+    "code": "8091",
+    "name": "翔名",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.1936349114029587,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.1936349114029587,
+    "three_inst_ratio_change_20": -0.005130769808420033
   }
 ]

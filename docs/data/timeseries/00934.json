@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.39008389800539,
     "three_inst_ratio_change_20": -0.1020396895056146
+  },
+  {
+    "date": "2025-12-18",
+    "code": "00934",
+    "name": "中信成長高股息",
+    "market": "TWSE",
+    "foreign_ratio": 0.66,
+    "trust_ratio": 0.72008389800539,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.38008389800539,
+    "three_inst_ratio_change_20": -0.16203968950561443
   }
 ]

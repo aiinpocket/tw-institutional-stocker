@@ -658,5 +658,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.18,
     "three_inst_ratio_change_20": -0.010000000000000009
+  },
+  {
+    "date": "2025-12-18",
+    "code": "3168",
+    "name": "眾福科",
+    "market": "TWSE",
+    "foreign_ratio": 1.19,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.19,
+    "three_inst_ratio_change_20": 0.0
   }
 ]

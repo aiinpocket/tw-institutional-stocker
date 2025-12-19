@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.4,
     "three_inst_ratio_change_20": -1.1800000000000002
+  },
+  {
+    "date": "2025-12-18",
+    "code": "8222",
+    "name": "寶一",
+    "market": "TWSE",
+    "foreign_ratio": 2.41,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.41,
+    "three_inst_ratio_change_20": -1.3699999999999997
   }
 ]

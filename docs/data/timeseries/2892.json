@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 23.3052317151858,
     "three_inst_ratio_change_20": -0.7995712644083035
+  },
+  {
+    "date": "2025-12-18",
+    "code": "2892",
+    "name": "第一金",
+    "market": "TWSE",
+    "foreign_ratio": 24.41,
+    "trust_ratio": -1.103989965581934,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 23.306010034418065,
+    "three_inst_ratio_change_20": -0.814938456435943
   }
 ]

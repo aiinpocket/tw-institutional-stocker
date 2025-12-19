@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 9.05,
     "three_inst_ratio_change_20": 0.08999999999999986
+  },
+  {
+    "date": "2025-12-18",
+    "code": "2536",
+    "name": "宏普",
+    "market": "TWSE",
+    "foreign_ratio": 9.07,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.07,
+    "three_inst_ratio_change_20": 0.10999999999999943
   }
 ]

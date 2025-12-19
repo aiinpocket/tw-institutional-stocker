@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 33.17193540279848,
     "three_inst_ratio_change_20": -0.3531592580547027
+  },
+  {
+    "date": "2025-12-18",
+    "code": "1326",
+    "name": "台化",
+    "market": "TWSE",
+    "foreign_ratio": 32.96,
+    "trust_ratio": 0.15193540279847761,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 33.11193540279848,
+    "three_inst_ratio_change_20": -0.48266447767134935
   }
 ]

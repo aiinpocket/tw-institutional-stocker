@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 7.6418767149679425,
     "three_inst_ratio_change_20": -0.11000000000000032
+  },
+  {
+    "date": "2025-12-18",
+    "code": "3705",
+    "name": "永信",
+    "market": "TWSE",
+    "foreign_ratio": 7.68,
+    "trust_ratio": 0.0018767149679425367,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 7.6818767149679426,
+    "three_inst_ratio_change_20": -0.08999999999999986
   }
 ]

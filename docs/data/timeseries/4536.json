@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 15.989222638185423,
     "three_inst_ratio_change_20": -1.324910812596345
+  },
+  {
+    "date": "2025-12-18",
+    "code": "4536",
+    "name": "拓凱",
+    "market": "TWSE",
+    "foreign_ratio": 15.59,
+    "trust_ratio": 0.32922263818542175,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 15.919222638185422,
+    "three_inst_ratio_change_20": -1.4449108125963424
   }
 ]

@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 41.626325053827884,
     "three_inst_ratio_change_20": 0.07695863206884468
+  },
+  {
+    "date": "2025-12-18",
+    "code": "2527",
+    "name": "宏璟",
+    "market": "TWSE",
+    "foreign_ratio": 41.57,
+    "trust_ratio": 0.006325053827883955,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 41.57632505382789,
+    "three_inst_ratio_change_20": 0.01695863206884951
   }
 ]

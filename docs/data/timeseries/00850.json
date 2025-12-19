@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.3558800648585428,
     "three_inst_ratio_change_20": 0.0892986711599904
+  },
+  {
+    "date": "2025-12-18",
+    "code": "00850",
+    "name": "元大臺灣ESG永續",
+    "market": "TWSE",
+    "foreign_ratio": 0.18,
+    "trust_ratio": 0.1758800648585428,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.3558800648585428,
+    "three_inst_ratio_change_20": 0.07087190420001316
   }
 ]

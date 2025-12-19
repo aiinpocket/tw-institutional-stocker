@@ -713,5 +713,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.83,
     "three_inst_ratio_change_20": -0.14109232751990097
+  },
+  {
+    "date": "2025-12-18",
+    "code": "6806",
+    "name": "森崴能源",
+    "market": "TWSE",
+    "foreign_ratio": 3.83,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.83,
+    "three_inst_ratio_change_20": -0.2910923275199009
   }
 ]

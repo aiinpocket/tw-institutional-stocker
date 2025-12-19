@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.45,
     "three_inst_ratio_change_20": 0.18
+  },
+  {
+    "date": "2025-12-18",
+    "code": "7721",
+    "name": "微程式",
+    "market": "TWSE",
+    "foreign_ratio": 0.46,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.46,
+    "three_inst_ratio_change_20": 0.22000000000000003
   }
 ]

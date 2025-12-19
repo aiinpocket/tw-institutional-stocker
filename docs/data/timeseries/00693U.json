@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.26,
     "three_inst_ratio_change_20": -0.43999999999999995
+  },
+  {
+    "date": "2025-12-18",
+    "code": "00693U",
+    "name": "期街口S&P黃豆",
+    "market": "TWSE",
+    "foreign_ratio": 1.31,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.31,
+    "three_inst_ratio_change_20": -0.030000000000000027
   }
 ]

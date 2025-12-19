@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 8.330005352167644,
     "three_inst_ratio_change_20": 0.5400001486680441
+  },
+  {
+    "date": "2025-12-18",
+    "code": "6116",
+    "name": "彩晶",
+    "market": "TWSE",
+    "foreign_ratio": 8.27,
+    "trust_ratio": 5.35216764438975e-06,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 8.270005352167644,
+    "three_inst_ratio_change_20": 0.46000014866804406
   }
 ]

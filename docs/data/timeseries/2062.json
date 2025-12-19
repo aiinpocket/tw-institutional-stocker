@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 7.817003421180035,
     "three_inst_ratio_change_20": 0.18749612558671203
+  },
+  {
+    "date": "2025-12-18",
+    "code": "2062",
+    "name": "橋椿",
+    "market": "TWSE",
+    "foreign_ratio": 7.69,
+    "trust_ratio": 0.1155033773187528,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 7.805503377318753,
+    "three_inst_ratio_change_20": 0.1794970612940725
   }
 ]

@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.87,
     "three_inst_ratio_change_20": 0.3999999999999999
+  },
+  {
+    "date": "2025-12-18",
+    "code": "00986A",
+    "name": "主動台新龍頭成長",
+    "market": "TWSE",
+    "foreign_ratio": 2.65,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.65,
+    "three_inst_ratio_change_20": -0.8799999999999999
   }
 ]

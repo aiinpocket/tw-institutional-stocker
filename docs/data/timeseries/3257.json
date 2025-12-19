@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.6639350873595138,
     "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-18",
+    "code": "3257",
+    "name": "虹冠電",
+    "market": "TWSE",
+    "foreign_ratio": 1.62,
+    "trust_ratio": 0.08393508735951365,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.7039350873595138,
+    "three_inst_ratio_change_20": -0.05999999999999983
   }
 ]

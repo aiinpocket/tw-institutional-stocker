@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 28.643342789007416,
     "three_inst_ratio_change_20": -0.8570646341397179
+  },
+  {
+    "date": "2025-12-18",
+    "code": "4938",
+    "name": "和碩",
+    "market": "TWSE",
+    "foreign_ratio": 26.76,
+    "trust_ratio": 1.7173676172959271,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 28.47736761729593,
+    "three_inst_ratio_change_20": -1.0699241885691713
   }
 ]

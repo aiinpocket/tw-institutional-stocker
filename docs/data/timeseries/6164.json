@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.44,
     "three_inst_ratio_change_20": 0.31000000000000005
+  },
+  {
+    "date": "2025-12-18",
+    "code": "6164",
+    "name": "華興",
+    "market": "TWSE",
+    "foreign_ratio": 1.79,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.79,
+    "three_inst_ratio_change_20": -0.3500000000000001
   }
 ]

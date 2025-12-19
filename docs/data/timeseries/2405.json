@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 6.01,
     "three_inst_ratio_change_20": 0.3199999999999994
+  },
+  {
+    "date": "2025-12-18",
+    "code": "2405",
+    "name": "輔信",
+    "market": "TWSE",
+    "foreign_ratio": 6.05,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 6.05,
+    "three_inst_ratio_change_20": 0.33000000000000007
   }
 ]

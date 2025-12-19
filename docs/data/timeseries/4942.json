@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 7.04,
     "three_inst_ratio_change_20": -0.17999999999999972
+  },
+  {
+    "date": "2025-12-18",
+    "code": "4942",
+    "name": "嘉彰",
+    "market": "TWSE",
+    "foreign_ratio": 7.03,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 7.03,
+    "three_inst_ratio_change_20": -0.20000000000000018
   }
 ]

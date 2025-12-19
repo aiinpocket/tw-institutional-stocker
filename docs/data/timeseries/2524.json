@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.7000024591269534,
     "three_inst_ratio_change_20": 0.11000002630359251
+  },
+  {
+    "date": "2025-12-18",
+    "code": "2524",
+    "name": "京城",
+    "market": "TWSE",
+    "foreign_ratio": 0.69,
+    "trust_ratio": 2.4591269533716333e-06,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.6900024591269533,
+    "three_inst_ratio_change_20": 0.08999999999999997
   }
 ]

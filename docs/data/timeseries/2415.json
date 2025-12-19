@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 20.45,
     "three_inst_ratio_change_20": 0.08999999999999986
+  },
+  {
+    "date": "2025-12-18",
+    "code": "2415",
+    "name": "錩新",
+    "market": "TWSE",
+    "foreign_ratio": 20.44,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 20.44,
+    "three_inst_ratio_change_20": 0.08999999999999986
   }
 ]

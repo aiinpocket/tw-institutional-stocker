@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 31.685425721932745,
     "three_inst_ratio_change_20": -1.5414349688471987
+  },
+  {
+    "date": "2025-12-18",
+    "code": "3231",
+    "name": "緯創",
+    "market": "TWSE",
+    "foreign_ratio": 29.46,
+    "trust_ratio": 2.0385385259410946,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 31.498538525941097,
+    "three_inst_ratio_change_20": -1.9908148747068886
   }
 ]

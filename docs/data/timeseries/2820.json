@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 8.749495442902246,
     "three_inst_ratio_change_20": -0.08037231190802352
+  },
+  {
+    "date": "2025-12-18",
+    "code": "2820",
+    "name": "華票",
+    "market": "TWSE",
+    "foreign_ratio": 8.68,
+    "trust_ratio": 0.05949544290224578,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 8.739495442902246,
+    "three_inst_ratio_change_20": -0.1603723119080236
   }
 ]

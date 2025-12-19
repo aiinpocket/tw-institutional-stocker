@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 13.939675137129463,
     "three_inst_ratio_change_20": -5.738818036322414
+  },
+  {
+    "date": "2025-12-18",
+    "code": "2377",
+    "name": "微星",
+    "market": "TWSE",
+    "foreign_ratio": 18.3,
+    "trust_ratio": -4.407839232768652,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 13.89216076723135,
+    "three_inst_ratio_change_20": -5.66117914006097
   }
 ]

@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 11.85,
     "three_inst_ratio_change_20": -1.0300000000000011
+  },
+  {
+    "date": "2025-12-18",
+    "code": "4746",
+    "name": "台耀",
+    "market": "TWSE",
+    "foreign_ratio": 11.82,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.82,
+    "three_inst_ratio_change_20": -0.9800000000000004
   }
 ]

@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 13.223562719336309,
     "three_inst_ratio_change_20": 0.7940180778515131
+  },
+  {
+    "date": "2025-12-18",
+    "code": "3042",
+    "name": "晶技",
+    "market": "TWSE",
+    "foreign_ratio": 12.54,
+    "trust_ratio": 0.6132711681721315,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 13.15327116817213,
+    "three_inst_ratio_change_20": 0.5637562965976919
   }
 ]

@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 13.24,
     "three_inst_ratio_change_20": -0.2400000000000002
+  },
+  {
+    "date": "2025-12-18",
+    "code": "2486",
+    "name": "一詮",
+    "market": "TWSE",
+    "foreign_ratio": 9.15,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.15,
+    "three_inst_ratio_change_20": -4.039999999999999
   }
 ]

@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.1,
     "three_inst_ratio_change_20": 0.45999999999999996
+  },
+  {
+    "date": "2025-12-18",
+    "code": "3024",
+    "name": "憶聲",
+    "market": "TWSE",
+    "foreign_ratio": 3.05,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.05,
+    "three_inst_ratio_change_20": 0.19999999999999973
   }
 ]

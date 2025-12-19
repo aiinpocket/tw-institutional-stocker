@@ -625,5 +625,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 69.73,
     "three_inst_ratio_change_20": -0.01999999999999602
+  },
+  {
+    "date": "2025-12-18",
+    "code": "8488",
+    "name": "吉源-KY",
+    "market": "TWSE",
+    "foreign_ratio": 69.73,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 69.73,
+    "three_inst_ratio_change_20": -0.030000000000001137
   }
 ]

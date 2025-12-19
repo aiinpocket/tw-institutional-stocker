@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.6859521717220742,
     "three_inst_ratio_change_20": -0.9700000000000006
+  },
+  {
+    "date": "2025-12-18",
+    "code": "2612",
+    "name": "中航",
+    "market": "TWSE",
+    "foreign_ratio": 3.54,
+    "trust_ratio": 0.035952171722074544,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.575952171722075,
+    "three_inst_ratio_change_20": -1.3899999999999997
   }
 ]

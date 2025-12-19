@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 19.54,
     "three_inst_ratio_change_20": 0.4399999999999977
+  },
+  {
+    "date": "2025-12-18",
+    "code": "6283",
+    "name": "淳安",
+    "market": "TWSE",
+    "foreign_ratio": 19.51,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 19.51,
+    "three_inst_ratio_change_20": 0.360000000000003
   }
 ]

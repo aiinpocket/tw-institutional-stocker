@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 60.71897620325059,
     "three_inst_ratio_change_20": 0.19999999999999574
+  },
+  {
+    "date": "2025-12-18",
+    "code": "4571",
+    "name": "鈞興-KY",
+    "market": "TWSE",
+    "foreign_ratio": 60.38,
+    "trust_ratio": 0.2489762032505918,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 60.628976203250595,
+    "three_inst_ratio_change_20": -0.0799999999999983
   }
 ]

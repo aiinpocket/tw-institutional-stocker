@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 10.97,
     "three_inst_ratio_change_20": 0.10000000000000142
+  },
+  {
+    "date": "2025-12-18",
+    "code": "1903",
+    "name": "士紙",
+    "market": "TWSE",
+    "foreign_ratio": 10.97,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 10.97,
+    "three_inst_ratio_change_20": 0.07000000000000028
   }
 ]

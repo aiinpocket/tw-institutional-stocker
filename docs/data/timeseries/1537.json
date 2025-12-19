@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 15.106770478957857,
     "three_inst_ratio_change_20": 0.10999999999999943
+  },
+  {
+    "date": "2025-12-18",
+    "code": "1537",
+    "name": "廣隆",
+    "market": "TWSE",
+    "foreign_ratio": 15.04,
+    "trust_ratio": 0.07677047895785756,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 15.116770478957857,
+    "three_inst_ratio_change_20": 0.10999999999999943
   }
 ]

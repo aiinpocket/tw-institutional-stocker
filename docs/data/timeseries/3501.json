@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.35,
     "three_inst_ratio_change_20": -0.3599999999999999
+  },
+  {
+    "date": "2025-12-18",
+    "code": "3501",
+    "name": "維熹",
+    "market": "TWSE",
+    "foreign_ratio": 3.36,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.36,
+    "three_inst_ratio_change_20": -0.3400000000000003
   }
 ]

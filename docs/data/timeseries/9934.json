@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 14.76,
     "three_inst_ratio_change_20": 0.07000000000000028
+  },
+  {
+    "date": "2025-12-18",
+    "code": "9934",
+    "name": "成霖",
+    "market": "TWSE",
+    "foreign_ratio": 14.76,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 14.76,
+    "three_inst_ratio_change_20": 0.0600000000000005
   }
 ]

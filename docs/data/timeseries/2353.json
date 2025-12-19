@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 15.65446363429736,
     "three_inst_ratio_change_20": -6.905227843846584
+  },
+  {
+    "date": "2025-12-18",
+    "code": "2353",
+    "name": "宏碁",
+    "market": "TWSE",
+    "foreign_ratio": 14.06,
+    "trust_ratio": 1.537881100773052,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 15.597881100773053,
+    "three_inst_ratio_change_20": -7.018246394118085
   }
 ]

@@ -724,5 +724,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 7.26,
     "three_inst_ratio_change_20": -1.5299999999999994
+  },
+  {
+    "date": "2025-12-18",
+    "code": "6165",
+    "name": "浪凡",
+    "market": "TWSE",
+    "foreign_ratio": 7.12,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 7.12,
+    "three_inst_ratio_change_20": -1.6499999999999995
   }
 ]

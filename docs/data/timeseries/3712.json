@@ -768,5 +768,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.0972624121786203,
     "three_inst_ratio_change_20": -0.29268881672270686
+  },
+  {
+    "date": "2025-12-26",
+    "code": "3712",
+    "name": "永崴投控",
+    "market": "TWSE",
+    "foreign_ratio": 1.32,
+    "trust_ratio": 0.7472624121786203,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.0672624121786205,
+    "three_inst_ratio_change_20": -0.15268881672270673
   }
 ]

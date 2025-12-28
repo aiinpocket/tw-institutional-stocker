@@ -735,5 +735,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 11.23783848113247,
     "three_inst_ratio_change_20": 1.3811353924529897
+  },
+  {
+    "date": "2025-12-26",
+    "code": "7750",
+    "name": "新代",
+    "market": "TWSE",
+    "foreign_ratio": 11.37,
+    "trust_ratio": 0.027838481132469412,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.39783848113247,
+    "three_inst_ratio_change_20": 1.541135392452988
   }
 ]

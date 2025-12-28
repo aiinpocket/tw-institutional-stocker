@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 5.5,
     "three_inst_ratio_change_20": -0.8099999999999996
+  },
+  {
+    "date": "2025-12-26",
+    "code": "6589",
+    "name": "台康生技",
+    "market": "TWSE",
+    "foreign_ratio": 5.51,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.51,
+    "three_inst_ratio_change_20": -0.7700000000000005
   }
 ]

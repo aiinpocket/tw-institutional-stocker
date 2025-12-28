@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.5872384407535476,
     "three_inst_ratio_change_20": 0.11005572095284738
+  },
+  {
+    "date": "2025-12-26",
+    "code": "00893",
+    "name": "國泰智能電動車",
+    "market": "TWSE",
+    "foreign_ratio": 0.76,
+    "trust_ratio": 0.047238440753547606,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8072384407535476,
+    "three_inst_ratio_change_20": 0.32005572095284734
   }
 ]

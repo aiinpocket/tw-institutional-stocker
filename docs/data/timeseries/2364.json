@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 15.997656910710885,
     "three_inst_ratio_change_20": -0.5900000000000016
+  },
+  {
+    "date": "2025-12-26",
+    "code": "2364",
+    "name": "倫飛",
+    "market": "TWSE",
+    "foreign_ratio": 15.78,
+    "trust_ratio": 0.10765691071088532,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 15.887656910710884,
+    "three_inst_ratio_change_20": -0.7500000000000036
   }
 ]

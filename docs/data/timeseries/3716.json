@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 7.81,
     "three_inst_ratio_change_20": -0.07000000000000028
+  },
+  {
+    "date": "2025-12-26",
+    "code": "3716",
+    "name": "中化控股",
+    "market": "TWSE",
+    "foreign_ratio": 7.8,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 7.8,
+    "three_inst_ratio_change_20": -0.07000000000000028
   }
 ]

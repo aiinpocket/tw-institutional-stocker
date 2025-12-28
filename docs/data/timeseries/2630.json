@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.37,
     "three_inst_ratio_change_20": 0.1200000000000001
+  },
+  {
+    "date": "2025-12-26",
+    "code": "2630",
+    "name": "亞航",
+    "market": "TWSE",
+    "foreign_ratio": 3.36,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.36,
+    "three_inst_ratio_change_20": 0.22999999999999998
   }
 ]

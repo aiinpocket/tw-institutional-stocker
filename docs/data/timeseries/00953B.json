@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.700044149841146,
     "three_inst_ratio_change_20": 0.5106604858146491
+  },
+  {
+    "date": "2025-12-26",
+    "code": "00953B",
+    "name": "群益優選非投等債",
+    "market": "TWSE",
+    "foreign_ratio": 1.27,
+    "trust_ratio": 1.4800441498411459,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.7500441498411456,
+    "three_inst_ratio_change_20": 0.37066048581464894
   }
 ]

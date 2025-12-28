@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 26.270683841086203,
     "three_inst_ratio_change_20": -0.0901604748790561
+  },
+  {
+    "date": "2025-12-26",
+    "code": "6592",
+    "name": "和潤企業",
+    "market": "TWSE",
+    "foreign_ratio": 26.13,
+    "trust_ratio": 0.13068384108620132,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 26.260683841086202,
+    "three_inst_ratio_change_20": -0.10016047487905766
   }
 ]

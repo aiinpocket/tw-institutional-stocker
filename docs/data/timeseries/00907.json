@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.36,
     "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-26",
+    "code": "00907",
+    "name": "永豐優息存股",
+    "market": "TWSE",
+    "foreign_ratio": 0.37,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.37,
+    "three_inst_ratio_change_20": -0.010000000000000009
   }
 ]

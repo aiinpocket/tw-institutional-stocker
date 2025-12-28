@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 7.57,
     "three_inst_ratio_change_20": -0.04999999999999982
+  },
+  {
+    "date": "2025-12-26",
+    "code": "2013",
+    "name": "中鋼構",
+    "market": "TWSE",
+    "foreign_ratio": 7.57,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 7.57,
+    "three_inst_ratio_change_20": -0.0699999999999994
   }
 ]

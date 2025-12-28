@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.01,
     "three_inst_ratio_change_20": 0.11999999999999966
+  },
+  {
+    "date": "2025-12-26",
+    "code": "6885",
+    "name": "全福生技",
+    "market": "TWSE",
+    "foreign_ratio": 3.11,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.11,
+    "three_inst_ratio_change_20": 0.23999999999999977
   }
 ]

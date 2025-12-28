@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.8213227502398772,
     "three_inst_ratio_change_20": 0.18518439551522747
+  },
+  {
+    "date": "2025-12-26",
+    "code": "6861",
+    "name": "睿生光電",
+    "market": "TWSE",
+    "foreign_ratio": 1.64,
+    "trust_ratio": 0.1613227502398773,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.8013227502398772,
+    "three_inst_ratio_change_20": 0.1051843955152274
   }
 ]

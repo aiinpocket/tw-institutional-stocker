@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.32,
     "three_inst_ratio_change_20": 0.21999999999999997
+  },
+  {
+    "date": "2025-12-26",
+    "code": "3092",
+    "name": "鴻碩",
+    "market": "TWSE",
+    "foreign_ratio": 1.48,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.48,
+    "three_inst_ratio_change_20": 0.41999999999999993
   }
 ]

@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.82,
     "three_inst_ratio_change_20": 0.07999999999999996
+  },
+  {
+    "date": "2025-12-26",
+    "code": "00902",
+    "name": "中信電池及儲能",
+    "market": "TWSE",
+    "foreign_ratio": 1.61,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.61,
+    "three_inst_ratio_change_20": 0.8800000000000001
   }
 ]

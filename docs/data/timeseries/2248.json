@@ -636,5 +636,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 49.84,
     "three_inst_ratio_change_20": -0.01999999999999602
+  },
+  {
+    "date": "2025-12-26",
+    "code": "2248",
+    "name": "華勝-KY",
+    "market": "TWSE",
+    "foreign_ratio": 49.83,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 49.83,
+    "three_inst_ratio_change_20": -0.020000000000003126
   }
 ]

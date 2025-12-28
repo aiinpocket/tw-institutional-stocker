@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.52,
     "three_inst_ratio_change_20": -0.06000000000000005
+  },
+  {
+    "date": "2025-12-26",
+    "code": "6715",
+    "name": "嘉基",
+    "market": "TWSE",
+    "foreign_ratio": 1.56,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.56,
+    "three_inst_ratio_change_20": -0.010000000000000009
   }
 ]

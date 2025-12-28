@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 52.72,
     "three_inst_ratio_change_20": 0.9299999999999997
+  },
+  {
+    "date": "2025-12-26",
+    "code": "2236",
+    "name": "百達-KY",
+    "market": "TWSE",
+    "foreign_ratio": 51.79,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 51.79,
+    "three_inst_ratio_change_20": -0.4100000000000037
   }
 ]

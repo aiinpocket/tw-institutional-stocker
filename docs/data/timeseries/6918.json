@@ -768,5 +768,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.54,
     "three_inst_ratio_change_20": 0.09000000000000002
+  },
+  {
+    "date": "2025-12-26",
+    "code": "6918",
+    "name": "愛派司",
+    "market": "TWSE",
+    "foreign_ratio": 0.52,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.52,
+    "three_inst_ratio_change_20": 0.040000000000000036
   }
 ]

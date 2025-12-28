@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.21,
     "three_inst_ratio_change_20": -0.98
+  },
+  {
+    "date": "2025-12-26",
+    "code": "00971",
+    "name": "野村美國研發龍頭",
+    "market": "TWSE",
+    "foreign_ratio": 0.22,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.22,
+    "three_inst_ratio_change_20": -1.0
   }
 ]

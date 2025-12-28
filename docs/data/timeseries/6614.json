@@ -229,5 +229,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.17,
     "three_inst_ratio_change_20": 0.15000000000000002
+  },
+  {
+    "date": "2025-12-26",
+    "code": "6614",
+    "name": "資拓宏宇",
+    "market": "TWSE",
+    "foreign_ratio": 0.15,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.15,
+    "three_inst_ratio_change_20": -0.13000000000000003
   }
 ]

@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.22,
     "three_inst_ratio_change_20": -1.3099999999999996
+  },
+  {
+    "date": "2025-12-26",
+    "code": "00908",
+    "name": "富邦入息REITs+",
+    "market": "TWSE",
+    "foreign_ratio": 2.21,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.21,
+    "three_inst_ratio_change_20": -1.46
   }
 ]

@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.68,
     "three_inst_ratio_change_20": 0.43000000000000005
+  },
+  {
+    "date": "2025-12-26",
+    "code": "00919",
+    "name": "群益台灣精選高息",
+    "market": "TWSE",
+    "foreign_ratio": 0.67,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.67,
+    "three_inst_ratio_change_20": 0.36000000000000004
   }
 ]

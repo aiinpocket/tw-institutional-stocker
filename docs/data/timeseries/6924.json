@@ -702,5 +702,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 77.35,
     "three_inst_ratio_change_20": -0.030000000000001137
+  },
+  {
+    "date": "2025-12-26",
+    "code": "6924",
+    "name": "榮惠-KY創",
+    "market": "TWSE",
+    "foreign_ratio": 77.34,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 77.34,
+    "three_inst_ratio_change_20": -0.03999999999999204
   }
 ]

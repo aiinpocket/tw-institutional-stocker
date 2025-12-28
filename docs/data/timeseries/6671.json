@@ -713,5 +713,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 49.8,
     "three_inst_ratio_change_20": -0.020000000000003126
+  },
+  {
+    "date": "2025-12-26",
+    "code": "6671",
+    "name": "三能-KY",
+    "market": "TWSE",
+    "foreign_ratio": 49.8,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 49.8,
+    "three_inst_ratio_change_20": -0.020000000000003126
   }
 ]

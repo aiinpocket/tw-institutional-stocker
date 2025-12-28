@@ -757,5 +757,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.43,
     "three_inst_ratio_change_20": 0.04999999999999999
+  },
+  {
+    "date": "2025-12-26",
+    "code": "1236",
+    "name": "宏亞",
+    "market": "TWSE",
+    "foreign_ratio": 0.43,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.43,
+    "three_inst_ratio_change_20": 0.07
   }
 ]

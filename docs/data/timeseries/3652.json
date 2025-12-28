@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.8,
     "three_inst_ratio_change_20": -0.06999999999999995
+  },
+  {
+    "date": "2025-12-26",
+    "code": "3652",
+    "name": "精聯",
+    "market": "TWSE",
+    "foreign_ratio": 0.81,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.81,
+    "three_inst_ratio_change_20": -0.06999999999999995
   }
 ]

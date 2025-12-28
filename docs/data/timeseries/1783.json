@@ -768,5 +768,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 7.09,
     "three_inst_ratio_change_20": -0.04999999999999982
+  },
+  {
+    "date": "2025-12-26",
+    "code": "1783",
+    "name": "和康生",
+    "market": "TWSE",
+    "foreign_ratio": 7.07,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 7.07,
+    "three_inst_ratio_change_20": -0.08999999999999986
   }
 ]

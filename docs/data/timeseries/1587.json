@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 21.69,
     "three_inst_ratio_change_20": 0.4200000000000017
+  },
+  {
+    "date": "2025-12-26",
+    "code": "1587",
+    "name": "吉茂",
+    "market": "TWSE",
+    "foreign_ratio": 21.43,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 21.43,
+    "three_inst_ratio_change_20": 0.14999999999999858
   }
 ]

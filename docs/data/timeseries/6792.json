@@ -757,5 +757,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.43,
     "three_inst_ratio_change_20": -0.07000000000000006
+  },
+  {
+    "date": "2025-12-26",
+    "code": "6792",
+    "name": "詠業",
+    "market": "TWSE",
+    "foreign_ratio": 1.42,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.42,
+    "three_inst_ratio_change_20": -0.08000000000000007
   }
 ]

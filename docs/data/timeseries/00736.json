@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 16.39,
     "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-26",
+    "code": "00736",
+    "name": "國泰新興市場",
+    "market": "TWSE",
+    "foreign_ratio": 16.39,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 16.39,
+    "three_inst_ratio_change_20": 0.0
   }
 ]

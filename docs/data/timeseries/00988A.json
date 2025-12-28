@@ -394,5 +394,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.12,
     "three_inst_ratio_change_20": 0.9700000000000002
+  },
+  {
+    "date": "2025-12-26",
+    "code": "00988A",
+    "name": "主動統一全球創新",
+    "market": "TWSE",
+    "foreign_ratio": 3.86,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.86,
+    "three_inst_ratio_change_20": 1.6999999999999997
   }
 ]

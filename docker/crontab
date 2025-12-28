@@ -1,0 +1,16 @@
+# ETL cron schedule for system crontab (includes user field)
+# Taiwan market closes at 13:30, data usually fully available by 21:00
+# Run at 21:30 Taipei time (13:30 UTC) on weekdays
+
+# Main ETL: institutional flows + stock prices (includes strategy computation in Step 5)
+30 21 * * 1-5 root cd /app && /usr/local/bin/python -m src.etl.run_all >> /var/log/cron.log 2>&1
+
+# Broker data (runs 30 mins after main ETL)
+0 22 * * 1-5 root cd /app && /usr/local/bin/python -m src.etl.run_broker >> /var/log/cron.log 2>&1
+
+# Incremental price update (backup run at 22:30 in case main ETL missed some data)
+30 22 * * 1-5 root cd /app && /usr/local/bin/python -m src.etl.backfill_prices --mode incremental --days 3 >> /var/log/cron.log 2>&1
+
+# Health check log every hour
+0 * * * * root echo "$(date): ETL worker alive" >> /var/log/cron.log
+

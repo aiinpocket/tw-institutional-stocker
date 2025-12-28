@@ -1,0 +1,10 @@
+requests>=2.31.0
+pandas>=2.0.0
+numpy>=1.24.0
+python-dateutil>=2.8.2
+playwright>=1.40.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+sqlalchemy>=2.0.0
+psycopg2-binary>=2.9.9
+pydantic-settings>=2.0.0

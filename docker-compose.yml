@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:16-alpine
+    container_name: tw-stocker-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-tw_stocker}
+      POSTGRES_USER: ${POSTGRES_USER:-stocker}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-stockerpass123}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-stocker} -d ${POSTGRES_DB:-tw_stocker}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - stocker-network
+    restart: unless-stopped
+
+  # ETL Worker with Cron (Playwright support)
+  etl-worker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.etl
+    container_name: tw-stocker-etl
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-stocker}:${POSTGRES_PASSWORD:-stockerpass123}@db:5432/${POSTGRES_DB:-tw_stocker}
+      TZ: Asia/Taipei
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - stocker-network
+    restart: unless-stopped
+
+  # FastAPI REST API
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.api
+    container_name: tw-stocker-api
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-stocker}:${POSTGRES_PASSWORD:-stockerpass123}@db:5432/${POSTGRES_DB:-tw_stocker}
+      API_HOST: 0.0.0.0
+      API_PORT: 8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - stocker-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  stocker-network:
+    driver: bridge

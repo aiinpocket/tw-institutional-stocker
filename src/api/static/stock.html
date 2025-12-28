@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>股票分析 | Taiwan Stock Analysis</title>
+    <script src="https://unpkg.com/lightweight-charts@4.1.0/dist/lightweight-charts.standalone.production.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .back-btn {
+            color: #00d4ff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stock-title {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+        }
+
+        .stock-code {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #00d4ff;
+        }
+
+        .stock-name {
+            font-size: 1.2rem;
+            color: #888;
+        }
+
+        .price-info {
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .current-price {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .price-change {
+            font-size: 1.1rem;
+            margin-top: 2px;
+        }
+
+        .positive { color: #ef5350; }
+        .negative { color: #26a69a; }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-title::before {
+            content: '';
+            width: 4px;
+            height: 18px;
+            background: linear-gradient(180deg, #00d4ff, #7b2cbf);
+            border-radius: 2px;
+        }
+
+        #price-chart {
+            height: 400px;
+            width: 100%;
+        }
+
+        #volume-chart {
+            height: 100px;
+            width: 100%;
+            margin-top: -10px;
+        }
+
+        #flow-chart {
+            height: 200px;
+            width: 100%;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .signal-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .signal {
+            padding: 12px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .signal.bullish {
+            background: rgba(38, 166, 154, 0.15);
+            border-left: 3px solid #26a69a;
+        }
+
+        .signal.bearish {
+            background: rgba(239, 83, 80, 0.15);
+            border-left: 3px solid #ef5350;
+        }
+
+        .signal.neutral {
+            background: rgba(255, 193, 7, 0.15);
+            border-left: 3px solid #ffc107;
+        }
+
+        .signal-icon {
+            font-size: 1.2rem;
+        }
+
+        .signal-content {
+            flex: 1;
+        }
+
+        .signal-source {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .signal-message {
+            font-size: 0.9rem;
+            margin-top: 3px;
+        }
+
+        .signal-strength {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .tech-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .tech-label {
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .tech-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .level-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .level {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .level.resistance {
+            background: rgba(239, 83, 80, 0.1);
+            color: #ef5350;
+        }
+
+        .level.support {
+            background: rgba(38, 166, 154, 0.1);
+            color: #26a69a;
+        }
+
+        .level.pivot {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .flow-summary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .flow-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .flow-label {
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .flow-value {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            color: #888;
+        }
+
+        .loading::after {
+            content: '';
+            width: 24px;
+            height: 24px;
+            border: 2px solid #888;
+            border-top-color: #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .broker-table {
+            width: 100%;
+            font-size: 0.85rem;
+        }
+
+        .broker-table th {
+            text-align: left;
+            padding: 8px;
+            color: #888;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .broker-table td {
+            padding: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .tab {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            border-radius: 6px;
+            color: #888;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .tab.active {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+        }
+
+        .error {
+            color: #ef5350;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .data-warning {
+            background: rgba(255, 152, 0, 0.15);
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .data-warning-icon {
+            font-size: 1.5rem;
+        }
+
+        .data-warning-text {
+            color: #ffb74d;
+            font-size: 0.9rem;
+        }
+
+        .no-chart-data {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            color: #888;
+            font-size: 0.95rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        .date-range-selector {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .date-range-label {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .date-input-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .date-input-group select {
+            padding: 6px 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .date-input-group select:focus {
+            outline: none;
+            border-color: #00d4ff;
+        }
+
+        .date-range-btn {
+            padding: 6px 14px;
+            background: rgba(0, 212, 255, 0.15);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 6px;
+            color: #00d4ff;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .date-range-btn:hover {
+            background: rgba(0, 212, 255, 0.25);
+        }
+
+        .date-range-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .query-info {
+            margin-left: auto;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .quick-range-btns {
+            display: flex;
+            gap: 5px;
+        }
+
+        .quick-range-btn {
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            color: #888;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-range-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .quick-range-btn.active {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: rgba(0, 212, 255, 0.3);
+            color: #00d4ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="/dashboard" class="back-btn">← 返回排行榜</a>
+        <div class="stock-title">
+            <span class="stock-code" id="stock-code">-</span>
+            <span class="stock-name" id="stock-name">載入中...</span>
+        </div>
+        <div class="price-info">
+            <div class="current-price" id="current-price">-</div>
+            <div class="price-change" id="price-change">-</div>
+        </div>
+    </div>
+
+    <div class="date-range-selector">
+        <span class="date-range-label">時間區間：</span>
+        <div class="quick-range-btns">
+            <button class="quick-range-btn active" data-days="90">近3月</button>
+        </div>
+        <span class="date-range-label">或指定期間：</span>
+        <div class="date-input-group">
+            <select id="start-year"></select>
+            <select id="start-month"></select>
+            <span style="color:#666">至</span>
+            <select id="end-year"></select>
+            <select id="end-month"></select>
+            <button class="date-range-btn" id="apply-range-btn">查詢</button>
+        </div>
+        <div class="query-info" id="query-info">
+            載入中...
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            <div id="data-warning" class="data-warning" style="display:none;">
+                <span class="data-warning-icon">⚠️</span>
+                <span class="data-warning-text" id="data-warning-text">資料載入中...</span>
+            </div>
+            <div class="card">
+                <div class="card-title">股價走勢圖</div>
+                <div id="price-chart"></div>
+                <div id="volume-chart"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">法人籌碼變化</div>
+                <div id="flow-chart"></div>
+                <div class="flow-summary" id="flow-summary"></div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="card">
+                <div class="card-title">交易訊號</div>
+                <div class="signal-list" id="signals">
+                    <div class="loading">分析中</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">技術指標</div>
+                <div class="tech-grid" id="technicals"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">壓力與支撐</div>
+                <div class="level-list" id="levels"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">券商分點</div>
+                <div class="tabs">
+                    <button class="tab active" data-side="buy">買超</button>
+                    <button class="tab" data-side="sell">賣超</button>
+                </div>
+                <div id="broker-data">
+                    <div class="loading">載入中</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const stockCode = window.location.pathname.split('/').pop();
+        let priceChart, volumeChart, flowChart;
+        let priceSeries, volumeSeries, foreignSeries, trustSeries;
+        let availableDateRange = null;
+        let currentBrokers = null;
+
+        // Initialize date selectors
+        function initDateSelectors(minDate, maxDate) {
+            const startYearSelect = document.getElementById('start-year');
+            const startMonthSelect = document.getElementById('start-month');
+            const endYearSelect = document.getElementById('end-year');
+            const endMonthSelect = document.getElementById('end-month');
+
+            const minYear = minDate ? new Date(minDate).getFullYear() : 2008;
+            const maxYear = maxDate ? new Date(maxDate).getFullYear() : new Date().getFullYear();
+
+            // Populate year selects
+            for (let y = maxYear; y >= minYear; y--) {
+                startYearSelect.add(new Option(y, y));
+                endYearSelect.add(new Option(y, y));
+            }
+
+            // Populate month selects
+            for (let m = 1; m <= 12; m++) {
+                const monthStr = m.toString().padStart(2, '0');
+                startMonthSelect.add(new Option(`${m}月`, monthStr));
+                endMonthSelect.add(new Option(`${m}月`, monthStr));
+            }
+
+            // Set defaults: end = current month, start = 3 months ago
+            const now = new Date();
+            endYearSelect.value = now.getFullYear();
+            endMonthSelect.value = (now.getMonth() + 1).toString().padStart(2, '0');
+
+            const threeMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 2, 1);
+            startYearSelect.value = threeMonthsAgo.getFullYear();
+            startMonthSelect.value = (threeMonthsAgo.getMonth() + 1).toString().padStart(2, '0');
+        }
+
+        // Get selected date range
+        function getSelectedDateRange() {
+            const startYear = document.getElementById('start-year').value;
+            const startMonth = document.getElementById('start-month').value;
+            const endYear = document.getElementById('end-year').value;
+            const endMonth = document.getElementById('end-month').value;
+
+            // Start date is first day of month
+            const startDate = `${startYear}-${startMonth}-01`;
+
+            // End date is last day of month
+            const endDate = new Date(endYear, parseInt(endMonth), 0);
+            const endDateStr = `${endYear}-${endMonth}-${endDate.getDate().toString().padStart(2, '0')}`;
+
+            return { startDate, endDate: endDateStr };
+        }
+
+        // Validate date range (max 3 months)
+        function validateDateRange(startDate, endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            const diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+            return diffDays <= 92;
+        }
+
+        async function fetchData(startDate = null, endDate = null) {
+            try {
+                let analysisUrl = `/api/v1/analysis/${stockCode}`;
+                if (startDate && endDate) {
+                    analysisUrl += `?start_date=${startDate}&end_date=${endDate}`;
+                }
+
+                const [analysisRes, brokerRes] = await Promise.all([
+                    fetch(analysisUrl),
+                    fetch(`/api/v1/analysis/${stockCode}/brokers`)
+                ]);
+
+                if (!analysisRes.ok) throw new Error('Stock not found');
+
+                const analysis = await analysisRes.json();
+                const brokers = brokerRes.ok ? await brokerRes.json() : null;
+
+                return { analysis, brokers };
+            } catch (error) {
+                console.error(error);
+                return null;
+            }
+        }
+
+        async function fetchDateRange() {
+            try {
+                const res = await fetch(`/api/v1/analysis/${stockCode}/date-range`);
+                if (res.ok) {
+                    return await res.json();
+                }
+            } catch (error) {
+                console.error('Failed to fetch date range:', error);
+            }
+            return null;
+        }
+
+        function updateQueryInfo(queryRange) {
+            const infoEl = document.getElementById('query-info');
+            if (queryRange) {
+                infoEl.textContent = `顯示 ${queryRange.start_date} ~ ${queryRange.end_date}（${queryRange.days}天）`;
+            }
+        }
+
+        function renderHeader(data) {
+            document.getElementById('stock-code').textContent = data.stock.code;
+            document.getElementById('stock-name').textContent = data.stock.name;
+
+            const price = data.current.price;
+            const change = data.current.change;
+            const changePct = data.current.change_pct;
+
+            document.getElementById('current-price').textContent = price ? price.toFixed(2) : '-';
+
+            if (change !== null) {
+                const sign = change >= 0 ? '+' : '';
+                const cls = change >= 0 ? 'positive' : 'negative';
+                document.getElementById('price-change').innerHTML =
+                    `<span class="${cls}">${sign}${change.toFixed(2)} (${sign}${changePct}%)</span>`;
+            }
+
+            document.title = `${data.stock.code} ${data.stock.name} - 股票分析`;
+        }
+
+        function checkDataSufficiency(data) {
+            const prices = data.chart_data.prices || [];
+            const flows = data.chart_data.flows || [];
+            const warnings = [];
+
+            if (prices.length < 5) {
+                warnings.push(`股價資料僅 ${prices.length} 天，技術分析可能不準確`);
+            } else if (prices.length < 20) {
+                warnings.push(`股價資料僅 ${prices.length} 天，部分均線無法顯示`);
+            }
+
+            if (flows.length < 5) {
+                warnings.push(`籌碼資料僅 ${flows.length} 天，趨勢分析可能不完整`);
+            }
+
+            return warnings;
+        }
+
+        function showDataWarning(warnings) {
+            if (warnings.length > 0) {
+                const warningDiv = document.getElementById('data-warning');
+                const warningText = document.getElementById('data-warning-text');
+                warningText.textContent = warnings.join('；');
+                warningDiv.style.display = 'flex';
+            }
+        }
+
+        function createCharts(data) {
+            const chartContainer = document.getElementById('price-chart');
+            const volumeContainer = document.getElementById('volume-chart');
+            const flowContainer = document.getElementById('flow-chart');
+
+            const prices = data.chart_data.prices || [];
+
+            // Check if we have enough data for charts
+            if (prices.length < 2) {
+                chartContainer.innerHTML = '<div class="no-chart-data">股價資料不足，無法繪製走勢圖</div>';
+                volumeContainer.innerHTML = '';
+                flowContainer.innerHTML = '<div class="no-chart-data">籌碼資料不足，無法繪製圖表</div>';
+                return;
+            }
+
+            // Price chart
+            priceChart = LightweightCharts.createChart(chartContainer, {
+                layout: {
+                    background: { type: 'solid', color: 'transparent' },
+                    textColor: '#888',
+                },
+                grid: {
+                    vertLines: { color: 'rgba(255, 255, 255, 0.05)' },
+                    horzLines: { color: 'rgba(255, 255, 255, 0.05)' },
+                },
+                crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+                rightPriceScale: { borderColor: 'rgba(255, 255, 255, 0.1)' },
+                timeScale: { borderColor: 'rgba(255, 255, 255, 0.1)', timeVisible: true },
+            });
+
+            priceSeries = priceChart.addCandlestickSeries({
+                upColor: '#ef5350',
+                downColor: '#26a69a',
+                borderUpColor: '#ef5350',
+                borderDownColor: '#26a69a',
+                wickUpColor: '#ef5350',
+                wickDownColor: '#26a69a',
+            });
+
+            // Add MA lines
+            const ma5Series = priceChart.addLineSeries({ color: '#ffc107', lineWidth: 1, title: 'MA5' });
+            const ma20Series = priceChart.addLineSeries({ color: '#2196f3', lineWidth: 1, title: 'MA20' });
+            const ma60Series = priceChart.addLineSeries({ color: '#9c27b0', lineWidth: 1, title: 'MA60' });
+
+            // Volume chart
+            volumeChart = LightweightCharts.createChart(volumeContainer, {
+                layout: {
+                    background: { type: 'solid', color: 'transparent' },
+                    textColor: '#888',
+                },
+                grid: {
+                    vertLines: { visible: false },
+                    horzLines: { visible: false },
+                },
+                rightPriceScale: { borderColor: 'rgba(255, 255, 255, 0.1)' },
+                timeScale: { visible: false },
+            });
+
+            volumeSeries = volumeChart.addHistogramSeries({
+                priceFormat: { type: 'volume' },
+            });
+
+            // Flow chart
+            flowChart = LightweightCharts.createChart(flowContainer, {
+                layout: {
+                    background: { type: 'solid', color: 'transparent' },
+                    textColor: '#888',
+                },
+                grid: {
+                    vertLines: { color: 'rgba(255, 255, 255, 0.05)' },
+                    horzLines: { color: 'rgba(255, 255, 255, 0.05)' },
+                },
+                rightPriceScale: { borderColor: 'rgba(255, 255, 255, 0.1)' },
+                timeScale: { borderColor: 'rgba(255, 255, 255, 0.1)' },
+            });
+
+            foreignSeries = flowChart.addHistogramSeries({
+                color: '#2196f3',
+                priceFormat: { type: 'volume' },
+                title: '外資',
+            });
+
+            trustSeries = flowChart.addLineSeries({
+                color: '#ff9800',
+                lineWidth: 2,
+                title: '投信',
+            });
+
+            // Prepare data - use the prices/flows from outer scope
+            const flows = data.chart_data.flows;
+
+            const candleData = prices.map(p => ({
+                time: p.date,
+                open: p.open,
+                high: p.high,
+                low: p.low,
+                close: p.close,
+            })).filter(d => d.open && d.high && d.low && d.close);
+
+            const volumeData = prices.map(p => ({
+                time: p.date,
+                value: p.volume,
+                color: p.close >= p.open ? 'rgba(239, 83, 80, 0.5)' : 'rgba(38, 166, 154, 0.5)',
+            }));
+
+            // Calculate MAs
+            const closes = prices.map(p => p.close).filter(Boolean);
+            const ma5Data = [], ma20Data = [], ma60Data = [];
+
+            for (let i = 0; i < prices.length; i++) {
+                if (i >= 4) {
+                    const sum5 = closes.slice(i - 4, i + 1).reduce((a, b) => a + b, 0);
+                    ma5Data.push({ time: prices[i].date, value: sum5 / 5 });
+                }
+                if (i >= 19) {
+                    const sum20 = closes.slice(i - 19, i + 1).reduce((a, b) => a + b, 0);
+                    ma20Data.push({ time: prices[i].date, value: sum20 / 20 });
+                }
+                if (i >= 59) {
+                    const sum60 = closes.slice(i - 59, i + 1).reduce((a, b) => a + b, 0);
+                    ma60Data.push({ time: prices[i].date, value: sum60 / 60 });
+                }
+            }
+
+            const foreignData = flows.map(f => ({
+                time: f.date,
+                value: f.foreign_net,
+                color: f.foreign_net >= 0 ? 'rgba(33, 150, 243, 0.7)' : 'rgba(244, 67, 54, 0.7)',
+            }));
+
+            const trustData = flows.map(f => ({
+                time: f.date,
+                value: f.trust_net,
+            }));
+
+            priceSeries.setData(candleData);
+            volumeSeries.setData(volumeData);
+            ma5Series.setData(ma5Data);
+            ma20Series.setData(ma20Data);
+            ma60Series.setData(ma60Data);
+            foreignSeries.setData(foreignData);
+            trustSeries.setData(trustData);
+
+            // Sync time scales
+            priceChart.timeScale().fitContent();
+            volumeChart.timeScale().fitContent();
+            flowChart.timeScale().fitContent();
+
+            // Sync scroll
+            priceChart.timeScale().subscribeVisibleLogicalRangeChange(range => {
+                if (range) {
+                    volumeChart.timeScale().setVisibleLogicalRange(range);
+                }
+            });
+        }
+
+        function renderSignals(signals) {
+            const container = document.getElementById('signals');
+
+            if (!signals || signals.length === 0) {
+                container.innerHTML = '<div style="color:#888;text-align:center;padding:20px;">目前無明確訊號</div>';
+                return;
+            }
+
+            const icons = {
+                bullish: '📈',
+                bearish: '📉',
+                neutral: '⚡',
+            };
+
+            container.innerHTML = signals.map(s => `
+                <div class="signal ${s.type}">
+                    <span class="signal-icon">${icons[s.type]}</span>
+                    <div class="signal-content">
+                        <div class="signal-source">${s.source}</div>
+                        <div class="signal-message">${s.message}</div>
+                    </div>
+                    <span class="signal-strength">${s.strength === 'high' ? '強' : '中'}</span>
+                </div>
+            `).join('');
+        }
+
+        function renderTechnicals(technicals) {
+            const container = document.getElementById('technicals');
+            const ma = technicals.ma;
+            const rsi = technicals.rsi;
+
+            container.innerHTML = `
+                <div class="tech-item">
+                    <div class="tech-label">MA5</div>
+                    <div class="tech-value">${ma.ma5 ? ma.ma5.toFixed(1) : '-'}</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-label">MA20</div>
+                    <div class="tech-value">${ma.ma20 ? ma.ma20.toFixed(1) : '-'}</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-label">MA60</div>
+                    <div class="tech-value">${ma.ma60 ? ma.ma60.toFixed(1) : '-'}</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-label">RSI(14)</div>
+                    <div class="tech-value ${rsi > 70 ? 'negative' : rsi < 30 ? 'positive' : ''}">${rsi ? rsi : '-'}</div>
+                </div>
+            `;
+        }
+
+        function renderLevels(sr) {
+            const container = document.getElementById('levels');
+
+            if (!sr.resistances.length && !sr.supports.length) {
+                container.innerHTML = '<div style="color:#888;text-align:center;">資料不足</div>';
+                return;
+            }
+
+            let html = '';
+
+            sr.resistances.forEach((r, i) => {
+                html += `<div class="level resistance">
+                    <span>壓力 ${i + 1}</span>
+                    <span>${r.toFixed(1)}</span>
+                </div>`;
+            });
+
+            if (sr.pivot) {
+                html += `<div class="level pivot">
+                    <span>樞軸點</span>
+                    <span>${sr.pivot}</span>
+                </div>`;
+            }
+
+            sr.supports.reverse().forEach((s, i) => {
+                html += `<div class="level support">
+                    <span>支撐 ${i + 1}</span>
+                    <span>${s.toFixed(1)}</span>
+                </div>`;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function renderFlowSummary(inst) {
+            const container = document.getElementById('flow-summary');
+
+            container.innerHTML = `
+                <div class="flow-item">
+                    <div class="flow-label">外資 5日</div>
+                    <div class="flow-value ${inst.foreign_5d >= 0 ? 'positive' : 'negative'}">
+                        ${inst.foreign_5d !== null ? (inst.foreign_5d >= 0 ? '+' : '') + inst.foreign_5d.toLocaleString() : '-'} 張
+                    </div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-label">外資 20日</div>
+                    <div class="flow-value ${inst.foreign_20d >= 0 ? 'positive' : 'negative'}">
+                        ${inst.foreign_20d !== null ? (inst.foreign_20d >= 0 ? '+' : '') + inst.foreign_20d.toLocaleString() : '-'} 張
+                    </div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-label">投信 5日</div>
+                    <div class="flow-value ${inst.trust_5d >= 0 ? 'positive' : 'negative'}">
+                        ${inst.trust_5d !== null ? (inst.trust_5d >= 0 ? '+' : '') + inst.trust_5d.toLocaleString() : '-'} 張
+                    </div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-label">投信 20日</div>
+                    <div class="flow-value ${inst.trust_20d >= 0 ? 'positive' : 'negative'}">
+                        ${inst.trust_20d !== null ? (inst.trust_20d >= 0 ? '+' : '') + inst.trust_20d.toLocaleString() : '-'} 張
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderBrokers(brokers, side = 'buy') {
+            const container = document.getElementById('broker-data');
+
+            if (!brokers) {
+                container.innerHTML = '<div style="color:#888;text-align:center;padding:20px;">無券商資料</div>';
+                return;
+            }
+
+            const data = side === 'buy' ? brokers.top_buyers : brokers.top_sellers;
+
+            if (!data || data.length === 0) {
+                container.innerHTML = `<div style="color:#888;text-align:center;padding:20px;">無${side === 'buy' ? '買超' : '賣超'}資料</div>`;
+                return;
+            }
+
+            container.innerHTML = `
+                <table class="broker-table">
+                    <thead>
+                        <tr>
+                            <th>券商</th>
+                            <th>買</th>
+                            <th>賣</th>
+                            <th>淨額</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.slice(0, 8).map(b => `
+                            <tr>
+                                <td>${b.name}</td>
+                                <td>${b.buy.toLocaleString()}</td>
+                                <td>${b.sell.toLocaleString()}</td>
+                                <td class="${b.net >= 0 ? 'positive' : 'negative'}">${b.net >= 0 ? '+' : ''}${b.net.toLocaleString()}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // Clear and re-render charts with new data
+        function refreshCharts(analysis) {
+            // Destroy existing charts
+            if (priceChart) {
+                priceChart.remove();
+                priceChart = null;
+            }
+            if (volumeChart) {
+                volumeChart.remove();
+                volumeChart = null;
+            }
+            if (flowChart) {
+                flowChart.remove();
+                flowChart = null;
+            }
+
+            // Clear containers
+            document.getElementById('price-chart').innerHTML = '';
+            document.getElementById('volume-chart').innerHTML = '';
+            document.getElementById('flow-chart').innerHTML = '';
+
+            // Re-render
+            createCharts(analysis);
+            renderSignals(analysis.signals);
+            renderTechnicals(analysis.technicals);
+            renderLevels(analysis.technicals.support_resistance);
+            renderFlowSummary(analysis.institutional);
+        }
+
+        async function loadDataForRange(startDate, endDate) {
+            const btn = document.getElementById('apply-range-btn');
+            btn.disabled = true;
+            btn.textContent = '載入中...';
+
+            const data = await fetchData(startDate, endDate);
+
+            btn.disabled = false;
+            btn.textContent = '查詢';
+
+            if (data) {
+                // Clear quick btn active state
+                document.querySelectorAll('.quick-range-btn').forEach(b => b.classList.remove('active'));
+
+                // Update UI
+                updateQueryInfo(data.analysis.query_range);
+                const warnings = checkDataSufficiency(data.analysis);
+                document.getElementById('data-warning').style.display = 'none';
+                showDataWarning(warnings);
+                renderHeader(data.analysis);
+                refreshCharts(data.analysis);
+            } else {
+                alert('無法載入該時間區間的資料');
+            }
+        }
+
+        async function init() {
+            // First, fetch available date range
+            availableDateRange = await fetchDateRange();
+
+            // Initialize date selectors
+            if (availableDateRange && availableDateRange.has_data) {
+                initDateSelectors(availableDateRange.min_date, availableDateRange.max_date);
+            } else {
+                initDateSelectors(null, null);
+            }
+
+            // Load initial data (default 90 days)
+            const data = await fetchData();
+
+            if (!data) {
+                document.querySelector('.container').innerHTML =
+                    '<div class="error">無法載入股票資料，請確認股票代碼是否正確</div>';
+                return;
+            }
+
+            const { analysis, brokers } = data;
+            currentBrokers = brokers;
+
+            // Update query info
+            updateQueryInfo(analysis.query_range);
+
+            // Check data sufficiency and show warnings
+            const warnings = checkDataSufficiency(analysis);
+            showDataWarning(warnings);
+
+            renderHeader(analysis);
+            createCharts(analysis);
+            renderSignals(analysis.signals);
+            renderTechnicals(analysis.technicals);
+            renderLevels(analysis.technicals.support_resistance);
+            renderFlowSummary(analysis.institutional);
+            renderBrokers(brokers, 'buy');
+
+            // Tab handlers
+            document.querySelectorAll('.tabs .tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    renderBrokers(currentBrokers, tab.dataset.side);
+                });
+            });
+
+            // Quick range button handler
+            document.querySelectorAll('.quick-range-btn').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    document.querySelectorAll('.quick-range-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // Load default (last 90 days)
+                    const data = await fetchData();
+                    if (data) {
+                        updateQueryInfo(data.analysis.query_range);
+                        const warnings = checkDataSufficiency(data.analysis);
+                        document.getElementById('data-warning').style.display = 'none';
+                        showDataWarning(warnings);
+                        renderHeader(data.analysis);
+                        refreshCharts(data.analysis);
+                    }
+                });
+            });
+
+            // Apply range button handler
+            document.getElementById('apply-range-btn').addEventListener('click', () => {
+                const { startDate, endDate } = getSelectedDateRange();
+
+                if (!validateDateRange(startDate, endDate)) {
+                    alert('時間區間不能超過3個月（92天）');
+                    return;
+                }
+
+                if (new Date(startDate) > new Date(endDate)) {
+                    alert('開始時間不能晚於結束時間');
+                    return;
+                }
+
+                loadDataForRange(startDate, endDate);
+            });
+        }
+
+        init();
+    </script>
+</body>
+</html>

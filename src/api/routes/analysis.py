@@ -1,4 +1,5 @@
 """Stock analysis routes - Detailed technical and institutional analysis."""
+import math
 from datetime import date, timedelta
 from typing import Optional, List
 from fastapi import APIRouter, Depends, HTTPException, Query
@@ -7,6 +8,19 @@ from sqlalchemy.orm import Session
 import statistics
 
 from src.api.dependencies import get_db
+
+
+def safe_float(value, default=None):
+    """Convert to float safely, handling NaN and Infinity."""
+    if value is None:
+        return default
+    try:
+        f = float(value)
+        if math.isnan(f) or math.isinf(f):
+            return default
+        return round(f, 2)
+    except (ValueError, TypeError):
+        return default
 
 router = APIRouter()
 
@@ -27,30 +41,34 @@ def calculate_support_resistance(prices: List[dict], window: int = 20) -> dict:
         return {"supports": [], "resistances": []}
 
     # Classic Pivot Points
-    pivot = (max(highs) + min(lows) + closes[-1]) / 3
-    r1 = 2 * pivot - min(lows)
-    r2 = pivot + (max(highs) - min(lows))
-    s1 = 2 * pivot - max(highs)
-    s2 = pivot - (max(highs) - min(lows))
+    pivot = safe_float((max(highs) + min(lows) + closes[-1]) / 3, 0)
+    r1 = safe_float(2 * pivot - min(lows), 0)
+    r2 = safe_float(pivot + (max(highs) - min(lows)), 0)
+    s1 = safe_float(2 * pivot - max(highs), 0)
+    s2 = safe_float(pivot - (max(highs) - min(lows)), 0)
 
     # Recent swing highs/lows
     swing_highs = []
     swing_lows = []
     for i in range(2, len(prices) - 2):
-        if prices[i]["high"] and prices[i-1]["high"] and prices[i-2]["high"]:
-            if prices[i]["high"] > prices[i-1]["high"] and prices[i]["high"] > prices[i+1]["high"]:
-                if prices[i]["high"] > prices[i-2]["high"] and prices[i]["high"] > prices[i+2]["high"]:
-                    swing_highs.append(prices[i]["high"])
-        if prices[i]["low"] and prices[i-1]["low"] and prices[i-2]["low"]:
-            if prices[i]["low"] < prices[i-1]["low"] and prices[i]["low"] < prices[i+1]["low"]:
-                if prices[i]["low"] < prices[i-2]["low"] and prices[i]["low"] < prices[i+2]["low"]:
-                    swing_lows.append(prices[i]["low"])
+        # Check all 5 values exist for high comparison
+        h = [prices[j]["high"] for j in range(i-2, i+3)]
+        if all(v is not None for v in h):
+            if h[2] > h[1] and h[2] > h[3] and h[2] > h[0] and h[2] > h[4]:
+                swing_highs.append(h[2])
+        # Check all 5 values exist for low comparison
+        l = [prices[j]["low"] for j in range(i-2, i+3)]
+        if all(v is not None for v in l):
+            if l[2] < l[1] and l[2] < l[3] and l[2] < l[0] and l[2] < l[4]:
+                swing_lows.append(l[2])
 
-    # Combine and deduplicate levels
-    resistances = sorted(set([round(r1, 1), round(r2, 1)] + [round(h, 1) for h in swing_highs[-3:]]), reverse=True)[:3]
-    supports = sorted(set([round(s1, 1), round(s2, 1)] + [round(l, 1) for l in swing_lows[-3:]]))[:3]
+    # Combine and deduplicate levels (filter out None/0 values)
+    r_values = [v for v in [r1, r2] + swing_highs[-3:] if v and v > 0]
+    s_values = [v for v in [s1, s2] + swing_lows[-3:] if v and v > 0]
+    resistances = sorted(set([round(v, 1) for v in r_values]), reverse=True)[:3]
+    supports = sorted(set([round(v, 1) for v in s_values]))[:3]
 
-    current_price = closes[-1] if closes else 0
+    current_price = safe_float(closes[-1], 0) if closes else 0
 
     # Filter to only relevant levels
     resistances = [r for r in resistances if r > current_price][:3]
@@ -70,7 +88,7 @@ def calculate_moving_averages(prices: List[dict]) -> dict:
     def ma(data, period):
         if len(data) < period:
             return None
-        return round(sum(data[-period:]) / period, 2)
+        return safe_float(sum(data[-period:]) / period)
 
     return {
         "ma5": ma(closes, 5),
@@ -105,11 +123,11 @@ def calculate_rsi(prices: List[dict], period: int = 14) -> Optional[float]:
     avg_loss = sum(losses[-period:]) / period
 
     if avg_loss == 0:
-        return 100
+        return 100.0
 
     rs = avg_gain / avg_loss
     rsi = 100 - (100 / (1 + rs))
-    return round(rsi, 1)
+    return safe_float(rsi, 50.0)
 
 
 def calculate_macd(prices: List[dict]) -> dict:
@@ -136,7 +154,7 @@ def calculate_macd(prices: List[dict]) -> dict:
     # Calculate signal line (9-day EMA of MACD)
     # Simplified: just return current MACD
     return {
-        "macd": round(macd_line, 2),
+        "macd": safe_float(macd_line),
         "signal": None,  # Would need full MACD history
         "histogram": None,
     }
@@ -289,10 +307,10 @@ def get_stock_analysis(
 
     prices = [{
         "date": str(row.trade_date),
-        "open": float(row.open_price) if row.open_price else None,
-        "high": float(row.high_price) if row.high_price else None,
-        "low": float(row.low_price) if row.low_price else None,
-        "close": float(row.close_price) if row.close_price else None,
+        "open": safe_float(row.open_price),
+        "high": safe_float(row.high_price),
+        "low": safe_float(row.low_price),
+        "close": safe_float(row.close_price),
         "volume": int(row.volume) if row.volume else 0,
     } for row in price_rows]
 
@@ -331,9 +349,9 @@ def get_stock_analysis(
     current_price = prices[-1]["close"] if prices else None
     price_change = None
     price_change_pct = None
-    if len(prices) >= 2 and prices[-1]["close"] and prices[-2]["close"]:
-        price_change = round(prices[-1]["close"] - prices[-2]["close"], 2)
-        price_change_pct = round((price_change / prices[-2]["close"]) * 100, 2)
+    if len(prices) >= 2 and prices[-1]["close"] and prices[-2]["close"] and prices[-2]["close"] != 0:
+        price_change = safe_float(prices[-1]["close"] - prices[-2]["close"])
+        price_change_pct = safe_float((price_change / prices[-2]["close"]) * 100) if price_change else None
 
     # Institutional summary
     foreign_5d = sum(f["foreign_net"] for f in flows[-5:]) if len(flows) >= 5 else None
@@ -382,29 +400,30 @@ def get_stock_analysis(
 @router.get("/{stock_code}/brokers")
 def get_stock_brokers(
     stock_code: str,
-    days: int = 5,
+    days: int = Query(10, description="Days of broker data to fetch (default 10)"),
     db: Session = Depends(get_db),
 ):
-    """Get broker trading data for a stock."""
+    """Get broker trading data for a stock (last N days)."""
 
     # Get stock info
-    stock_query = text("SELECT id FROM stocks WHERE code = :code")
+    stock_query = text("SELECT id, name FROM stocks WHERE code = :code")
     stock_result = db.execute(stock_query, {"code": stock_code}).fetchone()
 
     if not stock_result:
         raise HTTPException(status_code=404, detail=f"Stock {stock_code} not found")
 
     stock_id = stock_result.id
+    stock_name = stock_result.name
 
-    # Get broker data
+    # Get broker data for the last N days
     broker_query = text("""
         SELECT trade_date, broker_name, broker_id, buy_vol, sell_vol, net_vol, pct
         FROM broker_trades
         WHERE stock_id = :stock_id
+          AND trade_date >= CURRENT_DATE - :days
         ORDER BY trade_date DESC, ABS(net_vol) DESC
-        LIMIT 50
     """)
-    broker_rows = db.execute(broker_query, {"stock_id": stock_id}).fetchall()
+    broker_rows = db.execute(broker_query, {"stock_id": stock_id, "days": days}).fetchall()
 
     brokers = [{
         "date": str(row.trade_date),
@@ -413,22 +432,32 @@ def get_stock_brokers(
         "buy": row.buy_vol,
         "sell": row.sell_vol,
         "net": row.net_vol,
-        "pct": float(row.pct) if row.pct else 0,
+        "pct": safe_float(row.pct, 0),
     } for row in broker_rows]
 
-    # Group by date
+    # Group by date with sorted dates
     by_date = {}
     for b in brokers:
         d = b["date"]
         if d not in by_date:
-            by_date[d] = {"buy": [], "sell": []}
+            by_date[d] = {"date": d, "buy": [], "sell": []}
         if b["net"] > 0:
             by_date[d]["buy"].append(b)
         else:
             by_date[d]["sell"].append(b)
 
+    # Get date range
+    dates = sorted(by_date.keys(), reverse=True)
+    date_range = {
+        "start_date": dates[-1] if dates else None,
+        "end_date": dates[0] if dates else None,
+        "total_days": len(dates),
+    }
+
     return {
         "stock_code": stock_code,
+        "stock_name": stock_name,
+        "date_range": date_range,
         "broker_data": by_date,
         "top_buyers": sorted([b for b in brokers if b["net"] > 0], key=lambda x: x["net"], reverse=True)[:10],
         "top_sellers": sorted([b for b in brokers if b["net"] < 0], key=lambda x: x["net"])[:10],

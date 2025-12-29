@@ -20,5 +20,5 @@ RUN playwright install chromium --with-deps
 # Copy application code
 COPY src/ /app/src/
 
-# ETL entry point - runs the full ETL pipeline
-CMD ["python", "-m", "src.etl.run_all"]
+# ETL entry point - runs all ETL tasks (main + broker)
+CMD ["python", "-m", "src.etl.run_cloud"]

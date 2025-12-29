@@ -1,0 +1,80 @@
+steps:
+  # Build API image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'asia-east1-docker.pkg.dev/$PROJECT_ID/tw-stocker/api:$SHORT_SHA'
+      - '-t'
+      - 'asia-east1-docker.pkg.dev/$PROJECT_ID/tw-stocker/api:latest'
+      - '-f'
+      - 'gcp/Dockerfile.api'
+      - '.'
+
+  # Build ETL image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'asia-east1-docker.pkg.dev/$PROJECT_ID/tw-stocker/etl:$SHORT_SHA'
+      - '-t'
+      - 'asia-east1-docker.pkg.dev/$PROJECT_ID/tw-stocker/etl:latest'
+      - '-f'
+      - 'gcp/Dockerfile.etl'
+      - '.'
+
+  # Push API image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'asia-east1-docker.pkg.dev/$PROJECT_ID/tw-stocker/api:$SHORT_SHA'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'asia-east1-docker.pkg.dev/$PROJECT_ID/tw-stocker/api:latest'
+
+  # Push ETL image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'asia-east1-docker.pkg.dev/$PROJECT_ID/tw-stocker/etl:$SHORT_SHA'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'asia-east1-docker.pkg.dev/$PROJECT_ID/tw-stocker/etl:latest'
+
+  # Deploy API to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'tw-stocker-api'
+      - '--image=asia-east1-docker.pkg.dev/$PROJECT_ID/tw-stocker/api:$SHORT_SHA'
+      - '--region=asia-east1'
+      - '--platform=managed'
+
+  # Update ETL Job
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'jobs'
+      - 'update'
+      - 'tw-stocker-etl'
+      - '--image=asia-east1-docker.pkg.dev/$PROJECT_ID/tw-stocker/etl:$SHORT_SHA'
+      - '--region=asia-east1'
+
+images:
+  - 'asia-east1-docker.pkg.dev/$PROJECT_ID/tw-stocker/api:$SHORT_SHA'
+  - 'asia-east1-docker.pkg.dev/$PROJECT_ID/tw-stocker/api:latest'
+  - 'asia-east1-docker.pkg.dev/$PROJECT_ID/tw-stocker/etl:$SHORT_SHA'
+  - 'asia-east1-docker.pkg.dev/$PROJECT_ID/tw-stocker/etl:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: 'E2_HIGHCPU_8'
+
+timeout: '1800s'

@@ -536,7 +536,7 @@
             </div>
 
             <div class="card">
-                <div class="card-title">券商分點</div>
+                <div class="card-title" id="broker-title">券商分點</div>
                 <div class="tabs">
                     <button class="tab active" data-side="buy">買超</button>
                     <button class="tab" data-side="sell">賣超</button>
@@ -977,10 +977,24 @@
 
         function renderBrokers(brokers, side = 'buy') {
             const container = document.getElementById('broker-data');
+            const titleEl = document.getElementById('broker-title');
 
             if (!brokers) {
+                titleEl.textContent = '券商分點';
                 container.innerHTML = '<div style="color:#888;text-align:center;padding:20px;">無券商資料</div>';
                 return;
+            }
+
+            // Update title with date range
+            if (brokers.date_range) {
+                const { start_date, end_date, total_days } = brokers.date_range;
+                if (start_date === end_date) {
+                    titleEl.textContent = `券商分點 (${start_date})`;
+                } else {
+                    titleEl.textContent = `券商分點 (${start_date} ~ ${end_date}, ${total_days}天)`;
+                }
+            } else {
+                titleEl.textContent = '券商分點';
             }
 
             const data = side === 'buy' ? brokers.top_buyers : brokers.top_sellers;

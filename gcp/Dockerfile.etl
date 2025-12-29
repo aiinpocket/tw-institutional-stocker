@@ -1,0 +1,24 @@
+# Cloud Run Jobs ETL Dockerfile
+FROM python:3.11-slim
+
+# Install system dependencies for Playwright
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    gnupg \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy requirements
+COPY requirements-etl.txt .
+RUN pip install --no-cache-dir -r requirements-etl.txt
+
+# Install Playwright browsers (for broker scraping)
+RUN playwright install chromium --with-deps
+
+# Copy application code
+COPY src/ /app/src/
+
+# ETL entry point - runs the full ETL pipeline
+CMD ["python", "-m", "src.etl.run_all"]

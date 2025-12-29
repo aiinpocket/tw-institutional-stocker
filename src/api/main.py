@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, RedirectResponse
 import os
 
 from src.api.routes import stocks, institutional, prices, rankings, brokers, strategy, analysis
@@ -66,9 +66,5 @@ def health_check():
 
 @app.get("/")
 def root():
-    """Root endpoint."""
-    return {
-        "name": "Taiwan Stock Institutional Tracker API",
-        "version": "2.0.0",
-        "docs": "/docs",
-    }
+    """Redirect to dashboard."""
+    return RedirectResponse(url="/dashboard")

@@ -31,13 +31,15 @@
 │  Cloud SQL  │   ETL Job       │      FastAPI API            │
 │ (PostgreSQL)│  (每日排程)      │     (REST 服務)             │
 │             │                 │                             │
-│  - stocks   │  每日 08:30 抓取:│  GET /api/v1/stocks        │
+│  - stocks   │ 週一至週五 21:30 │  GET /api/v1/stocks        │
 │  - flows    │  - 三大法人      │  GET /api/v1/prices        │
 │  - holdings │  - 外資持股      │  GET /api/v1/rankings      │
 │  - prices   │  - 股價成交量    │  GET /api/v1/analysis      │
 │  - brokers  │  - 券商分點      │  GET /stock/{code}         │
 └─────────────┴─────────────────┴─────────────────────────────┘
 ```
+
+> **ETL 排程**：週一至週五 21:30（台北時間），收盤後自動擷取當日資料。
 
 ## 快速開始
 

@@ -2,13 +2,92 @@
 
 This script fetches broker trading data from Fubon e-Broker website
 and stores it in PostgreSQL.
+
+Waits for Main ETL to complete before starting (dependency check).
 """
 import argparse
-from datetime import datetime, date
+import time
+from datetime import datetime, date, timedelta
 from zoneinfo import ZoneInfo
 
+from sqlalchemy import text
+
+from src.common.database import get_db_session
 from src.etl.fetchers.broker import fetch_multiple_stocks, close_browser
 from src.etl.loaders.db_loader import upsert_broker_trades
+
+
+def wait_for_main_etl(max_wait_minutes: int = 30, check_interval: int = 30) -> bool:
+    """等待 Main ETL 完成後才開始執行。
+
+    Args:
+        max_wait_minutes: 最長等待時間（分鐘）
+        check_interval: 檢查間隔（秒）
+
+    Returns:
+        True 表示可以繼續執行，False 表示應該跳過
+    """
+    print("[INFO] 檢查 Main ETL 狀態...")
+
+    max_wait_seconds = max_wait_minutes * 60
+    waited = 0
+
+    while waited < max_wait_seconds:
+        try:
+            with get_db_session() as session:
+                query = text("""
+                    SELECT status_value, message, completed_at, updated_at
+                    FROM system_status
+                    WHERE status_key = 'etl_status'
+                """)
+                result = session.execute(query).fetchone()
+
+                if not result:
+                    print("  [WARN] 找不到 ETL 狀態記錄，直接執行")
+                    return True
+
+                status = result.status_value
+                message = result.message
+                completed_at = result.completed_at
+
+                if status == "running":
+                    print(f"  [WAIT] Main ETL 執行中: {message}，等待 {check_interval} 秒...")
+                    time.sleep(check_interval)
+                    waited += check_interval
+                    continue
+
+                if status == "completed":
+                    # 檢查是否是今天完成的
+                    if completed_at:
+                        taipei_tz = ZoneInfo("Asia/Taipei")
+                        today = datetime.now(taipei_tz).date()
+                        completed_date = completed_at.date() if hasattr(completed_at, 'date') else completed_at
+
+                        if completed_date == today:
+                            print(f"  [OK] Main ETL 今日已完成: {message}")
+                            return True
+                        else:
+                            print(f"  [WARN] Main ETL 完成時間為 {completed_date}，非今日，直接執行")
+                            return True
+                    else:
+                        print(f"  [OK] Main ETL 已完成: {message}")
+                        return True
+
+                if status == "error":
+                    print(f"  [WARN] Main ETL 執行失敗: {message}")
+                    print("  [INFO] 仍然繼續執行 Broker ETL（可能使用舊的股票資料）")
+                    return True
+
+                # 其他狀態（idle 等）
+                print(f"  [INFO] Main ETL 狀態: {status}，直接執行")
+                return True
+
+        except Exception as e:
+            print(f"  [WARN] 檢查 ETL 狀態失敗: {e}，直接執行")
+            return True
+
+    print(f"  [TIMEOUT] 等待 Main ETL 超過 {max_wait_minutes} 分鐘，跳過本次執行")
+    return False
 
 
 # Hot stocks to track by default
@@ -76,12 +155,13 @@ def get_taipei_today() -> date:
     return datetime.now(tz).date()
 
 
-def run_broker_etl(stock_list: list[str] = None, delay: float = 1.5):
+def run_broker_etl(stock_list: list[str] = None, delay: float = 1.5, skip_wait: bool = False):
     """Run broker data ETL.
 
     Args:
         stock_list: List of stock codes to fetch (default: HOT_STOCKS)
         delay: Delay between requests in seconds
+        skip_wait: Skip waiting for Main ETL (for manual runs)
     """
     if stock_list is None:
         stock_list = HOT_STOCKS
@@ -89,6 +169,12 @@ def run_broker_etl(stock_list: list[str] = None, delay: float = 1.5):
     print("=" * 60)
     print("Taiwan Stock Tracker - Broker Data ETL")
     print("=" * 60)
+
+    # 檢查 Main ETL 是否完成（排程執行時）
+    if not skip_wait:
+        if not wait_for_main_etl():
+            print("\n[SKIP] Broker ETL 因 Main ETL 未完成而跳過")
+            return
 
     today = get_taipei_today()
     print(f"\n[INFO] Trade date: {today}")
@@ -142,6 +228,11 @@ def main():
         nargs="+",
         help="Specific stock codes to fetch"
     )
+    parser.add_argument(
+        "--skip-wait",
+        action="store_true",
+        help="Skip waiting for Main ETL to complete (for manual runs)"
+    )
 
     args = parser.parse_args()
 
@@ -159,7 +250,7 @@ def main():
     else:
         stock_list = HOT_STOCKS
 
-    run_broker_etl(stock_list=stock_list, delay=args.delay)
+    run_broker_etl(stock_list=stock_list, delay=args.delay, skip_wait=args.skip_wait)
 
 
 if __name__ == "__main__":

@@ -99,6 +99,36 @@ def get_correlation_rankings(
     }
 
 
+@router.get("/below-cost-rankings")
+def get_below_cost_rankings(
+    db: Session = Depends(get_db),
+):
+    """
+    取得現價低於三大法人三個月平均成本的股票。
+    顯示折價幅度最大的股票，按股價區間分類。
+    """
+    rows = get_rankings_from_cache(db, "below_cost")
+
+    rankings = {"high": [], "mid": [], "low": []}
+
+    for row in rows:
+        tier = row.price_tier
+        if tier in rankings:
+            rankings[tier].append({
+                "code": row.code,
+                "name": row.name,
+                "current_price": safe_float(row.current_price, None),
+                "avg_cost": safe_float(row.avg_return, None),  # 借用欄位
+                "discount_pct": safe_float(row.win_rate, None),  # 借用欄位
+                "buy_days": row.signal_count or 0,  # 借用欄位
+            })
+
+    return {
+        "description": "現價低於法人三個月平均成本",
+        "rankings": rankings,
+    }
+
+
 @router.get("/summary")
 def get_strategy_summary(db: Session = Depends(get_db)):
     """Get summary of all strategy rankings for display. Uses pre-computed data."""
@@ -110,6 +140,9 @@ def get_strategy_summary(db: Session = Depends(get_db)):
 
     corr_data = get_correlation_rankings(db=db)
     results["correlation"] = corr_data["rankings"]
+
+    below_cost_data = get_below_cost_rankings(db=db)
+    results["below_cost"] = below_cost_data["rankings"]
 
     return results
 

@@ -176,6 +176,99 @@ def compute_correlation_rankings(db, min_data_points: int = 5):
     return result.rowcount
 
 
+def compute_below_cost_rankings(db, lookback_days: int = 60):
+    """
+    Compute stocks where current price is below institutional 3-month average cost.
+
+    Average cost = Σ(net_buy * close_price) / Σ(net_buy) for days where net > 0
+    """
+    metric_type = "below_cost"
+    logger.info(f"Computing {metric_type}...")
+
+    db.execute(text("DELETE FROM strategy_rankings WHERE metric_type = :metric_type"),
+               {"metric_type": metric_type})
+
+    query = text("""
+    WITH latest_prices AS (
+        SELECT DISTINCT ON (stock_id)
+            stock_id,
+            close_price,
+            trade_date
+        FROM stock_prices
+        ORDER BY stock_id, trade_date DESC
+    ),
+    -- 計算三大法人合計淨買超
+    inst_flows AS (
+        SELECT
+            f.stock_id,
+            f.trade_date,
+            f.foreign_net + f.trust_net + f.dealer_net as total_net,
+            p.close_price
+        FROM institutional_flows f
+        JOIN stock_prices p ON f.stock_id = p.stock_id AND f.trade_date = p.trade_date
+        WHERE f.trade_date >= CURRENT_DATE - :lookback_days
+          AND p.close_price > 0
+    ),
+    -- 只計算淨買入日的加權平均成本
+    cost_calc AS (
+        SELECT
+            stock_id,
+            SUM(CASE WHEN total_net > 0 THEN total_net * close_price ELSE 0 END) as weighted_cost,
+            SUM(CASE WHEN total_net > 0 THEN total_net ELSE 0 END) as total_shares,
+            COUNT(CASE WHEN total_net > 0 THEN 1 END) as buy_days
+        FROM inst_flows
+        GROUP BY stock_id
+        HAVING SUM(CASE WHEN total_net > 0 THEN total_net ELSE 0 END) > 0
+    ),
+    -- 計算平均成本與現價差距
+    below_cost AS (
+        SELECT
+            c.stock_id,
+            lp.close_price as current_price,
+            ROUND(c.weighted_cost / c.total_shares, 2) as avg_cost,
+            c.buy_days,
+            c.total_shares,
+            ROUND((lp.close_price - c.weighted_cost / c.total_shares) / (c.weighted_cost / c.total_shares) * 100, 2) as discount_pct,
+            CASE
+                WHEN lp.close_price >= 500 THEN 'high'
+                WHEN lp.close_price >= 200 THEN 'mid'
+                ELSE 'low'
+            END as price_tier
+        FROM cost_calc c
+        JOIN latest_prices lp ON c.stock_id = lp.stock_id
+        WHERE lp.close_price < (c.weighted_cost / c.total_shares)  -- 現價低於平均成本
+          AND c.buy_days >= 3  -- 至少有3天買進記錄
+    ),
+    ranked AS (
+        SELECT
+            *,
+            ROW_NUMBER() OVER (PARTITION BY price_tier ORDER BY discount_pct ASC) as rank
+        FROM below_cost
+    )
+    INSERT INTO strategy_rankings (
+        stock_id, price_tier, metric_type,
+        avg_return, win_rate, signal_count, current_price, rank_in_tier
+    )
+    SELECT
+        stock_id, price_tier, :metric_type,
+        avg_cost,       -- 借用 avg_return 欄位存平均成本
+        discount_pct,   -- 借用 win_rate 欄位存折價率
+        buy_days,       -- 借用 signal_count 欄位存買進天數
+        current_price,
+        rank
+    FROM ranked
+    WHERE rank <= 15
+    """)
+
+    result = db.execute(query, {
+        "lookback_days": lookback_days,
+        "metric_type": metric_type
+    })
+    db.commit()
+    logger.info(f"  Inserted {result.rowcount} rankings for {metric_type}")
+    return result.rowcount
+
+
 def compute_stock_technicals(db):
     """Compute and store technical indicators for all stocks with sufficient data."""
     logger.info("Computing stock technicals...")
@@ -241,6 +334,9 @@ def run_all_computations(db):
 
     # Correlation rankings
     compute_correlation_rankings(db, min_data_points=5)
+
+    # Below cost rankings (現價低於法人成本)
+    compute_below_cost_rankings(db, lookback_days=60)
 
     # Technical indicators
     compute_stock_technicals(db)

@@ -354,6 +354,7 @@
             <div class="tab" data-tab="win10">勝率 10日</div>
             <div class="tab" data-tab="win30">勝率 30日</div>
             <div class="tab" data-tab="correlation">籌碼相關性</div>
+            <div class="tab" data-tab="belowcost">低於法人成本</div>
         </div>
 
         <div id="content">
@@ -361,7 +362,7 @@
         </div>
 
         <footer>
-            <div>策略說明：外資連續3日買超後，持有N日的報酬與勝率分析</div>
+            <div>策略說明：外資連續3日買超後，持有N日的報酬與勝率分析 | 低於成本：現價低於法人三個月平均買進成本</div>
             <div class="timestamp" id="timestamp"></div>
         </footer>
     </div>
@@ -451,9 +452,63 @@
             }).join('');
         }
 
+        function renderBelowCostTable(data, tier) {
+            if (!data || data.length === 0) {
+                return '<tr><td colspan="5" style="text-align:center;color:#666;">暫無符合條件的股票</td></tr>';
+            }
+
+            return data.map((stock, index) => {
+                const discountPct = stock.discount_pct || 0;
+                return `
+                    <tr onclick="window.location.href='/stock/${stock.code}'">
+                        <td>${index + 1}</td>
+                        <td>
+                            <span class="stock-code">${stock.code}</span>
+                            <span class="stock-name"> ${stock.name}</span>
+                        </td>
+                        <td class="price">${stock.current_price ? stock.current_price.toFixed(1) : '-'}</td>
+                        <td class="price">${stock.avg_cost ? stock.avg_cost.toFixed(1) : '-'}</td>
+                        <td class="negative">
+                            ${discountPct.toFixed(1)}%
+                            <span class="metric-label">${stock.buy_days} 天買超</span>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function getTableTitle(type) {
+            switch(type) {
+                case 'correlation': return '相關係數排行';
+                case 'belowcost': return '低於成本排行';
+                default: return '勝率排行';
+            }
+        }
+
+        function getTableHeaders(type) {
+            switch(type) {
+                case 'correlation':
+                    return '<th>相關性</th>';
+                case 'belowcost':
+                    return '<th>法人成本</th><th>折價幅度</th>';
+                default:
+                    return '<th>報酬</th><th>勝率</th>';
+            }
+        }
+
+        function renderTableBody(data, tier, type) {
+            switch(type) {
+                case 'correlation':
+                    return renderCorrelationTable(data, tier);
+                case 'belowcost':
+                    return renderBelowCostTable(data, tier);
+                default:
+                    return renderWinRateTable(data, tier);
+            }
+        }
+
         function renderGrid(data, type) {
             const tiers = ['high', 'mid', 'low'];
-            const isCorrelation = type === 'correlation';
 
             return `
                 <div class="grid">
@@ -461,7 +516,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <span class="tier-badge ${tierClasses[tier]}">${tierLabels[tier]}</span>
-                                <span class="card-title">${isCorrelation ? '相關係數排行' : '勝率排行'}</span>
+                                <span class="card-title">${getTableTitle(type)}</span>
                             </div>
                             <table>
                                 <thead>
@@ -469,14 +524,11 @@
                                         <th>#</th>
                                         <th>股票</th>
                                         <th>股價</th>
-                                        ${isCorrelation ? '<th>相關性</th>' : '<th>報酬</th><th>勝率</th>'}
+                                        ${getTableHeaders(type)}
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    ${isCorrelation
-                                        ? renderCorrelationTable(data[tier], tier)
-                                        : renderWinRateTable(data[tier], tier)
-                                    }
+                                    ${renderTableBody(data[tier], tier, type)}
                                 </tbody>
                             </table>
                         </div>
@@ -507,6 +559,10 @@
                 case 'correlation':
                     data = cachedData.correlation;
                     type = 'correlation';
+                    break;
+                case 'belowcost':
+                    data = cachedData.below_cost;
+                    type = 'belowcost';
                     break;
             }
 

@@ -172,9 +172,9 @@ date,code,trust_shares_base,dealer_shares_base
 
 ## 致謝
 
-本專案基於 [tw_institutional_stocker](https://github.com/aiinpocket/tw-institutional-stocker) 原始專案進行開發與擴充。
+本專案基於 [voidful/tw-institutional-stocker](https://github.com/voidful/tw-institutional-stocker) 原始專案進行開發與擴充。
 
-原始專案提供了三大法人持股追蹤的核心概念與基礎架構，本專案在此基礎上新增了：
+原始專案由 [voidful](https://github.com/voidful) 開發，提供了三大法人持股追蹤的核心概念與基礎架構，本專案在此基礎上新增了：
 - PostgreSQL 資料庫支援
 - FastAPI REST API 服務
 - 互動式網頁分析介面
@@ -182,7 +182,7 @@ date,code,trust_shares_base,dealer_shares_base
 - 技術指標分析功能
 - GCP Cloud Run 雲端部署
 
-感謝原作者的貢獻！
+感謝原作者 voidful 的貢獻！
 
 ## 免責聲明
 

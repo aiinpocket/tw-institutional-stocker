@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
  - `永遠用繁體中文回答問題`
-Taiwan institutional investor stock holdings tracker (台股三大法人持股比重追蹤). Automated daily ETL pipeline fetching data from TWSE/TPEX, storing in PostgreSQL, and exposing via FastAPI REST API.
+tw-market-tracker 台股市場追蹤系統。台灣股市三大法人持股比重追蹤與分析，提供每日自動化 ETL 資料擷取、REST API 服務、以及互動式網頁分析介面。
 
 ## Commands
 
@@ -51,7 +51,7 @@ playwright install chromium            # For broker scraping
 ### Directory Structure
 
 ```
-tw-institutional-stocker/
+tw-market-tracker/
 ├── docker/
 │   ├── Dockerfile.etl          # ETL worker (Python + Playwright + cron)
 │   ├── Dockerfile.api          # FastAPI server

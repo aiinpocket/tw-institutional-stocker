@@ -129,6 +129,117 @@ def get_below_cost_rankings(
     }
 
 
+@router.get("/consecutive-buying")
+def get_consecutive_buying_rankings(db: Session = Depends(get_db)):
+    """
+    取得外資連續買超排行。
+    顯示外資連續買超天數最多的股票。
+    """
+    rows = get_rankings_from_cache(db, "consecutive_buying")
+
+    rankings = {"high": [], "mid": [], "low": []}
+
+    for row in rows:
+        tier = row.price_tier
+        if tier in rankings:
+            rankings[tier].append({
+                "code": row.code,
+                "name": row.name,
+                "current_price": safe_float(row.current_price, None),
+                "consecutive_days": row.signal_count or 0,
+                "total_net_buy": safe_float(row.avg_return, 0),
+            })
+
+    return {
+        "description": "外資連續買超",
+        "rankings": rankings,
+    }
+
+
+@router.get("/trust-accumulation")
+def get_trust_accumulation_rankings(db: Session = Depends(get_db)):
+    """
+    取得投信認養股排行。
+    顯示投信近期持續加碼的股票。
+    """
+    rows = get_rankings_from_cache(db, "trust_accumulation")
+
+    rankings = {"high": [], "mid": [], "low": []}
+
+    for row in rows:
+        tier = row.price_tier
+        if tier in rankings:
+            rankings[tier].append({
+                "code": row.code,
+                "name": row.name,
+                "current_price": safe_float(row.current_price, None),
+                "buy_days": row.signal_count or 0,
+                "total_trust_net": safe_float(row.avg_return, 0),
+                "buy_ratio": safe_float(row.win_rate, 0),
+            })
+
+    return {
+        "description": "投信認養股",
+        "rankings": rankings,
+    }
+
+
+@router.get("/synchronized-buying")
+def get_synchronized_buying_rankings(db: Session = Depends(get_db)):
+    """
+    取得三大法人同步買超排行。
+    顯示外資、投信、自營商同時買超的股票。
+    """
+    rows = get_rankings_from_cache(db, "synchronized_buying")
+
+    rankings = {"high": [], "mid": [], "low": []}
+
+    for row in rows:
+        tier = row.price_tier
+        if tier in rankings:
+            rankings[tier].append({
+                "code": row.code,
+                "name": row.name,
+                "current_price": safe_float(row.current_price, None),
+                "sync_days": row.signal_count or 0,
+                "total_amount": safe_float(row.avg_return, 0),
+                "foreign_total": safe_float(row.correlation, 0),
+                "trust_total": row.data_points or 0,
+            })
+
+    return {
+        "description": "三大法人同步買超",
+        "rankings": rankings,
+    }
+
+
+@router.get("/price-deviation")
+def get_price_deviation_rankings(db: Session = Depends(get_db)):
+    """
+    取得股價乖離過大排行。
+    顯示股價大幅偏離法人平均成本的股票。
+    """
+    rows = get_rankings_from_cache(db, "price_deviation")
+
+    rankings = {"high": [], "mid": [], "low": []}
+
+    for row in rows:
+        tier = row.price_tier
+        if tier in rankings:
+            rankings[tier].append({
+                "code": row.code,
+                "name": row.name,
+                "current_price": safe_float(row.current_price, None),
+                "avg_cost": safe_float(row.avg_return, None),
+                "deviation_pct": safe_float(row.win_rate, 0),
+            })
+
+    return {
+        "description": "股價乖離過大",
+        "rankings": rankings,
+    }
+
+
 @router.get("/summary")
 def get_strategy_summary(db: Session = Depends(get_db)):
     """Get summary of all strategy rankings for display. Uses pre-computed data."""
@@ -143,6 +254,19 @@ def get_strategy_summary(db: Session = Depends(get_db)):
 
     below_cost_data = get_below_cost_rankings(db=db)
     results["below_cost"] = below_cost_data["rankings"]
+
+    # 新增策略
+    consecutive_data = get_consecutive_buying_rankings(db=db)
+    results["consecutive_buying"] = consecutive_data["rankings"]
+
+    trust_data = get_trust_accumulation_rankings(db=db)
+    results["trust_accumulation"] = trust_data["rankings"]
+
+    sync_data = get_synchronized_buying_rankings(db=db)
+    results["synchronized_buying"] = sync_data["rankings"]
+
+    deviation_data = get_price_deviation_rankings(db=db)
+    results["price_deviation"] = deviation_data["rankings"]
 
     return results
 

@@ -11,6 +11,7 @@ class Stock(Base):
     code = Column(String(10), unique=True, nullable=False, index=True)
     name = Column(String(100), nullable=False)
     market = Column(String(10), nullable=False)  # 'TWSE' or 'TPEX'
+    industry = Column(String(50), index=True)  # 產業別
     total_shares = Column(BigInteger)
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, server_default=func.now())

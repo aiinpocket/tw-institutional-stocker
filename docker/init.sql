@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS stocks (
     code VARCHAR(10) UNIQUE NOT NULL,
     name VARCHAR(100) NOT NULL,
     market VARCHAR(10) NOT NULL CHECK (market IN ('TWSE', 'TPEX')),
+    industry VARCHAR(50),
     total_shares BIGINT,
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -13,6 +14,7 @@ CREATE TABLE IF NOT EXISTS stocks (
 );
 CREATE INDEX IF NOT EXISTS idx_stocks_code ON stocks(code);
 CREATE INDEX IF NOT EXISTS idx_stocks_market ON stocks(market);
+CREATE INDEX IF NOT EXISTS idx_stocks_industry ON stocks(industry);
 
 -- 三大法人每日買賣超
 CREATE TABLE IF NOT EXISTS institutional_flows (

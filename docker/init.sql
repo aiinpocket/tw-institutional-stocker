@@ -112,6 +112,22 @@ CREATE TABLE IF NOT EXISTS institutional_baselines (
     UNIQUE(stock_id, baseline_date)
 );
 
+-- 系統狀態追蹤
+CREATE TABLE IF NOT EXISTS system_status (
+    id SERIAL PRIMARY KEY,
+    status_key VARCHAR(50) UNIQUE NOT NULL,
+    status_value VARCHAR(50) NOT NULL,
+    message TEXT,
+    started_at TIMESTAMP,
+    completed_at TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 初始化 ETL 狀態
+INSERT INTO system_status (status_key, status_value, message)
+VALUES ('etl_status', 'idle', '系統待機中')
+ON CONFLICT (status_key) DO NOTHING;
+
 -- 更新時間觸發器
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$

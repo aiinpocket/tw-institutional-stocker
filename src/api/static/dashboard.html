@@ -336,6 +336,95 @@
                 font-size: 0.85rem;
             }
         }
+
+        /* ETL 狀態橫幅 */
+        .etl-banner {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .etl-banner.running {
+            display: flex;
+            background: linear-gradient(90deg, rgba(241, 196, 15, 0.15), rgba(243, 156, 18, 0.15));
+            border: 1px solid rgba(241, 196, 15, 0.3);
+            color: #f1c40f;
+        }
+
+        .etl-banner.running::before {
+            content: '⏳';
+            font-size: 1.2rem;
+        }
+
+        .etl-spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(241, 196, 15, 0.3);
+            border-top-color: #f1c40f;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Toast 通知 */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease, fadeOut 0.3s ease 4.7s forwards;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+        }
+
+        .toast.success {
+            background: linear-gradient(90deg, rgba(39, 174, 96, 0.95), rgba(46, 204, 113, 0.95));
+            color: white;
+        }
+
+        .toast.error {
+            background: linear-gradient(90deg, rgba(231, 76, 60, 0.95), rgba(192, 57, 43, 0.95));
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -348,6 +437,12 @@
                 <button id="search-btn">查詢</button>
             </div>
         </header>
+
+        <!-- ETL 狀態橫幅 -->
+        <div id="etl-banner" class="etl-banner">
+            <div class="etl-spinner"></div>
+            <span id="etl-message">資料更新中，請稍候...</span>
+        </div>
 
         <div class="tabs">
             <div class="tab active" data-tab="win5">勝率 5日</div>
@@ -623,6 +718,80 @@
             document.getElementById('timestamp').textContent =
                 `最後更新: ${new Date().toLocaleString('zh-TW')}`;
         }, 300000);
+
+        // ========== ETL 狀態監控 ==========
+        let lastEtlStatus = null;
+        let etlPollInterval = null;
+
+        function showToast(message, type = 'success') {
+            // 移除現有的 toast
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) {
+                existingToast.remove();
+            }
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <span>${type === 'success' ? '✅' : '❌'}</span>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(toast);
+
+            // 5秒後自動移除
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.remove();
+                }
+            }, 5000);
+        }
+
+        async function checkEtlStatus() {
+            try {
+                const response = await fetch('/api/v1/system/etl-status');
+                const data = await response.json();
+
+                const banner = document.getElementById('etl-banner');
+                const message = document.getElementById('etl-message');
+
+                if (data.status === 'running') {
+                    banner.classList.add('running');
+                    message.textContent = data.message || '資料更新中，請稍候...';
+                } else {
+                    banner.classList.remove('running');
+
+                    // 如果之前是 running，現在變成 completed，顯示通知
+                    if (lastEtlStatus === 'running' && data.status === 'completed') {
+                        showToast(data.message || '資料已更新完成！', 'success');
+                        // 重新載入資料
+                        await fetchData();
+                        const activeTab = document.querySelector('.tab.active');
+                        if (activeTab) {
+                            showTab(activeTab.dataset.tab);
+                        }
+                        document.getElementById('timestamp').textContent =
+                            `最後更新: ${new Date().toLocaleString('zh-TW')}`;
+                    }
+
+                    if (lastEtlStatus === 'running' && data.status === 'error') {
+                        showToast(data.message || '資料更新失敗', 'error');
+                    }
+                }
+
+                lastEtlStatus = data.status;
+            } catch (error) {
+                console.error('Failed to check ETL status:', error);
+            }
+        }
+
+        // 每 10 秒檢查一次 ETL 狀態
+        function startEtlPolling() {
+            checkEtlStatus(); // 立即檢查一次
+            etlPollInterval = setInterval(checkEtlStatus, 10000);
+        }
+
+        // 頁面載入時開始輪詢
+        startEtlPolling();
     </script>
 </body>
 </html>

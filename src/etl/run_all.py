@@ -35,6 +35,45 @@ from src.etl.processors.holdings import build_estimated_holdings, build_foreign_
 from src.etl.processors.ratios import add_change_metrics
 
 
+def update_etl_status(status: str, message: str, is_start: bool = False, is_end: bool = False):
+    """Update ETL status in database for frontend notification."""
+    from sqlalchemy import text
+    try:
+        with get_db_session() as session:
+            if is_start:
+                query = text("""
+                    INSERT INTO system_status (status_key, status_value, message, started_at, updated_at)
+                    VALUES ('etl_status', :status, :message, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+                    ON CONFLICT (status_key) DO UPDATE SET
+                        status_value = :status,
+                        message = :message,
+                        started_at = CURRENT_TIMESTAMP,
+                        completed_at = NULL,
+                        updated_at = CURRENT_TIMESTAMP
+                """)
+            elif is_end:
+                query = text("""
+                    UPDATE system_status SET
+                        status_value = :status,
+                        message = :message,
+                        completed_at = CURRENT_TIMESTAMP,
+                        updated_at = CURRENT_TIMESTAMP
+                    WHERE status_key = 'etl_status'
+                """)
+            else:
+                query = text("""
+                    UPDATE system_status SET
+                        status_value = :status,
+                        message = :message,
+                        updated_at = CURRENT_TIMESTAMP
+                    WHERE status_key = 'etl_status'
+                """)
+            session.execute(query, {"status": status, "message": message})
+            session.commit()
+    except Exception as e:
+        print(f"[WARN] Failed to update ETL status: {e}")
+
+
 def get_taipei_today() -> date:
     """Get current date in Taipei timezone."""
     tz = ZoneInfo("Asia/Taipei")
@@ -163,6 +202,9 @@ def run_etl():
     print("Taiwan Institutional Stock Tracker - ETL Pipeline")
     print("=" * 60)
 
+    # 更新狀態：開始執行
+    update_etl_status("running", "資料更新中...", is_start=True)
+
     target_date = get_target_trade_date()
     print(f"\n[INFO] Target trade date: {target_date}")
 
@@ -267,6 +309,7 @@ def run_etl():
 
     if flows_data.empty or foreign_data.empty:
         print("  [WARN] Insufficient data for ratio computation")
+        update_etl_status("completed", f"資料更新完成，但無足夠資料計算比率 ({target_date})", is_end=True)
         return
 
     # Build foreign master with forward-fill
@@ -300,10 +343,18 @@ def run_etl():
     except Exception as e:
         print(f"  [WARN] Strategy computation failed: {e}")
 
+    # 更新狀態：完成
+    update_etl_status("completed", f"資料更新完成 ({target_date})", is_end=True)
+
     print("\n" + "=" * 60)
     print("[SUCCESS] ETL pipeline completed!")
     print("=" * 60)
 
 
 if __name__ == "__main__":
-    run_etl()
+    try:
+        run_etl()
+    except Exception as e:
+        # 發生錯誤時更新狀態
+        update_etl_status("error", f"更新失敗: {str(e)[:100]}", is_end=True)
+        raise

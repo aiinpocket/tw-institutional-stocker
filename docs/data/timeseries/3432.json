@@ -537,5 +537,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.86,
     "three_inst_ratio_change_20": -0.010000000000000231
+  },
+  {
+    "date": "2025-12-29",
+    "code": "3432",
+    "name": "台端",
+    "market": "TWSE",
+    "foreign_ratio": 2.86,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.86,
+    "three_inst_ratio_change_20": -0.010000000000000231
   }
 ]

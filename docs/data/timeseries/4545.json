@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 31.34,
     "three_inst_ratio_change_20": -0.129999999999999
+  },
+  {
+    "date": "2025-12-29",
+    "code": "4545",
+    "name": "銘鈺",
+    "market": "TWSE",
+    "foreign_ratio": 31.63,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 31.63,
+    "three_inst_ratio_change_20": 0.16999999999999815
   }
 ]

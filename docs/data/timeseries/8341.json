@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 5.01,
     "three_inst_ratio_change_20": -0.27000000000000046
+  },
+  {
+    "date": "2025-12-29",
+    "code": "8341",
+    "name": "日友",
+    "market": "TWSE",
+    "foreign_ratio": 4.99,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.99,
+    "three_inst_ratio_change_20": -0.29000000000000004
   }
 ]

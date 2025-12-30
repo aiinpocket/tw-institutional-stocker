@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.773206788791464,
     "three_inst_ratio_change_20": -0.07120088504463196
+  },
+  {
+    "date": "2025-12-29",
+    "code": "5007",
+    "name": "三星",
+    "market": "TWSE",
+    "foreign_ratio": 2.85,
+    "trust_ratio": -0.06679321120853554,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.7832067887914644,
+    "three_inst_ratio_change_20": -0.061200885044631725
   }
 ]

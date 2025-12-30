@@ -735,5 +735,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.16,
     "three_inst_ratio_change_20": 0.13
+  },
+  {
+    "date": "2025-12-29",
+    "code": "00706L",
+    "name": "期元大S&P日圓正2",
+    "market": "TWSE",
+    "foreign_ratio": 0.15,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.15,
+    "three_inst_ratio_change_20": 0.12
   }
 ]

@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 8.0201087005564,
     "three_inst_ratio_change_20": 0.41999999999999904
+  },
+  {
+    "date": "2025-12-29",
+    "code": "2836",
+    "name": "高雄銀",
+    "market": "TWSE",
+    "foreign_ratio": 8.01,
+    "trust_ratio": 0.00010870055640037477,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 8.0101087005564,
+    "three_inst_ratio_change_20": 0.40999999999999925
   }
 ]

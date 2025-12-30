@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 14.160146521318946,
     "three_inst_ratio_change_20": -0.062276409485793494
+  },
+  {
+    "date": "2025-12-29",
+    "code": "6919",
+    "name": "康霈*",
+    "market": "TWSE",
+    "foreign_ratio": 13.04,
+    "trust_ratio": 1.1401446514343632,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 14.180144651434363,
+    "three_inst_ratio_change_20": -0.009693338928201456
   }
 ]

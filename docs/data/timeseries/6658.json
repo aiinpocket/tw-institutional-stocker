@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 4.02,
     "three_inst_ratio_change_20": -0.1200000000000001
+  },
+  {
+    "date": "2025-12-29",
+    "code": "6658",
+    "name": "聯策",
+    "market": "TWSE",
+    "foreign_ratio": 2.46,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.46,
+    "three_inst_ratio_change_20": -1.67
   }
 ]

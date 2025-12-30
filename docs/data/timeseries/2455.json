@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 40.039978986502746,
     "three_inst_ratio_change_20": 0.5900719718446226
+  },
+  {
+    "date": "2025-12-29",
+    "code": "2455",
+    "name": "全新",
+    "market": "TWSE",
+    "foreign_ratio": 28.12,
+    "trust_ratio": 11.700009515109192,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 39.82000951510919,
+    "three_inst_ratio_change_20": -0.045815942245830854
   }
 ]

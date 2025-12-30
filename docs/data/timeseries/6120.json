@@ -713,5 +713,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 7.146027054054704,
     "three_inst_ratio_change_20": 0.6360270540547042
+  },
+  {
+    "date": "2025-12-29",
+    "code": "6120",
+    "name": "達運",
+    "market": "TWSE",
+    "foreign_ratio": 6.68,
+    "trust_ratio": 0.5160270540547036,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 7.196027054054703,
+    "three_inst_ratio_change_20": 0.6960270540547029
   }
 ]

@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 12.575046561844543,
     "three_inst_ratio_change_20": -1.5570913999560698
+  },
+  {
+    "date": "2025-12-29",
+    "code": "2515",
+    "name": "中工",
+    "market": "TWSE",
+    "foreign_ratio": 12.16,
+    "trust_ratio": 0.15504656184454346,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 12.315046561844543,
+    "three_inst_ratio_change_20": -1.6570913999560695
   }
 ]

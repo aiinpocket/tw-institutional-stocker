@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 10.026113443993937,
     "three_inst_ratio_change_20": -0.21890554315458388
+  },
+  {
+    "date": "2025-12-29",
+    "code": "2362",
+    "name": "藍天",
+    "market": "TWSE",
+    "foreign_ratio": 10.08,
+    "trust_ratio": -0.08388655600606174,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.996113443993938,
+    "three_inst_ratio_change_20": -0.24890554315458324
   }
 ]

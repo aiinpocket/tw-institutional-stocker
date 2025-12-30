@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 58.840003882286325,
     "three_inst_ratio_change_20": -0.00999999999999801
+  },
+  {
+    "date": "2025-12-29",
+    "code": "2849",
+    "name": "安泰銀",
+    "market": "TWSE",
+    "foreign_ratio": 58.84,
+    "trust_ratio": 3.8822863222850285e-06,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 58.840003882286325,
+    "three_inst_ratio_change_20": -0.00999999999999801
   }
 ]

@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.71,
     "three_inst_ratio_change_20": 1.95
+  },
+  {
+    "date": "2025-12-29",
+    "code": "00910",
+    "name": "第一金太空衛星",
+    "market": "TWSE",
+    "foreign_ratio": 2.24,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.24,
+    "three_inst_ratio_change_20": 1.4700000000000002
   }
 ]

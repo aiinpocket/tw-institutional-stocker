@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 4.377563750363596,
     "three_inst_ratio_change_20": -0.5441179451540767
+  },
+  {
+    "date": "2025-12-29",
+    "code": "0050",
+    "name": "元大台灣50",
+    "market": "TWSE",
+    "foreign_ratio": 3.99,
+    "trust_ratio": 0.5938194983191104,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.5838194983191105,
+    "three_inst_ratio_change_20": -0.2167500824563069
   }
 ]

@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 33.195799470093405,
     "three_inst_ratio_change_20": -0.728240740645667
+  },
+  {
+    "date": "2025-12-29",
+    "code": "2368",
+    "name": "金像電",
+    "market": "TWSE",
+    "foreign_ratio": 24.86,
+    "trust_ratio": 8.301928288578608,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 33.16192828857861,
+    "three_inst_ratio_change_20": -0.7706723778725362
   }
 ]

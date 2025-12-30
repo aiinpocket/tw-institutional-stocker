@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 56.43636700857716,
     "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-29",
+    "code": "4137",
+    "name": "麗豐-KY",
+    "market": "TWSE",
+    "foreign_ratio": 56.42,
+    "trust_ratio": 0.03636700857715897,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 56.45636700857716,
+    "three_inst_ratio_change_20": -0.05999999999999517
   }
 ]

@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 5.9,
     "three_inst_ratio_change_20": -0.02999999999999936
+  },
+  {
+    "date": "2025-12-29",
+    "code": "1110",
+    "name": "東泥",
+    "market": "TWSE",
+    "foreign_ratio": 5.91,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.91,
+    "three_inst_ratio_change_20": -0.019999999999999574
   }
 ]

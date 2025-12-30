@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 26.38,
     "three_inst_ratio_change_20": 0.18999999999999773
+  },
+  {
+    "date": "2025-12-29",
+    "code": "4414",
+    "name": "如興",
+    "market": "TWSE",
+    "foreign_ratio": 26.39,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 26.39,
+    "three_inst_ratio_change_20": 0.1999999999999993
   }
 ]

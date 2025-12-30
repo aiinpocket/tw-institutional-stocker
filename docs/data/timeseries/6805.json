@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 29.119396115430114,
     "three_inst_ratio_change_20": 0.2390406298717167
+  },
+  {
+    "date": "2025-12-29",
+    "code": "6805",
+    "name": "富世達",
+    "market": "TWSE",
+    "foreign_ratio": 16.2,
+    "trust_ratio": 13.36363289987195,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 29.563632899871948,
+    "three_inst_ratio_change_20": 0.5544714692801698
   }
 ]

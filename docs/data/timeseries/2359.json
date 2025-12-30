@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.19,
     "three_inst_ratio_change_20": -0.4500000000000002
+  },
+  {
+    "date": "2025-12-29",
+    "code": "2359",
+    "name": "所羅門",
+    "market": "TWSE",
+    "foreign_ratio": 3.23,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.23,
+    "three_inst_ratio_change_20": -0.43999999999999995
   }
 ]

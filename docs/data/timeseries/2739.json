@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.13,
     "three_inst_ratio_change_20": 0.17999999999999972
+  },
+  {
+    "date": "2025-12-29",
+    "code": "2739",
+    "name": "寒舍",
+    "market": "TWSE",
+    "foreign_ratio": 3.14,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.14,
+    "three_inst_ratio_change_20": 0.16999999999999993
   }
 ]

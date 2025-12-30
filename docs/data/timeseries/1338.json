@@ -768,5 +768,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 6.11,
     "three_inst_ratio_change_20": 0.0600000000000005
+  },
+  {
+    "date": "2025-12-29",
+    "code": "1338",
+    "name": "廣華-KY",
+    "market": "TWSE",
+    "foreign_ratio": 6.12,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 6.12,
+    "three_inst_ratio_change_20": 0.0600000000000005
   }
 ]

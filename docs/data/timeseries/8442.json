@@ -779,5 +779,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 58.03,
     "three_inst_ratio_change_20": 0.030000000000001137
+  },
+  {
+    "date": "2025-12-29",
+    "code": "8442",
+    "name": "威宏-KY",
+    "market": "TWSE",
+    "foreign_ratio": 58.0,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 58.0,
+    "three_inst_ratio_change_20": -0.020000000000003126
   }
 ]

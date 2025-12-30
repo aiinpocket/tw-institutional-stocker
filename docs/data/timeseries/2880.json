@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 17.98724020593252,
     "three_inst_ratio_change_20": 0.3019240632931677
+  },
+  {
+    "date": "2025-12-29",
+    "code": "2880",
+    "name": "華南金",
+    "market": "TWSE",
+    "foreign_ratio": 16.71,
+    "trust_ratio": 1.3198509648140426,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 18.029850964814045,
+    "three_inst_ratio_change_20": 0.3364699423555493
   }
 ]

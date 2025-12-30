@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 5.55,
     "three_inst_ratio_change_20": -0.04999999999999982
+  },
+  {
+    "date": "2025-12-29",
+    "code": "1201",
+    "name": "味全",
+    "market": "TWSE",
+    "foreign_ratio": 5.54,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.54,
+    "three_inst_ratio_change_20": -0.08999999999999986
   }
 ]

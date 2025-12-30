@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.84,
     "three_inst_ratio_change_20": -0.05999999999999983
+  },
+  {
+    "date": "2025-12-29",
+    "code": "1452",
+    "name": "宏益",
+    "market": "TWSE",
+    "foreign_ratio": 1.83,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.83,
+    "three_inst_ratio_change_20": -0.08999999999999986
   }
 ]

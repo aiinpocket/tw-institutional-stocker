@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.41,
     "three_inst_ratio_change_20": -0.16999999999999998
+  },
+  {
+    "date": "2025-12-29",
+    "code": "6674",
+    "name": "鋐寶科技",
+    "market": "TWSE",
+    "foreign_ratio": 0.4,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4,
+    "three_inst_ratio_change_20": -0.16999999999999993
   }
 ]

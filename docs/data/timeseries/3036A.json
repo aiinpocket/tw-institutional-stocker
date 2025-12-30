@@ -273,5 +273,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.12962962962962962,
     "three_inst_ratio_change_20": -0.2318518518518519
+  },
+  {
+    "date": "2025-12-29",
+    "code": "3036A",
+    "name": "文曄甲特",
+    "market": "TWSE",
+    "foreign_ratio": 0.16,
+    "trust_ratio": -0.04518518518518518,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.11481481481481481,
+    "three_inst_ratio_change_20": -0.2366666666666667
   }
 ]

@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.95,
     "three_inst_ratio_change_20": -0.17999999999999972
+  },
+  {
+    "date": "2025-12-29",
+    "code": "3296",
+    "name": "勝德",
+    "market": "TWSE",
+    "foreign_ratio": 2.95,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.95,
+    "three_inst_ratio_change_20": -0.1599999999999997
   }
 ]

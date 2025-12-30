@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.3214748732110264,
     "three_inst_ratio_change_20": 0.2252019044024376
+  },
+  {
+    "date": "2025-12-29",
+    "code": "6937",
+    "name": "天虹",
+    "market": "TWSE",
+    "foreign_ratio": 1.69,
+    "trust_ratio": 0.6614748732110267,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.3514748732110267,
+    "three_inst_ratio_change_20": 0.24668171396219396
   }
 ]

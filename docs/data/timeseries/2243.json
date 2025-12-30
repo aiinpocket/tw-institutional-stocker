@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 24.88,
     "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-29",
+    "code": "2243",
+    "name": "宏旭-KY",
+    "market": "TWSE",
+    "foreign_ratio": 24.85,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 24.85,
+    "three_inst_ratio_change_20": -0.019999999999999574
   }
 ]

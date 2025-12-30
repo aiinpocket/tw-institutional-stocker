@@ -790,5 +790,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 14.696834393016385,
     "three_inst_ratio_change_20": -1.3426038104650573
+  },
+  {
+    "date": "2025-12-29",
+    "code": "3059",
+    "name": "華晶科",
+    "market": "TWSE",
+    "foreign_ratio": 14.42,
+    "trust_ratio": 0.29683439301638503,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 14.716834393016384,
+    "three_inst_ratio_change_20": -1.4426038104650551
   }
 ]

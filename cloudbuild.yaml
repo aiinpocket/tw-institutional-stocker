@@ -27,7 +27,7 @@ steps:
       - '--set-env-vars=DB_HOST=/cloudsql/$PROJECT_ID:asia-east1:tw-stocker-db'
       - '--set-env-vars=DB_NAME=tw_stocker'
       - '--set-env-vars=DB_USER=postgres'
-      - '--set-secrets=DB_PASSWORD=db-password:latest'
+      - '--set-secrets=DB_PASSWORD=db-password:latest,OPENAI_API_KEY=openai-api-key:latest'
 
 images:
   - 'asia-east1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/tw-stocker-api:$BUILD_ID'

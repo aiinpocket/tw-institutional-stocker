@@ -1,7 +1,7 @@
 """Industry analysis routes - sector flows and heatmap data."""
 from typing import Optional
 from datetime import date
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, BackgroundTasks
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
@@ -9,9 +9,19 @@ from src.api.dependencies import get_db
 
 router = APIRouter()
 
+# 追蹤是否已經執行過初始分類
+_industry_initialized = False
 
-def ensure_industry_column(db: Session):
-    """確保 industry 欄位存在。"""
+
+def ensure_industry_column(db: Session, run_classification: bool = False):
+    """確保 industry 欄位存在。
+
+    Args:
+        db: Database session
+        run_classification: 是否執行 AI 分類（預設 False，避免每次請求都呼叫 AI）
+    """
+    global _industry_initialized
+
     try:
         check_query = text("""
             SELECT column_name FROM information_schema.columns
@@ -24,10 +34,13 @@ def ensure_industry_column(db: Session):
             db.execute(text("ALTER TABLE stocks ADD COLUMN IF NOT EXISTS industry VARCHAR(50)"))
             db.execute(text("CREATE INDEX IF NOT EXISTS idx_stocks_industry ON stocks(industry)"))
             db.commit()
+            run_classification = True  # 第一次建立欄位時自動分類
 
-        # 更新產業資料
-        from src.etl.fetchers.industry import update_stock_industries
-        update_stock_industries(db)
+        # 只在明確要求或首次時執行分類
+        if run_classification and not _industry_initialized:
+            from src.etl.fetchers.industry import update_stock_industries
+            update_stock_industries(db, use_ai=True)
+            _industry_initialized = True
 
     except Exception as e:
         print(f"[WARN] Failed to ensure industry column: {e}")
@@ -343,3 +356,76 @@ def get_industry_list(db: Session = Depends(get_db)):
     ]
 
     return {"total": len(items), "items": items}
+
+
+@router.get("/standard")
+def get_standard_industries():
+    """
+    取得標準產業分類清單。
+    這是系統支援的固定產業分類，AI 分類時只會從這個清單中選擇。
+    """
+    from src.etl.fetchers.industry import get_standard_industries
+    industries = get_standard_industries()
+    return {
+        "total": len(industries),
+        "items": industries,
+        "description": "台灣證交所官方產業分類"
+    }
+
+
+@router.post("/classify")
+def trigger_classification(
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db),
+):
+    """
+    觸發 AI 產業分類。
+    將未分類的股票使用 OpenAI 進行自動分類。
+    這是一個背景任務，會立即返回。
+    """
+    def run_classification():
+        from src.common.database import get_db_session
+        from src.etl.fetchers.industry import update_stock_industries
+        with get_db_session() as session:
+            update_stock_industries(session, use_ai=True)
+
+    background_tasks.add_task(run_classification)
+
+    return {
+        "status": "started",
+        "message": "AI 產業分類已在背景執行中"
+    }
+
+
+@router.get("/unclassified")
+def get_unclassified_stocks(
+    limit: int = Query(100, le=500),
+    db: Session = Depends(get_db),
+):
+    """
+    取得尚未分類的股票列表。
+    """
+    query = text("""
+    SELECT code, name, market
+    FROM stocks
+    WHERE (industry IS NULL OR industry = '其他業')
+      AND is_active = true
+    ORDER BY code
+    LIMIT :limit
+    """)
+
+    results = db.execute(query, {"limit": limit}).fetchall()
+
+    items = [
+        {
+            "code": r.code,
+            "name": r.name,
+            "market": r.market,
+        }
+        for r in results
+    ]
+
+    return {
+        "total": len(items),
+        "items": items
+    }

@@ -28,10 +28,16 @@ if [ -z "$DB_PASSWORD" ]; then
     read -s DB_PASSWORD
 fi
 
+if [ -z "$OPENAI_API_KEY" ]; then
+    echo -e "\n${YELLOW}OPENAI_API_KEY not set. Please enter your OpenAI API key (for AI industry classification):${NC}"
+    read -s OPENAI_API_KEY
+fi
+
 # Export variables
 export PROJECT_ID
 export REGION
 export DB_PASSWORD
+export OPENAI_API_KEY
 
 INSTANCE_NAME="tw-stocker-db"
 DB_NAME="tw_stocker"
@@ -89,20 +95,35 @@ else
         --quiet
 fi
 
-# Create secret for DB password
+# Create secrets
 echo -e "\n${GREEN}[4/7] Creating secrets...${NC}"
+
+# DB Password secret
 if gcloud secrets describe db-password --quiet 2>/dev/null; then
-    echo "  Secret already exists, updating..."
+    echo "  db-password secret already exists, updating..."
     echo -n "$DB_PASSWORD" | gcloud secrets versions add db-password --data-file=-
 else
     echo -n "$DB_PASSWORD" | gcloud secrets create db-password --data-file=-
 fi
 
+# OpenAI API Key secret
+if gcloud secrets describe openai-api-key --quiet 2>/dev/null; then
+    echo "  openai-api-key secret already exists, updating..."
+    echo -n "$OPENAI_API_KEY" | gcloud secrets versions add openai-api-key --data-file=-
+else
+    echo -n "$OPENAI_API_KEY" | gcloud secrets create openai-api-key --data-file=-
+fi
+
 # Get project number for service account
 PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
 
-# Grant Cloud Run service account access to secret
+# Grant Cloud Run service account access to secrets
 gcloud secrets add-iam-policy-binding db-password \
+    --member="serviceAccount:${PROJECT_NUMBER}-compute@developer.gserviceaccount.com" \
+    --role="roles/secretmanager.secretAccessor" \
+    --quiet 2>/dev/null || true
+
+gcloud secrets add-iam-policy-binding openai-api-key \
     --member="serviceAccount:${PROJECT_NUMBER}-compute@developer.gserviceaccount.com" \
     --role="roles/secretmanager.secretAccessor" \
     --quiet 2>/dev/null || true
@@ -124,7 +145,7 @@ gcloud run deploy $API_SERVICE \
     --set-env-vars="DB_HOST=/cloudsql/$PROJECT_ID:$REGION:$INSTANCE_NAME" \
     --set-env-vars="DB_NAME=$DB_NAME" \
     --set-env-vars="DB_USER=postgres" \
-    --set-secrets="DB_PASSWORD=db-password:latest" \
+    --set-secrets="DB_PASSWORD=db-password:latest,OPENAI_API_KEY=openai-api-key:latest" \
     --quiet
 
 # Get API URL
@@ -145,7 +166,7 @@ gcloud run jobs deploy $ETL_JOB \
     --set-env-vars="DB_HOST=/cloudsql/$PROJECT_ID:$REGION:$INSTANCE_NAME" \
     --set-env-vars="DB_NAME=$DB_NAME" \
     --set-env-vars="DB_USER=postgres" \
-    --set-secrets="DB_PASSWORD=db-password:latest" \
+    --set-secrets="DB_PASSWORD=db-password:latest,OPENAI_API_KEY=openai-api-key:latest" \
     --quiet
 
 # Create Cloud Scheduler job

@@ -23,4 +23,9 @@ env/
 # OS
 .DS_Store
 Thumbs.db
+
+# Secrets (never commit)
 github-actions-key.json
+openaiKEY.txt
+*.key
+*.secret

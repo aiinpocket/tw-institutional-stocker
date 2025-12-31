@@ -399,7 +399,7 @@
 
         async function loadRankings() {
             try {
-                const resp = await fetch('/api/v1/rankings/1?limit=10');
+                const resp = await fetch('/api/v1/institutional/flows?limit=500');
                 const data = await resp.json();
 
                 if (!data.items || data.items.length === 0) {
@@ -409,10 +409,10 @@
                     return;
                 }
 
-                const foreignBuyers = data.items.filter(s => (s.foreign_net || 0) > 0).sort((a, b) => b.foreign_net - a.foreign_net).slice(0, 10);
-                const foreignSellers = data.items.filter(s => (s.foreign_net || 0) < 0).sort((a, b) => a.foreign_net - b.foreign_net).slice(0, 10);
-                const trustBuyers = data.items.filter(s => (s.trust_net || 0) > 0).sort((a, b) => b.trust_net - a.trust_net).slice(0, 10);
-                const trustSellers = data.items.filter(s => (s.trust_net || 0) < 0).sort((a, b) => a.trust_net - b.trust_net).slice(0, 10);
+                const foreignBuyers = data.items.filter(s => (s.foreign_net || 0) > 0).sort((a, b) => (b.foreign_net || 0) - (a.foreign_net || 0)).slice(0, 10);
+                const foreignSellers = data.items.filter(s => (s.foreign_net || 0) < 0).sort((a, b) => (a.foreign_net || 0) - (b.foreign_net || 0)).slice(0, 10);
+                const trustBuyers = data.items.filter(s => (s.trust_net || 0) > 0).sort((a, b) => (b.trust_net || 0) - (a.trust_net || 0)).slice(0, 10);
+                const trustSellers = data.items.filter(s => (s.trust_net || 0) < 0).sort((a, b) => (a.trust_net || 0) - (b.trust_net || 0)).slice(0, 10);
 
                 const renderTable = (items, field, isPositive) => `
                     <table>

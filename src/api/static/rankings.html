@@ -171,10 +171,21 @@
             return 'days-low';
         }
 
+        function flattenRankings(data) {
+            if (!data.rankings) return [];
+            return [...(data.rankings.high || []), ...(data.rankings.mid || []), ...(data.rankings.low || [])];
+        }
+
         async function loadConsecutive() {
             try {
                 const resp = await fetch(`${API_BASE}/consecutive-buying?limit=30`);
                 const data = await resp.json();
+                const items = flattenRankings(data);
+
+                if (items.length === 0) {
+                    document.getElementById('content').innerHTML = '<div class="card"><div class="loading">暫無外資連續買超資料，請稍後再試</div></div>';
+                    return;
+                }
 
                 const html = `
                     <div class="card">
@@ -187,24 +198,22 @@
                                 <tr>
                                     <th>#</th>
                                     <th>股票</th>
-                                    <th>產業</th>
                                     <th>股價</th>
                                     <th>連買天數</th>
                                     <th>累計買超</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                ${data.items.map((s, i) => `
+                                ${items.map((s, i) => `
                                     <tr onclick="window.location='/stock/${s.code}'">
                                         <td>${i + 1}</td>
                                         <td>
                                             <span class="stock-code">${s.code}</span>
                                             <span class="stock-name">${s.name}</span>
                                         </td>
-                                        <td><span class="industry-tag">${s.industry || '-'}</span></td>
                                         <td class="price">${s.current_price ? s.current_price.toFixed(1) : '-'}</td>
-                                        <td><span class="days-badge ${getDaysBadgeClass(s.consecutive_days)}">${s.consecutive_days} 天</span></td>
-                                        <td class="positive">+${formatNumber(s.total_foreign_net)}</td>
+                                        <td><span class="days-badge ${getDaysBadgeClass(s.consecutive_days || 0)}">${s.consecutive_days || 0} 天</span></td>
+                                        <td class="positive">+${formatNumber(s.total_net_buy || 0)}</td>
                                     </tr>
                                 `).join('')}
                             </tbody>
@@ -221,6 +230,12 @@
             try {
                 const resp = await fetch(`${API_BASE}/trust-accumulation?limit=30`);
                 const data = await resp.json();
+                const items = flattenRankings(data);
+
+                if (items.length === 0) {
+                    document.getElementById('content').innerHTML = '<div class="card"><div class="loading">暫無投信認養資料，請稍後再試</div></div>';
+                    return;
+                }
 
                 const html = `
                     <div class="card">
@@ -233,24 +248,22 @@
                                 <tr>
                                     <th>#</th>
                                     <th>股票</th>
-                                    <th>產業</th>
                                     <th>股價</th>
-                                    <th>連買天數</th>
+                                    <th>買超天數</th>
                                     <th>累計買超</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                ${data.items.map((s, i) => `
+                                ${items.map((s, i) => `
                                     <tr onclick="window.location='/stock/${s.code}'">
                                         <td>${i + 1}</td>
                                         <td>
                                             <span class="stock-code">${s.code}</span>
                                             <span class="stock-name">${s.name}</span>
                                         </td>
-                                        <td><span class="industry-tag">${s.industry || '-'}</span></td>
                                         <td class="price">${s.current_price ? s.current_price.toFixed(1) : '-'}</td>
-                                        <td><span class="days-badge ${getDaysBadgeClass(s.consecutive_days)}">${s.consecutive_days} 天</span></td>
-                                        <td class="positive">+${formatNumber(s.total_trust_net)}</td>
+                                        <td><span class="days-badge ${getDaysBadgeClass(s.buy_days || 0)}">${s.buy_days || 0} 天</span></td>
+                                        <td class="positive">+${formatNumber(s.total_trust_net || 0)}</td>
                                     </tr>
                                 `).join('')}
                             </tbody>
@@ -267,12 +280,18 @@
             try {
                 const resp = await fetch(`${API_BASE}/synchronized-buying?limit=30`);
                 const data = await resp.json();
+                const items = flattenRankings(data);
+
+                if (items.length === 0) {
+                    document.getElementById('content').innerHTML = '<div class="card"><div class="loading">暫無三大法人同步買超資料，請稍後再試</div></div>';
+                    return;
+                }
 
                 const html = `
                     <div class="card">
                         <div class="card-header">
                             <span class="icon">🎯</span>
-                            <span class="card-title">三大法人同步買超 (近 ${data.days} 日)</span>
+                            <span class="card-title">三大法人同步買超</span>
                         </div>
                         <table>
                             <thead>
@@ -280,14 +299,12 @@
                                     <th>#</th>
                                     <th>股票</th>
                                     <th>股價</th>
-                                    <th>外資</th>
-                                    <th>投信</th>
-                                    <th>自營</th>
-                                    <th>合計</th>
+                                    <th>同步天數</th>
+                                    <th>總買超</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                ${data.items.map((s, i) => `
+                                ${items.map((s, i) => `
                                     <tr onclick="window.location='/stock/${s.code}'">
                                         <td>${i + 1}</td>
                                         <td>
@@ -295,10 +312,8 @@
                                             <span class="stock-name">${s.name}</span>
                                         </td>
                                         <td class="price">${s.current_price ? s.current_price.toFixed(1) : '-'}</td>
-                                        <td class="positive">+${formatNumber(s.foreign_net)}</td>
-                                        <td class="positive">+${formatNumber(s.trust_net)}</td>
-                                        <td class="positive">+${formatNumber(s.dealer_net)}</td>
-                                        <td class="positive"><strong>+${formatNumber(s.total_net)}</strong></td>
+                                        <td><span class="days-badge ${getDaysBadgeClass(s.sync_days || 0)}">${s.sync_days || 0} 天</span></td>
+                                        <td class="positive">+${formatNumber(s.total_amount || 0)}</td>
                                     </tr>
                                 `).join('')}
                             </tbody>
@@ -315,64 +330,73 @@
             try {
                 const resp = await fetch(`${API_BASE}/price-deviation?limit=30`);
                 const data = await resp.json();
+                const items = flattenRankings(data);
+
+                if (items.length === 0) {
+                    document.getElementById('content').innerHTML = '<div class="card"><div class="loading">暫無乖離資料，請稍後再試</div></div>';
+                    return;
+                }
+
+                const positiveItems = items.filter(s => (s.deviation_pct || 0) > 0).slice(0, 15);
+                const negativeItems = items.filter(s => (s.deviation_pct || 0) < 0).slice(0, 15);
 
                 const html = `
                     <div class="grid">
                         <div class="card">
                             <div class="card-header">
                                 <span class="icon">📈</span>
-                                <span class="card-title">正乖離過大 (股價高於均線)</span>
+                                <span class="card-title">正乖離過大 (股價高於成本)</span>
                             </div>
                             <table>
                                 <thead>
                                     <tr>
                                         <th>股票</th>
                                         <th>股價</th>
-                                        <th>20MA</th>
+                                        <th>平均成本</th>
                                         <th>乖離率</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    ${data.items.filter(s => s.deviation_pct > 0).slice(0, 15).map(s => `
+                                    ${positiveItems.length ? positiveItems.map(s => `
                                         <tr onclick="window.location='/stock/${s.code}'">
                                             <td>
                                                 <span class="stock-code">${s.code}</span>
                                                 <span class="stock-name">${s.name}</span>
                                             </td>
                                             <td class="price">${s.current_price ? s.current_price.toFixed(1) : '-'}</td>
-                                            <td class="price">${s.ma20 ? s.ma20.toFixed(1) : '-'}</td>
-                                            <td class="positive">+${s.deviation_pct.toFixed(1)}%</td>
+                                            <td class="price">${s.avg_cost ? s.avg_cost.toFixed(1) : '-'}</td>
+                                            <td class="positive">+${(s.deviation_pct || 0).toFixed(1)}%</td>
                                         </tr>
-                                    `).join('')}
+                                    `).join('') : '<tr><td colspan="4" class="loading">暫無資料</td></tr>'}
                                 </tbody>
                             </table>
                         </div>
                         <div class="card">
                             <div class="card-header">
                                 <span class="icon">📉</span>
-                                <span class="card-title">負乖離過大 (股價低於均線)</span>
+                                <span class="card-title">負乖離過大 (股價低於成本)</span>
                             </div>
                             <table>
                                 <thead>
                                     <tr>
                                         <th>股票</th>
                                         <th>股價</th>
-                                        <th>20MA</th>
+                                        <th>平均成本</th>
                                         <th>乖離率</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    ${data.items.filter(s => s.deviation_pct < 0).slice(0, 15).map(s => `
+                                    ${negativeItems.length ? negativeItems.map(s => `
                                         <tr onclick="window.location='/stock/${s.code}'">
                                             <td>
                                                 <span class="stock-code">${s.code}</span>
                                                 <span class="stock-name">${s.name}</span>
                                             </td>
                                             <td class="price">${s.current_price ? s.current_price.toFixed(1) : '-'}</td>
-                                            <td class="price">${s.ma20 ? s.ma20.toFixed(1) : '-'}</td>
-                                            <td class="negative">${s.deviation_pct.toFixed(1)}%</td>
+                                            <td class="price">${s.avg_cost ? s.avg_cost.toFixed(1) : '-'}</td>
+                                            <td class="negative">${(s.deviation_pct || 0).toFixed(1)}%</td>
                                         </tr>
-                                    `).join('')}
+                                    `).join('') : '<tr><td colspan="4" class="loading">暫無資料</td></tr>'}
                                 </tbody>
                             </table>
                         </div>

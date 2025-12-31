@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>券商追蹤 | Broker Tracking</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+        }
+        h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .subtitle { color: #888; font-size: 0.95rem; }
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: #00d4ff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid rgba(0,212,255,0.3);
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .nav-links a:hover {
+            background: rgba(0,212,255,0.1);
+            border-color: #00d4ff;
+        }
+        .search-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        .search-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .search-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        .search-group label {
+            display: block;
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+        }
+        .search-group input, .search-group select {
+            width: 100%;
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: #e0e0e0;
+            font-size: 0.95rem;
+        }
+        .search-group input:focus, .search-group select:focus {
+            outline: none;
+            border-color: #00d4ff;
+        }
+        .search-btn {
+            padding: 10px 30px;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 20px;
+        }
+        .search-btn:hover { transform: scale(1.02); }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .tab:hover { background: rgba(255,255,255,0.15); }
+        .tab.active {
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            border: none;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .card-header .icon { font-size: 1.5rem; }
+        .card-title { font-size: 1.1rem; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px 8px; text-align: left; }
+        th { color: #888; font-size: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        td { border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; }
+        tr { cursor: pointer; transition: background 0.2s; }
+        tr:hover { background: rgba(0,212,255,0.05); }
+        .stock-code { color: #00d4ff; font-weight: 600; }
+        .stock-name { color: #aaa; font-size: 0.85rem; }
+        .broker-name { color: #00d4ff; font-weight: 500; }
+        .branch-name { color: #888; font-size: 0.8rem; }
+        .positive { color: #2ecc71; }
+        .negative { color: #e74c3c; }
+        .neutral { color: #888; }
+        .loading { text-align: center; padding: 40px; color: #888; }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        .empty-state .icon { font-size: 3rem; margin-bottom: 15px; }
+        .broker-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            background: rgba(0,212,255,0.2);
+            color: #00d4ff;
+        }
+        .volume-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .volume-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            border-radius: 3px;
+        }
+        footer { text-align: center; margin-top: 40px; padding: 20px; color: #666; font-size: 0.85rem; }
+        @media (max-width: 900px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏦 券商追蹤</h1>
+            <p class="subtitle">Broker Branch Trading Analysis</p>
+            <div class="nav-links">
+                <a href="/dashboard">📊 策略儀表板</a>
+                <a href="/industry">🏭 產業熱力圖</a>
+                <a href="/ai">🤖 AI 分析</a>
+                <a href="/rankings">🏆 法人排行榜</a>
+                <a href="/live">📈 即時看板</a>
+            </div>
+        </header>
+
+        <div class="search-section">
+            <div class="search-row">
+                <div class="search-group">
+                    <label>股票代號</label>
+                    <input type="text" id="stockCode" placeholder="輸入股票代號，如 2330">
+                </div>
+                <div class="search-group">
+                    <label>券商名稱</label>
+                    <input type="text" id="brokerName" placeholder="輸入券商名稱，如 元大">
+                </div>
+                <div class="search-group">
+                    <label>日期範圍</label>
+                    <select id="dateRange">
+                        <option value="5">近 5 日</option>
+                        <option value="10" selected>近 10 日</option>
+                        <option value="20">近 20 日</option>
+                        <option value="60">近 60 日</option>
+                    </select>
+                </div>
+                <button class="search-btn" onclick="searchBrokers()">🔍 查詢</button>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="ranking">📊 券商排行</div>
+            <div class="tab" data-tab="trades">📋 交易明細</div>
+            <div class="tab" data-tab="concentration">🎯 主力集中</div>
+        </div>
+
+        <div id="content">
+            <div class="loading">載入資料中...</div>
+        </div>
+
+        <footer>
+            <div>資料來源：台灣證券交易所 | 每日盤後更新</div>
+        </footer>
+    </div>
+
+    <script>
+        const API_BASE = '/api/v1/brokers';
+
+        function formatNumber(num) {
+            if (Math.abs(num) >= 10000) return (num/10000).toFixed(1) + '萬';
+            if (Math.abs(num) >= 1000) return (num/1000).toFixed(1) + '千';
+            return num.toFixed(0);
+        }
+
+        function formatVolume(num) {
+            if (num >= 100000000) return (num/100000000).toFixed(2) + '億';
+            if (num >= 10000) return (num/10000).toFixed(0) + '萬';
+            return num.toFixed(0);
+        }
+
+        async function loadRanking() {
+            try {
+                const days = document.getElementById('dateRange').value;
+                const resp = await fetch(`${API_BASE}/ranking?days=${days}&limit=30`);
+                const data = await resp.json();
+
+                if (!data.items || data.items.length === 0) {
+                    document.getElementById('content').innerHTML = `
+                        <div class="empty-state">
+                            <div class="icon">📭</div>
+                            <p>暫無券商資料</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const maxVolume = Math.max(...data.items.map(b => b.total_volume || 0));
+
+                const html = `
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="icon">📊</span>
+                            <span class="card-title">券商成交量排行 (近 ${days} 日)</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>券商</th>
+                                    <th>成交量</th>
+                                    <th>買超</th>
+                                    <th>賣超</th>
+                                    <th>淨買超</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${data.items.map((b, i) => `
+                                    <tr onclick="searchByBroker('${b.broker_name}')">
+                                        <td>${i + 1}</td>
+                                        <td>
+                                            <span class="broker-name">${b.broker_name}</span>
+                                            ${b.branch_count ? `<span class="branch-name">(${b.branch_count} 分點)</span>` : ''}
+                                        </td>
+                                        <td>
+                                            <div>${formatVolume(b.total_volume || 0)}</div>
+                                            <div class="volume-bar">
+                                                <div class="volume-fill" style="width: ${((b.total_volume || 0) / maxVolume * 100)}%"></div>
+                                            </div>
+                                        </td>
+                                        <td class="positive">${formatVolume(b.buy_volume || 0)}</td>
+                                        <td class="negative">${formatVolume(b.sell_volume || 0)}</td>
+                                        <td class="${(b.net_volume || 0) >= 0 ? 'positive' : 'negative'}">
+                                            ${(b.net_volume || 0) >= 0 ? '+' : ''}${formatVolume(b.net_volume || 0)}
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                document.getElementById('content').innerHTML = html;
+            } catch (e) {
+                document.getElementById('content').innerHTML = '<div class="loading" style="color:#e74c3c">載入失敗: ' + e.message + '</div>';
+            }
+        }
+
+        async function loadTrades() {
+            try {
+                const stockCode = document.getElementById('stockCode').value;
+                const brokerName = document.getElementById('brokerName').value;
+                const days = document.getElementById('dateRange').value;
+
+                let url = `${API_BASE}/trades?days=${days}&limit=50`;
+                if (stockCode) url += `&stock_code=${stockCode}`;
+                if (brokerName) url += `&broker_name=${encodeURIComponent(brokerName)}`;
+
+                const resp = await fetch(url);
+                const data = await resp.json();
+
+                if (!data.items || data.items.length === 0) {
+                    document.getElementById('content').innerHTML = `
+                        <div class="empty-state">
+                            <div class="icon">📭</div>
+                            <p>查無交易資料，請調整查詢條件</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const html = `
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="icon">📋</span>
+                            <span class="card-title">交易明細 ${stockCode ? `- ${stockCode}` : ''} ${brokerName ? `- ${brokerName}` : ''}</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>日期</th>
+                                    <th>股票</th>
+                                    <th>券商/分點</th>
+                                    <th>買進</th>
+                                    <th>賣出</th>
+                                    <th>淨買超</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${data.items.map(t => `
+                                    <tr onclick="window.location='/stock/${t.stock_code}'">
+                                        <td>${t.date}</td>
+                                        <td>
+                                            <span class="stock-code">${t.stock_code}</span>
+                                            <span class="stock-name">${t.stock_name || ''}</span>
+                                        </td>
+                                        <td>
+                                            <span class="broker-name">${t.broker_name}</span>
+                                            <span class="branch-name">${t.branch_name || ''}</span>
+                                        </td>
+                                        <td class="positive">${formatNumber(t.buy_volume || 0)}</td>
+                                        <td class="negative">${formatNumber(t.sell_volume || 0)}</td>
+                                        <td class="${(t.net_volume || 0) >= 0 ? 'positive' : 'negative'}">
+                                            ${(t.net_volume || 0) >= 0 ? '+' : ''}${formatNumber(t.net_volume || 0)}
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                document.getElementById('content').innerHTML = html;
+            } catch (e) {
+                document.getElementById('content').innerHTML = '<div class="loading" style="color:#e74c3c">載入失敗: ' + e.message + '</div>';
+            }
+        }
+
+        async function loadConcentration() {
+            try {
+                const days = document.getElementById('dateRange').value;
+                const resp = await fetch(`${API_BASE}/concentration?days=${days}&limit=30`);
+                const data = await resp.json();
+
+                if (!data.items || data.items.length === 0) {
+                    document.getElementById('content').innerHTML = `
+                        <div class="empty-state">
+                            <div class="icon">📭</div>
+                            <p>暫無主力集中資料</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const html = `
+                    <div class="grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="icon">🔥</span>
+                                <span class="card-title">主力買超集中股</span>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>股票</th>
+                                        <th>主力券商</th>
+                                        <th>集中度</th>
+                                        <th>淨買超</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${data.items.filter(s => (s.net_volume || 0) > 0).slice(0, 15).map(s => `
+                                        <tr onclick="window.location='/stock/${s.stock_code}'">
+                                            <td>
+                                                <span class="stock-code">${s.stock_code}</span>
+                                                <span class="stock-name">${s.stock_name || ''}</span>
+                                            </td>
+                                            <td>
+                                                <span class="broker-tag">${s.top_broker || '-'}</span>
+                                            </td>
+                                            <td>${s.concentration ? s.concentration.toFixed(1) : '-'}%</td>
+                                            <td class="positive">+${formatVolume(s.net_volume || 0)}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="icon">❄️</span>
+                                <span class="card-title">主力賣超集中股</span>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>股票</th>
+                                        <th>主力券商</th>
+                                        <th>集中度</th>
+                                        <th>淨賣超</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${data.items.filter(s => (s.net_volume || 0) < 0).slice(0, 15).map(s => `
+                                        <tr onclick="window.location='/stock/${s.stock_code}'">
+                                            <td>
+                                                <span class="stock-code">${s.stock_code}</span>
+                                                <span class="stock_name">${s.stock_name || ''}</span>
+                                            </td>
+                                            <td>
+                                                <span class="broker-tag">${s.top_broker || '-'}</span>
+                                            </td>
+                                            <td>${s.concentration ? s.concentration.toFixed(1) : '-'}%</td>
+                                            <td class="negative">${formatVolume(s.net_volume || 0)}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('content').innerHTML = html;
+            } catch (e) {
+                document.getElementById('content').innerHTML = '<div class="loading" style="color:#e74c3c">載入失敗: ' + e.message + '</div>';
+            }
+        }
+
+        function searchBrokers() {
+            const activeTab = document.querySelector('.tab.active').dataset.tab;
+            document.getElementById('content').innerHTML = '<div class="loading">載入資料中...</div>';
+            if (activeTab === 'ranking') loadRanking();
+            else if (activeTab === 'trades') loadTrades();
+            else if (activeTab === 'concentration') loadConcentration();
+        }
+
+        function searchByBroker(brokerName) {
+            document.getElementById('brokerName').value = brokerName;
+            document.querySelector('.tab[data-tab="trades"]').click();
+        }
+
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById('content').innerHTML = '<div class="loading">載入資料中...</div>';
+                const tabId = tab.dataset.tab;
+                if (tabId === 'ranking') loadRanking();
+                else if (tabId === 'trades') loadTrades();
+                else if (tabId === 'concentration') loadConcentration();
+            });
+        });
+
+        loadRanking();
+    </script>
+</body>
+</html>

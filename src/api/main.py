@@ -61,6 +61,51 @@ def stock_detail(stock_code: str):
     return {"error": "Stock page not found"}
 
 
+@app.get("/industry")
+def industry_page():
+    """Serve the industry heatmap page."""
+    html_path = os.path.join(static_dir, "industry.html")
+    if os.path.exists(html_path):
+        return FileResponse(html_path)
+    return {"error": "Industry page not found"}
+
+
+@app.get("/ai")
+def ai_page():
+    """Serve the AI analysis page."""
+    html_path = os.path.join(static_dir, "ai.html")
+    if os.path.exists(html_path):
+        return FileResponse(html_path)
+    return {"error": "AI page not found"}
+
+
+@app.get("/rankings")
+def rankings_page():
+    """Serve the institutional rankings page."""
+    html_path = os.path.join(static_dir, "rankings.html")
+    if os.path.exists(html_path):
+        return FileResponse(html_path)
+    return {"error": "Rankings page not found"}
+
+
+@app.get("/brokers")
+def brokers_page():
+    """Serve the broker tracking page."""
+    html_path = os.path.join(static_dir, "brokers.html")
+    if os.path.exists(html_path):
+        return FileResponse(html_path)
+    return {"error": "Brokers page not found"}
+
+
+@app.get("/live")
+def live_page():
+    """Serve the live dashboard page."""
+    html_path = os.path.join(static_dir, "live.html")
+    if os.path.exists(html_path):
+        return FileResponse(html_path)
+    return {"error": "Live page not found"}
+
+
 @app.get("/health")
 def health_check():
     """Health check endpoint."""

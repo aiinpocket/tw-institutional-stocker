@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 智能分析中心 | AI Analysis Center</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+        }
+        h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .subtitle { color: #888; font-size: 0.95rem; }
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: #00d4ff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid rgba(0,212,255,0.3);
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .nav-links a:hover {
+            background: rgba(0,212,255,0.1);
+            border-color: #00d4ff;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 12px 28px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .tab:hover { background: rgba(255,255,255,0.15); }
+        .tab.active {
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            border: none;
+        }
+        .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-title .icon { font-size: 1.5rem; }
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search-box input {
+            flex: 1;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 25px;
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+        }
+        .search-box input:focus {
+            outline: none;
+            border-color: #00d4ff;
+        }
+        .search-box button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .search-box button:hover { transform: scale(1.05); }
+        .search-box button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .strategy-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .strategy-btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 20px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            background: rgba(255,255,255,0.03);
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .strategy-btn:hover { border-color: #00d4ff; background: rgba(0,212,255,0.1); }
+        .strategy-btn.active { border-color: #00d4ff; background: rgba(0,212,255,0.15); }
+        .strategy-btn .icon { font-size: 2rem; display: block; margin-bottom: 10px; }
+        .strategy-btn .name { font-weight: 600; font-size: 1.1rem; }
+        .strategy-btn .desc { font-size: 0.85rem; color: #888; margin-top: 5px; }
+        .ai-content {
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+            padding: 20px;
+            white-space: pre-wrap;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        .recommendation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .rec-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .rec-card:hover {
+            border-color: #00d4ff;
+            transform: translateY(-2px);
+        }
+        .rec-card .stock-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .rec-card .stock-code {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #00d4ff;
+        }
+        .rec-card .stock-name { color: #ccc; }
+        .rec-card .reason { font-size: 0.9rem; margin-bottom: 8px; }
+        .rec-card .focus { font-size: 0.85rem; color: #3498db; margin-bottom: 5px; }
+        .rec-card .risk { font-size: 0.85rem; color: #e74c3c; }
+        .compare-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .compare-input input {
+            width: 100px;
+            padding: 12px 15px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            text-align: center;
+        }
+        .compare-input input:focus { outline: none; border-color: #00d4ff; }
+        .loading { text-align: center; padding: 40px; color: #888; }
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px; height: 20px;
+            border: 2px solid #888;
+            border-top-color: #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .disclaimer {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(231, 76, 60, 0.1);
+            border-radius: 10px;
+            font-size: 0.85rem;
+            color: #e74c3c;
+            border-left: 3px solid #e74c3c;
+        }
+        .market-view {
+            background: rgba(0,212,255,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 3px solid #00d4ff;
+        }
+        footer { text-align: center; margin-top: 40px; padding: 20px; color: #666; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 AI 智能分析中心</h1>
+            <p class="subtitle">AI-Powered Stock Analysis & Recommendations</p>
+            <div class="nav-links">
+                <a href="/dashboard">📊 策略儀表板</a>
+                <a href="/industry">🏭 產業熱力圖</a>
+                <a href="/rankings">🏆 法人排行</a>
+                <a href="/brokers">🏦 券商追蹤</a>
+                <a href="/live">📈 即時看板</a>
+            </div>
+        </header>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="market">📊 市場摘要</div>
+            <div class="tab" data-tab="recommend">💡 智能選股</div>
+            <div class="tab" data-tab="stock">🔍 個股分析</div>
+            <div class="tab" data-tab="compare">⚖️ 股票比較</div>
+        </div>
+
+        <div id="content"></div>
+
+        <footer>
+            <div>AI 分析由 GPT-4o-mini 提供 | 本分析僅供參考，不構成投資建議</div>
+        </footer>
+    </div>
+
+    <script>
+        const API_BASE = '/api/v1/ai';
+        let currentStrategy = 'balanced';
+
+        function showMarketTab() {
+            document.getElementById('content').innerHTML = `
+                <div class="card">
+                    <div class="card-title"><span class="icon">📊</span> 今日市場 AI 摘要</div>
+                    <div id="market-content"><div class="loading">AI 分析中，請稍候</div></div>
+                </div>
+            `;
+            loadMarketSummary();
+        }
+
+        async function loadMarketSummary() {
+            try {
+                const resp = await fetch(`${API_BASE}/market-summary`);
+                const data = await resp.json();
+
+                const html = `
+                    <div class="ai-content">${data.summary}</div>
+                    <div class="disclaimer">${data.disclaimer}</div>
+                `;
+                document.getElementById('market-content').innerHTML = html;
+            } catch (e) {
+                document.getElementById('market-content').innerHTML = '<div class="loading" style="color:#e74c3c">載入失敗，請稍後再試</div>';
+            }
+        }
+
+        function showRecommendTab() {
+            document.getElementById('content').innerHTML = `
+                <div class="card">
+                    <div class="card-title"><span class="icon">💡</span> AI 智能選股</div>
+                    <div class="strategy-buttons">
+                        <div class="strategy-btn ${currentStrategy === 'aggressive' ? 'active' : ''}" onclick="selectStrategy('aggressive')">
+                            <span class="icon">🚀</span>
+                            <div class="name">積極型</div>
+                            <div class="desc">追求高報酬，可承受較高風險</div>
+                        </div>
+                        <div class="strategy-btn ${currentStrategy === 'balanced' ? 'active' : ''}" onclick="selectStrategy('balanced')">
+                            <span class="icon">⚖️</span>
+                            <div class="name">穩健型</div>
+                            <div class="desc">風險與報酬平衡，法人認同</div>
+                        </div>
+                        <div class="strategy-btn ${currentStrategy === 'conservative' ? 'active' : ''}" onclick="selectStrategy('conservative')">
+                            <span class="icon">🛡️</span>
+                            <div class="name">保守型</div>
+                            <div class="desc">以保本為主，大型權值股</div>
+                        </div>
+                    </div>
+                    <div id="recommend-content"><div class="loading">AI 分析中，請稍候</div></div>
+                </div>
+            `;
+            loadRecommendations();
+        }
+
+        function selectStrategy(strategy) {
+            currentStrategy = strategy;
+            document.querySelectorAll('.strategy-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.getElementById('recommend-content').innerHTML = '<div class="loading">AI 分析中，請稍候</div>';
+            loadRecommendations();
+        }
+
+        async function loadRecommendations() {
+            try {
+                const resp = await fetch(`${API_BASE}/recommendations?strategy=${currentStrategy}&limit=9`);
+                const data = await resp.json();
+
+                const html = `
+                    <div class="market-view"><strong>市場觀點：</strong>${data.market_view}</div>
+                    <div class="recommendation-grid">
+                        ${data.recommendations.map(r => `
+                            <div class="rec-card" onclick="window.location='/stock/${r.code}'">
+                                <div class="stock-info">
+                                    <div>
+                                        <span class="stock-code">${r.code}</span>
+                                        <span class="stock-name">${r.name}</span>
+                                    </div>
+                                </div>
+                                <div class="reason">📌 ${r.reason}</div>
+                                <div class="focus">👁️ ${r.focus}</div>
+                                <div class="risk">⚠️ ${r.risk}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="disclaimer">${data.disclaimer}</div>
+                `;
+                document.getElementById('recommend-content').innerHTML = html;
+            } catch (e) {
+                document.getElementById('recommend-content').innerHTML = '<div class="loading" style="color:#e74c3c">載入失敗，請稍後再試</div>';
+            }
+        }
+
+        function showStockTab() {
+            document.getElementById('content').innerHTML = `
+                <div class="card">
+                    <div class="card-title"><span class="icon">🔍</span> AI 個股分析</div>
+                    <div class="search-box">
+                        <input type="text" id="stock-code" placeholder="輸入股票代號 (例如: 2330)" maxlength="6">
+                        <button id="analyze-btn" onclick="analyzeStock()">開始分析</button>
+                    </div>
+                    <div id="stock-content"></div>
+                </div>
+            `;
+
+            document.getElementById('stock-code').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') analyzeStock();
+            });
+        }
+
+        async function analyzeStock() {
+            const code = document.getElementById('stock-code').value.trim();
+            if (!code || !/^[0-9]{4,6}$/.test(code)) {
+                alert('請輸入有效的股票代號');
+                return;
+            }
+
+            document.getElementById('stock-content').innerHTML = '<div class="loading">AI 分析中，這可能需要 10-20 秒</div>';
+            document.getElementById('analyze-btn').disabled = true;
+
+            try {
+                const resp = await fetch(`${API_BASE}/stock/${code}`);
+                if (!resp.ok) throw new Error('股票不存在');
+                const data = await resp.json();
+
+                const html = `
+                    <div style="margin-bottom:15px">
+                        <span style="font-size:1.5rem;font-weight:700;color:#00d4ff">${data.stock_code}</span>
+                        <span style="font-size:1.2rem;color:#ccc">${data.stock_name}</span>
+                        <span style="color:#888;margin-left:10px">${data.industry || ''}</span>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:20px">
+                        <div style="background:rgba(255,255,255,0.05);padding:12px;border-radius:10px;text-align:center">
+                            <div style="color:#888;font-size:0.8rem">外資持股</div>
+                            <div style="font-size:1.2rem;font-weight:600">${data.data_summary.foreign_ratio ? data.data_summary.foreign_ratio.toFixed(1) + '%' : '-'}</div>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.05);padding:12px;border-radius:10px;text-align:center">
+                            <div style="color:#888;font-size:0.8rem">外資5日</div>
+                            <div style="font-size:1.2rem;font-weight:600;color:${data.data_summary.foreign_5d >= 0 ? '#2ecc71' : '#e74c3c'}">${data.data_summary.foreign_5d}</div>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.05);padding:12px;border-radius:10px;text-align:center">
+                            <div style="color:#888;font-size:0.8rem">投信5日</div>
+                            <div style="font-size:1.2rem;font-weight:600;color:${data.data_summary.trust_5d >= 0 ? '#2ecc71' : '#e74c3c'}">${data.data_summary.trust_5d}</div>
+                        </div>
+                    </div>
+                    <div class="ai-content">${data.analysis}</div>
+                    <div class="disclaimer">${data.disclaimer}</div>
+                `;
+                document.getElementById('stock-content').innerHTML = html;
+            } catch (e) {
+                document.getElementById('stock-content').innerHTML = '<div class="loading" style="color:#e74c3c">分析失敗：' + e.message + '</div>';
+            }
+            document.getElementById('analyze-btn').disabled = false;
+        }
+
+        function showCompareTab() {
+            document.getElementById('content').innerHTML = `
+                <div class="card">
+                    <div class="card-title"><span class="icon">⚖️</span> AI 股票比較</div>
+                    <p style="color:#888;margin-bottom:15px">輸入 2-5 檔股票代碼進行比較分析</p>
+                    <div class="compare-input">
+                        <input type="text" class="compare-code" placeholder="2330" maxlength="6">
+                        <input type="text" class="compare-code" placeholder="2317" maxlength="6">
+                        <input type="text" class="compare-code" placeholder="2454" maxlength="6">
+                        <input type="text" class="compare-code" placeholder="" maxlength="6">
+                        <input type="text" class="compare-code" placeholder="" maxlength="6">
+                        <button onclick="compareStocks()" style="padding:12px 25px;border:none;border-radius:10px;background:linear-gradient(90deg,#00d4ff,#7b2cbf);color:#fff;cursor:pointer">比較分析</button>
+                    </div>
+                    <div id="compare-content"></div>
+                </div>
+            `;
+        }
+
+        async function compareStocks() {
+            const codes = Array.from(document.querySelectorAll('.compare-code'))
+                .map(input => input.value.trim())
+                .filter(code => /^[0-9]{4,6}$/.test(code));
+
+            if (codes.length < 2) {
+                alert('請輸入至少 2 檔股票代號');
+                return;
+            }
+
+            document.getElementById('compare-content').innerHTML = '<div class="loading">AI 比較分析中，請稍候</div>';
+
+            try {
+                const resp = await fetch(`${API_BASE}/compare?codes=${codes.join(',')}`);
+                const data = await resp.json();
+
+                const html = `
+                    <table style="width:100%;margin-bottom:20px">
+                        <thead>
+                            <tr>
+                                <th style="padding:10px;text-align:left;color:#888">股票</th>
+                                <th style="padding:10px;text-align:right;color:#888">股價</th>
+                                <th style="padding:10px;text-align:right;color:#888">外資5日</th>
+                                <th style="padding:10px;text-align:right;color:#888">外資20日</th>
+                                <th style="padding:10px;text-align:right;color:#888">投信5日</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.stocks.map(s => `
+                                <tr style="border-bottom:1px solid rgba(255,255,255,0.1)">
+                                    <td style="padding:12px 10px"><strong style="color:#00d4ff">${s.code}</strong> ${s.name}</td>
+                                    <td style="padding:12px 10px;text-align:right">${s.price ? s.price.toFixed(1) : '-'}</td>
+                                    <td style="padding:12px 10px;text-align:right;color:${s.foreign_5d >= 0 ? '#2ecc71' : '#e74c3c'}">${s.foreign_5d}</td>
+                                    <td style="padding:12px 10px;text-align:right;color:${s.foreign_20d >= 0 ? '#2ecc71' : '#e74c3c'}">${s.foreign_20d}</td>
+                                    <td style="padding:12px 10px;text-align:right;color:${s.trust_5d >= 0 ? '#2ecc71' : '#e74c3c'}">${s.trust_5d}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                    <div class="ai-content">${data.analysis}</div>
+                    <div class="disclaimer">${data.disclaimer}</div>
+                `;
+                document.getElementById('compare-content').innerHTML = html;
+            } catch (e) {
+                document.getElementById('compare-content').innerHTML = '<div class="loading" style="color:#e74c3c">比較分析失敗</div>';
+            }
+        }
+
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const tabId = tab.dataset.tab;
+                if (tabId === 'market') showMarketTab();
+                else if (tabId === 'recommend') showRecommendTab();
+                else if (tabId === 'stock') showStockTab();
+                else if (tabId === 'compare') showCompareTab();
+            });
+        });
+
+        showMarketTab();
+    </script>
+</body>
+</html>

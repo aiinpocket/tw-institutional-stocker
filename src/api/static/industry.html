@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>產業資金流向熱力圖 | Industry Heatmap</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+        }
+        h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .subtitle { color: #888; font-size: 0.95rem; }
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: #00d4ff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid rgba(0,212,255,0.3);
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .nav-links a:hover {
+            background: rgba(0,212,255,0.1);
+            border-color: #00d4ff;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 12px 28px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .tab:hover { background: rgba(255,255,255,0.15); }
+        .tab.active {
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            border: none;
+        }
+        .heatmap-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        .heatmap-cell {
+            padding: 20px 15px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .heatmap-cell:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        .heatmap-cell .industry-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .heatmap-cell .net-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .heatmap-cell .stock-count {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        .rotation-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .rotation-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .rotation-card .industry-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .rotation-card .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+        .rotation-card .stat-label { color: #888; }
+        .rotation-card .stat-value { font-weight: 600; }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .status-strong { background: linear-gradient(90deg, #27ae60, #2ecc71); }
+        .status-turning-up { background: linear-gradient(90deg, #3498db, #2980b9); }
+        .status-turning-down { background: linear-gradient(90deg, #f39c12, #e67e22); }
+        .status-weak { background: linear-gradient(90deg, #e74c3c, #c0392b); }
+        .status-neutral { background: rgba(255,255,255,0.2); }
+        .positive { color: #2ecc71; }
+        .negative { color: #e74c3c; }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .modal.active { display: block; }
+        .modal-content {
+            max-width: 900px;
+            margin: 20px auto;
+            background: #1a1a2e;
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .modal-header h2 { font-size: 1.5rem; }
+        .close-btn {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .close-btn:hover { color: #fff; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px 10px; text-align: left; }
+        th { color: #888; font-size: 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        td { border-bottom: 1px solid rgba(255,255,255,0.05); }
+        tr:hover { background: rgba(255,255,255,0.03); }
+        .stock-code { color: #00d4ff; cursor: pointer; }
+        .stock-code:hover { text-decoration: underline; }
+        .loading { text-align: center; padding: 60px; color: #888; }
+        footer { text-align: center; margin-top: 40px; padding: 20px; color: #666; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>產業資金流向熱力圖</h1>
+            <p class="subtitle">Industry Capital Flow Heatmap</p>
+            <div class="nav-links">
+                <a href="/dashboard">📊 策略儀表板</a>
+                <a href="/ai">🤖 AI 分析</a>
+                <a href="/rankings">🏆 法人排行</a>
+                <a href="/brokers">🏦 券商追蹤</a>
+                <a href="/live">📈 即時看板</a>
+            </div>
+        </header>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="heatmap">熱力圖</div>
+            <div class="tab" data-tab="rotation">產業輪動</div>
+            <div class="tab" data-tab="summary">資金流向</div>
+        </div>
+
+        <div id="content">
+            <div class="loading">載入資料中...</div>
+        </div>
+
+        <footer>
+            <div>資料來源：台灣證券交易所、櫃買中心 | 紅色代表買超、綠色代表賣超</div>
+        </footer>
+    </div>
+
+    <!-- 產業個股 Modal -->
+    <div id="industry-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">產業個股</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modal-body">
+                <div class="loading">載入中...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '/api/v1/industry';
+        let currentDays = 5;
+
+        function getHeatColor(intensity) {
+            if (intensity > 50) return `rgba(231, 76, 60, ${0.3 + intensity/200})`;
+            if (intensity > 20) return `rgba(231, 76, 60, ${0.2 + intensity/300})`;
+            if (intensity > 0) return `rgba(231, 76, 60, 0.15)`;
+            if (intensity > -20) return `rgba(46, 204, 113, 0.15)`;
+            if (intensity > -50) return `rgba(46, 204, 113, ${0.2 + Math.abs(intensity)/300})`;
+            return `rgba(46, 204, 113, ${0.3 + Math.abs(intensity)/200})`;
+        }
+
+        function formatNumber(num) {
+            if (Math.abs(num) >= 10000) return (num/10000).toFixed(1) + '萬';
+            if (Math.abs(num) >= 1000) return (num/1000).toFixed(1) + '千';
+            return num.toFixed(0);
+        }
+
+        async function loadHeatmap() {
+            try {
+                const resp = await fetch(`${API_BASE}/heatmap?days=${currentDays}`);
+                const data = await resp.json();
+
+                const html = `
+                    <div class="heatmap-container">
+                        ${data.items.map(item => `
+                            <div class="heatmap-cell"
+                                 style="background: ${getHeatColor(item.intensity)}"
+                                 onclick="showIndustryStocks('${item.industry}')">
+                                <div class="industry-name">${item.industry}</div>
+                                <div class="net-value ${item.total_net >= 0 ? 'positive' : 'negative'}">
+                                    ${item.total_net >= 0 ? '+' : ''}${formatNumber(item.total_net)}
+                                </div>
+                                <div class="stock-count">強度: ${item.intensity.toFixed(0)}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                document.getElementById('content').innerHTML = html;
+            } catch (e) {
+                document.getElementById('content').innerHTML = '<div class="loading">載入失敗</div>';
+            }
+        }
+
+        async function loadRotation() {
+            try {
+                const resp = await fetch(`${API_BASE}/rotation`);
+                const data = await resp.json();
+
+                const statusClass = {
+                    '強勢加碼': 'status-strong',
+                    '轉強': 'status-turning-up',
+                    '轉弱': 'status-turning-down',
+                    '持續弱勢': 'status-weak',
+                    '短期買超': 'status-turning-up',
+                    '短期賣超': 'status-turning-down',
+                    '觀望': 'status-neutral'
+                };
+
+                const html = `
+                    <div class="rotation-container">
+                        ${data.items.map(item => `
+                            <div class="rotation-card" onclick="showIndustryStocks('${item.industry}')">
+                                <div class="industry-name">${item.industry}</div>
+                                <div class="stats">
+                                    <div>
+                                        <div class="stat-label">5日淨買賣</div>
+                                        <div class="stat-value ${item.net_5d >= 0 ? 'positive' : 'negative'}">
+                                            ${item.net_5d >= 0 ? '+' : ''}${formatNumber(item.net_5d)}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="stat-label">20日淨買賣</div>
+                                        <div class="stat-value ${item.net_20d >= 0 ? 'positive' : 'negative'}">
+                                            ${item.net_20d >= 0 ? '+' : ''}${formatNumber(item.net_20d)}
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="status-badge ${statusClass[item.status] || 'status-neutral'}">${item.status}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                document.getElementById('content').innerHTML = html;
+            } catch (e) {
+                document.getElementById('content').innerHTML = '<div class="loading">載入失敗</div>';
+            }
+        }
+
+        async function loadSummary() {
+            try {
+                const resp = await fetch(`${API_BASE}/summary?days=${currentDays}`);
+                const data = await resp.json();
+
+                const html = `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>產業</th>
+                                <th>外資</th>
+                                <th>投信</th>
+                                <th>自營商</th>
+                                <th>合計</th>
+                                <th>股票數</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.items.map(item => `
+                                <tr onclick="showIndustryStocks('${item.industry}')" style="cursor:pointer">
+                                    <td><strong>${item.industry}</strong></td>
+                                    <td class="${item.foreign_net >= 0 ? 'positive' : 'negative'}">${formatNumber(item.foreign_net)}</td>
+                                    <td class="${item.trust_net >= 0 ? 'positive' : 'negative'}">${formatNumber(item.trust_net)}</td>
+                                    <td class="${item.dealer_net >= 0 ? 'positive' : 'negative'}">${formatNumber(item.dealer_net)}</td>
+                                    <td class="${item.total_net >= 0 ? 'positive' : 'negative'}"><strong>${formatNumber(item.total_net)}</strong></td>
+                                    <td>${item.stock_count}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+                document.getElementById('content').innerHTML = html;
+            } catch (e) {
+                document.getElementById('content').innerHTML = '<div class="loading">載入失敗</div>';
+            }
+        }
+
+        async function showIndustryStocks(industry) {
+            document.getElementById('modal-title').textContent = `${industry} - 個股明細`;
+            document.getElementById('modal-body').innerHTML = '<div class="loading">載入中...</div>';
+            document.getElementById('industry-modal').classList.add('active');
+
+            try {
+                const resp = await fetch(`${API_BASE}/${encodeURIComponent(industry)}/stocks?days=${currentDays}`);
+                const data = await resp.json();
+
+                const html = `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>股票</th>
+                                <th>股價</th>
+                                <th>漲跌%</th>
+                                <th>外資</th>
+                                <th>投信</th>
+                                <th>自營</th>
+                                <th>合計</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.items.map(s => `
+                                <tr>
+                                    <td>
+                                        <span class="stock-code" onclick="window.location='/stock/${s.code}'">${s.code}</span>
+                                        ${s.name}
+                                    </td>
+                                    <td>${s.current_price ? s.current_price.toFixed(1) : '-'}</td>
+                                    <td class="${(s.change_percent||0) >= 0 ? 'positive' : 'negative'}">
+                                        ${s.change_percent ? s.change_percent.toFixed(2) + '%' : '-'}
+                                    </td>
+                                    <td class="${s.foreign_net >= 0 ? 'positive' : 'negative'}">${formatNumber(s.foreign_net)}</td>
+                                    <td class="${s.trust_net >= 0 ? 'positive' : 'negative'}">${formatNumber(s.trust_net)}</td>
+                                    <td class="${s.dealer_net >= 0 ? 'positive' : 'negative'}">${formatNumber(s.dealer_net)}</td>
+                                    <td class="${s.total_net >= 0 ? 'positive' : 'negative'}"><strong>${formatNumber(s.total_net)}</strong></td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+                document.getElementById('modal-body').innerHTML = html;
+            } catch (e) {
+                document.getElementById('modal-body').innerHTML = '<div class="loading">載入失敗</div>';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('industry-modal').classList.remove('active');
+        }
+
+        document.getElementById('industry-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'industry-modal') closeModal();
+        });
+
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const tabId = tab.dataset.tab;
+                if (tabId === 'heatmap') loadHeatmap();
+                else if (tabId === 'rotation') loadRotation();
+                else if (tabId === 'summary') loadSummary();
+            });
+        });
+
+        loadHeatmap();
+    </script>
+</body>
+</html>

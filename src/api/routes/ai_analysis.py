@@ -116,7 +116,7 @@ def get_stock_data(db: Session, stock_code: str, days: int = 20) -> Dict[str, An
             {
                 "date": str(p.trade_date),
                 "close": float(p.close_price) if p.close_price else None,
-                "volume": p.volume,
+                "volume": int(p.volume) if p.volume else 0,
                 "change_pct": float(p.change_percent) if p.change_percent else None,
             }
             for p in prices
@@ -124,23 +124,23 @@ def get_stock_data(db: Session, stock_code: str, days: int = 20) -> Dict[str, An
         "flows": [
             {
                 "date": str(f.trade_date),
-                "foreign": f.foreign_net,
-                "trust": f.trust_net,
-                "dealer": f.dealer_net,
+                "foreign": int(f.foreign_net) if f.foreign_net else 0,
+                "trust": int(f.trust_net) if f.trust_net else 0,
+                "dealer": int(f.dealer_net) if f.dealer_net else 0,
             }
             for f in flows
         ],
         "cumulative": {
-            "foreign_5d": cumulative.foreign_5d or 0,
-            "foreign_20d": cumulative.foreign_20d or 0,
-            "trust_5d": cumulative.trust_5d or 0,
-            "trust_20d": cumulative.trust_20d or 0,
-            "dealer_5d": cumulative.dealer_5d or 0,
-            "dealer_20d": cumulative.dealer_20d or 0,
+            "foreign_5d": int(cumulative.foreign_5d) if cumulative.foreign_5d else 0,
+            "foreign_20d": int(cumulative.foreign_20d) if cumulative.foreign_20d else 0,
+            "trust_5d": int(cumulative.trust_5d) if cumulative.trust_5d else 0,
+            "trust_20d": int(cumulative.trust_20d) if cumulative.trust_20d else 0,
+            "dealer_5d": int(cumulative.dealer_5d) if cumulative.dealer_5d else 0,
+            "dealer_20d": int(cumulative.dealer_20d) if cumulative.dealer_20d else 0,
         },
         "foreign_ratio": float(holding.foreign_ratio) if holding and holding.foreign_ratio else None,
         "top_brokers": [
-            {"name": b.broker_name, "net_vol": b.net_vol}
+            {"name": b.broker_name, "net_vol": int(b.net_vol) if b.net_vol else 0}
             for b in brokers
         ],
     }
@@ -212,19 +212,19 @@ def get_market_overview(db: Session) -> Dict[str, Any]:
 
     return {
         "hot_industries": [
-            {"industry": i.industry, "net_flow": i.total_net}
+            {"industry": i.industry, "net_flow": int(i.total_net) if i.total_net else 0}
             for i in industries
         ],
         "foreign_favorites": [
-            {"code": f.code, "name": f.name, "industry": f.industry, "net": f.foreign_net}
+            {"code": f.code, "name": f.name, "industry": f.industry, "net": int(f.foreign_net) if f.foreign_net else 0}
             for f in foreign_top
         ],
         "trust_favorites": [
-            {"code": t.code, "name": t.name, "industry": t.industry, "net": t.trust_net}
+            {"code": t.code, "name": t.name, "industry": t.industry, "net": int(t.trust_net) if t.trust_net else 0}
             for t in trust_top
         ],
         "consecutive_buying": [
-            {"code": c.code, "name": c.name, "industry": c.industry, "days": c.buy_days}
+            {"code": c.code, "name": c.name, "industry": c.industry, "days": int(c.buy_days) if c.buy_days else 0}
             for c in consecutive
         ],
     }

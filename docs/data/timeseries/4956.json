@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 8.67,
     "three_inst_ratio_change_20": -2.24
+  },
+  {
+    "date": "2025-12-30",
+    "code": "4956",
+    "name": "光鋐",
+    "market": "TWSE",
+    "foreign_ratio": 8.61,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 8.61,
+    "three_inst_ratio_change_20": -2.0200000000000014
   }
 ]

@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 5.82,
     "three_inst_ratio_change_20": 0.1299999999999999
+  },
+  {
+    "date": "2025-12-30",
+    "code": "1533",
+    "name": "車王電",
+    "market": "TWSE",
+    "foreign_ratio": 5.86,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.86,
+    "three_inst_ratio_change_20": 0.16999999999999993
   }
 ]

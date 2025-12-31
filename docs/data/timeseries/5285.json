@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.05,
     "three_inst_ratio_change_20": 0.1299999999999999
+  },
+  {
+    "date": "2025-12-30",
+    "code": "5285",
+    "name": "界霖",
+    "market": "TWSE",
+    "foreign_ratio": 2.09,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.09,
+    "three_inst_ratio_change_20": 0.33999999999999986
   }
 ]

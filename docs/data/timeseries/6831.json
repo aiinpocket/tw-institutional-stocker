@@ -262,5 +262,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 6.909259259259259,
     "three_inst_ratio_change_20": 0.9792592592592593
+  },
+  {
+    "date": "2025-12-30",
+    "code": "6831",
+    "name": "邁科",
+    "market": "TWSE",
+    "foreign_ratio": 5.73,
+    "trust_ratio": 1.5244444444444445,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 7.254444444444445,
+    "three_inst_ratio_change_20": 1.764444444444445
   }
 ]

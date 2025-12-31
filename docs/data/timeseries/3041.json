@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 9.006163129390009,
     "three_inst_ratio_change_20": 0.03616312939000821
+  },
+  {
+    "date": "2025-12-30",
+    "code": "3041",
+    "name": "揚智",
+    "market": "TWSE",
+    "foreign_ratio": 8.88,
+    "trust_ratio": 0.16616312939000938,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.04616312939001,
+    "three_inst_ratio_change_20": 0.11616312939001006
   }
 ]

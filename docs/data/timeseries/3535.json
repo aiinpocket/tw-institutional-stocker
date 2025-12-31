@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 10.25,
     "three_inst_ratio_change_20": -1.17
+  },
+  {
+    "date": "2025-12-30",
+    "code": "3535",
+    "name": "晶彩科",
+    "market": "TWSE",
+    "foreign_ratio": 10.66,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 10.66,
+    "three_inst_ratio_change_20": -2.369999999999999
   }
 ]

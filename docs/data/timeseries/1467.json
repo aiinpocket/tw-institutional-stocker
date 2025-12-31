@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 19.11,
     "three_inst_ratio_change_20": -0.33000000000000185
+  },
+  {
+    "date": "2025-12-30",
+    "code": "1467",
+    "name": "南緯",
+    "market": "TWSE",
+    "foreign_ratio": 19.11,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 19.11,
+    "three_inst_ratio_change_20": -0.2699999999999996
   }
 ]

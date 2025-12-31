@@ -669,5 +669,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 53.01,
     "three_inst_ratio_change_20": -0.020000000000003126
+  },
+  {
+    "date": "2025-12-30",
+    "code": "6887",
+    "name": "寶綠特-KY",
+    "market": "TWSE",
+    "foreign_ratio": 53.01,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 53.01,
+    "three_inst_ratio_change_20": -0.010000000000005116
   }
 ]

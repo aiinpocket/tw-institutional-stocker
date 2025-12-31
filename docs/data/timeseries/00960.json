@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.85,
     "three_inst_ratio_change_20": 0.18000000000000016
+  },
+  {
+    "date": "2025-12-30",
+    "code": "00960",
+    "name": "野村全球航運龍頭",
+    "market": "TWSE",
+    "foreign_ratio": 1.26,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.26,
+    "three_inst_ratio_change_20": 0.21999999999999997
   }
 ]

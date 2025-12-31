@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 46.339683749440695,
     "three_inst_ratio_change_20": -0.881430571296157
+  },
+  {
+    "date": "2025-12-30",
+    "code": "2327",
+    "name": "國巨*",
+    "market": "TWSE",
+    "foreign_ratio": 45.2,
+    "trust_ratio": 1.253086748917066,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 46.453086748917066,
+    "three_inst_ratio_change_20": -0.663714580494144
   }
 ]

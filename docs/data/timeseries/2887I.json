@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 6.54,
     "three_inst_ratio_change_20": -0.7400000000000002
+  },
+  {
+    "date": "2025-12-30",
+    "code": "2887I",
+    "name": "台新新光辛特",
+    "market": "TWSE",
+    "foreign_ratio": 6.53,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 6.53,
+    "three_inst_ratio_change_20": -0.7199999999999998
   }
 ]

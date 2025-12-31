@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.3,
     "three_inst_ratio_change_20": 0.30999999999999983
+  },
+  {
+    "date": "2025-12-30",
+    "code": "4564",
+    "name": "元翎",
+    "market": "TWSE",
+    "foreign_ratio": 2.34,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.34,
+    "three_inst_ratio_change_20": 0.3599999999999999
   }
 ]

@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.921200299671617,
     "three_inst_ratio_change_20": 0.41000000000000014
+  },
+  {
+    "date": "2025-12-30",
+    "code": "6024",
+    "name": "群益期",
+    "market": "TWSE",
+    "foreign_ratio": 2.93,
+    "trust_ratio": 0.0012002996716172147,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.9312002996716173,
+    "three_inst_ratio_change_20": 0.3900000000000001
   }
 ]

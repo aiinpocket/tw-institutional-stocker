@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.39,
     "three_inst_ratio_change_20": 0.18999999999999995
+  },
+  {
+    "date": "2025-12-30",
+    "code": "2022",
+    "name": "聚亨",
+    "market": "TWSE",
+    "foreign_ratio": 2.39,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.39,
+    "three_inst_ratio_change_20": 0.16000000000000014
   }
 ]

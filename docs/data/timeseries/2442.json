@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.51,
     "three_inst_ratio_change_20": 0.2899999999999996
+  },
+  {
+    "date": "2025-12-30",
+    "code": "2442",
+    "name": "新美齊",
+    "market": "TWSE",
+    "foreign_ratio": 2.37,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.37,
+    "three_inst_ratio_change_20": 0.10000000000000009
   }
 ]

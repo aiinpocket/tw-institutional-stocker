@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 21.106915377435307,
     "three_inst_ratio_change_20": -0.3783174786010761
+  },
+  {
+    "date": "2025-12-30",
+    "code": "4755",
+    "name": "三福化",
+    "market": "TWSE",
+    "foreign_ratio": 20.7,
+    "trust_ratio": 0.43691537743530673,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 21.136915377435304,
+    "three_inst_ratio_change_20": -0.3583174786010801
   }
 ]

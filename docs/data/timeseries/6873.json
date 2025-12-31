@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 8.090660770663098,
     "three_inst_ratio_change_20": -0.5632997214327204
+  },
+  {
+    "date": "2025-12-30",
+    "code": "6873",
+    "name": "泓德能源",
+    "market": "TWSE",
+    "foreign_ratio": 8.19,
+    "trust_ratio": -0.23638781814951,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 7.95361218185049,
+    "three_inst_ratio_change_20": -0.6903483102453283
   }
 ]

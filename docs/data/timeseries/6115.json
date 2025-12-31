@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 5.12,
     "three_inst_ratio_change_20": 0.03000000000000025
+  },
+  {
+    "date": "2025-12-30",
+    "code": "6115",
+    "name": "鎰勝",
+    "market": "TWSE",
+    "foreign_ratio": 5.12,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.12,
+    "three_inst_ratio_change_20": 0.03000000000000025
   }
 ]

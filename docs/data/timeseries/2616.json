@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.78,
     "three_inst_ratio_change_20": -0.020000000000000018
+  },
+  {
+    "date": "2025-12-30",
+    "code": "2616",
+    "name": "山隆",
+    "market": "TWSE",
+    "foreign_ratio": 1.75,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.75,
+    "three_inst_ratio_change_20": -0.050000000000000044
   }
 ]

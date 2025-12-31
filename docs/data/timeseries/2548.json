@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 14.480170298360749,
     "three_inst_ratio_change_20": 1.4413566812453258
+  },
+  {
+    "date": "2025-12-30",
+    "code": "2548",
+    "name": "華固",
+    "market": "TWSE",
+    "foreign_ratio": 14.3,
+    "trust_ratio": 0.19017029836074928,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 14.49017029836075,
+    "three_inst_ratio_change_20": 1.5313566812453274
   }
 ]

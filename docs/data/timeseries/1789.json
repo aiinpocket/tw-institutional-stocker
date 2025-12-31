@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.240126463943128,
     "three_inst_ratio_change_20": -0.13999999999999968
+  },
+  {
+    "date": "2025-12-30",
+    "code": "1789",
+    "name": "神隆",
+    "market": "TWSE",
+    "foreign_ratio": 2.18,
+    "trust_ratio": 0.00012646394312789002,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.180126463943128,
+    "three_inst_ratio_change_20": -0.20999999999999996
   }
 ]

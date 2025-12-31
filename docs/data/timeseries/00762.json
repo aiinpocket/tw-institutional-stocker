@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.0271577847439914,
     "three_inst_ratio_change_20": 0.1299999999999999
+  },
+  {
+    "date": "2025-12-30",
+    "code": "00762",
+    "name": "元大全球AI",
+    "market": "TWSE",
+    "foreign_ratio": 2.71,
+    "trust_ratio": 0.4571577847439916,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.1671577847439916,
+    "three_inst_ratio_change_20": 0.31999999999999984
   }
 ]

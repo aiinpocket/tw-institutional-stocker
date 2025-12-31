@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 15.871649497845992,
     "three_inst_ratio_change_20": -9.23857956321425
+  },
+  {
+    "date": "2025-12-30",
+    "code": "4977",
+    "name": "眾達-KY",
+    "market": "TWSE",
+    "foreign_ratio": 16.85,
+    "trust_ratio": -0.16835050215400726,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 16.681649497845996,
+    "three_inst_ratio_change_20": -6.5685795632142465
   }
 ]

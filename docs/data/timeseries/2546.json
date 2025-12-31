@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.3,
     "three_inst_ratio_change_20": -0.040000000000000036
+  },
+  {
+    "date": "2025-12-30",
+    "code": "2546",
+    "name": "根基",
+    "market": "TWSE",
+    "foreign_ratio": 3.3,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.3,
+    "three_inst_ratio_change_20": 0.020000000000000018
   }
 ]

@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.37,
     "three_inst_ratio_change_20": -0.2799999999999998
+  },
+  {
+    "date": "2025-12-30",
+    "code": "6949",
+    "name": "沛爾生醫-創",
+    "market": "TWSE",
+    "foreign_ratio": 1.25,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.25,
+    "three_inst_ratio_change_20": -0.3700000000000001
   }
 ]

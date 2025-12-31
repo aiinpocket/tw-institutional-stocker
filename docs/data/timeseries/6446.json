@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 20.989248405081053,
     "three_inst_ratio_change_20": -0.5900883640421846
+  },
+  {
+    "date": "2025-12-30",
+    "code": "6446",
+    "name": "藥華藥",
+    "market": "TWSE",
+    "foreign_ratio": 19.21,
+    "trust_ratio": 1.506067665480416,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 20.716067665480416,
+    "three_inst_ratio_change_20": -0.7166766365817381
   }
 ]

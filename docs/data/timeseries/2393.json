@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 20.355647656490518,
     "three_inst_ratio_change_20": -2.39095054815537
+  },
+  {
+    "date": "2025-12-30",
+    "code": "2393",
+    "name": "億光",
+    "market": "TWSE",
+    "foreign_ratio": 28.67,
+    "trust_ratio": -9.132137437073162,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 19.53786256292684,
+    "three_inst_ratio_change_20": -3.1820299903368365
   }
 ]

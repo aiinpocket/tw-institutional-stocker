@@ -746,5 +746,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.86,
     "three_inst_ratio_change_20": -0.03000000000000025
+  },
+  {
+    "date": "2025-12-30",
+    "code": "2114",
+    "name": "鑫永銓",
+    "market": "TWSE",
+    "foreign_ratio": 3.87,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.87,
+    "three_inst_ratio_change_20": -0.020000000000000018
   }
 ]

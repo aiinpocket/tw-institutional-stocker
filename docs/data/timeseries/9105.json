@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.44,
     "three_inst_ratio_change_20": -0.12000000000000005
+  },
+  {
+    "date": "2025-12-30",
+    "code": "9105",
+    "name": "泰金寶-DR",
+    "market": "TWSE",
+    "foreign_ratio": 0.3,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.3,
+    "three_inst_ratio_change_20": -0.22000000000000003
   }
 ]

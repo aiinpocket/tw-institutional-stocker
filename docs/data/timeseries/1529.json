@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.82,
     "three_inst_ratio_change_20": -0.7299999999999998
+  },
+  {
+    "date": "2025-12-30",
+    "code": "1529",
+    "name": "樂事綠能",
+    "market": "TWSE",
+    "foreign_ratio": 1.76,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.76,
+    "three_inst_ratio_change_20": -0.7699999999999998
   }
 ]

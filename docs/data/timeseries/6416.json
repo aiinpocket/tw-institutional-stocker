@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.42,
     "three_inst_ratio_change_20": 0.3900000000000001
+  },
+  {
+    "date": "2025-12-30",
+    "code": "6416",
+    "name": "瑞祺電通",
+    "market": "TWSE",
+    "foreign_ratio": 3.59,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.59,
+    "three_inst_ratio_change_20": 0.5099999999999998
   }
 ]

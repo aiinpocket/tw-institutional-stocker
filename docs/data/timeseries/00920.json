@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 12.95,
     "three_inst_ratio_change_20": -2.290000000000001
+  },
+  {
+    "date": "2025-12-30",
+    "code": "00920",
+    "name": "富邦ESG綠色電力",
+    "market": "TWSE",
+    "foreign_ratio": 13.26,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 13.26,
+    "three_inst_ratio_change_20": -0.8900000000000006
   }
 ]

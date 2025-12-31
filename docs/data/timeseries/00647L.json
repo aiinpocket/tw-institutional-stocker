@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 4.042128397917871,
     "three_inst_ratio_change_20": -0.4896191748976628
+  },
+  {
+    "date": "2025-12-30",
+    "code": "00647L",
+    "name": "元大S&P500正2",
+    "market": "TWSE",
+    "foreign_ratio": 1.98,
+    "trust_ratio": 2.0821283979178715,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.0621283979178715,
+    "three_inst_ratio_change_20": -0.4496191748976619
   }
 ]

@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.58,
     "three_inst_ratio_change_20": 0.8800000000000001
+  },
+  {
+    "date": "2025-12-30",
+    "code": "6117",
+    "name": "迎廣",
+    "market": "TWSE",
+    "foreign_ratio": 1.59,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.59,
+    "three_inst_ratio_change_20": 0.91
   }
 ]

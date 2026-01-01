@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.6,
     "three_inst_ratio_change_20": -0.07999999999999985
+  },
+  {
+    "date": "2025-12-31",
+    "code": "1817",
+    "name": "凱撒衛",
+    "market": "TWSE",
+    "foreign_ratio": 1.6,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.6,
+    "three_inst_ratio_change_20": -0.029999999999999805
   }
 ]

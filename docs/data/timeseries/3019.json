@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 7.88897545966456,
     "three_inst_ratio_change_20": -0.8659533583510557
+  },
+  {
+    "date": "2025-12-31",
+    "code": "3019",
+    "name": "亞光",
+    "market": "TWSE",
+    "foreign_ratio": 7.29,
+    "trust_ratio": 0.638617349784123,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 7.928617349784123,
+    "three_inst_ratio_change_20": -0.8163114682314934
   }
 ]

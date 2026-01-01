@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.63,
     "three_inst_ratio_change_20": -0.2400000000000002
+  },
+  {
+    "date": "2025-12-31",
+    "code": "1809",
+    "name": "中釉",
+    "market": "TWSE",
+    "foreign_ratio": 3.36,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.36,
+    "three_inst_ratio_change_20": -0.5700000000000003
   }
 ]

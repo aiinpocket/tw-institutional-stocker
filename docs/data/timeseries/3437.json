@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 5.5,
     "three_inst_ratio_change_20": 0.5099999999999998
+  },
+  {
+    "date": "2025-12-31",
+    "code": "3437",
+    "name": "榮創",
+    "market": "TWSE",
+    "foreign_ratio": 5.6,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.6,
+    "three_inst_ratio_change_20": 0.6099999999999994
   }
 ]

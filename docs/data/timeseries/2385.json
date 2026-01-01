@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 18.257116462372977,
     "three_inst_ratio_change_20": -1.0972739655640815
+  },
+  {
+    "date": "2025-12-31",
+    "code": "2385",
+    "name": "群光",
+    "market": "TWSE",
+    "foreign_ratio": 18.1,
+    "trust_ratio": 0.001163865940684476,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 18.101163865940684,
+    "three_inst_ratio_change_20": -1.081256513774541
   }
 ]

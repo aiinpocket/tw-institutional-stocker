@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 5.741923458918537,
     "three_inst_ratio_change_20": 0.2544974503826296
+  },
+  {
+    "date": "2025-12-31",
+    "code": "5222",
+    "name": "全訊",
+    "market": "TWSE",
+    "foreign_ratio": 4.22,
+    "trust_ratio": 1.8419234589185367,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 6.061923458918536,
+    "three_inst_ratio_change_20": 0.5144974503826294
   }
 ]

@@ -383,5 +383,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 19.3,
     "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-31",
+    "code": "5906",
+    "name": "台南-KY",
+    "market": "TWSE",
+    "foreign_ratio": 19.31,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 19.31,
+    "three_inst_ratio_change_20": 0.0
   }
 ]

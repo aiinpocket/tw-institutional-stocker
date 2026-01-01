@@ -449,5 +449,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 19.72,
     "three_inst_ratio_change_20": -0.05000000000000071
+  },
+  {
+    "date": "2025-12-31",
+    "code": "2939",
+    "name": "永邑-KY",
+    "market": "TWSE",
+    "foreign_ratio": 19.72,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 19.72,
+    "three_inst_ratio_change_20": -0.05000000000000071
   }
 ]

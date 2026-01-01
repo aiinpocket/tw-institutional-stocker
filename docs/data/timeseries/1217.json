@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 8.12,
     "three_inst_ratio_change_20": 0.11999999999999922
+  },
+  {
+    "date": "2025-12-31",
+    "code": "1217",
+    "name": "愛之味",
+    "market": "TWSE",
+    "foreign_ratio": 8.12,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 8.12,
+    "three_inst_ratio_change_20": 0.08000000000000007
   }
 ]

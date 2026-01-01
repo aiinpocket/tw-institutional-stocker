@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.95,
     "three_inst_ratio_change_20": -1.0599999999999998
+  },
+  {
+    "date": "2025-12-31",
+    "code": "00637L",
+    "name": "元大滬深300正2",
+    "market": "TWSE",
+    "foreign_ratio": 0.45,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.45,
+    "three_inst_ratio_change_20": -1.1
   }
 ]

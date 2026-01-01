@@ -185,5 +185,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.1666666666666665,
     "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-31",
+    "code": "5871A",
+    "name": "中租-KY甲特",
+    "market": "TWSE",
+    "foreign_ratio": 1.18,
+    "trust_ratio": -0.016666666666666666,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.1633333333333333,
+    "three_inst_ratio_change_20": 0.0
   }
 ]

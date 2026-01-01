@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.79,
     "three_inst_ratio_change_20": -0.08000000000000007
+  },
+  {
+    "date": "2025-12-31",
+    "code": "1526",
+    "name": "日馳",
+    "market": "TWSE",
+    "foreign_ratio": 1.79,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.79,
+    "three_inst_ratio_change_20": -0.06000000000000005
   }
 ]

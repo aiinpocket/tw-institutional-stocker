@@ -97,5 +97,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 21.23,
     "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-31",
+    "code": "2911",
+    "name": "麗嬰房",
+    "market": "TWSE",
+    "foreign_ratio": 21.23,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 21.23,
+    "three_inst_ratio_change_20": 0.0
   }
 ]

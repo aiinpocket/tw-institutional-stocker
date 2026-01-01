@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.03,
     "three_inst_ratio_change_20": -0.9200000000000004
+  },
+  {
+    "date": "2025-12-31",
+    "code": "8045",
+    "name": "達運光電",
+    "market": "TWSE",
+    "foreign_ratio": 2.0,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.0,
+    "three_inst_ratio_change_20": -0.94
   }
 ]

@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 4.2459316745579025,
     "three_inst_ratio_change_20": -0.20000000000000018
+  },
+  {
+    "date": "2025-12-31",
+    "code": "2247",
+    "name": "汎德永業",
+    "market": "TWSE",
+    "foreign_ratio": 4.19,
+    "trust_ratio": 0.03593167455790256,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.225931674557903,
+    "three_inst_ratio_change_20": -0.2599999999999998
   }
 ]

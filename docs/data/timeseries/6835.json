@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 6.82,
     "three_inst_ratio_change_20": 0.1299999999999999
+  },
+  {
+    "date": "2025-12-31",
+    "code": "6835",
+    "name": "圓裕",
+    "market": "TWSE",
+    "foreign_ratio": 6.83,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 6.83,
+    "three_inst_ratio_change_20": 0.13999999999999968
   }
 ]

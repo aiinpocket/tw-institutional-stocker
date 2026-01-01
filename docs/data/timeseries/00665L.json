@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.91,
     "three_inst_ratio_change_20": 0.1399999999999999
+  },
+  {
+    "date": "2025-12-31",
+    "code": "00665L",
+    "name": "富邦恒生國企正2",
+    "market": "TWSE",
+    "foreign_ratio": 1.29,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.29,
+    "three_inst_ratio_change_20": -0.5800000000000001
   }
 ]

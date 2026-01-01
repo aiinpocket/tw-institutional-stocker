@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 9.4410736400459,
     "three_inst_ratio_change_20": -0.47960850739851146
+  },
+  {
+    "date": "2025-12-31",
+    "code": "8926",
+    "name": "台汽電",
+    "market": "TWSE",
+    "foreign_ratio": 9.33,
+    "trust_ratio": 0.07052590643066652,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.400525906430667,
+    "three_inst_ratio_change_20": -0.47605210042148016
   }
 ]

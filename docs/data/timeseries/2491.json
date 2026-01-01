@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 5.68,
     "three_inst_ratio_change_20": 0.1200000000000001
+  },
+  {
+    "date": "2025-12-31",
+    "code": "2491",
+    "name": "吉祥全",
+    "market": "TWSE",
+    "foreign_ratio": 5.72,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.72,
+    "three_inst_ratio_change_20": 0.16000000000000014
   }
 ]

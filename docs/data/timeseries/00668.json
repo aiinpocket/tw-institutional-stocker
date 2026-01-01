@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.07,
     "three_inst_ratio_change_20": -4.68
+  },
+  {
+    "date": "2025-12-31",
+    "code": "00668",
+    "name": "國泰美國道瓊",
+    "market": "TWSE",
+    "foreign_ratio": 2.05,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.05,
+    "three_inst_ratio_change_20": -4.7
   }
 ]

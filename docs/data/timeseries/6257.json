@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 28.872756683248355,
     "three_inst_ratio_change_20": -3.901525503096039
+  },
+  {
+    "date": "2025-12-31",
+    "code": "6257",
+    "name": "矽格",
+    "market": "TWSE",
+    "foreign_ratio": 28.0,
+    "trust_ratio": -0.193676612803776,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 27.806323387196223,
+    "three_inst_ratio_change_20": -4.300420469245125
   }
 ]

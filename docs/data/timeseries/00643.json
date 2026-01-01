@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 13.03,
     "three_inst_ratio_change_20": -0.6100000000000012
+  },
+  {
+    "date": "2025-12-31",
+    "code": "00643",
+    "name": "群益深証中小",
+    "market": "TWSE",
+    "foreign_ratio": 12.96,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 12.96,
+    "three_inst_ratio_change_20": -0.47999999999999865
   }
 ]

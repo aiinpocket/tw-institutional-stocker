@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.28,
     "three_inst_ratio_change_20": -1.1900000000000004
+  },
+  {
+    "date": "2025-12-31",
+    "code": "00875",
+    "name": "國泰網路資安",
+    "market": "TWSE",
+    "foreign_ratio": 2.29,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.29,
+    "three_inst_ratio_change_20": -1.8899999999999997
   }
 ]

@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 4.42,
     "three_inst_ratio_change_20": 0.1200000000000001
+  },
+  {
+    "date": "2025-12-31",
+    "code": "6136",
+    "name": "富爾特",
+    "market": "TWSE",
+    "foreign_ratio": 4.42,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.42,
+    "three_inst_ratio_change_20": 0.11000000000000032
   }
 ]

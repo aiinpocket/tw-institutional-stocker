@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 4.975248153228905,
     "three_inst_ratio_change_20": -0.1727185090959793
+  },
+  {
+    "date": "2025-12-31",
+    "code": "2363",
+    "name": "矽統",
+    "market": "TWSE",
+    "foreign_ratio": 4.94,
+    "trust_ratio": 0.025248153228905005,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.965248153228905,
+    "three_inst_ratio_change_20": -0.1827185090959791
   }
 ]

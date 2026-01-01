@@ -735,5 +735,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 6.941666666666667,
     "three_inst_ratio_change_20": 0.11000000000000032
+  },
+  {
+    "date": "2025-12-31",
+    "code": "9927",
+    "name": "泰銘",
+    "market": "TWSE",
+    "foreign_ratio": 6.82,
+    "trust_ratio": 0.12166666666666667,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 6.941666666666667,
+    "three_inst_ratio_change_20": 0.040000000000000036
   }
 ]

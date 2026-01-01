@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.16,
     "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-31",
+    "code": "2450",
+    "name": "神腦",
+    "market": "TWSE",
+    "foreign_ratio": 1.16,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.16,
+    "three_inst_ratio_change_20": -0.010000000000000009
   }
 ]

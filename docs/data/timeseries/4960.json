@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 17.89,
     "three_inst_ratio_change_20": 0.379999999999999
+  },
+  {
+    "date": "2025-12-31",
+    "code": "4960",
+    "name": "誠美材",
+    "market": "TWSE",
+    "foreign_ratio": 17.9,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 17.9,
+    "three_inst_ratio_change_20": 0.389999999999997
   }
 ]

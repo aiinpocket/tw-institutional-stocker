@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 8.32,
     "three_inst_ratio_change_20": 0.15000000000000036
+  },
+  {
+    "date": "2025-12-31",
+    "code": "1437",
+    "name": "勤益控",
+    "market": "TWSE",
+    "foreign_ratio": 8.33,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 8.33,
+    "three_inst_ratio_change_20": 0.15000000000000036
   }
 ]

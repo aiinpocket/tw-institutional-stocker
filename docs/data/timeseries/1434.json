@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 6.764243600419327,
     "three_inst_ratio_change_20": -0.006327705025603869
+  },
+  {
+    "date": "2025-12-31",
+    "code": "1434",
+    "name": "福懋",
+    "market": "TWSE",
+    "foreign_ratio": 6.66,
+    "trust_ratio": 0.10643590187736575,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 6.766435901877366,
+    "three_inst_ratio_change_20": -0.0428928460317648
   }
 ]

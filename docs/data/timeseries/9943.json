@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.08,
     "three_inst_ratio_change_20": 0.010000000000000009
+  },
+  {
+    "date": "2025-12-31",
+    "code": "9943",
+    "name": "好樂迪",
+    "market": "TWSE",
+    "foreign_ratio": 1.09,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.09,
+    "three_inst_ratio_change_20": 0.030000000000000027
   }
 ]

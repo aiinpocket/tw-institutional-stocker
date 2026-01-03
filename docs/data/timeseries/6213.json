@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 11.000919879047563,
     "three_inst_ratio_change_20": 0.45221914341430747
+  },
+  {
+    "date": "2026-01-02",
+    "code": "6213",
+    "name": "聯茂",
+    "market": "TWSE",
+    "foreign_ratio": 10.03,
+    "trust_ratio": 1.0709198790475631,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.100919879047563,
+    "three_inst_ratio_change_20": 0.4122191434143083
   }
 ]

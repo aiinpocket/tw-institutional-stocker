@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 14.919035932435559,
     "three_inst_ratio_change_20": -0.11863284377117544
+  },
+  {
+    "date": "2026-01-02",
+    "code": "6605",
+    "name": "帝寶",
+    "market": "TWSE",
+    "foreign_ratio": 16.73,
+    "trust_ratio": -2.095087134235585,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 14.634912865764417,
+    "three_inst_ratio_change_20": -0.48230666711447157
   }
 ]

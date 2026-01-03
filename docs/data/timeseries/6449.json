@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 8.930771960042783,
     "three_inst_ratio_change_20": -0.9083685306313818
+  },
+  {
+    "date": "2026-01-02",
+    "code": "6449",
+    "name": "鈺邦",
+    "market": "TWSE",
+    "foreign_ratio": 2.06,
+    "trust_ratio": 6.970771960042783,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.030771960042783,
+    "three_inst_ratio_change_20": -0.898368530631382
   }
 ]

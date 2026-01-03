@@ -20,5 +20,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.8,
     "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2026-01-02",
+    "code": "00987A",
+    "name": "主動台新優勢成長",
+    "market": "TWSE",
+    "foreign_ratio": 0.26,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.26,
+    "three_inst_ratio_change_20": 0.0
   }
 ]

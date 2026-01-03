@@ -801,5 +801,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.75,
     "three_inst_ratio_change_20": 0.1200000000000001
+  },
+  {
+    "date": "2026-01-02",
+    "code": "1445",
+    "name": "大宇",
+    "market": "TWSE",
+    "foreign_ratio": 2.75,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.75,
+    "three_inst_ratio_change_20": 0.1299999999999999
   }
 ]

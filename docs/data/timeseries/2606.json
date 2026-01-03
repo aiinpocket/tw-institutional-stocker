@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 10.760569304950156,
     "three_inst_ratio_change_20": -0.26266967335758373
+  },
+  {
+    "date": "2026-01-02",
+    "code": "2606",
+    "name": "裕民",
+    "market": "TWSE",
+    "foreign_ratio": 6.9,
+    "trust_ratio": 3.6458398615025276,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 10.545839861502529,
+    "three_inst_ratio_change_20": -0.48437576584299613
   }
 ]

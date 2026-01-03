@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 6.59,
     "three_inst_ratio_change_20": 2.98
+  },
+  {
+    "date": "2026-01-02",
+    "code": "1727",
+    "name": "中華化",
+    "market": "TWSE",
+    "foreign_ratio": 7.36,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 7.36,
+    "three_inst_ratio_change_20": 3.9400000000000004
   }
 ]

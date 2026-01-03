@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 4.05,
     "three_inst_ratio_change_20": -0.28000000000000025
+  },
+  {
+    "date": "2026-01-02",
+    "code": "1711",
+    "name": "永光",
+    "market": "TWSE",
+    "foreign_ratio": 4.26,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.26,
+    "three_inst_ratio_change_20": -0.11000000000000032
   }
 ]

@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 10.13,
     "three_inst_ratio_change_20": 0.05000000000000071
+  },
+  {
+    "date": "2026-01-02",
+    "code": "1527",
+    "name": "鑽全",
+    "market": "TWSE",
+    "foreign_ratio": 10.11,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 10.11,
+    "three_inst_ratio_change_20": 0.049999999999998934
   }
 ]

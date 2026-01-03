@@ -768,5 +768,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.38,
     "three_inst_ratio_change_20": -0.08999999999999997
+  },
+  {
+    "date": "2026-01-02",
+    "code": "00673R",
+    "name": "期元大S&P原油反1",
+    "market": "TWSE",
+    "foreign_ratio": 0.39,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.39,
+    "three_inst_ratio_change_20": -0.07999999999999996
   }
 ]

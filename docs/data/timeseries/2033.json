@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.94,
     "three_inst_ratio_change_20": 0.09999999999999998
+  },
+  {
+    "date": "2026-01-02",
+    "code": "2033",
+    "name": "佳大",
+    "market": "TWSE",
+    "foreign_ratio": 0.96,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.96,
+    "three_inst_ratio_change_20": 0.12
   }
 ]

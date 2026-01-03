@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.564352523394462,
     "three_inst_ratio_change_20": -0.1789947420849094
+  },
+  {
+    "date": "2026-01-02",
+    "code": "0056",
+    "name": "元大高股息",
+    "market": "TWSE",
+    "foreign_ratio": 0.36,
+    "trust_ratio": 0.264352523394462,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.624352523394462,
+    "three_inst_ratio_change_20": -0.11895731761633166
   }
 ]

@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.0811020611246858,
     "three_inst_ratio_change_20": -0.75
+  },
+  {
+    "date": "2026-01-02",
+    "code": "6869",
+    "name": "雲豹能源",
+    "market": "TWSE",
+    "foreign_ratio": 2.09,
+    "trust_ratio": 0.07110206112468616,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.161102061124686,
+    "three_inst_ratio_change_20": -0.5500000000000003
   }
 ]

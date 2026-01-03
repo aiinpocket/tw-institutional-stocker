@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 9.72,
     "three_inst_ratio_change_20": 0.009999999999999787
+  },
+  {
+    "date": "2026-01-02",
+    "code": "1463",
+    "name": "強盛新",
+    "market": "TWSE",
+    "foreign_ratio": 9.73,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.73,
+    "three_inst_ratio_change_20": 0.0
   }
 ]

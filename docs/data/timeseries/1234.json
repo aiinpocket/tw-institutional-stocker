@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 4.82,
     "three_inst_ratio_change_20": -0.019999999999999574
+  },
+  {
+    "date": "2026-01-02",
+    "code": "1234",
+    "name": "黑松",
+    "market": "TWSE",
+    "foreign_ratio": 4.82,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.82,
+    "three_inst_ratio_change_20": -0.019999999999999574
   }
 ]

@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 87.49,
     "three_inst_ratio_change_20": 4.839999999999989
+  },
+  {
+    "date": "2026-01-02",
+    "code": "2762",
+    "name": "世界健身-KY",
+    "market": "TWSE",
+    "foreign_ratio": 87.48,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 87.48,
+    "three_inst_ratio_change_20": 4.829999999999998
   }
 ]

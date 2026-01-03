@@ -537,5 +537,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 5.33,
     "three_inst_ratio_change_20": 1.56
+  },
+  {
+    "date": "2026-01-02",
+    "code": "00989A",
+    "name": "主動摩根美國科技",
+    "market": "TWSE",
+    "foreign_ratio": 5.73,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.73,
+    "three_inst_ratio_change_20": 1.8500000000000005
   }
 ]

@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 17.39,
     "three_inst_ratio_change_20": 0.14000000000000057
+  },
+  {
+    "date": "2026-01-02",
+    "code": "00702",
+    "name": "國泰標普低波高息",
+    "market": "TWSE",
+    "foreign_ratio": 17.11,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 17.11,
+    "three_inst_ratio_change_20": -0.14000000000000057
   }
 ]

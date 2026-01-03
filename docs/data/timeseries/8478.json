@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 40.173008524769585,
     "three_inst_ratio_change_20": -0.1699999999999946
+  },
+  {
+    "date": "2026-01-02",
+    "code": "8478",
+    "name": "東哥遊艇",
+    "market": "TWSE",
+    "foreign_ratio": 40.11,
+    "trust_ratio": 0.08300852476958204,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 40.19300852476958,
+    "three_inst_ratio_change_20": -0.17999999999999972
   }
 ]

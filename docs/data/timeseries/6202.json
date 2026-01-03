@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 6.969098200341858,
     "three_inst_ratio_change_20": 0.1800000000000006
+  },
+  {
+    "date": "2026-01-02",
+    "code": "6202",
+    "name": "盛群",
+    "market": "TWSE",
+    "foreign_ratio": 7.01,
+    "trust_ratio": 0.019098200341857788,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 7.029098200341857,
+    "three_inst_ratio_change_20": 0.1899999999999995
   }
 ]

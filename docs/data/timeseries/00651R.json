@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.49,
     "three_inst_ratio_change_20": 0.3600000000000003
+  },
+  {
+    "date": "2026-01-02",
+    "code": "00651R",
+    "name": "復華香港反1",
+    "market": "TWSE",
+    "foreign_ratio": 2.52,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.52,
+    "three_inst_ratio_change_20": 0.3900000000000001
   }
 ]

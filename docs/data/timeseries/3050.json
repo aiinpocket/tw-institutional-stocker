@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 7.01,
     "three_inst_ratio_change_20": -1.5999999999999996
+  },
+  {
+    "date": "2026-01-02",
+    "code": "3050",
+    "name": "鈺德",
+    "market": "TWSE",
+    "foreign_ratio": 6.91,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 6.91,
+    "three_inst_ratio_change_20": -1.33
   }
 ]

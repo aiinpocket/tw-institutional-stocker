@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.3,
     "three_inst_ratio_change_20": 0.029999999999999805
+  },
+  {
+    "date": "2026-01-02",
+    "code": "2020",
+    "name": "美亞",
+    "market": "TWSE",
+    "foreign_ratio": 2.29,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.29,
+    "three_inst_ratio_change_20": 0.020000000000000018
   }
 ]

@@ -812,5 +812,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.6,
     "three_inst_ratio_change_20": 1.0
+  },
+  {
+    "date": "2026-01-02",
+    "code": "5292",
+    "name": "華懋",
+    "market": "TWSE",
+    "foreign_ratio": 2.69,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.69,
+    "three_inst_ratio_change_20": 1.05
   }
 ]

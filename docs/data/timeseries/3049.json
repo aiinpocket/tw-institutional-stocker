@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 5.32,
     "three_inst_ratio_change_20": 0.33999999999999986
+  },
+  {
+    "date": "2026-01-02",
+    "code": "3049",
+    "name": "精金",
+    "market": "TWSE",
+    "foreign_ratio": 5.35,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.35,
+    "three_inst_ratio_change_20": 0.3099999999999996
   }
 ]

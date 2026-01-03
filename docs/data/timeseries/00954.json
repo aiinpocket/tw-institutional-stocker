@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.61,
     "three_inst_ratio_change_20": 0.7500000000000001
+  },
+  {
+    "date": "2026-01-02",
+    "code": "00954",
+    "name": "中信日本半導體",
+    "market": "TWSE",
+    "foreign_ratio": 1.62,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.62,
+    "three_inst_ratio_change_20": 0.54
   }
 ]

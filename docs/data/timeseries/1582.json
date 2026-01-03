@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 7.5170769623583515,
     "three_inst_ratio_change_20": -0.5260514061673467
+  },
+  {
+    "date": "2026-01-02",
+    "code": "1582",
+    "name": "信錦",
+    "market": "TWSE",
+    "foreign_ratio": 7.68,
+    "trust_ratio": -0.3604429415564318,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 7.319557058443568,
+    "three_inst_ratio_change_20": -0.7135713100821288
   }
 ]

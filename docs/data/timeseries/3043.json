@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.8,
     "three_inst_ratio_change_20": 0.56
+  },
+  {
+    "date": "2026-01-02",
+    "code": "3043",
+    "name": "科風",
+    "market": "TWSE",
+    "foreign_ratio": 0.9,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.9,
+    "three_inst_ratio_change_20": 0.46
   }
 ]

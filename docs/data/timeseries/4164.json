@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 28.071546599856685,
     "three_inst_ratio_change_20": -1.5999999999999979
+  },
+  {
+    "date": "2026-01-02",
+    "code": "4164",
+    "name": "承業醫",
+    "market": "TWSE",
+    "foreign_ratio": 27.1,
+    "trust_ratio": 0.6515465998566834,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 27.751546599856685,
+    "three_inst_ratio_change_20": -1.9199999999999982
   }
 ]

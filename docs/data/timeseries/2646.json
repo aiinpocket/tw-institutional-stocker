@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.810332365595508,
     "three_inst_ratio_change_20": 0.06033236559550792
+  },
+  {
+    "date": "2026-01-02",
+    "code": "2646",
+    "name": "星宇航空",
+    "market": "TWSE",
+    "foreign_ratio": 2.74,
+    "trust_ratio": 0.0003323655955077466,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.740332365595508,
+    "three_inst_ratio_change_20": -0.00966763440449192
   }
 ]

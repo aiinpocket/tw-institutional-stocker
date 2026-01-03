@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 8.28,
     "three_inst_ratio_change_20": -0.7300000000000004
+  },
+  {
+    "date": "2026-01-02",
+    "code": "3704",
+    "name": "合勤控",
+    "market": "TWSE",
+    "foreign_ratio": 8.2,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 8.2,
+    "three_inst_ratio_change_20": -0.9199999999999999
   }
 ]

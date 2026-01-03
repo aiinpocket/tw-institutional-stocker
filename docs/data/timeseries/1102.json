@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 21.46689833937559,
     "three_inst_ratio_change_20": -0.5961341919542846
+  },
+  {
+    "date": "2026-01-02",
+    "code": "1102",
+    "name": "亞泥",
+    "market": "TWSE",
+    "foreign_ratio": 17.81,
+    "trust_ratio": 3.7747712219401643,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 21.584771221940162,
+    "three_inst_ratio_change_20": -0.46585769837080804
   }
 ]

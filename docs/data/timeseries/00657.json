@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 6.4,
     "three_inst_ratio_change_20": 0.15000000000000036
+  },
+  {
+    "date": "2026-01-02",
+    "code": "00657",
+    "name": "國泰日經225",
+    "market": "TWSE",
+    "foreign_ratio": 6.39,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 6.39,
+    "three_inst_ratio_change_20": 0.13999999999999968
   }
 ]

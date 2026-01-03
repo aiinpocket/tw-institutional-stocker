@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 12.12310927983034,
     "three_inst_ratio_change_20": -1.0260019690059536
+  },
+  {
+    "date": "2026-01-02",
+    "code": "2753",
+    "name": "八方雲集",
+    "market": "TWSE",
+    "foreign_ratio": 11.59,
+    "trust_ratio": 0.33310927983034117,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.92310927983034,
+    "three_inst_ratio_change_20": -1.106001969005952
   }
 ]

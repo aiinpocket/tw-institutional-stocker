@@ -581,5 +581,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 15.72,
     "three_inst_ratio_change_20": 0.02000000000000135
+  },
+  {
+    "date": "2026-01-02",
+    "code": "9912",
+    "name": "偉聯",
+    "market": "TWSE",
+    "foreign_ratio": 15.71,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 15.71,
+    "three_inst_ratio_change_20": 0.0
   }
 ]

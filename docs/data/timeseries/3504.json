@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.83,
     "three_inst_ratio_change_20": -0.20999999999999996
+  },
+  {
+    "date": "2026-01-02",
+    "code": "3504",
+    "name": "揚明光",
+    "market": "TWSE",
+    "foreign_ratio": 3.84,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.84,
+    "three_inst_ratio_change_20": -0.20999999999999996
   }
 ]

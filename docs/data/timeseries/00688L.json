@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.78,
     "three_inst_ratio_change_20": 0.18000000000000005
+  },
+  {
+    "date": "2026-01-02",
+    "code": "00688L",
+    "name": "國泰20年美債正2",
+    "market": "TWSE",
+    "foreign_ratio": 0.8,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8,
+    "three_inst_ratio_change_20": 0.20000000000000007
   }
 ]

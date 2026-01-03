@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.05,
     "three_inst_ratio_change_20": -0.3700000000000001
+  },
+  {
+    "date": "2026-01-02",
+    "code": "3454",
+    "name": "晶睿",
+    "market": "TWSE",
+    "foreign_ratio": 2.01,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.01,
+    "three_inst_ratio_change_20": -0.4600000000000004
   }
 ]

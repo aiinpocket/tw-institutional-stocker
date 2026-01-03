@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.82,
     "three_inst_ratio_change_20": -0.010000000000000009
+  },
+  {
+    "date": "2026-01-02",
+    "code": "6142",
+    "name": "友勁",
+    "market": "TWSE",
+    "foreign_ratio": 1.8,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.8,
+    "three_inst_ratio_change_20": -0.07000000000000006
   }
 ]

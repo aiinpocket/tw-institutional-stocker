@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.25,
     "three_inst_ratio_change_20": -0.06
+  },
+  {
+    "date": "2026-01-02",
+    "code": "00876",
+    "name": "元大全球5G",
+    "market": "TWSE",
+    "foreign_ratio": 0.31,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.31,
+    "three_inst_ratio_change_20": 0.010000000000000009
   }
 ]

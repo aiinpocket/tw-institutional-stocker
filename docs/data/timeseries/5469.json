@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 14.4973141272734,
     "three_inst_ratio_change_20": -1.2955154412278933
+  },
+  {
+    "date": "2026-01-02",
+    "code": "5469",
+    "name": "瀚宇博",
+    "market": "TWSE",
+    "foreign_ratio": 11.89,
+    "trust_ratio": 2.5585962407901826,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 14.448596240790183,
+    "three_inst_ratio_change_20": -1.2282203198084591
   }
 ]

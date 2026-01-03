@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.1725003920145856,
     "three_inst_ratio_change_20": -0.040000000000000036
+  },
+  {
+    "date": "2026-01-02",
+    "code": "1232",
+    "name": "大統益",
+    "market": "TWSE",
+    "foreign_ratio": 2.18,
+    "trust_ratio": 0.002500392014585537,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.182500392014586,
+    "three_inst_ratio_change_20": -0.04999999999999982
   }
 ]

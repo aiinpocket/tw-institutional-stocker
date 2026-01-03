@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.1343127039560317,
     "three_inst_ratio_change_20": 0.7000000000000002
+  },
+  {
+    "date": "2026-01-02",
+    "code": "6756",
+    "name": "威鋒電子",
+    "market": "TWSE",
+    "foreign_ratio": 2.99,
+    "trust_ratio": 0.014312703956031373,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.004312703956032,
+    "three_inst_ratio_change_20": 0.5
   }
 ]

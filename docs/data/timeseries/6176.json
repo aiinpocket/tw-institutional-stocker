@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 24.84255430555262,
     "three_inst_ratio_change_20": -1.0361703448556696
+  },
+  {
+    "date": "2026-01-02",
+    "code": "6176",
+    "name": "瑞儀",
+    "market": "TWSE",
+    "foreign_ratio": 28.24,
+    "trust_ratio": -3.654285748833612,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 24.585714251166387,
+    "three_inst_ratio_change_20": -1.2409758948692051
   }
 ]

@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 77.26,
     "three_inst_ratio_change_20": -0.01999999999999602
+  },
+  {
+    "date": "2026-01-02",
+    "code": "6965",
+    "name": "中傑-KY",
+    "market": "TWSE",
+    "foreign_ratio": 77.26,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 77.26,
+    "three_inst_ratio_change_20": -0.009999999999990905
   }
 ]

@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.28,
     "three_inst_ratio_change_20": 1.5199999999999998
+  },
+  {
+    "date": "2026-01-02",
+    "code": "00901",
+    "name": "永豐智能車供應鏈",
+    "market": "TWSE",
+    "foreign_ratio": 2.55,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.55,
+    "three_inst_ratio_change_20": 1.7799999999999998
   }
 ]

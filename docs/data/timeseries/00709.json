@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.35,
     "three_inst_ratio_change_20": 0.009999999999999953
+  },
+  {
+    "date": "2026-01-02",
+    "code": "00709",
+    "name": "富邦歐洲",
+    "market": "TWSE",
+    "foreign_ratio": 0.34,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.34,
+    "three_inst_ratio_change_20": 0.010000000000000009
   }
 ]

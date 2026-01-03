@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 11.097443793701618,
     "three_inst_ratio_change_20": -0.051840497711701516
+  },
+  {
+    "date": "2026-01-02",
+    "code": "6214",
+    "name": "精誠",
+    "market": "TWSE",
+    "foreign_ratio": 11.09,
+    "trust_ratio": -0.1636790999114005,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 10.9263209000886,
+    "three_inst_ratio_change_20": -0.30213361812491435
   }
 ]

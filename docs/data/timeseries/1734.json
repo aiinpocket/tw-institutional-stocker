@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 4.8,
     "three_inst_ratio_change_20": -0.3100000000000005
+  },
+  {
+    "date": "2026-01-02",
+    "code": "1734",
+    "name": "杏輝",
+    "market": "TWSE",
+    "foreign_ratio": 4.79,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.79,
+    "three_inst_ratio_change_20": -0.3200000000000003
   }
 ]

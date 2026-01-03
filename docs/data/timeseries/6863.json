@@ -823,5 +823,16 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 70.8677780151693,
     "three_inst_ratio_change_20": 0.3399999999999892
+  },
+  {
+    "date": "2026-01-02",
+    "code": "6863",
+    "name": "永道-KY",
+    "market": "TWSE",
+    "foreign_ratio": 70.57,
+    "trust_ratio": 0.2977780151693195,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 70.8677780151693,
+    "three_inst_ratio_change_20": 0.3299999999999983
   }
 ]

@@ -121,6 +121,15 @@
             border-radius: 8px;
         }
         footer { text-align: center; margin-top: 40px; padding: 20px; color: #666; font-size: 0.85rem; }
+        .today-section { margin-bottom: 30px; }
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            border-left: 4px solid #00d4ff;
+        }
         @media (max-width: 900px) {
             .grid { grid-template-columns: 1fr; }
         }
@@ -141,7 +150,8 @@
         </header>
 
         <div class="tabs">
-            <div class="tab active" data-tab="consecutive">🔥 外資連買</div>
+            <div class="tab active" data-tab="today">📊 本日買賣超</div>
+            <div class="tab" data-tab="consecutive">🔥 外資連買</div>
             <div class="tab" data-tab="trust">💎 投信認養</div>
             <div class="tab" data-tab="sync">🎯 三大法人同步</div>
             <div class="tab" data-tab="deviation">📉 乖離過大</div>
@@ -152,12 +162,31 @@
         </div>
 
         <footer>
+            <div id="data-time" style="margin-bottom: 10px; color: #888;">資料更新時間：載入中...</div>
             <div>資料來源：台灣證券交易所、櫃買中心 | 每日盤後更新</div>
         </footer>
     </div>
 
     <script>
         const API_BASE = '/api/v1/strategy';
+
+        async function updateDataTime() {
+            try {
+                const resp = await fetch('/api/v1/system/etl-status');
+                const data = await resp.json();
+                if (data.completed_at) {
+                    const dt = new Date(data.completed_at);
+                    document.getElementById('data-time').textContent = `資料更新時間：${dt.toLocaleString('zh-TW')}`;
+                } else if (data.updated_at) {
+                    const dt = new Date(data.updated_at);
+                    document.getElementById('data-time').textContent = `資料更新時間：${dt.toLocaleString('zh-TW')}`;
+                } else {
+                    document.getElementById('data-time').textContent = '資料更新時間：未知';
+                }
+            } catch (e) {
+                document.getElementById('data-time').textContent = '資料更新時間：載入失敗';
+            }
+        }
 
         function formatNumber(num) {
             if (Math.abs(num) >= 10000) return (num/10000).toFixed(1) + '萬';
@@ -174,6 +203,85 @@
         function flattenRankings(data) {
             if (!data.rankings) return [];
             return [...(data.rankings.high || []), ...(data.rankings.mid || []), ...(data.rankings.low || [])];
+        }
+
+        async function loadToday() {
+            try {
+                const resp = await fetch('/api/v1/institutional/flows?limit=2000');
+                const data = await resp.json();
+
+                if (!data.items || data.items.length === 0) {
+                    document.getElementById('content').innerHTML = '<div class="card"><div class="loading">暫無今日買賣超資料</div></div>';
+                    return;
+                }
+
+                const items = data.items;
+
+                // Sort and get top 10 for each category
+                const foreignBuy = items.filter(s => (s.foreign_net || 0) > 0).sort((a, b) => b.foreign_net - a.foreign_net).slice(0, 10);
+                const foreignSell = items.filter(s => (s.foreign_net || 0) < 0).sort((a, b) => a.foreign_net - b.foreign_net).slice(0, 10);
+                const trustBuy = items.filter(s => (s.trust_net || 0) > 0).sort((a, b) => b.trust_net - a.trust_net).slice(0, 10);
+                const trustSell = items.filter(s => (s.trust_net || 0) < 0).sort((a, b) => a.trust_net - b.trust_net).slice(0, 10);
+                const dealerBuy = items.filter(s => (s.dealer_net || 0) > 0).sort((a, b) => b.dealer_net - a.dealer_net).slice(0, 10);
+                const dealerSell = items.filter(s => (s.dealer_net || 0) < 0).sort((a, b) => a.dealer_net - b.dealer_net).slice(0, 10);
+
+                const renderTable = (items, field, isPositive, title, icon) => `
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="icon">${icon}</span>
+                            <span class="card-title">${title}</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>股票</th>
+                                    <th>買賣超 (張)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${items.length ? items.map((s, i) => `
+                                    <tr onclick="window.location='/stock/${s.code}'">
+                                        <td>${i + 1}</td>
+                                        <td>
+                                            <span class="stock-code">${s.code}</span>
+                                            <span class="stock-name">${s.name || ''}</span>
+                                        </td>
+                                        <td class="${isPositive ? 'positive' : 'negative'}">${isPositive ? '+' : ''}${formatNumber(s[field] || 0)}</td>
+                                    </tr>
+                                `).join('') : '<tr><td colspan="3" class="loading">暫無資料</td></tr>'}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+
+                const html = `
+                    <div class="today-section">
+                        <h3 class="section-title">🏦 外資</h3>
+                        <div class="grid">
+                            ${renderTable(foreignBuy, 'foreign_net', true, '買超前10', '🚀')}
+                            ${renderTable(foreignSell, 'foreign_net', false, '賣超前10', '📉')}
+                        </div>
+                    </div>
+                    <div class="today-section">
+                        <h3 class="section-title">💎 投信</h3>
+                        <div class="grid">
+                            ${renderTable(trustBuy, 'trust_net', true, '買超前10', '🚀')}
+                            ${renderTable(trustSell, 'trust_net', false, '賣超前10', '📉')}
+                        </div>
+                    </div>
+                    <div class="today-section">
+                        <h3 class="section-title">🏢 自營商</h3>
+                        <div class="grid">
+                            ${renderTable(dealerBuy, 'dealer_net', true, '買超前10', '🚀')}
+                            ${renderTable(dealerSell, 'dealer_net', false, '賣超前10', '📉')}
+                        </div>
+                    </div>
+                `;
+                document.getElementById('content').innerHTML = html;
+            } catch (e) {
+                document.getElementById('content').innerHTML = '<div class="loading" style="color:#e74c3c">載入失敗</div>';
+            }
         }
 
         async function loadConsecutive() {
@@ -414,14 +522,16 @@
                 tab.classList.add('active');
                 document.getElementById('content').innerHTML = '<div class="loading">載入資料中...</div>';
                 const tabId = tab.dataset.tab;
-                if (tabId === 'consecutive') loadConsecutive();
+                if (tabId === 'today') loadToday();
+                else if (tabId === 'consecutive') loadConsecutive();
                 else if (tabId === 'trust') loadTrust();
                 else if (tabId === 'sync') loadSync();
                 else if (tabId === 'deviation') loadDeviation();
             });
         });
 
-        loadConsecutive();
+        loadToday();
+        updateDataTime();
     </script>
 </body>
 </html>

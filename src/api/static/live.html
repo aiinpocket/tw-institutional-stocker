@@ -445,9 +445,22 @@
             }
         }
 
-        function updateTime() {
-            const now = new Date();
-            document.getElementById('updateTime').textContent = `最後更新：${now.toLocaleString('zh-TW')}`;
+        async function updateTime() {
+            try {
+                const resp = await fetch('/api/v1/system/etl-status');
+                const data = await resp.json();
+                if (data.completed_at) {
+                    const dt = new Date(data.completed_at);
+                    document.getElementById('updateTime').textContent = `資料更新時間：${dt.toLocaleString('zh-TW')}`;
+                } else if (data.updated_at) {
+                    const dt = new Date(data.updated_at);
+                    document.getElementById('updateTime').textContent = `資料更新時間：${dt.toLocaleString('zh-TW')}`;
+                } else {
+                    document.getElementById('updateTime').textContent = '資料更新時間：未知';
+                }
+            } catch (e) {
+                document.getElementById('updateTime').textContent = '資料更新時間：載入失敗';
+            }
         }
 
         function refreshAll() {

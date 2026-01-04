@@ -673,13 +673,29 @@
             });
         });
 
+        // Fetch and display ETL completion time
+        async function updateDataTime() {
+            try {
+                const resp = await fetch('/api/v1/system/etl-status');
+                const data = await resp.json();
+                if (data.completed_at) {
+                    const dt = new Date(data.completed_at);
+                    document.getElementById('timestamp').textContent = `資料更新時間: ${dt.toLocaleString('zh-TW')}`;
+                } else if (data.updated_at) {
+                    const dt = new Date(data.updated_at);
+                    document.getElementById('timestamp').textContent = `資料更新時間: ${dt.toLocaleString('zh-TW')}`;
+                }
+            } catch (e) {
+                console.error('Failed to fetch ETL status:', e);
+            }
+        }
+
         // Initialize
         async function init() {
             await fetchData();
             if (cachedData) {
                 showTab('win5');
-                document.getElementById('timestamp').textContent =
-                    `最後更新: ${new Date().toLocaleString('zh-TW')}`;
+                await updateDataTime();
             } else {
                 document.getElementById('content').innerHTML =
                     '<div class="loading" style="color:#e74c3c;">無法載入資料，請確認 API 服務是否正常運作</div>';
@@ -715,8 +731,7 @@
             if (activeTab) {
                 showTab(activeTab.dataset.tab);
             }
-            document.getElementById('timestamp').textContent =
-                `最後更新: ${new Date().toLocaleString('zh-TW')}`;
+            await updateDataTime();
         }, 300000);
 
         // ========== ETL 狀態監控 ==========
@@ -769,8 +784,7 @@
                         if (activeTab) {
                             showTab(activeTab.dataset.tab);
                         }
-                        document.getElementById('timestamp').textContent =
-                            `最後更新: ${new Date().toLocaleString('zh-TW')}`;
+                        await updateDataTime();
                     }
 
                     if (lastEtlStatus === 'running' && data.status === 'error') {

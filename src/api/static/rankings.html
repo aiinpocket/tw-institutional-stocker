@@ -130,6 +130,19 @@
             border-radius: 10px;
             border-left: 4px solid #00d4ff;
         }
+        .data-date-banner {
+            text-align: center;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            background: linear-gradient(90deg, rgba(0,212,255,0.1), rgba(123,44,191,0.1));
+            border: 1px solid rgba(0,212,255,0.3);
+            border-radius: 10px;
+            font-size: 1.1rem;
+            color: #e0e0e0;
+        }
+        .data-date-banner strong {
+            color: #00d4ff;
+        }
         @media (max-width: 900px) {
             .grid { grid-template-columns: 1fr; }
         }
@@ -142,10 +155,10 @@
             <p class="subtitle">Institutional Investor Rankings</p>
             <div class="nav-links">
                 <a href="/dashboard">📊 策略儀表板</a>
+                <a href="/live">📈 即時看板</a>
                 <a href="/industry">🏭 產業熱力圖</a>
                 <a href="/ai">🤖 AI 分析</a>
                 <a href="/brokers">🏦 券商追蹤</a>
-                <a href="/live">📈 即時看板</a>
             </div>
         </header>
 
@@ -210,8 +223,18 @@
                 const resp = await fetch('/api/v1/institutional/flows?limit=2000');
                 const data = await resp.json();
 
+                // 取得資料日期
+                const dataDate = data.date || '未知';
+                const totalRecords = data.total || 0;
+
                 if (!data.items || data.items.length === 0) {
-                    document.getElementById('content').innerHTML = '<div class="card"><div class="loading">暫無今日買賣超資料</div></div>';
+                    document.getElementById('content').innerHTML = `
+                        <div class="card">
+                            <div class="loading">
+                                <p>暫無法人買賣超資料</p>
+                                <p style="font-size: 0.85rem; margin-top: 10px;">資料庫最後更新日期：${dataDate}</p>
+                            </div>
+                        </div>`;
                     return;
                 }
 
@@ -225,7 +248,7 @@
                 const dealerBuy = items.filter(s => (s.dealer_net || 0) > 0).sort((a, b) => b.dealer_net - a.dealer_net).slice(0, 10);
                 const dealerSell = items.filter(s => (s.dealer_net || 0) < 0).sort((a, b) => a.dealer_net - b.dealer_net).slice(0, 10);
 
-                const renderTable = (items, field, isPositive, title, icon) => `
+                const renderTable = (items, field, isPositive, title, icon, emptyMsg) => `
                     <div class="card">
                         <div class="card-header">
                             <span class="icon">${icon}</span>
@@ -249,38 +272,41 @@
                                         </td>
                                         <td class="${isPositive ? 'positive' : 'negative'}">${isPositive ? '+' : ''}${formatNumber(s[field] || 0)}</td>
                                     </tr>
-                                `).join('') : '<tr><td colspan="3" class="loading">暫無資料</td></tr>'}
+                                `).join('') : `<tr><td colspan="3" class="loading">${emptyMsg}</td></tr>`}
                             </tbody>
                         </table>
                     </div>
                 `;
 
                 const html = `
+                    <div class="data-date-banner">
+                        📅 資料日期：<strong>${dataDate}</strong>（共 ${totalRecords} 筆記錄）
+                    </div>
                     <div class="today-section">
                         <h3 class="section-title">🏦 外資</h3>
                         <div class="grid">
-                            ${renderTable(foreignBuy, 'foreign_net', true, '買超前10', '🚀')}
-                            ${renderTable(foreignSell, 'foreign_net', false, '賣超前10', '📉')}
+                            ${renderTable(foreignBuy, 'foreign_net', true, '買超前10', '🚀', '當日無外資買超記錄')}
+                            ${renderTable(foreignSell, 'foreign_net', false, '賣超前10', '📉', '當日無外資賣超記錄')}
                         </div>
                     </div>
                     <div class="today-section">
                         <h3 class="section-title">💎 投信</h3>
                         <div class="grid">
-                            ${renderTable(trustBuy, 'trust_net', true, '買超前10', '🚀')}
-                            ${renderTable(trustSell, 'trust_net', false, '賣超前10', '📉')}
+                            ${renderTable(trustBuy, 'trust_net', true, '買超前10', '🚀', '當日無投信買超記錄')}
+                            ${renderTable(trustSell, 'trust_net', false, '賣超前10', '📉', '當日無投信賣超記錄')}
                         </div>
                     </div>
                     <div class="today-section">
                         <h3 class="section-title">🏢 自營商</h3>
                         <div class="grid">
-                            ${renderTable(dealerBuy, 'dealer_net', true, '買超前10', '🚀')}
-                            ${renderTable(dealerSell, 'dealer_net', false, '賣超前10', '📉')}
+                            ${renderTable(dealerBuy, 'dealer_net', true, '買超前10', '🚀', '當日無自營商買超記錄')}
+                            ${renderTable(dealerSell, 'dealer_net', false, '賣超前10', '📉', '當日無自營商賣超記錄')}
                         </div>
                     </div>
                 `;
                 document.getElementById('content').innerHTML = html;
             } catch (e) {
-                document.getElementById('content').innerHTML = '<div class="loading" style="color:#e74c3c">載入失敗</div>';
+                document.getElementById('content').innerHTML = '<div class="loading" style="color:#e74c3c">載入失敗，請稍後再試</div>';
             }
         }
 

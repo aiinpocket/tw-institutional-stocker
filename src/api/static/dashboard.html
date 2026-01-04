@@ -46,6 +46,29 @@
             font-size: 0.95rem;
         }
 
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #00d4ff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid rgba(0,212,255,0.3);
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover {
+            background: rgba(0,212,255,0.1);
+            border-color: #00d4ff;
+        }
+
         .search-box {
             display: flex;
             justify-content: center;
@@ -432,6 +455,13 @@
         <header>
             <h1>外資籌碼策略分析</h1>
             <p class="subtitle">Taiwan Stock Foreign Institutional Flow Strategy Dashboard</p>
+            <div class="nav-links">
+                <a href="/live">📈 即時看板</a>
+                <a href="/rankings">🏆 法人排行榜</a>
+                <a href="/industry">🏭 產業熱力圖</a>
+                <a href="/ai">🤖 AI 分析</a>
+                <a href="/brokers">🏦 券商追蹤</a>
+            </div>
             <div class="search-box">
                 <input type="text" id="stock-search" placeholder="輸入股票代號 (例如: 2330)" maxlength="6">
                 <button id="search-btn">查詢</button>

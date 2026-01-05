@@ -399,7 +399,7 @@ def compute_consecutive_buying(db, min_days: int = 5):
     SELECT
         stock_id, price_tier, :metric_type,
         consecutive_days,  -- 借用 signal_count 存連續天數
-        ROUND(total_net_buy / 1000.0, 2),  -- 借用 avg_return 存總買超量(千張)
+        ROUND(total_net_buy / 10000.0, 2),  -- 借用 avg_return 存總買超量(萬張)
         current_price, rank
     FROM ranked
     WHERE rank <= 15
@@ -487,7 +487,7 @@ def compute_trust_accumulation(db, lookback_days: int = 20):
     SELECT
         stock_id, price_tier, :metric_type,
         buy_days,           -- 買超天數
-        ROUND(total_trust_net / 1000.0, 2),  -- 總買超量(千張)
+        ROUND(total_trust_net / 10000.0, 2),  -- 總買超量(萬張)
         buy_ratio,          -- 買超比例
         current_price, rank
     FROM ranked
@@ -579,9 +579,9 @@ def compute_synchronized_buying(db, lookback_days: int = 10):
     SELECT
         stock_id, price_tier, :metric_type,
         sync_days_count,      -- 同步天數
-        ROUND(total_sync_amount / 1000.0, 2),    -- 總買超量(千張)
-        ROUND(foreign_total / 1000.0, 2),        -- 外資買超(千張)
-        ROUND(trust_total / 1000.0, 2)::integer, -- 投信買超(千張, 借用 data_points)
+        ROUND(total_sync_amount / 10000.0, 2),    -- 總買超量(萬張)
+        ROUND(foreign_total / 10000.0, 2),        -- 外資買超(萬張)
+        ROUND(trust_total / 10000.0, 2)::integer, -- 投信買超(萬張, 借用 data_points)
         current_price, rank
     FROM ranked
     WHERE rank <= 15

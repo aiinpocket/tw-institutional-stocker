@@ -3,9 +3,17 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'asia-east1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/tw-stocker-api:$BUILD_ID', '-f', 'gcp/Dockerfile.api', '.']
 
+  # Build ETL image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'asia-east1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/tw-stocker-etl:$BUILD_ID', '-f', 'gcp/Dockerfile.etl', '.']
+
   # Push API image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'asia-east1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/tw-stocker-api:$BUILD_ID']
+
+  # Push ETL image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'asia-east1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/tw-stocker-etl:$BUILD_ID']
 
   # Deploy API to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -29,8 +37,32 @@ steps:
       - '--set-env-vars=DB_USER=postgres'
       - '--set-secrets=DB_PASSWORD=db-password:latest,OPENAI_API_KEY=openai-api-key:latest'
 
+  # Update ETL Job
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'jobs'
+      - 'update'
+      - 'tw-stocker-etl'
+      - '--image=asia-east1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/tw-stocker-etl:$BUILD_ID'
+      - '--region=asia-east1'
+      - '--memory=8Gi'
+      - '--cpu=4'
+      - '--task-timeout=3600'
+      - '--max-retries=1'
+      - '--add-cloudsql-instances=$PROJECT_ID:asia-east1:tw-stocker-db'
+      - '--set-env-vars=DB_HOST=/cloudsql/$PROJECT_ID:asia-east1:tw-stocker-db'
+      - '--set-env-vars=DB_NAME=tw_stocker'
+      - '--set-env-vars=DB_USER=postgres'
+      - '--set-secrets=DB_PASSWORD=db-password:latest,OPENAI_API_KEY=openai-api-key:latest'
+
 images:
   - 'asia-east1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/tw-stocker-api:$BUILD_ID'
+  - 'asia-east1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/tw-stocker-etl:$BUILD_ID'
 
 options:
   logging: CLOUD_LOGGING_ONLY
+  machineType: 'E2_HIGHCPU_8'
+
+timeout: '1800s'

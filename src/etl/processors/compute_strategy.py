@@ -686,20 +686,35 @@ def run_all_computations(db):
     compute_correlation_rankings(db, min_data_points=5)
 
     # Below cost rankings (現價低於法人成本)
-    compute_below_cost_rankings(db, lookback_days=60)
+    try:
+        compute_below_cost_rankings(db, lookback_days=60)
+    except Exception as e:
+        logger.error(f"Failed to compute below_cost: {e}")
 
     # 新增策略
     # 外資連續買超
-    compute_consecutive_buying(db, min_days=3)
+    try:
+        compute_consecutive_buying(db, min_days=3)
+    except Exception as e:
+        logger.error(f"Failed to compute consecutive_buying: {e}")
 
     # 投信認養股
-    compute_trust_accumulation(db, lookback_days=20)
+    try:
+        compute_trust_accumulation(db, lookback_days=20)
+    except Exception as e:
+        logger.error(f"Failed to compute trust_accumulation: {e}")
 
     # 三大法人同步買超
-    compute_synchronized_buying(db, lookback_days=10)
+    try:
+        compute_synchronized_buying(db, lookback_days=10)
+    except Exception as e:
+        logger.error(f"Failed to compute synchronized_buying: {e}")
 
     # 股價乖離過大
-    compute_price_deviation(db, lookback_days=60)
+    try:
+        compute_price_deviation(db, lookback_days=60)
+    except Exception as e:
+        logger.error(f"Failed to compute price_deviation: {e}")
 
     # Technical indicators
     compute_stock_technicals(db)

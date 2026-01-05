@@ -170,6 +170,18 @@ CREATE TABLE IF NOT EXISTS daily_summary_cache (
 );
 CREATE INDEX IF NOT EXISTS idx_daily_summary_date ON daily_summary_cache(trade_date DESC);
 
+-- AI 分析快取表
+CREATE TABLE IF NOT EXISTS ai_analysis_cache (
+    id SERIAL PRIMARY KEY,
+    cache_key VARCHAR(100) NOT NULL UNIQUE,  -- 格式: stock_{code} 或 market_summary 或 recommendations_{strategy}
+    cache_type VARCHAR(20) NOT NULL,  -- stock, market_summary, recommendations
+    cache_data JSONB NOT NULL,
+    data_date DATE NOT NULL,  -- 資料日期，用於判斷是否過期
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_ai_cache_key ON ai_analysis_cache(cache_key);
+CREATE INDEX IF NOT EXISTS idx_ai_cache_date ON ai_analysis_cache(data_date);
+
 -- 初始化 ETL 狀態
 INSERT INTO system_status (status_key, status_value, message)
 VALUES ('etl_status', 'idle', '系統待機中')

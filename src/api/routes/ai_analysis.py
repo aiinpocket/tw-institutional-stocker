@@ -13,6 +13,69 @@ from src.api.dependencies import get_db
 router = APIRouter()
 
 
+def get_latest_data_date(db: Session) -> Optional[date]:
+    """Get the latest data date from stock_prices table."""
+    result = db.execute(text("SELECT MAX(trade_date) FROM stock_prices")).scalar()
+    return result
+
+
+def get_cache(db: Session, cache_key: str, data_date: date) -> Optional[Dict]:
+    """Get cached AI analysis if it exists and is for the same data date."""
+    try:
+        # Check if table exists first
+        table_check = text("""
+            SELECT EXISTS (
+                SELECT FROM information_schema.tables
+                WHERE table_name = 'ai_analysis_cache'
+            )
+        """)
+        if not db.execute(table_check).scalar():
+            return None
+
+        query = text("""
+            SELECT cache_data FROM ai_analysis_cache
+            WHERE cache_key = :cache_key AND data_date = :data_date
+        """)
+        result = db.execute(query, {"cache_key": cache_key, "data_date": data_date}).fetchone()
+        if result and result.cache_data:
+            return result.cache_data
+    except Exception:
+        db.rollback()
+    return None
+
+
+def set_cache(db: Session, cache_key: str, cache_type: str, cache_data: Dict, data_date: date):
+    """Store AI analysis result in cache."""
+    try:
+        # Check if table exists first
+        table_check = text("""
+            SELECT EXISTS (
+                SELECT FROM information_schema.tables
+                WHERE table_name = 'ai_analysis_cache'
+            )
+        """)
+        if not db.execute(table_check).scalar():
+            return
+
+        query = text("""
+            INSERT INTO ai_analysis_cache (cache_key, cache_type, cache_data, data_date)
+            VALUES (:cache_key, :cache_type, :cache_data, :data_date)
+            ON CONFLICT (cache_key) DO UPDATE SET
+                cache_data = :cache_data,
+                data_date = :data_date,
+                created_at = CURRENT_TIMESTAMP
+        """)
+        db.execute(query, {
+            "cache_key": cache_key,
+            "cache_type": cache_type,
+            "cache_data": json.dumps(cache_data, ensure_ascii=False),
+            "data_date": data_date
+        })
+        db.commit()
+    except Exception:
+        db.rollback()
+
+
 def get_openai_client() -> Optional[OpenAI]:
     """Get OpenAI client with API key from environment or file."""
     api_key = os.environ.get("OPENAI_API_KEY")
@@ -233,12 +296,28 @@ def get_market_overview(db: Session) -> Dict[str, Any]:
 @router.get("/stock/{stock_code}")
 def analyze_stock(
     stock_code: str,
+    force_refresh: bool = Query(False, description="強制重新分析，忽略快取"),
     db: Session = Depends(get_db),
 ):
     """
     AI 個股分析報告。
     綜合技術面與籌碼面資料，提供 AI 分析建議。
+    結果會快取到資料庫，同一天的請求會直接返回快取。
     """
+    # Get latest data date
+    data_date = get_latest_data_date(db)
+    if not data_date:
+        raise HTTPException(status_code=503, detail="無法取得資料日期")
+
+    cache_key = f"stock_{stock_code}"
+
+    # Check cache first (unless force refresh)
+    if not force_refresh:
+        cached = get_cache(db, cache_key, data_date)
+        if cached:
+            cached["cached"] = True
+            return cached
+
     client = get_openai_client()
     if not client:
         raise HTTPException(status_code=503, detail="AI 服務暫時無法使用")
@@ -294,7 +373,7 @@ def analyze_stock(
 
         analysis = response.choices[0].message.content
 
-        return {
+        result = {
             "stock_code": stock_code,
             "stock_name": data['stock']['name'],
             "industry": data['stock']['industry'],
@@ -306,8 +385,15 @@ def analyze_stock(
                 "trust_5d": data['cumulative']['trust_5d'],
                 "trust_20d": data['cumulative']['trust_20d'],
             },
-            "disclaimer": "本分析僅供參考，不構成投資建議。投資有風險，請審慎評估。"
+            "data_date": str(data_date),
+            "disclaimer": "本分析僅供參考，不構成投資建議。投資有風險，請審慎評估。",
+            "cached": False
         }
+
+        # Store in cache
+        set_cache(db, cache_key, "stock", result, data_date)
+
+        return result
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"AI 分析失敗: {str(e)}")
@@ -317,12 +403,28 @@ def analyze_stock(
 def get_recommendations(
     strategy: str = Query("balanced", description="投資策略：aggressive/balanced/conservative"),
     limit: int = Query(10, le=20),
+    force_refresh: bool = Query(False, description="強制重新分析，忽略快取"),
     db: Session = Depends(get_db),
 ):
     """
     AI 智能選股建議。
     根據當前市場狀況和投資策略，推薦值得關注的股票。
+    結果會快取到資料庫，同一天的請求會直接返回快取。
     """
+    # Get latest data date
+    data_date = get_latest_data_date(db)
+    if not data_date:
+        raise HTTPException(status_code=503, detail="無法取得資料日期")
+
+    cache_key = f"recommendations_{strategy}_{limit}"
+
+    # Check cache first (unless force refresh)
+    if not force_refresh:
+        cached = get_cache(db, cache_key, data_date)
+        if cached:
+            cached["cached"] = True
+            return cached
+
     client = get_openai_client()
     if not client:
         raise HTTPException(status_code=503, detail="AI 服務暫時無法使用")
@@ -385,14 +487,20 @@ def get_recommendations(
 
         result = json.loads(response.choices[0].message.content)
 
-        return {
+        response_data = {
             "strategy": strategy,
             "strategy_description": strategy_desc.get(strategy, strategy_desc['balanced']),
             "market_view": result.get("market_view", ""),
             "recommendations": result.get("recommendations", []),
-            "data_date": str(date.today()),
-            "disclaimer": "本推薦僅供參考，不構成投資建議。投資有風險，請審慎評估並自行判斷。"
+            "data_date": str(data_date),
+            "disclaimer": "本推薦僅供參考，不構成投資建議。投資有風險，請審慎評估並自行判斷。",
+            "cached": False
         }
+
+        # Store in cache
+        set_cache(db, cache_key, "recommendations", response_data, data_date)
+
+        return response_data
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"AI 推薦失敗: {str(e)}")
@@ -400,12 +508,28 @@ def get_recommendations(
 
 @router.get("/market-summary")
 def get_market_summary(
+    force_refresh: bool = Query(False, description="強制重新分析，忽略快取"),
     db: Session = Depends(get_db),
 ):
     """
     AI 市場摘要。
     分析當前市場狀況，提供整體市場觀點。
+    結果會快取到資料庫，同一天的請求會直接返回快取。
     """
+    # Get latest data date
+    data_date = get_latest_data_date(db)
+    if not data_date:
+        raise HTTPException(status_code=503, detail="無法取得資料日期")
+
+    cache_key = "market_summary"
+
+    # Check cache first (unless force refresh)
+    if not force_refresh:
+        cached = get_cache(db, cache_key, data_date)
+        if cached:
+            cached["cached"] = True
+            return cached
+
     client = get_openai_client()
     if not client:
         raise HTTPException(status_code=503, detail="AI 服務暫時無法使用")
@@ -456,14 +580,20 @@ def get_market_summary(
 
         summary = response.choices[0].message.content
 
-        return {
-            "date": str(date.today()),
+        result = {
+            "date": str(data_date),
             "summary": summary,
             "hot_industries": market_data['hot_industries'][:5],
             "foreign_top5": market_data['foreign_favorites'][:5],
             "trust_top5": market_data['trust_favorites'][:5],
-            "disclaimer": "本分析僅供參考，不構成投資建議。"
+            "disclaimer": "本分析僅供參考，不構成投資建議。",
+            "cached": False
         }
+
+        # Store in cache
+        set_cache(db, cache_key, "market_summary", result, data_date)
+
+        return result
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"AI 分析失敗: {str(e)}")

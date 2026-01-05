@@ -196,6 +196,26 @@ def load_baseline() -> Optional[pd.DataFrame]:
     return None
 
 
+def clear_all_caches():
+    """Clear all cache tables at the start of ETL."""
+    from sqlalchemy import text
+    print("\n[STEP 0] Clearing all cache tables...")
+    try:
+        with get_db_session() as session:
+            # 清除策略排行快取
+            session.execute(text("DELETE FROM strategy_rankings"))
+            # 清除技術指標快取
+            session.execute(text("DELETE FROM stock_technicals"))
+            # 清除每日總結快取
+            session.execute(text("DELETE FROM daily_summary_cache"))
+            # 清除 AI 分析快取
+            session.execute(text("DELETE FROM ai_analysis_cache"))
+            session.commit()
+        print("  All caches cleared successfully")
+    except Exception as e:
+        print(f"  [WARN] Cache clearing failed (tables may not exist yet): {e}")
+
+
 def run_etl():
     """Run the complete ETL pipeline."""
     print("=" * 60)
@@ -204,6 +224,9 @@ def run_etl():
 
     # 更新狀態：開始執行
     update_etl_status("running", "資料更新中...", is_start=True)
+
+    # 清除所有快取
+    clear_all_caches()
 
     target_date = get_target_trade_date()
     print(f"\n[INFO] Target trade date: {target_date}")

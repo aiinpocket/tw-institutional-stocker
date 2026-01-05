@@ -21,24 +21,33 @@ def get_daily_summary(db: Session = Depends(get_db)):
     Falls back to computing on-the-fly if no cache exists.
     """
     # Try to get from cache first
-    cache_query = text("""
-        SELECT trade_date, summary_data, created_at
-        FROM daily_summary_cache
-        ORDER BY trade_date DESC
-        LIMIT 1
-    """)
-
     try:
-        result = db.execute(cache_query).fetchone()
-        if result and result.summary_data:
-            return {
-                "cached": True,
-                "cached_at": result.created_at.isoformat() if result.created_at else None,
-                **result.summary_data
-            }
-    except Exception:
-        # Table might not exist yet
-        pass
+        # Check if cache table exists
+        table_check = text("""
+            SELECT EXISTS (
+                SELECT FROM information_schema.tables
+                WHERE table_name = 'daily_summary_cache'
+            )
+        """)
+        table_exists = db.execute(table_check).scalar()
+
+        if table_exists:
+            cache_query = text("""
+                SELECT trade_date, summary_data, created_at
+                FROM daily_summary_cache
+                ORDER BY trade_date DESC
+                LIMIT 1
+            """)
+            result = db.execute(cache_query).fetchone()
+            if result and result.summary_data:
+                return {
+                    "cached": True,
+                    "cached_at": result.created_at.isoformat() if result.created_at else None,
+                    **result.summary_data
+                }
+    except Exception as e:
+        # Rollback failed transaction
+        db.rollback()
 
     # Fallback: compute on-the-fly (slower but works without cache)
     return compute_summary_fallback(db)

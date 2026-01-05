@@ -38,8 +38,25 @@ from src.etl.processors.ratios import add_change_metrics
 def update_etl_status(status: str, message: str, is_start: bool = False, is_end: bool = False):
     """Update ETL status in database for frontend notification."""
     from sqlalchemy import text
+    import sys
+
+    print(f"[ETL STATUS] Updating to: {status} - {message}", flush=True)
+
     try:
         with get_db_session() as session:
+            # 確保 system_status 表存在
+            session.execute(text("""
+                CREATE TABLE IF NOT EXISTS system_status (
+                    id SERIAL PRIMARY KEY,
+                    status_key VARCHAR(50) UNIQUE NOT NULL,
+                    status_value VARCHAR(50) NOT NULL,
+                    message TEXT,
+                    started_at TIMESTAMP,
+                    completed_at TIMESTAMP,
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            """))
+
             if is_start:
                 query = text("""
                     INSERT INTO system_status (status_key, status_value, message, started_at, updated_at)
@@ -69,9 +86,13 @@ def update_etl_status(status: str, message: str, is_start: bool = False, is_end:
                     WHERE status_key = 'etl_status'
                 """)
             session.execute(query, {"status": status, "message": message})
-            session.commit()
+            # Note: get_db_session context manager will commit
+        print(f"[ETL STATUS] Successfully updated to: {status}", flush=True)
     except Exception as e:
-        print(f"[WARN] Failed to update ETL status: {e}")
+        print(f"[WARN] Failed to update ETL status: {e}", flush=True)
+        import traceback
+        traceback.print_exc()
+        sys.stdout.flush()
 
 
 def get_taipei_today() -> date:

@@ -14,6 +14,16 @@ def compute_daily_summary(db):
     """
     logger.info("Computing daily summary cache...")
 
+    # 確保表存在
+    db.execute(text("""
+        CREATE TABLE IF NOT EXISTS daily_summary_cache (
+            id SERIAL PRIMARY KEY,
+            trade_date DATE UNIQUE NOT NULL,
+            summary_data JSONB NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """))
+
     # Get the latest trade date
     latest_date = db.execute(text("""
         SELECT MAX(trade_date) FROM stock_prices

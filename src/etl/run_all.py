@@ -221,20 +221,23 @@ def clear_all_caches():
     """Clear all cache tables at the start of ETL."""
     from sqlalchemy import text
     print("\n[STEP 0] Clearing all cache tables...")
-    try:
-        with get_db_session() as session:
-            # 清除策略排行快取
-            session.execute(text("DELETE FROM strategy_rankings"))
-            # 清除技術指標快取
-            session.execute(text("DELETE FROM stock_technicals"))
-            # 清除每日總結快取
-            session.execute(text("DELETE FROM daily_summary_cache"))
-            # 清除 AI 分析快取
-            session.execute(text("DELETE FROM ai_analysis_cache"))
-            session.commit()
-        print("  All caches cleared successfully")
-    except Exception as e:
-        print(f"  [WARN] Cache clearing failed (tables may not exist yet): {e}")
+
+    cache_tables = [
+        "strategy_rankings",
+        "stock_technicals",
+        "daily_summary_cache",
+        "ai_analysis_cache",
+    ]
+
+    for table_name in cache_tables:
+        try:
+            with get_db_session() as session:
+                # 先確保表存在
+                session.execute(text(f"DELETE FROM {table_name}"))
+            print(f"  Cleared {table_name}")
+        except Exception as e:
+            # 表可能不存在，這是正常的
+            print(f"  [SKIP] {table_name}: {str(e)[:50]}")
 
 
 def run_etl():

@@ -680,44 +680,60 @@ def run_all_computations(db):
 
     # Win rate rankings for different periods
     for days in [5, 10, 30]:
-        compute_win_rate_rankings(db, holding_days=days, min_signals=2)
+        try:
+            compute_win_rate_rankings(db, holding_days=days, min_signals=2)
+        except Exception as e:
+            logger.error(f"Failed to compute win_rate_{days}d: {e}")
+            db.rollback()
 
     # Correlation rankings
-    compute_correlation_rankings(db, min_data_points=5)
+    try:
+        compute_correlation_rankings(db, min_data_points=5)
+    except Exception as e:
+        logger.error(f"Failed to compute correlation: {e}")
+        db.rollback()
 
     # Below cost rankings (現價低於法人成本)
     try:
         compute_below_cost_rankings(db, lookback_days=60)
     except Exception as e:
         logger.error(f"Failed to compute below_cost: {e}")
+        db.rollback()
 
-    # 新增策略
     # 外資連續買超
     try:
         compute_consecutive_buying(db, min_days=3)
     except Exception as e:
         logger.error(f"Failed to compute consecutive_buying: {e}")
+        db.rollback()
 
     # 投信認養股
     try:
         compute_trust_accumulation(db, lookback_days=20)
     except Exception as e:
         logger.error(f"Failed to compute trust_accumulation: {e}")
+        db.rollback()
 
     # 三大法人同步買超
     try:
         compute_synchronized_buying(db, lookback_days=10)
     except Exception as e:
         logger.error(f"Failed to compute synchronized_buying: {e}")
+        db.rollback()
 
     # 股價乖離過大
     try:
         compute_price_deviation(db, lookback_days=60)
     except Exception as e:
         logger.error(f"Failed to compute price_deviation: {e}")
+        db.rollback()
 
     # Technical indicators
-    compute_stock_technicals(db)
+    try:
+        compute_stock_technicals(db)
+    except Exception as e:
+        logger.error(f"Failed to compute technicals: {e}")
+        db.rollback()
 
     logger.info("Strategy computations completed")
 

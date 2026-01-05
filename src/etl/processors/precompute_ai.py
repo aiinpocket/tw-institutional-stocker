@@ -283,20 +283,22 @@ def run_precompute_ai(db):
     """Run all pre-compute AI tasks."""
     logger.info("Starting AI pre-computation...")
 
-    # Check if ai_analysis_cache table exists
+    # 確保 ai_analysis_cache 表存在
     try:
-        table_check = text("""
-            SELECT EXISTS (
-                SELECT FROM information_schema.tables
-                WHERE table_name = 'ai_analysis_cache'
+        db.execute(text("""
+            CREATE TABLE IF NOT EXISTS ai_analysis_cache (
+                id SERIAL PRIMARY KEY,
+                cache_key VARCHAR(100) UNIQUE NOT NULL,
+                cache_type VARCHAR(50) NOT NULL,
+                cache_data JSONB NOT NULL,
+                data_date DATE,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
-        """)
-        if not db.execute(table_check).scalar():
-            logger.warning("ai_analysis_cache table does not exist, skipping AI pre-computation")
-            return
-    except Exception:
-        logger.warning("Failed to check ai_analysis_cache table, skipping AI pre-computation")
-        return
+        """))
+        db.commit()
+    except Exception as e:
+        logger.warning(f"Failed to ensure ai_analysis_cache table: {e}")
+        db.rollback()
 
     client = get_openai_client()
     if not client:

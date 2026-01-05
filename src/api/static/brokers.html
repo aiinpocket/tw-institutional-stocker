@@ -272,7 +272,7 @@
                     <div class="card">
                         <div class="card-header">
                             <span class="icon">📊</span>
-                            <span class="card-title">券商成交量排行 (近 ${days} 日)</span>
+                            <span class="card-title">券商成交量排行 (${data.days > 1 ? `近 ${data.days} 日` : data.date || ''})</span>
                         </div>
                         <table>
                             <thead>
@@ -320,9 +320,8 @@
             try {
                 const stockCode = document.getElementById('stockCode').value;
                 const brokerName = document.getElementById('brokerName').value;
-                const days = document.getElementById('dateRange').value;
 
-                let url = `${API_BASE}/trades?days=${days}&limit=50`;
+                let url = `${API_BASE}/trades?limit=100`;
                 if (stockCode) url += `&stock_code=${stockCode}`;
                 if (brokerName) url += `&broker_name=${encodeURIComponent(brokerName)}`;
 
@@ -343,36 +342,37 @@
                     <div class="card">
                         <div class="card-header">
                             <span class="icon">📋</span>
-                            <span class="card-title">交易明細 ${stockCode ? `- ${stockCode}` : ''} ${brokerName ? `- ${brokerName}` : ''}</span>
+                            <span class="card-title">交易明細 ${stockCode ? `- ${stockCode}` : ''} ${brokerName ? `- ${brokerName}` : ''} (${data.date || ''})</span>
                         </div>
                         <table>
                             <thead>
                                 <tr>
                                     <th>日期</th>
                                     <th>股票</th>
-                                    <th>券商/分點</th>
+                                    <th>券商</th>
                                     <th>買進</th>
                                     <th>賣出</th>
                                     <th>淨買超</th>
+                                    <th>佔比</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 ${data.items.map(t => `
-                                    <tr onclick="window.location='/stock/${t.stock_code}'">
-                                        <td>${t.date}</td>
+                                    <tr onclick="window.location='/stock/${t.code}'">
+                                        <td>${t.trade_date}</td>
                                         <td>
-                                            <span class="stock-code">${t.stock_code}</span>
-                                            <span class="stock-name">${t.stock_name || ''}</span>
+                                            <span class="stock-code">${t.code}</span>
+                                            <span class="stock-name">${t.name || ''}</span>
                                         </td>
                                         <td>
                                             <span class="broker-name">${t.broker_name}</span>
-                                            <span class="branch-name">${t.branch_name || ''}</span>
                                         </td>
-                                        <td class="positive">${formatNumber(t.buy_volume || 0)}</td>
-                                        <td class="negative">${formatNumber(t.sell_volume || 0)}</td>
-                                        <td class="${(t.net_volume || 0) >= 0 ? 'positive' : 'negative'}">
-                                            ${(t.net_volume || 0) >= 0 ? '+' : ''}${formatNumber(t.net_volume || 0)}
+                                        <td class="positive">${formatNumber(t.buy_vol || 0)}</td>
+                                        <td class="negative">${formatNumber(t.sell_vol || 0)}</td>
+                                        <td class="${(t.net_vol || 0) >= 0 ? 'positive' : 'negative'}">
+                                            ${(t.net_vol || 0) >= 0 ? '+' : ''}${formatNumber(t.net_vol || 0)}
                                         </td>
+                                        <td>${t.pct ? t.pct.toFixed(1) + '%' : '-'}</td>
                                     </tr>
                                 `).join('')}
                             </tbody>

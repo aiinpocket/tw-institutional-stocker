@@ -376,6 +376,16 @@ def run_etl():
     except Exception as e:
         print(f"  [WARN] Daily summary computation failed: {e}")
 
+    # Pre-compute AI analysis
+    print("\n[STEP 7] Pre-computing AI analysis...")
+    try:
+        from src.etl.processors.precompute_ai import run_precompute_ai
+        with get_db_session() as session:
+            run_precompute_ai(session)
+        print("  AI analysis pre-computed successfully")
+    except Exception as e:
+        print(f"  [WARN] AI pre-computation failed: {e}")
+
     # 更新狀態：完成
     update_etl_status("completed", f"資料更新完成 ({target_date})", is_end=True)
 

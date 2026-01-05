@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>即時看板 | Live Dashboard</title>
+    <title>今日總結 | Daily Summary</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -181,8 +181,8 @@
 <body>
     <div class="container">
         <header>
-            <h1>📈 即時看板</h1>
-            <p class="subtitle">Live Market Dashboard</p>
+            <h1>📈 今日總結</h1>
+            <p class="subtitle">Daily Market Summary</p>
             <div class="nav-links">
                 <a href="/dashboard">📊 策略儀表板</a>
                 <a href="/rankings">🏆 法人排行榜</a>
@@ -308,25 +308,20 @@
 
         async function loadMarketSummary() {
             try {
-                const resp = await fetch('/api/v1/prices/latest?limit=5');
+                const resp = await fetch('/api/v1/prices/summary');
                 const data = await resp.json();
-
-                // Get TAIEX from system or calculate summary
-                const totalStocks = data.items?.length || 0;
-                const upStocks = data.items?.filter(s => (s.change_pct || 0) > 0).length || 0;
-                const downStocks = data.items?.filter(s => (s.change_pct || 0) < 0).length || 0;
 
                 document.getElementById('marketSummary').innerHTML = `
                     <div class="market-item">
-                        <h3 class="positive">${upStocks}</h3>
+                        <h3 class="positive">${data.up || 0}</h3>
                         <div class="label">上漲</div>
                     </div>
                     <div class="market-item">
-                        <h3 class="negative">${downStocks}</h3>
+                        <h3 class="negative">${data.down || 0}</h3>
                         <div class="label">下跌</div>
                     </div>
                     <div class="market-item">
-                        <h3 class="neutral">${totalStocks - upStocks - downStocks}</h3>
+                        <h3 class="neutral">${data.unchanged || 0}</h3>
                         <div class="label">平盤</div>
                     </div>
                 `;

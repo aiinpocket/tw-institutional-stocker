@@ -14,7 +14,7 @@ _industry_initialized = False
 
 
 def ensure_industry_column(db: Session, run_classification: bool = False):
-    """確保 industry 欄位存在。
+    """確保 industry 欄位存在並有基本分類。
 
     Args:
         db: Database session
@@ -36,7 +36,28 @@ def ensure_industry_column(db: Session, run_classification: bool = False):
             db.commit()
             run_classification = True  # 第一次建立欄位時自動分類
 
-        # 只在明確要求或首次時執行分類
+        # 檢查是否有任何分類資料
+        if not _industry_initialized:
+            count_query = text("""
+                SELECT COUNT(*) FROM stocks
+                WHERE industry IS NOT NULL AND industry != '其他業'
+            """)
+            count = db.execute(count_query).scalar()
+
+            if count == 0:
+                # 沒有分類資料，先套用手動分類（不需要 AI）
+                print("[INFO] No industry data found, applying manual classification...")
+                from src.etl.fetchers.industry import STOCK_INDUSTRY_MAP
+                for code, industry in STOCK_INDUSTRY_MAP.items():
+                    update_query = text("""
+                        UPDATE stocks SET industry = :industry
+                        WHERE code = :code AND (industry IS NULL OR industry = '其他業')
+                    """)
+                    db.execute(update_query, {"code": code, "industry": industry})
+                db.commit()
+                _industry_initialized = True
+
+        # 只在明確要求時執行 AI 分類
         if run_classification and not _industry_initialized:
             from src.etl.fetchers.industry import update_stock_industries
             update_stock_industries(db, use_ai=True)

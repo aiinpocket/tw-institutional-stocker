@@ -1,9 +1,13 @@
 """System status routes - ETL status and system health."""
+from datetime import datetime
+from zoneinfo import ZoneInfo
 from fastapi import APIRouter, Depends
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from src.api.dependencies import get_db
+
+TAIPEI_TZ = ZoneInfo("Asia/Taipei")
 
 router = APIRouter()
 
@@ -78,10 +82,20 @@ def get_etl_status(db: Session = Depends(get_db)):
             "updated_at": None,
         }
 
+    def format_time(dt) -> str | None:
+        """Format datetime with Taipei timezone for frontend display."""
+        if dt is None:
+            return None
+        # 確保有時區資訊，統一轉換為台北時間
+        if hasattr(dt, 'tzinfo') and dt.tzinfo is None:
+            # 無時區資訊，假設是台北時間
+            dt = dt.replace(tzinfo=TAIPEI_TZ)
+        return dt.astimezone(TAIPEI_TZ).isoformat()
+
     return {
         "status": result.status_value,
         "message": result.message,
-        "started_at": str(result.started_at) if result.started_at else None,
-        "completed_at": str(result.completed_at) if result.completed_at else None,
-        "updated_at": str(result.updated_at) if result.updated_at else None,
+        "started_at": format_time(result.started_at),
+        "completed_at": format_time(result.completed_at),
+        "updated_at": format_time(result.updated_at),
     }

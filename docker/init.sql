@@ -1,5 +1,9 @@
 -- Taiwan Stock Institutional Tracker - Database Schema
 
+-- 設定時區為台北時間
+SET timezone = 'Asia/Taipei';
+ALTER DATABASE tw_stocker SET timezone TO 'Asia/Taipei';
+
 -- 股票基本資料
 CREATE TABLE IF NOT EXISTS stocks (
     id SERIAL PRIMARY KEY,

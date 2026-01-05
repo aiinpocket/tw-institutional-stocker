@@ -9,6 +9,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-tw_stocker}
       POSTGRES_USER: ${POSTGRES_USER:-stocker}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-stockerpass123}
+      TZ: Asia/Taipei
+      PGTZ: Asia/Taipei
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
@@ -52,6 +54,7 @@ services:
       DATABASE_URL: postgresql://${POSTGRES_USER:-stocker}:${POSTGRES_PASSWORD:-stockerpass123}@db:5432/${POSTGRES_DB:-tw_stocker}
       API_HOST: 0.0.0.0
       API_PORT: 8000
+      TZ: Asia/Taipei
     ports:
       - "8000:8000"
     depends_on:

@@ -5,6 +5,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
  - `永遠用繁體中文回答問題`
+ - `/dashboard是首頁，所有的功能都要可以在各頁面間互相移動`
+ - `線上連結是https://stock-tw.aiinpocket.com`
+ - `每次完成修改後都必須使用瀏覽器工具驗證功能並確認版面沒有跑板等問題`
+ - `每次修改完後都必須要自己commit到github，會自動觸發CICD到GCP上部署，做完要自行確認上版是否成功`
 tw-market-tracker 台股市場追蹤系統。台灣股市三大法人持股比重追蹤與分析，提供每日自動化 ETL 資料擷取、REST API 服務、以及互動式網頁分析介面。
 
 ## Commands

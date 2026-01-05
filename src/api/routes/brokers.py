@@ -133,6 +133,87 @@ def get_broker_ranking(
     return {"date": latest_date, "days": days, "total": len(items), "items": items}
 
 
+@router.get("/concentration")
+def get_broker_concentration(
+    days: int = Query(5, description="Look back days", ge=1, le=30),
+    limit: int = Query(30, le=100),
+    db: Session = Depends(get_db),
+):
+    """
+    取得主力券商集中度分析。
+    找出特定券商大量買超或賣超的股票。
+    """
+    from sqlalchemy import text
+
+    query = text("""
+    WITH stock_broker_summary AS (
+        SELECT
+            s.code as stock_code,
+            s.name as stock_name,
+            bt.broker_name,
+            SUM(bt.net_vol) as broker_net,
+            SUM(ABS(bt.net_vol)) as broker_volume
+        FROM broker_trades bt
+        JOIN stocks s ON bt.stock_id = s.id
+        WHERE bt.trade_date >= CURRENT_DATE - :days
+        GROUP BY s.code, s.name, bt.broker_name
+    ),
+    stock_totals AS (
+        SELECT
+            stock_code,
+            stock_name,
+            SUM(broker_volume) as total_volume,
+            SUM(broker_net) as net_volume
+        FROM stock_broker_summary
+        GROUP BY stock_code, stock_name
+        HAVING SUM(ABS(broker_net)) > 100
+    ),
+    top_brokers AS (
+        SELECT DISTINCT ON (sbs.stock_code)
+            sbs.stock_code,
+            sbs.broker_name as top_broker,
+            sbs.broker_net as top_broker_net,
+            sbs.broker_volume as top_broker_volume
+        FROM stock_broker_summary sbs
+        ORDER BY sbs.stock_code, sbs.broker_volume DESC
+    ),
+    concentration AS (
+        SELECT
+            st.stock_code,
+            st.stock_name,
+            st.net_volume,
+            st.total_volume,
+            tb.top_broker,
+            tb.top_broker_net,
+            CASE WHEN st.total_volume > 0
+                THEN tb.top_broker_volume * 100.0 / st.total_volume
+                ELSE 0
+            END as concentration
+        FROM stock_totals st
+        JOIN top_brokers tb ON st.stock_code = tb.stock_code
+    )
+    SELECT * FROM concentration
+    ORDER BY ABS(net_volume) DESC
+    LIMIT :limit
+    """)
+
+    results = db.execute(query, {"days": days, "limit": limit}).fetchall()
+
+    items = [
+        {
+            "stock_code": r.stock_code,
+            "stock_name": r.stock_name,
+            "net_volume": r.net_volume or 0,
+            "total_volume": r.total_volume or 0,
+            "top_broker": r.top_broker,
+            "concentration": round(r.concentration, 1) if r.concentration else 0,
+        }
+        for r in results
+    ]
+
+    return {"days": days, "total": len(items), "items": items}
+
+
 @router.get("/{broker_name}/history")
 def get_broker_history(
     broker_name: str,
@@ -421,84 +502,3 @@ def get_stock_top_brokers(
         "total": len(items),
         "items": items
     }
-
-
-@router.get("/concentration")
-def get_broker_concentration(
-    days: int = Query(5, description="Look back days", ge=1, le=30),
-    limit: int = Query(30, le=100),
-    db: Session = Depends(get_db),
-):
-    """
-    取得主力券商集中度分析。
-    找出特定券商大量買超或賣超的股票。
-    """
-    from sqlalchemy import text
-
-    query = text("""
-    WITH stock_broker_summary AS (
-        SELECT
-            s.code as stock_code,
-            s.name as stock_name,
-            bt.broker_name,
-            SUM(bt.net_vol) as broker_net,
-            SUM(ABS(bt.net_vol)) as broker_volume
-        FROM broker_trades bt
-        JOIN stocks s ON bt.stock_id = s.id
-        WHERE bt.trade_date >= CURRENT_DATE - :days
-        GROUP BY s.code, s.name, bt.broker_name
-    ),
-    stock_totals AS (
-        SELECT
-            stock_code,
-            stock_name,
-            SUM(broker_volume) as total_volume,
-            SUM(broker_net) as net_volume
-        FROM stock_broker_summary
-        GROUP BY stock_code, stock_name
-        HAVING SUM(ABS(broker_net)) > 100
-    ),
-    top_brokers AS (
-        SELECT DISTINCT ON (sbs.stock_code)
-            sbs.stock_code,
-            sbs.broker_name as top_broker,
-            sbs.broker_net as top_broker_net,
-            sbs.broker_volume as top_broker_volume
-        FROM stock_broker_summary sbs
-        ORDER BY sbs.stock_code, sbs.broker_volume DESC
-    ),
-    concentration AS (
-        SELECT
-            st.stock_code,
-            st.stock_name,
-            st.net_volume,
-            st.total_volume,
-            tb.top_broker,
-            tb.top_broker_net,
-            CASE WHEN st.total_volume > 0
-                THEN tb.top_broker_volume * 100.0 / st.total_volume
-                ELSE 0
-            END as concentration
-        FROM stock_totals st
-        JOIN top_brokers tb ON st.stock_code = tb.stock_code
-    )
-    SELECT * FROM concentration
-    ORDER BY ABS(net_volume) DESC
-    LIMIT :limit
-    """)
-
-    results = db.execute(query, {"days": days, "limit": limit}).fetchall()
-
-    items = [
-        {
-            "stock_code": r.stock_code,
-            "stock_name": r.stock_name,
-            "net_volume": r.net_volume or 0,
-            "total_volume": r.total_volume or 0,
-            "top_broker": r.top_broker,
-            "concentration": round(r.concentration, 1) if r.concentration else 0,
-        }
-        for r in results
-    ]
-
-    return {"days": days, "total": len(items), "items": items}

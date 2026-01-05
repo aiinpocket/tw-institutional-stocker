@@ -49,7 +49,15 @@ def fetch_twse_t86(trade_date: date) -> pd.DataFrame:
     )
     col_foreign_self_net = find_col_any(df, "外資自營商買賣超股數")
     col_trust_net = find_col_any(df, "投信買賣超股數")
-    col_dealer_net = find_col_any(df, "自營商買賣超股數合計", "自營商買賣超股數")
+    # 自營商欄位要精確匹配，避免匹配到 (自行買賣) 或 (避險)
+    col_dealer_net = None
+    for col in df.columns:
+        col_clean = col.strip()
+        if col_clean == "自營商買賣超股數" or col_clean == "自營商買賣超股數合計":
+            col_dealer_net = col
+            break
+    if not col_dealer_net:
+        col_dealer_net = find_col_any(df, "自營商買賣超股數合計", "自營商買賣超股數")
 
     if not all([code_col, name_col, col_foreign_ex_net, col_trust_net, col_dealer_net]):
         return empty_result

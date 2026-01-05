@@ -1,10 +1,20 @@
 """Compute and cache daily summary for the live dashboard."""
 import json
 import logging
+from decimal import Decimal
 from sqlalchemy import text
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
+
+
+def to_int(value):
+    """Convert Decimal or other numeric types to int for JSON serialization."""
+    if value is None:
+        return 0
+    if isinstance(value, Decimal):
+        return int(value)
+    return int(value)
 
 
 def compute_daily_summary(db):
@@ -124,38 +134,38 @@ def compute_daily_summary(db):
         LIMIT 10
     """), {"trade_date": latest_date}).fetchall()
 
-    # Build summary JSON
+    # Build summary JSON (convert Decimal to int for JSON serialization)
     summary_data = {
         "date": str(latest_date),
         "market": {
-            "total": market_summary.total or 0,
-            "up": market_summary.up_count or 0,
-            "down": market_summary.down_count or 0,
-            "unchanged": market_summary.unchanged_count or 0,
+            "total": to_int(market_summary.total),
+            "up": to_int(market_summary.up_count),
+            "down": to_int(market_summary.down_count),
+            "unchanged": to_int(market_summary.unchanged_count),
         },
         "institutional_flow": {
-            "foreign": flow_summary.foreign_total or 0 if flow_summary else 0,
-            "trust": flow_summary.trust_total or 0 if flow_summary else 0,
-            "dealer": flow_summary.dealer_total or 0 if flow_summary else 0,
+            "foreign": to_int(flow_summary.foreign_total) if flow_summary else 0,
+            "trust": to_int(flow_summary.trust_total) if flow_summary else 0,
+            "dealer": to_int(flow_summary.dealer_total) if flow_summary else 0,
         },
         "foreign_buy_top10": [
-            {"code": r.code, "name": r.name, "net": r.foreign_net}
+            {"code": r.code, "name": r.name, "net": to_int(r.foreign_net)}
             for r in foreign_buy
         ],
         "foreign_sell_top10": [
-            {"code": r.code, "name": r.name, "net": r.foreign_net}
+            {"code": r.code, "name": r.name, "net": to_int(r.foreign_net)}
             for r in foreign_sell
         ],
         "trust_buy_top10": [
-            {"code": r.code, "name": r.name, "net": r.trust_net}
+            {"code": r.code, "name": r.name, "net": to_int(r.trust_net)}
             for r in trust_buy
         ],
         "trust_sell_top10": [
-            {"code": r.code, "name": r.name, "net": r.trust_net}
+            {"code": r.code, "name": r.name, "net": to_int(r.trust_net)}
             for r in trust_sell
         ],
         "hot_industries": [
-            {"industry": r.industry, "total_net": r.total_net, "count": r.stock_count}
+            {"industry": r.industry, "total_net": to_int(r.total_net), "count": to_int(r.stock_count)}
             for r in industry_summary
         ],
     }

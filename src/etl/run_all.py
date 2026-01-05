@@ -240,11 +240,33 @@ def clear_all_caches():
             print(f"  [SKIP] {table_name}: {str(e)[:50]}")
 
 
+def force_refetch_flows(days: int = 30):
+    """Force re-fetch by clearing recent flow data."""
+    from sqlalchemy import text
+    print(f"\n[FORCE REFETCH] Clearing last {days} days of institutional flows...")
+    try:
+        with get_db_session() as session:
+            # 刪除最近 N 天的 flows 資料
+            result = session.execute(text(f"""
+                DELETE FROM institutional_flows
+                WHERE trade_date >= CURRENT_DATE - {days}
+            """))
+            deleted = result.rowcount
+            print(f"  Deleted {deleted} flow records")
+    except Exception as e:
+        print(f"  [WARN] Failed to clear flows: {e}")
+
+
 def run_etl():
     """Run the complete ETL pipeline."""
     print("=" * 60)
     print("Taiwan Institutional Stock Tracker - ETL Pipeline")
     print("=" * 60)
+
+    # 檢查是否需要強制重新抓取
+    if os.environ.get("FORCE_REFETCH_DAYS"):
+        days = int(os.environ.get("FORCE_REFETCH_DAYS", "30"))
+        force_refetch_flows(days)
 
     # 更新狀態：開始執行
     update_etl_status("running", "資料更新中...", is_start=True)

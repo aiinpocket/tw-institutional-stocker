@@ -306,7 +306,117 @@
             return `<span class="neutral">0.00%</span>`;
         }
 
+        // Global cached data
+        let cachedSummary = null;
+
+        async function loadAllFromCache() {
+            // Try to load from pre-computed cache first
+            try {
+                const resp = await fetch('/api/v1/system/daily-summary');
+                const data = await resp.json();
+
+                if (data.date) {
+                    cachedSummary = data;
+
+                    // Market summary
+                    const market = data.market || {};
+                    document.getElementById('marketSummary').innerHTML = `
+                        <div class="market-item">
+                            <h3 class="positive">${market.up || 0}</h3>
+                            <div class="label">上漲</div>
+                        </div>
+                        <div class="market-item">
+                            <h3 class="negative">${market.down || 0}</h3>
+                            <div class="label">下跌</div>
+                        </div>
+                        <div class="market-item">
+                            <h3 class="neutral">${market.unchanged || 0}</h3>
+                            <div class="label">平盤</div>
+                        </div>
+                    `;
+
+                    // Institutional flow
+                    const flow = data.institutional_flow || {};
+                    document.getElementById('institutionalFlow').innerHTML = `
+                        <table>
+                            <tr>
+                                <td>外資</td>
+                                <td class="${(flow.foreign || 0) >= 0 ? 'positive' : 'negative'}">${(flow.foreign || 0) >= 0 ? '+' : ''}${formatNumber(flow.foreign || 0)}</td>
+                            </tr>
+                            <tr>
+                                <td>投信</td>
+                                <td class="${(flow.trust || 0) >= 0 ? 'positive' : 'negative'}">${(flow.trust || 0) >= 0 ? '+' : ''}${formatNumber(flow.trust || 0)}</td>
+                            </tr>
+                            <tr>
+                                <td>自營商</td>
+                                <td class="${(flow.dealer || 0) >= 0 ? 'positive' : 'negative'}">${(flow.dealer || 0) >= 0 ? '+' : ''}${formatNumber(flow.dealer || 0)}</td>
+                            </tr>
+                        </table>
+                    `;
+
+                    // Hot industries
+                    if (data.hot_industries && data.hot_industries.length > 0) {
+                        document.getElementById('hotIndustries').innerHTML = data.hot_industries.slice(0, 8).map(ind => {
+                            const isHot = (ind.total_net || 0) > 0;
+                            return `<span class="industry-chip ${isHot ? 'industry-hot' : 'industry-cold'}" onclick="window.location='/industry'">${ind.industry} ${isHot ? '🔥' : '❄️'}</span>`;
+                        }).join('');
+                    } else {
+                        loadHotIndustries();
+                    }
+
+                    // Rankings from cache
+                    if (data.foreign_buy_top10) {
+                        document.getElementById('foreignBuy').innerHTML = renderRankingTable(data.foreign_buy_top10, 'net', true);
+                    }
+                    if (data.foreign_sell_top10) {
+                        document.getElementById('foreignSell').innerHTML = renderRankingTable(data.foreign_sell_top10, 'net', false);
+                    }
+                    if (data.trust_buy_top10) {
+                        document.getElementById('trustBuy').innerHTML = renderRankingTable(data.trust_buy_top10, 'net', true);
+                    }
+                    if (data.trust_sell_top10) {
+                        document.getElementById('trustSell').innerHTML = renderRankingTable(data.trust_sell_top10, 'net', false);
+                    }
+
+                    // If rankings not in cache, load separately
+                    if (!data.foreign_buy_top10) {
+                        loadRankings();
+                    }
+
+                    return true;
+                }
+            } catch (e) {
+                console.log('Cache not available, falling back to individual queries');
+            }
+            return false;
+        }
+
+        function renderRankingTable(items, field, isPositive) {
+            if (!items || items.length === 0) {
+                return '<div class="loading">暫無資料</div>';
+            }
+            return `
+                <table>
+                    <thead>
+                        <tr><th>股票</th><th>買賣超</th></tr>
+                    </thead>
+                    <tbody>
+                        ${items.map(s => `
+                            <tr onclick="window.location='/stock/${s.code}'">
+                                <td>
+                                    <span class="stock-code">${s.code}</span>
+                                    <span class="stock-name">${s.name || ''}</span>
+                                </td>
+                                <td class="${isPositive ? 'positive' : 'negative'}">${isPositive ? '+' : ''}${formatNumber(s[field] || 0)}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
         async function loadMarketSummary() {
+            if (cachedSummary && cachedSummary.market) return;
             try {
                 const resp = await fetch('/api/v1/prices/summary');
                 const data = await resp.json();
@@ -331,6 +441,7 @@
         }
 
         async function loadInstitutionalFlow() {
+            if (cachedSummary && cachedSummary.institutional_flow) return;
             try {
                 const resp = await fetch('/api/v1/institutional/flows?limit=1');
                 const data = await resp.json();
@@ -340,15 +451,12 @@
                     return;
                 }
 
-                // Aggregate today's flows
                 let foreignNet = 0, trustNet = 0, dealerNet = 0;
                 data.items.forEach(item => {
                     foreignNet += item.foreign_net || 0;
                     trustNet += item.trust_net || 0;
                     dealerNet += item.dealer_net || 0;
                 });
-
-                const total = Math.abs(foreignNet) + Math.abs(trustNet) + Math.abs(dealerNet);
 
                 document.getElementById('institutionalFlow').innerHTML = `
                     <table>
@@ -393,6 +501,7 @@
         }
 
         async function loadRankings() {
+            if (cachedSummary && cachedSummary.foreign_buy_top10) return;
             try {
                 const resp = await fetch('/api/v1/institutional/flows?limit=500');
                 const data = await resp.json();
@@ -458,14 +567,22 @@
             }
         }
 
-        function refreshAll() {
+        async function refreshAll() {
             document.querySelectorAll('.card > div:not(.card-header)').forEach(el => {
                 if (el.id) el.innerHTML = '<div class="loading">載入中...</div>';
             });
-            loadMarketSummary();
-            loadInstitutionalFlow();
-            loadHotIndustries();
-            loadRankings();
+
+            // Try cache first, then fallback to individual queries
+            cachedSummary = null;
+            const cacheLoaded = await loadAllFromCache();
+
+            if (!cacheLoaded) {
+                loadMarketSummary();
+                loadInstitutionalFlow();
+                loadHotIndustries();
+                loadRankings();
+            }
+
             updateTime();
         }
 

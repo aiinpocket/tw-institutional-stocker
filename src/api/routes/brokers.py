@@ -99,10 +99,11 @@ def get_broker_ranking(
     items = [
         {
             "broker_name": r.broker_name,
-            "total_buy": r.total_buy or 0,
-            "total_sell": r.total_sell or 0,
-            "total_net": r.total_net or 0,
-            "stock_count": r.stock_count or 0,
+            "total_volume": (r.total_buy or 0) + (r.total_sell or 0),
+            "buy_volume": r.total_buy or 0,
+            "sell_volume": r.total_sell or 0,
+            "net_volume": r.total_net or 0,
+            "branch_count": r.stock_count or 0,
         }
         for r in results
     ]

@@ -129,6 +129,47 @@ CREATE TABLE IF NOT EXISTS system_status (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- 策略排行快取表
+CREATE TABLE IF NOT EXISTS strategy_rankings (
+    id SERIAL PRIMARY KEY,
+    stock_id INTEGER REFERENCES stocks(id) ON DELETE CASCADE,
+    price_tier VARCHAR(10) CHECK (price_tier IN ('high', 'mid', 'low')),
+    metric_type VARCHAR(50) NOT NULL,
+    signal_count INTEGER,
+    avg_return DECIMAL(10,4),
+    win_rate DECIMAL(8,4),
+    correlation DECIMAL(8,4),
+    data_points INTEGER,
+    current_price DECIMAL(12,2),
+    rank_in_tier INTEGER,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_strategy_metric ON strategy_rankings(metric_type);
+CREATE INDEX IF NOT EXISTS idx_strategy_tier ON strategy_rankings(price_tier, metric_type);
+
+-- 技術指標快取表
+CREATE TABLE IF NOT EXISTS stock_technicals (
+    id SERIAL PRIMARY KEY,
+    stock_id INTEGER REFERENCES stocks(id) ON DELETE CASCADE UNIQUE,
+    ma5 DECIMAL(12,2),
+    ma10 DECIMAL(12,2),
+    ma20 DECIMAL(12,2),
+    ma60 DECIMAL(12,2),
+    ma120 DECIMAL(12,2),
+    support1 DECIMAL(12,2),
+    resistance1 DECIMAL(12,2),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 今日總結快取表
+CREATE TABLE IF NOT EXISTS daily_summary_cache (
+    id SERIAL PRIMARY KEY,
+    trade_date DATE NOT NULL UNIQUE,
+    summary_data JSONB NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_daily_summary_date ON daily_summary_cache(trade_date DESC);
+
 -- 初始化 ETL 狀態
 INSERT INTO system_status (status_key, status_value, message)
 VALUES ('etl_status', 'idle', '系統待機中')

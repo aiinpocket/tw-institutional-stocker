@@ -1,4 +1,5 @@
 """System status routes - ETL status and system health."""
+import json
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from fastapi import APIRouter, Depends
@@ -10,6 +11,81 @@ from src.api.dependencies import get_db
 TAIPEI_TZ = ZoneInfo("Asia/Taipei")
 
 router = APIRouter()
+
+
+@router.get("/daily-summary")
+def get_daily_summary(db: Session = Depends(get_db)):
+    """
+    Get cached daily summary data.
+    This endpoint returns pre-computed market summary to avoid expensive queries.
+    Falls back to computing on-the-fly if no cache exists.
+    """
+    # Try to get from cache first
+    cache_query = text("""
+        SELECT trade_date, summary_data, created_at
+        FROM daily_summary_cache
+        ORDER BY trade_date DESC
+        LIMIT 1
+    """)
+
+    try:
+        result = db.execute(cache_query).fetchone()
+        if result and result.summary_data:
+            return {
+                "cached": True,
+                "cached_at": result.created_at.isoformat() if result.created_at else None,
+                **result.summary_data
+            }
+    except Exception:
+        # Table might not exist yet
+        pass
+
+    # Fallback: compute on-the-fly (slower but works without cache)
+    return compute_summary_fallback(db)
+
+
+def compute_summary_fallback(db: Session):
+    """Compute summary on-the-fly as fallback when cache is unavailable."""
+    # Get latest trade date
+    latest_date = db.execute(text("""
+        SELECT MAX(trade_date) FROM stock_prices
+    """)).scalar()
+
+    if not latest_date:
+        return {"cached": False, "date": None, "error": "No data available"}
+
+    # Market summary
+    market = db.execute(text("""
+        SELECT
+            COUNT(*) as total,
+            SUM(CASE WHEN change_percent > 0 OR (change_percent IS NULL AND close_price > open_price) THEN 1 ELSE 0 END) as up,
+            SUM(CASE WHEN change_percent < 0 OR (change_percent IS NULL AND close_price < open_price) THEN 1 ELSE 0 END) as down,
+            SUM(CASE WHEN change_percent = 0 OR (change_percent IS NULL AND close_price = open_price) THEN 1 ELSE 0 END) as unchanged
+        FROM stock_prices
+        WHERE trade_date = :trade_date AND open_price IS NOT NULL AND close_price IS NOT NULL
+    """), {"trade_date": latest_date}).fetchone()
+
+    # Institutional flow
+    flow = db.execute(text("""
+        SELECT SUM(foreign_net) as foreign, SUM(trust_net) as trust, SUM(dealer_net) as dealer
+        FROM institutional_flows WHERE trade_date = :trade_date
+    """), {"trade_date": latest_date}).fetchone()
+
+    return {
+        "cached": False,
+        "date": str(latest_date),
+        "market": {
+            "total": market.total or 0,
+            "up": market.up or 0,
+            "down": market.down or 0,
+            "unchanged": market.unchanged or 0,
+        },
+        "institutional_flow": {
+            "foreign": flow.foreign or 0 if flow else 0,
+            "trust": flow.trust or 0 if flow else 0,
+            "dealer": flow.dealer or 0 if flow else 0,
+        }
+    }
 
 
 def ensure_system_status_table(db: Session):

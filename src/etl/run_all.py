@@ -343,6 +343,16 @@ def run_etl():
     except Exception as e:
         print(f"  [WARN] Strategy computation failed: {e}")
 
+    # Compute daily summary cache
+    print("\n[STEP 6] Computing daily summary cache...")
+    try:
+        from src.etl.processors.compute_daily_summary import compute_daily_summary
+        with get_db_session() as session:
+            compute_daily_summary(session)
+        print("  Daily summary cached successfully")
+    except Exception as e:
+        print(f"  [WARN] Daily summary computation failed: {e}")
+
     # 更新狀態：完成
     update_etl_status("completed", f"資料更新完成 ({target_date})", is_end=True)
 

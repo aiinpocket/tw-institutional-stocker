@@ -257,8 +257,36 @@ def force_refetch_flows(days: int = 30):
         print(f"  [WARN] Failed to clear flows: {e}")
 
 
+def run_tpex_backfill():
+    """Run TPEX historical data backfill."""
+    from src.etl.backfill_tpex import run_backfill
+
+    start_str = os.environ.get("BACKFILL_TPEX_START", "2020-01-02")
+    end_str = os.environ.get("BACKFILL_TPEX_END")
+
+    start_date = date.fromisoformat(start_str)
+    end_date = date.fromisoformat(end_str) if end_str else get_target_trade_date()
+
+    print("=" * 60)
+    print("TPEX Historical Data Backfill Mode")
+    print("=" * 60)
+
+    run_backfill(
+        start_date=start_date,
+        end_date=end_date,
+        batch_size=30,
+        delay_seconds=1.0,
+        find_missing=True
+    )
+
+
 def run_etl():
     """Run the complete ETL pipeline."""
+    # 檢查是否為 TPEX 回補模式
+    if os.environ.get("BACKFILL_TPEX_START"):
+        run_tpex_backfill()
+        return
+
     print("=" * 60)
     print("Taiwan Institutional Stock Tracker - ETL Pipeline")
     print("=" * 60)

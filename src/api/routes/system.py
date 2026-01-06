@@ -184,3 +184,29 @@ def get_etl_status(db: Session = Depends(get_db)):
         "completed_at": format_time(result.completed_at),
         "updated_at": format_time(result.updated_at),
     }
+
+
+@router.post("/etl-status/reset")
+def reset_etl_status(db: Session = Depends(get_db)):
+    """
+    重置 ETL 狀態為 idle。
+    用於處理 ETL 卡住或異常終止的情況。
+    """
+    ensure_system_status_table(db)
+
+    query = text("""
+        UPDATE system_status
+        SET status_value = 'idle',
+            message = '系統待機中（手動重置）',
+            completed_at = CURRENT_TIMESTAMP,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE status_key = 'etl_status'
+    """)
+
+    db.execute(query)
+    db.commit()
+
+    return {
+        "success": True,
+        "message": "ETL 狀態已重置為 idle"
+    }

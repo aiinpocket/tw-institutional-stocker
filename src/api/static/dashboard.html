@@ -487,7 +487,7 @@
         </div>
 
         <footer>
-            <div>策略說明：外資連續3日買超後，持有N日的報酬與勝率分析 | 低於成本：現價低於法人三個月平均買進成本</div>
+            <div>策略說明：外資連續3日買超後，持有N日的報酬與勝率分析 | 低於成本：現價低於法人近60日平均買進成本</div>
             <div class="timestamp" id="timestamp"></div>
         </footer>
     </div>
@@ -615,7 +615,7 @@
                 case 'correlation':
                     return '<th>相關性</th>';
                 case 'belowcost':
-                    return '<th>法人成本</th><th>折價幅度</th>';
+                    return '<th>近60日成本</th><th>折價幅度</th>';
                 default:
                     return '<th>報酬</th><th>勝率</th>';
             }

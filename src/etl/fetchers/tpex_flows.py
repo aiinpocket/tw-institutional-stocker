@@ -47,23 +47,38 @@ def fetch_tpex_flows(trade_date: date) -> pd.DataFrame:
 
     code_col = find_col_any(df, "代號")
     name_col = find_col_any(df, "名稱")
+    # TPEX 使用 MultiIndex，normalize_columns 會在各層之間加入底線
+    # 例如: "外資及陸資(不含外資自營商)_買賣超股數"
     col_foreign_ex_net = find_col_any(
         df,
-        "外資及陸資(不含外資自營商)買賣超股數",
+        "外資及陸資(不含外資自營商)_買賣超股數",  # with underscore for MultiIndex
+        "外資及陸資(不含外資自營商)買賣超股數",   # without underscore (legacy)
         "外資及陸資買賣超股數(不含外資自營商)",
         "外資及陸資買賣超股數",
+        "外資及陸資_買賣超股數",  # with underscore
     )
-    col_foreign_self_net = find_col_any(df, "外資自營商買賣超股數")
-    col_trust_net = find_col_any(df, "投信買賣超股數")
-    # 自營商欄位要精確匹配，避免匹配到 (自行買賣) 或 (避險)
+    col_foreign_self_net = find_col_any(
+        df,
+        "外資自營商_買賣超股數",   # with underscore for MultiIndex
+        "外資自營商買賣超股數",    # without underscore (legacy)
+    )
+    col_trust_net = find_col_any(
+        df,
+        "投信_買賣超股數",   # with underscore for MultiIndex
+        "投信買賣超股數",    # without underscore (legacy)
+    )
+    # 自營商欄位要精確匹配，避免匹配到 (自行買賣) 或 (避險) 或 外資自營商
+    # 優先尋找 "_自營商_買賣超股數" (不含括號的)
     col_dealer_net = None
     for col in df.columns:
         col_clean = col.strip()
-        if col_clean == "自營商買賣超股數" or col_clean == "自營商買賣超股數合計":
+        # 精確匹配：欄位名稱應該包含 "自營商_買賣超股數" 或 "自營商買賣超股數"
+        # 但要排除 (自行買賣)、(避險) 和 外資自營商
+        if ("_自營商_買賣超股數" in col_clean or col_clean.endswith("自營商買賣超股數")) and \
+           "(自行買賣)" not in col_clean and "(避險)" not in col_clean and \
+           "外資自營商" not in col_clean:
             col_dealer_net = col
             break
-    if not col_dealer_net:
-        col_dealer_net = find_col_any(df, "自營商買賣超股數合計", "自營商買賣超股數")
 
     if not all([code_col, name_col, col_trust_net, col_dealer_net]):
         return empty_result

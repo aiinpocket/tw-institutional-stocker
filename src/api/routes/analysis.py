@@ -334,7 +334,7 @@ def get_stock_analysis(
         "foreign_net": int(row.foreign_net) if row.foreign_net else 0,
         "trust_net": int(row.trust_net) if row.trust_net else 0,
         "dealer_net": int(row.dealer_net) if row.dealer_net else 0,
-    } for row in reversed(flow_rows)]
+    } for row in flow_rows]
 
     # Calculate technicals
     ma = calculate_moving_averages(prices)

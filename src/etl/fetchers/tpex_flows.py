@@ -47,36 +47,63 @@ def fetch_tpex_flows(trade_date: date) -> pd.DataFrame:
 
     code_col = find_col_any(df, "代號")
     name_col = find_col_any(df, "名稱")
-    # TPEX 使用 MultiIndex，normalize_columns 會在各層之間加入底線
-    # 例如: "外資及陸資(不含外資自營商)_買賣超股數"
+
+    # TPEX API 格式隨時間變化:
+    # - 2020+: MultiIndex 格式，欄位名如 "外資及陸資(不含外資自營商)_買賣超股數"
+    # - 2011-2019: 舊格式，欄位名如 "外資及陸資淨買股數"
+    # - 2010 以前: 更舊格式，欄位名如 "外資及陸資淨買股數"
+
+    # 外資欄位 - 優先找新格式，再找舊格式
+    # 注意: 舊格式欄位名可能有空格 (如 "外資 及陸資 淨買股數")
     col_foreign_ex_net = find_col_any(
         df,
-        "外資及陸資(不含外資自營商)_買賣超股數",  # with underscore for MultiIndex
-        "外資及陸資(不含外資自營商)買賣超股數",   # without underscore (legacy)
+        # 新格式 (2020+) - MultiIndex 產生的欄位名
+        "外資及陸資(不含外資自營商)_買賣超股數",
+        "外資及陸資(不含外資自營商)買賣超股數",
         "外資及陸資買賣超股數(不含外資自營商)",
+        "外資及陸資_買賣超股數",
         "外資及陸資買賣超股數",
-        "外資及陸資_買賣超股數",  # with underscore
+        # 舊格式 (2011-2019) - 可能有空格
+        "外資及陸資淨買股數",
+        "外資及陸資_淨買股數",
+        "外資 及陸資 淨買股數",  # 有空格版本
     )
     col_foreign_self_net = find_col_any(
         df,
-        "外資自營商_買賣超股數",   # with underscore for MultiIndex
-        "外資自營商買賣超股數",    # without underscore (legacy)
+        "外資自營商_買賣超股數",
+        "外資自營商買賣超股數",
     )
+    # 投信欄位
     col_trust_net = find_col_any(
         df,
-        "投信_買賣超股數",   # with underscore for MultiIndex
-        "投信買賣超股數",    # without underscore (legacy)
+        # 新格式
+        "投信_買賣超股數",
+        "投信買賣超股數",
+        # 舊格式 - 可能有空格
+        "投信淨買股數",
+        "投信_淨買股數",
+        "投信 淨買股數",  # 有空格版本
     )
     # 自營商欄位要精確匹配，避免匹配到 (自行買賣) 或 (避險) 或 外資自營商
-    # 優先尋找 "_自營商_買賣超股數" (不含括號的)
     col_dealer_net = None
     for col in df.columns:
         col_clean = col.strip()
-        # 精確匹配：欄位名稱應該包含 "自營商_買賣超股數" 或 "自營商買賣超股數"
-        # 但要排除 (自行買賣)、(避險) 和 外資自營商
-        if ("_自營商_買賣超股數" in col_clean or col_clean.endswith("自營商買賣超股數")) and \
-           "(自行買賣)" not in col_clean and "(避險)" not in col_clean and \
-           "外資自營商" not in col_clean:
+        # 新格式: "自營商_買賣超股數" 或 "自營商買賣超股數"
+        # 舊格式: "自營商淨買股數" 或 "自營商_淨買股數" 或 "自營商 淨買股數"
+        is_dealer_col = (
+            "_自營商_買賣超股數" in col_clean or
+            col_clean.endswith("自營商買賣超股數") or
+            "_自營商_淨買股數" in col_clean or
+            col_clean.endswith("自營商淨買股數") or
+            "_自營商 淨買股數" in col_clean or  # 有空格版本
+            col_clean.endswith("自營商 淨買股數")
+        )
+        is_excluded = (
+            "(自行買賣)" in col_clean or
+            "(避險)" in col_clean or
+            "外資自營商" in col_clean
+        )
+        if is_dealer_col and not is_excluded:
             col_dealer_net = col
             break
 

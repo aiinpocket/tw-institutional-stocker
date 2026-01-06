@@ -351,7 +351,7 @@ def get_stock_analysis(
     price_change_pct = None
     if len(prices) >= 2 and prices[-1]["close"] and prices[-2]["close"] and prices[-2]["close"] != 0:
         price_change = safe_float(prices[-1]["close"] - prices[-2]["close"])
-        price_change_pct = safe_float((price_change / prices[-2]["close"]) * 100) if price_change else None
+        price_change_pct = safe_float((price_change / prices[-2]["close"]) * 100) if price_change is not None else None
 
     # Institutional summary
     foreign_5d = sum(f["foreign_net"] for f in flows[-5:]) if len(flows) >= 5 else None

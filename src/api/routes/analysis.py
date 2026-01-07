@@ -263,13 +263,14 @@ def get_stock_analysis(
     """
 
     # Get stock info
-    stock_query = text("SELECT id, code, name, market FROM stocks WHERE code = :code")
+    stock_query = text("SELECT id, code, name, market, is_active FROM stocks WHERE code = :code")
     stock_result = db.execute(stock_query, {"code": stock_code}).fetchone()
 
     if not stock_result:
         raise HTTPException(status_code=404, detail=f"Stock {stock_code} not found")
 
     stock_id = stock_result.id
+    is_active = stock_result.is_active if stock_result.is_active is not None else True
 
     # Determine date range
     if start_date and end_date:
@@ -364,6 +365,7 @@ def get_stock_analysis(
             "code": stock_result.code,
             "name": stock_result.name,
             "market": stock_result.market,
+            "is_active": is_active,
         },
         "query_range": {
             "start_date": str(query_start),

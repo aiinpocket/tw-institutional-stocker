@@ -1106,6 +1106,21 @@
             const { analysis, brokers } = data;
             currentBrokers = brokers;
 
+            // Check if stock is delisted/inactive
+            if (analysis.stock && analysis.stock.is_active === false) {
+                document.querySelector('.container').innerHTML = `
+                    <div class="card" style="text-align: center; padding: 60px 20px;">
+                        <h2 style="color: #ffc107; margin-bottom: 20px;">此股票已下市</h2>
+                        <p style="color: #888; margin-bottom: 10px;">${analysis.stock.code} ${analysis.stock.name}</p>
+                        <p style="color: #666; font-size: 0.9rem;">此股票已不再交易，無法顯示最新資料。</p>
+                        <p style="color: #666; font-size: 0.85rem; margin-top: 15px;">可能原因：公司合併、下市、或股票代碼變更。</p>
+                        <a href="/dashboard" class="back-btn" style="display: inline-block; margin-top: 30px; color: #00d4ff;">返回首頁</a>
+                    </div>
+                `;
+                document.title = `${analysis.stock.code} ${analysis.stock.name} (已下市) - 股票分析`;
+                return;
+            }
+
             // Update query info
             updateQueryInfo(analysis.query_range);
 

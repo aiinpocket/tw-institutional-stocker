@@ -1,8 +1,12 @@
-"""Pre-compute AI analysis results after ETL completion."""
+"""Pre-compute AI analysis results after ETL completion.
+
+Optimized version with parallel execution using ThreadPoolExecutor.
+"""
 import os
 import json
 import logging
 from datetime import date
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from sqlalchemy import text
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -279,9 +283,46 @@ def compute_recommendations(db, client, data_date: date, strategy: str = "balanc
         return False
 
 
+def _run_market_summary_task(client, data_date: date) -> tuple:
+    """Wrapper to run market summary with its own DB session."""
+    from src.common.database import SessionLocal
+    db = SessionLocal()
+    try:
+        success = compute_market_summary(db, client, data_date)
+        return ("market_summary", success)
+    except Exception as e:
+        logger.error(f"Market summary task failed: {e}")
+        return ("market_summary", False)
+    finally:
+        db.close()
+
+
+def _run_recommendations_task(client, data_date: date, strategy: str) -> tuple:
+    """Wrapper to run recommendations with its own DB session."""
+    from src.common.database import SessionLocal
+    db = SessionLocal()
+    try:
+        success = compute_recommendations(db, client, data_date, strategy)
+        return (f"recommendations_{strategy}", success)
+    except Exception as e:
+        logger.error(f"Recommendations ({strategy}) task failed: {e}")
+        return (f"recommendations_{strategy}", False)
+    finally:
+        db.close()
+
+
 def run_precompute_ai(db):
-    """Run all pre-compute AI tasks."""
-    logger.info("Starting AI pre-computation...")
+    """Run all pre-compute AI tasks in parallel.
+
+    Uses ThreadPoolExecutor to run 4 AI tasks concurrently:
+    - 1 market summary
+    - 3 strategy recommendations (balanced, aggressive, conservative)
+
+    Each task uses its own database session for thread safety.
+    """
+    import time
+    start_time = time.time()
+    logger.info("Starting AI pre-computation (parallel mode)...")
 
     # 確保 ai_analysis_cache 表存在
     try:
@@ -310,16 +351,41 @@ def run_precompute_ai(db):
         logger.warning("No data date found, skipping AI pre-computation")
         return
 
-    logger.info(f"Pre-computing AI analysis for {data_date}...")
+    logger.info(f"Pre-computing AI analysis for {data_date} with 4 parallel tasks...")
 
-    # Pre-compute market summary
-    compute_market_summary(db, client, data_date)
+    # Run all 4 tasks in parallel using ThreadPoolExecutor
+    strategies = ["balanced", "aggressive", "conservative"]
+    results = {}
 
-    # Pre-compute recommendations for all strategies
-    for strategy in ["balanced", "aggressive", "conservative"]:
-        compute_recommendations(db, client, data_date, strategy)
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        # Submit all tasks
+        futures = {}
 
-    logger.info("AI pre-computation completed")
+        # Market summary task
+        futures[executor.submit(_run_market_summary_task, client, data_date)] = "market_summary"
+
+        # Recommendations tasks for each strategy
+        for strategy in strategies:
+            futures[executor.submit(_run_recommendations_task, client, data_date, strategy)] = f"recommendations_{strategy}"
+
+        # Collect results as they complete
+        for future in as_completed(futures):
+            task_name = futures[future]
+            try:
+                result_name, success = future.result()
+                results[result_name] = success
+                status = "✓" if success else "✗"
+                logger.info(f"  {status} {result_name} completed")
+            except Exception as e:
+                results[task_name] = False
+                logger.error(f"  ✗ {task_name} failed with exception: {e}")
+
+    # Summary
+    elapsed = time.time() - start_time
+    success_count = sum(1 for v in results.values() if v)
+    total_count = len(results)
+
+    logger.info(f"AI pre-computation completed: {success_count}/{total_count} tasks successful in {elapsed:.1f}s")
 
 
 if __name__ == "__main__":

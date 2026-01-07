@@ -3,11 +3,15 @@
 Combines:
 1. run_all.py - Institutional flows, foreign holdings, prices, ratios
 2. run_broker.py - Broker branch trading data (top 50 stocks)
+3. verify_etl.py - API verification and notification
 """
 import sys
+import time
 import traceback
 
 def main():
+    start_time = time.time()
+
     print("=" * 60)
     print("Taiwan Stock Tracker - Cloud Run ETL")
     print("=" * 60)
@@ -43,7 +47,28 @@ def main():
         except:
             pass
 
+    # Step 3: Verify ETL results and send notification on failure
     print("\n" + "=" * 60)
+    print("[PART 3] Verifying ETL results...")
+    print("=" * 60)
+    try:
+        from src.etl.verify_etl import run_verification_with_notification
+        report = run_verification_with_notification()
+
+        if not report.all_passed:
+            print(f"[WARNING] {report.failed} verification tests failed!")
+            success = False
+        else:
+            print(f"[OK] All {report.total_tests} verification tests passed!")
+    except Exception as e:
+        print(f"[ERROR] Verification failed: {e}")
+        traceback.print_exc()
+        # Don't fail entire job for verification failure, but log it
+
+    # Summary
+    elapsed = time.time() - start_time
+    print("\n" + "=" * 60)
+    print(f"Total ETL Time: {elapsed:.1f} seconds ({elapsed/60:.1f} minutes)")
     if success:
         print("[SUCCESS] Cloud ETL completed!")
     else:

@@ -15,46 +15,62 @@ def compute_win_rate_rankings(db, holding_days: int = 10, min_signals: int = 2):
     db.execute(text("DELETE FROM strategy_rankings WHERE metric_type = :metric_type"),
                {"metric_type": metric_type})
 
-    # Compute and insert new rankings
+    # Optimized query using LATERAL join instead of correlated subquery
     query = text("""
     WITH latest_prices AS (
         SELECT DISTINCT ON (stock_id)
             stock_id,
-            close_price,
-            trade_date
+            close_price
         FROM stock_prices
         ORDER BY stock_id, trade_date DESC
+    ),
+    -- Only look at recent 6 months of data for performance
+    recent_flows AS (
+        SELECT stock_id, trade_date, foreign_net
+        FROM institutional_flows
+        WHERE trade_date >= CURRENT_DATE - 180
     ),
     consecutive_buying AS (
         SELECT
             f.stock_id,
             f.trade_date,
-            f.foreign_net,
             SUM(CASE WHEN f.foreign_net > 0 THEN 1 ELSE 0 END)
                 OVER (PARTITION BY f.stock_id ORDER BY f.trade_date
                       ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) as buy_streak_5
-        FROM institutional_flows f
-        WHERE f.trade_date >= '2024-01-01'
+        FROM recent_flows f
     ),
     buy_signals AS (
         SELECT stock_id, trade_date as signal_date
         FROM consecutive_buying
         WHERE buy_streak_5 >= 3
     ),
-    returns AS (
+    -- Pre-compute price data with row numbers for efficient exit price lookup
+    priced_signals AS (
         SELECT
             bs.stock_id,
             bs.signal_date,
-            p1.close_price as entry_price,
-            p2.close_price as exit_price,
-            ROUND((p2.close_price - p1.close_price) / NULLIF(p1.close_price, 0) * 100, 2) as return_pct
+            p1.close_price as entry_price
         FROM buy_signals bs
         JOIN stock_prices p1 ON bs.stock_id = p1.stock_id AND p1.trade_date = bs.signal_date
-        JOIN stock_prices p2 ON bs.stock_id = p2.stock_id AND p2.trade_date = (
-            SELECT MIN(trade_date) FROM stock_prices
-            WHERE stock_id = bs.stock_id AND trade_date > bs.signal_date + :holding_days - 1
-        )
-        WHERE p1.close_price > 0 AND p2.close_price IS NOT NULL
+        WHERE p1.close_price > 0
+    ),
+    -- Use LATERAL join for efficient exit price lookup
+    returns AS (
+        SELECT
+            ps.stock_id,
+            ps.signal_date,
+            ps.entry_price,
+            exit_p.close_price as exit_price,
+            ROUND((exit_p.close_price - ps.entry_price) / ps.entry_price * 100, 2) as return_pct
+        FROM priced_signals ps
+        JOIN LATERAL (
+            SELECT close_price
+            FROM stock_prices
+            WHERE stock_id = ps.stock_id
+              AND trade_date >= ps.signal_date + :holding_days
+            ORDER BY trade_date
+            LIMIT 1
+        ) exit_p ON true
     ),
     stock_stats AS (
         SELECT
@@ -62,7 +78,7 @@ def compute_win_rate_rankings(db, holding_days: int = 10, min_signals: int = 2):
             lp.close_price as current_price,
             COUNT(*) as signal_count,
             ROUND(AVG(r.return_pct), 2) as avg_return,
-            ROUND(SUM(CASE WHEN r.return_pct > 0 THEN 1 ELSE 0 END) * 100.0 / NULLIF(COUNT(*), 0), 1) as win_rate,
+            ROUND(SUM(CASE WHEN r.return_pct > 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 1) as win_rate,
             CASE
                 WHEN lp.close_price >= 500 THEN 'high'
                 WHEN lp.close_price >= 200 THEN 'mid'

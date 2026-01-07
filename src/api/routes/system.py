@@ -210,3 +210,23 @@ def reset_etl_status(db: Session = Depends(get_db)):
         "success": True,
         "message": "ETL 狀態已重置為 idle"
     }
+
+
+@router.post("/cleanup-stocks")
+def cleanup_stocks(db: Session = Depends(get_db)):
+    """
+    清理下市/失效股票。
+    標記不再交易的股票為非活躍狀態。
+    """
+    try:
+        from src.etl.processors.cleanup_stocks import cleanup_inactive_stocks
+        cleanup_inactive_stocks(db)
+        return {
+            "success": True,
+            "message": "股票清理完成"
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "message": f"清理失敗: {str(e)}"
+        }

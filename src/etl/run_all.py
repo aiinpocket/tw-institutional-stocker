@@ -317,6 +317,15 @@ def run_etl():
     except Exception as e:
         print(f"  [WARN] Index creation failed: {e}")
 
+    # 清理下市/失效股票
+    print("\n[STEP 0.6] Cleaning up inactive stocks...")
+    try:
+        from src.etl.processors.cleanup_stocks import cleanup_inactive_stocks
+        with get_db_session() as session:
+            cleanup_inactive_stocks(session)
+    except Exception as e:
+        print(f"  [WARN] Stock cleanup failed: {e}")
+
     target_date = get_target_trade_date()
     print(f"\n[INFO] Target trade date: {target_date}")
 

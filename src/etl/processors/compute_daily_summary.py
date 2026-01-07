@@ -34,13 +34,14 @@ def compute_daily_summary(db):
         )
     """))
 
-    # Get the latest trade date
+    # Get the latest trade date from institutional_flows (this is the authoritative source for daily summary)
+    # Use institutional_flows date because stock_prices may have today's data while flows are from previous day
     latest_date = db.execute(text("""
-        SELECT MAX(trade_date) FROM stock_prices
+        SELECT MAX(trade_date) FROM institutional_flows
     """)).scalar()
 
     if not latest_date:
-        logger.warning("No price data found, skipping summary computation")
+        logger.warning("No institutional flow data found, skipping summary computation")
         return
 
     logger.info(f"Computing summary for {latest_date}")

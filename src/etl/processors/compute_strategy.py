@@ -1,4 +1,7 @@
-"""Compute and store pre-calculated strategy rankings."""
+"""Compute and store pre-calculated strategy rankings.
+
+Optimized version: Uses window functions and simplified queries for better performance.
+"""
 import logging
 from sqlalchemy import text
 
@@ -7,91 +10,95 @@ logger = logging.getLogger(__name__)
 
 
 def compute_win_rate_rankings(db, holding_days: int = 10, min_signals: int = 2):
-    """Compute and store win rate rankings for a specific holding period."""
+    """
+    Compute win rate rankings using a simplified approach.
+
+    Instead of looking up exact exit prices, we use a pre-computed price table
+    with future returns calculated via window functions.
+    """
     metric_type = f"win_rate_{holding_days}d"
     logger.info(f"Computing {metric_type}...")
 
-    # Clear old data for this metric
+    # Clear old data
     db.execute(text("DELETE FROM strategy_rankings WHERE metric_type = :metric_type"),
                {"metric_type": metric_type})
+    db.commit()
 
-    # Optimized query using LATERAL join instead of correlated subquery
+    # Step 1: Create temp table with price returns
+    db.execute(text("""
+    DROP TABLE IF EXISTS temp_price_returns;
+    CREATE TEMP TABLE temp_price_returns AS
+    SELECT
+        stock_id,
+        trade_date,
+        close_price,
+        LEAD(close_price, :holding_days) OVER (PARTITION BY stock_id ORDER BY trade_date) as future_price
+    FROM stock_prices
+    WHERE trade_date >= CURRENT_DATE - 200
+      AND close_price > 0
+    """), {"holding_days": holding_days})
+    db.commit()
+    logger.info(f"  Created temp_price_returns")
+
+    # Step 2: Create temp table with buy signals (simplified: just foreign net > 0 for 3+ days in 5)
+    db.execute(text("""
+    DROP TABLE IF EXISTS temp_buy_signals;
+    CREATE TEMP TABLE temp_buy_signals AS
+    WITH recent_flows AS (
+        SELECT
+            stock_id,
+            trade_date,
+            foreign_net,
+            SUM(CASE WHEN foreign_net > 0 THEN 1 ELSE 0 END)
+                OVER (PARTITION BY stock_id ORDER BY trade_date ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) as buy_count_5d
+        FROM institutional_flows
+        WHERE trade_date >= CURRENT_DATE - 180
+    )
+    SELECT DISTINCT stock_id, trade_date as signal_date
+    FROM recent_flows
+    WHERE buy_count_5d >= 3
+    """))
+    db.commit()
+    logger.info(f"  Created temp_buy_signals")
+
+    # Step 3: Calculate returns and insert rankings
     query = text("""
     WITH latest_prices AS (
         SELECT DISTINCT ON (stock_id)
-            stock_id,
-            close_price
+            stock_id, close_price
         FROM stock_prices
         ORDER BY stock_id, trade_date DESC
     ),
-    -- Only look at recent 6 months of data for performance
-    recent_flows AS (
-        SELECT stock_id, trade_date, foreign_net
-        FROM institutional_flows
-        WHERE trade_date >= CURRENT_DATE - 180
-    ),
-    consecutive_buying AS (
-        SELECT
-            f.stock_id,
-            f.trade_date,
-            SUM(CASE WHEN f.foreign_net > 0 THEN 1 ELSE 0 END)
-                OVER (PARTITION BY f.stock_id ORDER BY f.trade_date
-                      ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) as buy_streak_5
-        FROM recent_flows f
-    ),
-    buy_signals AS (
-        SELECT stock_id, trade_date as signal_date
-        FROM consecutive_buying
-        WHERE buy_streak_5 >= 3
-    ),
-    -- Pre-compute price data with row numbers for efficient exit price lookup
-    priced_signals AS (
+    signal_returns AS (
         SELECT
             bs.stock_id,
             bs.signal_date,
-            p1.close_price as entry_price
-        FROM buy_signals bs
-        JOIN stock_prices p1 ON bs.stock_id = p1.stock_id AND p1.trade_date = bs.signal_date
-        WHERE p1.close_price > 0
-    ),
-    -- Use LATERAL join for efficient exit price lookup
-    returns AS (
-        SELECT
-            ps.stock_id,
-            ps.signal_date,
-            ps.entry_price,
-            exit_p.close_price as exit_price,
-            ROUND((exit_p.close_price - ps.entry_price) / ps.entry_price * 100, 2) as return_pct
-        FROM priced_signals ps
-        JOIN LATERAL (
-            SELECT close_price
-            FROM stock_prices
-            WHERE stock_id = ps.stock_id
-              AND trade_date >= ps.signal_date + :holding_days
-            ORDER BY trade_date
-            LIMIT 1
-        ) exit_p ON true
+            pr.close_price as entry_price,
+            pr.future_price as exit_price,
+            ROUND((pr.future_price - pr.close_price) / pr.close_price * 100, 2) as return_pct
+        FROM temp_buy_signals bs
+        JOIN temp_price_returns pr ON bs.stock_id = pr.stock_id AND bs.signal_date = pr.trade_date
+        WHERE pr.future_price IS NOT NULL
     ),
     stock_stats AS (
         SELECT
-            r.stock_id,
+            sr.stock_id,
             lp.close_price as current_price,
             COUNT(*) as signal_count,
-            ROUND(AVG(r.return_pct), 2) as avg_return,
-            ROUND(SUM(CASE WHEN r.return_pct > 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 1) as win_rate,
+            ROUND(AVG(sr.return_pct), 2) as avg_return,
+            ROUND(SUM(CASE WHEN sr.return_pct > 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 1) as win_rate,
             CASE
                 WHEN lp.close_price >= 500 THEN 'high'
                 WHEN lp.close_price >= 200 THEN 'mid'
                 ELSE 'low'
             END as price_tier
-        FROM returns r
-        LEFT JOIN latest_prices lp ON r.stock_id = lp.stock_id
-        GROUP BY r.stock_id, lp.close_price
+        FROM signal_returns sr
+        JOIN latest_prices lp ON sr.stock_id = lp.stock_id
+        GROUP BY sr.stock_id, lp.close_price
         HAVING COUNT(*) >= :min_signals
     ),
     ranked AS (
-        SELECT
-            *,
+        SELECT *,
             ROW_NUMBER() OVER (PARTITION BY price_tier ORDER BY win_rate DESC, avg_return DESC) as rank
         FROM stock_stats
     )
@@ -101,81 +108,65 @@ def compute_win_rate_rankings(db, holding_days: int = 10, min_signals: int = 2):
     WHERE rank <= 10
     """)
 
-    result = db.execute(query, {
-        "holding_days": holding_days,
-        "min_signals": min_signals,
-        "metric_type": metric_type
-    })
+    result = db.execute(query, {"min_signals": min_signals, "metric_type": metric_type})
     db.commit()
+
+    # Cleanup
+    db.execute(text("DROP TABLE IF EXISTS temp_price_returns"))
+    db.execute(text("DROP TABLE IF EXISTS temp_buy_signals"))
+    db.commit()
+
     logger.info(f"  Inserted {result.rowcount} rankings for {metric_type}")
     return result.rowcount
 
 
-def compute_correlation_rankings(db, min_data_points: int = 5):
-    """Compute and store correlation rankings."""
+def compute_correlation_rankings(db, min_data_points: int = 20):
+    """Compute correlation between foreign net buying and stock returns."""
     metric_type = "correlation"
     logger.info(f"Computing {metric_type}...")
 
     db.execute(text("DELETE FROM strategy_rankings WHERE metric_type = :metric_type"),
                {"metric_type": metric_type})
+    db.commit()
 
+    # Simplified query with limited date range
     query = text("""
     WITH latest_prices AS (
         SELECT DISTINCT ON (stock_id)
-            stock_id,
-            close_price
+            stock_id, close_price
         FROM stock_prices
         ORDER BY stock_id, trade_date DESC
     ),
     daily_data AS (
         SELECT
             f.stock_id,
-            f.trade_date,
             f.foreign_net,
-            p.close_price,
-            LAG(p.close_price) OVER (PARTITION BY f.stock_id ORDER BY f.trade_date) as prev_close
+            (p.close_price - LAG(p.close_price) OVER (PARTITION BY f.stock_id ORDER BY f.trade_date))
+                / NULLIF(LAG(p.close_price) OVER (PARTITION BY f.stock_id ORDER BY f.trade_date), 0) * 100 as daily_return
         FROM institutional_flows f
         JOIN stock_prices p ON f.stock_id = p.stock_id AND f.trade_date = p.trade_date
-        WHERE f.trade_date >= '2024-01-01'
-    ),
-    returns_data AS (
-        SELECT
-            stock_id,
-            trade_date,
-            foreign_net,
-            CASE WHEN prev_close > 0
-                THEN (close_price - prev_close) / prev_close * 100
-                ELSE 0
-            END as daily_return
-        FROM daily_data
-        WHERE prev_close IS NOT NULL AND prev_close > 0
+        WHERE f.trade_date >= CURRENT_DATE - 90
+          AND p.close_price > 0
     ),
     correlations AS (
         SELECT
-            rd.stock_id,
+            dd.stock_id,
             lp.close_price as current_price,
             COUNT(*) as data_points,
-            ROUND((
-                COUNT(*) * SUM(rd.foreign_net * rd.daily_return) - SUM(rd.foreign_net) * SUM(rd.daily_return)
-            ) / NULLIF(
-                SQRT(
-                    (COUNT(*) * SUM(rd.foreign_net * rd.foreign_net) - SUM(rd.foreign_net) * SUM(rd.foreign_net)) *
-                    (COUNT(*) * SUM(rd.daily_return * rd.daily_return) - SUM(rd.daily_return) * SUM(rd.daily_return))
-                ), 0
-            ), 4) as correlation,
+            ROUND(CORR(dd.foreign_net, dd.daily_return)::numeric, 4) as correlation,
             CASE
                 WHEN lp.close_price >= 500 THEN 'high'
                 WHEN lp.close_price >= 200 THEN 'mid'
                 ELSE 'low'
             END as price_tier
-        FROM returns_data rd
-        LEFT JOIN latest_prices lp ON rd.stock_id = lp.stock_id
-        GROUP BY rd.stock_id, lp.close_price
+        FROM daily_data dd
+        JOIN latest_prices lp ON dd.stock_id = lp.stock_id
+        WHERE dd.daily_return IS NOT NULL
+        GROUP BY dd.stock_id, lp.close_price
         HAVING COUNT(*) >= :min_data_points
     ),
     ranked AS (
-        SELECT
-            *,
+        SELECT *,
             ROW_NUMBER() OVER (PARTITION BY price_tier ORDER BY correlation DESC NULLS LAST) as rank
         FROM correlations
         WHERE correlation IS NOT NULL
@@ -193,193 +184,90 @@ def compute_correlation_rankings(db, min_data_points: int = 5):
 
 
 def compute_below_cost_rankings(db, lookback_days: int = 60):
-    """
-    Compute stocks where current price is below institutional 3-month average cost.
-
-    Average cost = Σ(net_buy * close_price) / Σ(net_buy) for days where net > 0
-    """
+    """Compute stocks trading below institutional average cost."""
     metric_type = "below_cost"
     logger.info(f"Computing {metric_type}...")
 
     db.execute(text("DELETE FROM strategy_rankings WHERE metric_type = :metric_type"),
                {"metric_type": metric_type})
+    db.commit()
 
     query = text("""
     WITH latest_prices AS (
         SELECT DISTINCT ON (stock_id)
-            stock_id,
-            close_price,
-            trade_date
+            stock_id, close_price
         FROM stock_prices
         ORDER BY stock_id, trade_date DESC
     ),
-    -- 計算三大法人合計淨買超
-    inst_flows AS (
+    inst_cost AS (
         SELECT
             f.stock_id,
-            f.trade_date,
-            f.foreign_net + f.trust_net + f.dealer_net as total_net,
-            p.close_price
+            SUM(CASE WHEN (f.foreign_net + f.trust_net + f.dealer_net) > 0
+                THEN (f.foreign_net + f.trust_net + f.dealer_net) * p.close_price ELSE 0 END) as weighted_cost,
+            SUM(CASE WHEN (f.foreign_net + f.trust_net + f.dealer_net) > 0
+                THEN (f.foreign_net + f.trust_net + f.dealer_net) ELSE 0 END) as total_shares,
+            COUNT(*) FILTER (WHERE (f.foreign_net + f.trust_net + f.dealer_net) > 0) as buy_days
         FROM institutional_flows f
         JOIN stock_prices p ON f.stock_id = p.stock_id AND f.trade_date = p.trade_date
-        WHERE f.trade_date >= CURRENT_DATE - :lookback_days
-          AND p.close_price > 0
+        WHERE f.trade_date >= CURRENT_DATE - :lookback_days AND p.close_price > 0
+        GROUP BY f.stock_id
+        HAVING SUM(CASE WHEN (f.foreign_net + f.trust_net + f.dealer_net) > 0
+                   THEN (f.foreign_net + f.trust_net + f.dealer_net) ELSE 0 END) > 0
     ),
-    -- 只計算淨買入日的加權平均成本
-    cost_calc AS (
-        SELECT
-            stock_id,
-            SUM(CASE WHEN total_net > 0 THEN total_net * close_price ELSE 0 END) as weighted_cost,
-            SUM(CASE WHEN total_net > 0 THEN total_net ELSE 0 END) as total_shares,
-            COUNT(CASE WHEN total_net > 0 THEN 1 END) as buy_days
-        FROM inst_flows
-        GROUP BY stock_id
-        HAVING SUM(CASE WHEN total_net > 0 THEN total_net ELSE 0 END) > 0
-    ),
-    -- 計算平均成本與現價差距
     below_cost AS (
         SELECT
-            c.stock_id,
+            ic.stock_id,
             lp.close_price as current_price,
-            ROUND(c.weighted_cost / c.total_shares, 2) as avg_cost,
-            c.buy_days,
-            c.total_shares,
-            ROUND((lp.close_price - c.weighted_cost / c.total_shares) / (c.weighted_cost / c.total_shares) * 100, 2) as discount_pct,
-            CASE
-                WHEN lp.close_price >= 500 THEN 'high'
-                WHEN lp.close_price >= 200 THEN 'mid'
-                ELSE 'low'
-            END as price_tier
-        FROM cost_calc c
-        JOIN latest_prices lp ON c.stock_id = lp.stock_id
-        WHERE lp.close_price < (c.weighted_cost / c.total_shares)  -- 現價低於平均成本
-          AND c.buy_days >= 3  -- 至少有3天買進記錄
+            ROUND(ic.weighted_cost / ic.total_shares, 2) as avg_cost,
+            ic.buy_days,
+            ROUND((lp.close_price - ic.weighted_cost / ic.total_shares) / (ic.weighted_cost / ic.total_shares) * 100, 2) as discount_pct,
+            CASE WHEN lp.close_price >= 500 THEN 'high' WHEN lp.close_price >= 200 THEN 'mid' ELSE 'low' END as price_tier
+        FROM inst_cost ic
+        JOIN latest_prices lp ON ic.stock_id = lp.stock_id
+        WHERE lp.close_price < (ic.weighted_cost / ic.total_shares) AND ic.buy_days >= 3
     ),
     ranked AS (
-        SELECT
-            *,
-            ROW_NUMBER() OVER (PARTITION BY price_tier ORDER BY discount_pct ASC) as rank
+        SELECT *, ROW_NUMBER() OVER (PARTITION BY price_tier ORDER BY discount_pct ASC) as rank
         FROM below_cost
     )
-    INSERT INTO strategy_rankings (
-        stock_id, price_tier, metric_type,
-        avg_return, win_rate, signal_count, current_price, rank_in_tier
-    )
-    SELECT
-        stock_id, price_tier, :metric_type,
-        avg_cost,       -- 借用 avg_return 欄位存平均成本
-        discount_pct,   -- 借用 win_rate 欄位存折價率
-        buy_days,       -- 借用 signal_count 欄位存買進天數
-        current_price,
-        rank
-    FROM ranked
-    WHERE rank <= 15
+    INSERT INTO strategy_rankings (stock_id, price_tier, metric_type, avg_return, win_rate, signal_count, current_price, rank_in_tier)
+    SELECT stock_id, price_tier, :metric_type, avg_cost, discount_pct, buy_days, current_price, rank
+    FROM ranked WHERE rank <= 15
     """)
 
-    result = db.execute(query, {
-        "lookback_days": lookback_days,
-        "metric_type": metric_type
-    })
+    result = db.execute(query, {"lookback_days": lookback_days, "metric_type": metric_type})
     db.commit()
     logger.info(f"  Inserted {result.rowcount} rankings for {metric_type}")
     return result.rowcount
 
 
-def compute_stock_technicals(db):
-    """Compute and store technical indicators for all stocks with sufficient data."""
-    logger.info("Computing stock technicals...")
-
-    # Clear old data
-    db.execute(text("DELETE FROM stock_technicals"))
-
-    query = text("""
-    WITH price_data AS (
-        SELECT
-            p.stock_id,
-            p.trade_date,
-            p.close_price,
-            p.high_price,
-            p.low_price,
-            ROW_NUMBER() OVER (PARTITION BY p.stock_id ORDER BY p.trade_date DESC) as rn
-        FROM stock_prices p
-        WHERE p.close_price IS NOT NULL
-    ),
-    ma_data AS (
-        SELECT
-            stock_id,
-            AVG(CASE WHEN rn <= 5 THEN close_price END) as ma5,
-            AVG(CASE WHEN rn <= 10 THEN close_price END) as ma10,
-            AVG(CASE WHEN rn <= 20 THEN close_price END) as ma20,
-            AVG(CASE WHEN rn <= 60 THEN close_price END) as ma60,
-            AVG(CASE WHEN rn <= 120 THEN close_price END) as ma120,
-            MAX(CASE WHEN rn <= 20 THEN high_price END) as high_20,
-            MIN(CASE WHEN rn <= 20 THEN low_price END) as low_20,
-            MAX(CASE WHEN rn = 1 THEN close_price END) as current_close,
-            COUNT(*) as price_count
-        FROM price_data
-        WHERE rn <= 120
-        GROUP BY stock_id
-        HAVING COUNT(*) >= 5
-    )
-    INSERT INTO stock_technicals (stock_id, ma5, ma10, ma20, ma60, ma120, support1, resistance1)
-    SELECT
-        stock_id,
-        ROUND(ma5, 2),
-        ROUND(ma10, 2),
-        ROUND(ma20, 2),
-        ROUND(ma60, 2),
-        ROUND(ma120, 2),
-        ROUND(low_20, 2) as support1,
-        ROUND(high_20, 2) as resistance1
-    FROM ma_data
-    """)
-
-    result = db.execute(query)
-    db.commit()
-    logger.info(f"  Updated {result.rowcount} stock technicals")
-    return result.rowcount
-
-
-def compute_consecutive_buying(db, min_days: int = 5):
-    """
-    計算外資連續買超排行。
-    找出外資連續買超天數最多的股票。
-    """
+def compute_consecutive_buying(db, min_days: int = 3):
+    """Compute stocks with consecutive foreign buying."""
     metric_type = "consecutive_buying"
     logger.info(f"Computing {metric_type}...")
 
     db.execute(text("DELETE FROM strategy_rankings WHERE metric_type = :metric_type"),
                {"metric_type": metric_type})
+    db.commit()
 
     query = text("""
     WITH latest_prices AS (
-        SELECT DISTINCT ON (stock_id)
-            stock_id, close_price, trade_date
-        FROM stock_prices
-        ORDER BY stock_id, trade_date DESC
+        SELECT DISTINCT ON (stock_id) stock_id, close_price
+        FROM stock_prices ORDER BY stock_id, trade_date DESC
     ),
-    -- 計算每個股票最近的連續買超天數
     consecutive AS (
-        SELECT
-            f.stock_id,
-            f.trade_date,
-            f.foreign_net,
-            CASE WHEN f.foreign_net > 0 THEN 1 ELSE 0 END as is_buy,
-            ROW_NUMBER() OVER (PARTITION BY f.stock_id ORDER BY f.trade_date DESC) as rn
-        FROM institutional_flows f
-        WHERE f.trade_date >= CURRENT_DATE - 30
+        SELECT stock_id, trade_date, foreign_net,
+            CASE WHEN foreign_net > 0 THEN 1 ELSE 0 END as is_buy,
+            ROW_NUMBER() OVER (PARTITION BY stock_id ORDER BY trade_date DESC) as rn
+        FROM institutional_flows
+        WHERE trade_date >= CURRENT_DATE - 30
     ),
-    -- 找出連續買超的起點
     streak_calc AS (
-        SELECT
-            stock_id,
+        SELECT stock_id,
             COUNT(*) FILTER (WHERE is_buy = 1) as consecutive_days,
             SUM(foreign_net) FILTER (WHERE is_buy = 1) as total_net_buy
         FROM (
-            SELECT *,
-                SUM(CASE WHEN is_buy = 0 THEN 1 ELSE 0 END) OVER (
-                    PARTITION BY stock_id ORDER BY rn
-                ) as grp
+            SELECT *, SUM(CASE WHEN is_buy = 0 THEN 1 ELSE 0 END) OVER (PARTITION BY stock_id ORDER BY rn) as grp
             FROM consecutive
         ) sub
         WHERE grp = 0 AND is_buy = 1
@@ -387,38 +275,17 @@ def compute_consecutive_buying(db, min_days: int = 5):
         HAVING COUNT(*) >= :min_days
     ),
     ranked AS (
-        SELECT
-            sc.stock_id,
-            lp.close_price as current_price,
-            sc.consecutive_days,
-            sc.total_net_buy,
-            CASE
-                WHEN lp.close_price >= 500 THEN 'high'
-                WHEN lp.close_price >= 200 THEN 'mid'
-                ELSE 'low'
-            END as price_tier,
+        SELECT sc.stock_id, lp.close_price as current_price, sc.consecutive_days, sc.total_net_buy,
+            CASE WHEN lp.close_price >= 500 THEN 'high' WHEN lp.close_price >= 200 THEN 'mid' ELSE 'low' END as price_tier,
             ROW_NUMBER() OVER (
-                PARTITION BY CASE
-                    WHEN lp.close_price >= 500 THEN 'high'
-                    WHEN lp.close_price >= 200 THEN 'mid'
-                    ELSE 'low'
-                END
+                PARTITION BY CASE WHEN lp.close_price >= 500 THEN 'high' WHEN lp.close_price >= 200 THEN 'mid' ELSE 'low' END
                 ORDER BY sc.consecutive_days DESC, sc.total_net_buy DESC
             ) as rank
-        FROM streak_calc sc
-        JOIN latest_prices lp ON sc.stock_id = lp.stock_id
+        FROM streak_calc sc JOIN latest_prices lp ON sc.stock_id = lp.stock_id
     )
-    INSERT INTO strategy_rankings (
-        stock_id, price_tier, metric_type,
-        signal_count, avg_return, current_price, rank_in_tier
-    )
-    SELECT
-        stock_id, price_tier, :metric_type,
-        consecutive_days,  -- 借用 signal_count 存連續天數
-        ROUND(total_net_buy / 100000.0, 2),  -- 借用 avg_return 存總買超量(十萬張)
-        current_price, rank
-    FROM ranked
-    WHERE rank <= 15
+    INSERT INTO strategy_rankings (stock_id, price_tier, metric_type, signal_count, avg_return, current_price, rank_in_tier)
+    SELECT stock_id, price_tier, :metric_type, consecutive_days, ROUND(total_net_buy / 100000.0, 2), current_price, rank
+    FROM ranked WHERE rank <= 15
     """)
 
     result = db.execute(query, {"min_days": min_days, "metric_type": metric_type})
@@ -428,86 +295,42 @@ def compute_consecutive_buying(db, min_days: int = 5):
 
 
 def compute_trust_accumulation(db, lookback_days: int = 20):
-    """
-    計算投信認養股排行。
-    找出投信近期持續加碼、持股比例創新高的股票。
-    """
+    """Compute stocks with trust accumulation."""
     metric_type = "trust_accumulation"
     logger.info(f"Computing {metric_type}...")
 
     db.execute(text("DELETE FROM strategy_rankings WHERE metric_type = :metric_type"),
                {"metric_type": metric_type})
+    db.commit()
 
     query = text("""
     WITH latest_prices AS (
-        SELECT DISTINCT ON (stock_id)
-            stock_id, close_price
-        FROM stock_prices
-        ORDER BY stock_id, trade_date DESC
+        SELECT DISTINCT ON (stock_id) stock_id, close_price
+        FROM stock_prices ORDER BY stock_id, trade_date DESC
     ),
-    -- 計算投信近期買超情況
     trust_activity AS (
-        SELECT
-            f.stock_id,
+        SELECT f.stock_id,
             SUM(f.trust_net) as total_trust_net,
             COUNT(*) FILTER (WHERE f.trust_net > 0) as buy_days,
-            COUNT(*) as total_days,
-            SUM(f.trust_net) FILTER (WHERE f.trust_net > 0) as total_buy_amount
+            COUNT(*) as total_days
         FROM institutional_flows f
         WHERE f.trade_date >= CURRENT_DATE - :lookback_days
         GROUP BY f.stock_id
-        HAVING SUM(f.trust_net) > 0
-           AND COUNT(*) FILTER (WHERE f.trust_net > 0) >= 3
-    ),
-    -- 計算投信持股比例變化
-    ratio_change AS (
-        SELECT
-            r.stock_id,
-            MAX(r.trust_ratio_est) FILTER (WHERE r.trade_date >= CURRENT_DATE - 5) as recent_ratio,
-            AVG(r.trust_ratio_est) FILTER (WHERE r.trade_date < CURRENT_DATE - 5) as prev_ratio
-        FROM institutional_ratios r
-        WHERE r.trade_date >= CURRENT_DATE - :lookback_days
-        GROUP BY r.stock_id
+        HAVING SUM(f.trust_net) > 0 AND COUNT(*) FILTER (WHERE f.trust_net > 0) >= 3
     ),
     combined AS (
-        SELECT
-            ta.stock_id,
-            lp.close_price as current_price,
-            ta.total_trust_net,
-            ta.buy_days,
-            ta.total_days,
+        SELECT ta.stock_id, lp.close_price as current_price, ta.total_trust_net, ta.buy_days,
             ROUND(ta.buy_days * 100.0 / NULLIF(ta.total_days, 0), 1) as buy_ratio,
-            ROUND((rc.recent_ratio - rc.prev_ratio), 4) as ratio_increase,
-            CASE
-                WHEN lp.close_price >= 500 THEN 'high'
-                WHEN lp.close_price >= 200 THEN 'mid'
-                ELSE 'low'
-            END as price_tier
-        FROM trust_activity ta
-        JOIN latest_prices lp ON ta.stock_id = lp.stock_id
-        LEFT JOIN ratio_change rc ON ta.stock_id = rc.stock_id
+            CASE WHEN lp.close_price >= 500 THEN 'high' WHEN lp.close_price >= 200 THEN 'mid' ELSE 'low' END as price_tier
+        FROM trust_activity ta JOIN latest_prices lp ON ta.stock_id = lp.stock_id
     ),
     ranked AS (
-        SELECT
-            *,
-            ROW_NUMBER() OVER (
-                PARTITION BY price_tier
-                ORDER BY buy_ratio DESC, total_trust_net DESC
-            ) as rank
+        SELECT *, ROW_NUMBER() OVER (PARTITION BY price_tier ORDER BY buy_ratio DESC, total_trust_net DESC) as rank
         FROM combined
     )
-    INSERT INTO strategy_rankings (
-        stock_id, price_tier, metric_type,
-        signal_count, avg_return, win_rate, current_price, rank_in_tier
-    )
-    SELECT
-        stock_id, price_tier, :metric_type,
-        buy_days,           -- 買超天數
-        ROUND(total_trust_net / 100000.0, 2),  -- 總買超量(十萬張)
-        buy_ratio,          -- 買超比例
-        current_price, rank
-    FROM ranked
-    WHERE rank <= 15
+    INSERT INTO strategy_rankings (stock_id, price_tier, metric_type, signal_count, avg_return, win_rate, current_price, rank_in_tier)
+    SELECT stock_id, price_tier, :metric_type, buy_days, ROUND(total_trust_net / 100000.0, 2), buy_ratio, current_price, rank
+    FROM ranked WHERE rank <= 15
     """)
 
     result = db.execute(query, {"lookback_days": lookback_days, "metric_type": metric_type})
@@ -517,90 +340,41 @@ def compute_trust_accumulation(db, lookback_days: int = 20):
 
 
 def compute_synchronized_buying(db, lookback_days: int = 10):
-    """
-    計算三大法人同步買超排行。
-    找出外資、投信、自營商同時買超的股票。
-    """
+    """Compute stocks with synchronized buying from all three institutional types."""
     metric_type = "synchronized_buying"
     logger.info(f"Computing {metric_type}...")
 
     db.execute(text("DELETE FROM strategy_rankings WHERE metric_type = :metric_type"),
                {"metric_type": metric_type})
+    db.commit()
 
     query = text("""
     WITH latest_prices AS (
-        SELECT DISTINCT ON (stock_id)
-            stock_id, close_price
-        FROM stock_prices
-        ORDER BY stock_id, trade_date DESC
+        SELECT DISTINCT ON (stock_id) stock_id, close_price
+        FROM stock_prices ORDER BY stock_id, trade_date DESC
     ),
-    -- 找出三大法人同步買超的日子
-    sync_days AS (
-        SELECT
-            f.stock_id,
-            f.trade_date,
-            f.foreign_net,
-            f.trust_net,
-            f.dealer_net,
-            f.foreign_net + f.trust_net + f.dealer_net as total_net
-        FROM institutional_flows f
-        WHERE f.trade_date >= CURRENT_DATE - :lookback_days
-          AND f.foreign_net > 0
-          AND f.trust_net > 0
-          AND f.dealer_net > 0
-    ),
-    -- 統計同步買超情況
     sync_stats AS (
-        SELECT
-            stock_id,
-            COUNT(*) as sync_days_count,
-            SUM(total_net) as total_sync_amount,
-            SUM(foreign_net) as foreign_total,
-            SUM(trust_net) as trust_total,
-            SUM(dealer_net) as dealer_total
-        FROM sync_days
-        GROUP BY stock_id
-        HAVING COUNT(*) >= 2
+        SELECT stock_id, COUNT(*) as sync_days_count,
+            SUM(foreign_net + trust_net + dealer_net) as total_sync_amount,
+            SUM(foreign_net) as foreign_total, SUM(trust_net) as trust_total
+        FROM institutional_flows
+        WHERE trade_date >= CURRENT_DATE - :lookback_days
+          AND foreign_net > 0 AND trust_net > 0 AND dealer_net > 0
+        GROUP BY stock_id HAVING COUNT(*) >= 2
     ),
     combined AS (
-        SELECT
-            ss.stock_id,
-            lp.close_price as current_price,
-            ss.sync_days_count,
-            ss.total_sync_amount,
-            ss.foreign_total,
-            ss.trust_total,
-            ss.dealer_total,
-            CASE
-                WHEN lp.close_price >= 500 THEN 'high'
-                WHEN lp.close_price >= 200 THEN 'mid'
-                ELSE 'low'
-            END as price_tier
-        FROM sync_stats ss
-        JOIN latest_prices lp ON ss.stock_id = lp.stock_id
+        SELECT ss.stock_id, lp.close_price as current_price, ss.sync_days_count, ss.total_sync_amount, ss.foreign_total, ss.trust_total,
+            CASE WHEN lp.close_price >= 500 THEN 'high' WHEN lp.close_price >= 200 THEN 'mid' ELSE 'low' END as price_tier
+        FROM sync_stats ss JOIN latest_prices lp ON ss.stock_id = lp.stock_id
     ),
     ranked AS (
-        SELECT
-            *,
-            ROW_NUMBER() OVER (
-                PARTITION BY price_tier
-                ORDER BY sync_days_count DESC, total_sync_amount DESC
-            ) as rank
+        SELECT *, ROW_NUMBER() OVER (PARTITION BY price_tier ORDER BY sync_days_count DESC, total_sync_amount DESC) as rank
         FROM combined
     )
-    INSERT INTO strategy_rankings (
-        stock_id, price_tier, metric_type,
-        signal_count, avg_return, correlation, data_points, current_price, rank_in_tier
-    )
-    SELECT
-        stock_id, price_tier, :metric_type,
-        sync_days_count,      -- 同步天數
-        ROUND(total_sync_amount / 100000.0, 2),    -- 總買超量(十萬張)
-        ROUND(foreign_total / 100000.0, 2),        -- 外資買超(十萬張)
-        ROUND(trust_total / 100000.0, 2)::integer, -- 投信買超(十萬張, 借用 data_points)
-        current_price, rank
-    FROM ranked
-    WHERE rank <= 15
+    INSERT INTO strategy_rankings (stock_id, price_tier, metric_type, signal_count, avg_return, correlation, data_points, current_price, rank_in_tier)
+    SELECT stock_id, price_tier, :metric_type, sync_days_count, ROUND(total_sync_amount / 100000.0, 2),
+           ROUND(foreign_total / 100000.0, 2), ROUND(trust_total / 100000.0, 2)::integer, current_price, rank
+    FROM ranked WHERE rank <= 15
     """)
 
     result = db.execute(query, {"lookback_days": lookback_days, "metric_type": metric_type})
@@ -610,78 +384,47 @@ def compute_synchronized_buying(db, lookback_days: int = 10):
 
 
 def compute_price_deviation(db, lookback_days: int = 60):
-    """
-    計算股價乖離過大排行。
-    找出股價大幅偏離法人平均成本的股票（可能超漲或超跌）。
-    """
+    """Compute stocks with significant price deviation from institutional cost."""
     metric_type = "price_deviation"
     logger.info(f"Computing {metric_type}...")
 
     db.execute(text("DELETE FROM strategy_rankings WHERE metric_type = :metric_type"),
                {"metric_type": metric_type})
+    db.commit()
 
     query = text("""
     WITH latest_prices AS (
-        SELECT DISTINCT ON (stock_id)
-            stock_id, close_price, trade_date
-        FROM stock_prices
-        ORDER BY stock_id, trade_date DESC
+        SELECT DISTINCT ON (stock_id) stock_id, close_price
+        FROM stock_prices ORDER BY stock_id, trade_date DESC
     ),
-    -- 計算法人平均成本
     inst_cost AS (
-        SELECT
-            f.stock_id,
+        SELECT f.stock_id,
             SUM(CASE WHEN (f.foreign_net + f.trust_net + f.dealer_net) > 0
-                THEN (f.foreign_net + f.trust_net + f.dealer_net) * p.close_price
-                ELSE 0 END) as weighted_cost,
+                THEN (f.foreign_net + f.trust_net + f.dealer_net) * p.close_price ELSE 0 END) as weighted_cost,
             SUM(CASE WHEN (f.foreign_net + f.trust_net + f.dealer_net) > 0
-                THEN (f.foreign_net + f.trust_net + f.dealer_net)
-                ELSE 0 END) as total_shares
+                THEN (f.foreign_net + f.trust_net + f.dealer_net) ELSE 0 END) as total_shares
         FROM institutional_flows f
         JOIN stock_prices p ON f.stock_id = p.stock_id AND f.trade_date = p.trade_date
-        WHERE f.trade_date >= CURRENT_DATE - :lookback_days
-          AND p.close_price > 0
+        WHERE f.trade_date >= CURRENT_DATE - :lookback_days AND p.close_price > 0
         GROUP BY f.stock_id
         HAVING SUM(CASE WHEN (f.foreign_net + f.trust_net + f.dealer_net) > 0
                    THEN (f.foreign_net + f.trust_net + f.dealer_net) ELSE 0 END) > 0
     ),
     deviation_calc AS (
-        SELECT
-            ic.stock_id,
-            lp.close_price as current_price,
+        SELECT ic.stock_id, lp.close_price as current_price,
             ROUND(ic.weighted_cost / ic.total_shares, 2) as avg_cost,
-            ROUND((lp.close_price - ic.weighted_cost / ic.total_shares)
-                  / (ic.weighted_cost / ic.total_shares) * 100, 2) as deviation_pct,
-            CASE
-                WHEN lp.close_price >= 500 THEN 'high'
-                WHEN lp.close_price >= 200 THEN 'mid'
-                ELSE 'low'
-            END as price_tier
-        FROM inst_cost ic
-        JOIN latest_prices lp ON ic.stock_id = lp.stock_id
-        WHERE ABS((lp.close_price - ic.weighted_cost / ic.total_shares)
-              / (ic.weighted_cost / ic.total_shares) * 100) >= 10  -- 乖離超過10%
+            ROUND((lp.close_price - ic.weighted_cost / ic.total_shares) / (ic.weighted_cost / ic.total_shares) * 100, 2) as deviation_pct,
+            CASE WHEN lp.close_price >= 500 THEN 'high' WHEN lp.close_price >= 200 THEN 'mid' ELSE 'low' END as price_tier
+        FROM inst_cost ic JOIN latest_prices lp ON ic.stock_id = lp.stock_id
+        WHERE ABS((lp.close_price - ic.weighted_cost / ic.total_shares) / (ic.weighted_cost / ic.total_shares) * 100) >= 10
     ),
     ranked AS (
-        SELECT
-            *,
-            ROW_NUMBER() OVER (
-                PARTITION BY price_tier
-                ORDER BY ABS(deviation_pct) DESC
-            ) as rank
+        SELECT *, ROW_NUMBER() OVER (PARTITION BY price_tier ORDER BY ABS(deviation_pct) DESC) as rank
         FROM deviation_calc
     )
-    INSERT INTO strategy_rankings (
-        stock_id, price_tier, metric_type,
-        avg_return, win_rate, current_price, rank_in_tier
-    )
-    SELECT
-        stock_id, price_tier, :metric_type,
-        avg_cost,        -- 法人成本
-        deviation_pct,   -- 乖離率
-        current_price, rank
-    FROM ranked
-    WHERE rank <= 15
+    INSERT INTO strategy_rankings (stock_id, price_tier, metric_type, avg_return, win_rate, current_price, rank_in_tier)
+    SELECT stock_id, price_tier, :metric_type, avg_cost, deviation_pct, current_price, rank
+    FROM ranked WHERE rank <= 15
     """)
 
     result = db.execute(query, {"lookback_days": lookback_days, "metric_type": metric_type})
@@ -690,66 +433,66 @@ def compute_price_deviation(db, lookback_days: int = 60):
     return result.rowcount
 
 
+def compute_stock_technicals(db):
+    """Compute technical indicators for all stocks."""
+    logger.info("Computing stock technicals...")
+
+    db.execute(text("DELETE FROM stock_technicals"))
+    db.commit()
+
+    query = text("""
+    WITH price_data AS (
+        SELECT stock_id, close_price, high_price, low_price,
+            ROW_NUMBER() OVER (PARTITION BY stock_id ORDER BY trade_date DESC) as rn
+        FROM stock_prices WHERE close_price IS NOT NULL
+    ),
+    ma_data AS (
+        SELECT stock_id,
+            AVG(CASE WHEN rn <= 5 THEN close_price END) as ma5,
+            AVG(CASE WHEN rn <= 10 THEN close_price END) as ma10,
+            AVG(CASE WHEN rn <= 20 THEN close_price END) as ma20,
+            AVG(CASE WHEN rn <= 60 THEN close_price END) as ma60,
+            AVG(CASE WHEN rn <= 120 THEN close_price END) as ma120,
+            MAX(CASE WHEN rn <= 20 THEN high_price END) as high_20,
+            MIN(CASE WHEN rn <= 20 THEN low_price END) as low_20
+        FROM price_data WHERE rn <= 120
+        GROUP BY stock_id HAVING COUNT(*) >= 5
+    )
+    INSERT INTO stock_technicals (stock_id, ma5, ma10, ma20, ma60, ma120, support1, resistance1)
+    SELECT stock_id, ROUND(ma5, 2), ROUND(ma10, 2), ROUND(ma20, 2), ROUND(ma60, 2), ROUND(ma120, 2),
+           ROUND(low_20, 2), ROUND(high_20, 2)
+    FROM ma_data
+    """)
+
+    result = db.execute(query)
+    db.commit()
+    logger.info(f"  Updated {result.rowcount} stock technicals")
+    return result.rowcount
+
+
 def run_all_computations(db):
-    """Run all strategy computations."""
+    """Run all strategy computations with error handling."""
     logger.info("Starting strategy computations...")
 
-    # Win rate rankings for different periods
-    for days in [5, 10, 30]:
+    computations = [
+        ("win_rate_5d", lambda: compute_win_rate_rankings(db, holding_days=5, min_signals=2)),
+        ("win_rate_10d", lambda: compute_win_rate_rankings(db, holding_days=10, min_signals=2)),
+        ("win_rate_30d", lambda: compute_win_rate_rankings(db, holding_days=30, min_signals=2)),
+        ("correlation", lambda: compute_correlation_rankings(db, min_data_points=20)),
+        ("below_cost", lambda: compute_below_cost_rankings(db, lookback_days=60)),
+        ("consecutive_buying", lambda: compute_consecutive_buying(db, min_days=3)),
+        ("trust_accumulation", lambda: compute_trust_accumulation(db, lookback_days=20)),
+        ("synchronized_buying", lambda: compute_synchronized_buying(db, lookback_days=10)),
+        ("price_deviation", lambda: compute_price_deviation(db, lookback_days=60)),
+        ("technicals", lambda: compute_stock_technicals(db)),
+    ]
+
+    for name, compute_func in computations:
         try:
-            compute_win_rate_rankings(db, holding_days=days, min_signals=2)
+            compute_func()
         except Exception as e:
-            logger.error(f"Failed to compute win_rate_{days}d: {e}")
+            logger.error(f"Failed to compute {name}: {e}")
             db.rollback()
-
-    # Correlation rankings
-    try:
-        compute_correlation_rankings(db, min_data_points=5)
-    except Exception as e:
-        logger.error(f"Failed to compute correlation: {e}")
-        db.rollback()
-
-    # Below cost rankings (現價低於法人成本)
-    try:
-        compute_below_cost_rankings(db, lookback_days=60)
-    except Exception as e:
-        logger.error(f"Failed to compute below_cost: {e}")
-        db.rollback()
-
-    # 外資連續買超
-    try:
-        compute_consecutive_buying(db, min_days=3)
-    except Exception as e:
-        logger.error(f"Failed to compute consecutive_buying: {e}")
-        db.rollback()
-
-    # 投信認養股
-    try:
-        compute_trust_accumulation(db, lookback_days=20)
-    except Exception as e:
-        logger.error(f"Failed to compute trust_accumulation: {e}")
-        db.rollback()
-
-    # 三大法人同步買超
-    try:
-        compute_synchronized_buying(db, lookback_days=10)
-    except Exception as e:
-        logger.error(f"Failed to compute synchronized_buying: {e}")
-        db.rollback()
-
-    # 股價乖離過大
-    try:
-        compute_price_deviation(db, lookback_days=60)
-    except Exception as e:
-        logger.error(f"Failed to compute price_deviation: {e}")
-        db.rollback()
-
-    # Technical indicators
-    try:
-        compute_stock_technicals(db)
-    except Exception as e:
-        logger.error(f"Failed to compute technicals: {e}")
-        db.rollback()
 
     logger.info("Strategy computations completed")
 

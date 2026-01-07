@@ -212,6 +212,7 @@
         </div>
 
         <footer>
+            <div id="dataDate" style="color: #00d4ff; margin-bottom: 5px;">資料基準日：載入中...</div>
             <div>資料來源：台灣證券交易所、櫃買中心 | 紅色代表買超、綠色代表賣超</div>
         </footer>
     </div>
@@ -423,7 +424,21 @@
             });
         });
 
+        // Load data date
+        async function loadDataDate() {
+            try {
+                const resp = await fetch('/api/v1/system/daily-summary');
+                const data = await resp.json();
+                if (data.date) {
+                    document.getElementById('dataDate').textContent = `資料基準日：${data.date}`;
+                }
+            } catch (e) {
+                document.getElementById('dataDate').textContent = '資料基準日：載入失敗';
+            }
+        }
+
         loadHeatmap();
+        loadDataDate();
     </script>
 </body>
 </html>

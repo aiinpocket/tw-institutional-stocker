@@ -197,7 +197,11 @@
                 <span class="status-dot delayed"></span>
                 <span>盤後資料</span>
             </div>
-            <div class="update-time" id="updateTime">最後更新：載入中...</div>
+            <div class="status-item">
+                <strong>資料基準日：</strong>
+                <span id="dataDate" style="color: #00d4ff;">載入中...</span>
+            </div>
+            <div class="update-time" id="updateTime">系統更新：載入中...</div>
             <button class="refresh-btn" onclick="refreshAll()">🔄 重新整理</button>
         </div>
 
@@ -317,6 +321,9 @@
 
                 if (data.date) {
                     cachedSummary = data;
+
+                    // Update data date display
+                    document.getElementById('dataDate').textContent = data.date;
 
                     // Market summary
                     const market = data.market || {};
@@ -506,10 +513,15 @@
         }
 
         async function loadRankings() {
-            if (cachedSummary && cachedSummary.foreign_buy_top10) return;
+            if (cachedSummary && cachedSummary.foreign_buy_top10 && cachedSummary.foreign_buy_top10.length > 0) return;
             try {
                 const resp = await fetch('/api/v1/institutional/flows?limit=500');
                 const data = await resp.json();
+
+                // Update data date from flows API
+                if (data.date) {
+                    document.getElementById('dataDate').textContent = data.date;
+                }
 
                 if (!data.items || data.items.length === 0) {
                     ['foreignBuy', 'foreignSell', 'trustBuy', 'trustSell'].forEach(id => {

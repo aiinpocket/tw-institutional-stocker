@@ -488,7 +488,10 @@
 
         <footer>
             <div>策略說明：外資連續3日買超後，持有N日的報酬與勝率分析 | 低於成本：現價低於法人近60日平均買進成本</div>
-            <div class="timestamp" id="timestamp"></div>
+            <div class="timestamp">
+                <span id="dataDate"></span>
+                <span id="timestamp"></span>
+            </div>
         </footer>
     </div>
 
@@ -703,9 +706,17 @@
             });
         });
 
-        // Fetch and display ETL completion time
+        // Fetch and display ETL completion time and data date
         async function updateDataTime() {
             try {
+                // Get data date from daily summary
+                const summaryResp = await fetch('/api/v1/system/daily-summary');
+                const summaryData = await summaryResp.json();
+                if (summaryData.date) {
+                    document.getElementById('dataDate').textContent = `資料基準日：${summaryData.date} | `;
+                }
+
+                // Get ETL completion time
                 const resp = await fetch('/api/v1/system/etl-status');
                 const data = await resp.json();
                 if (data.completed_at) {
@@ -716,7 +727,7 @@
                     document.getElementById('timestamp').textContent = `資料更新時間: ${dt.toLocaleString('zh-TW')}`;
                 }
             } catch (e) {
-                console.error('Failed to fetch ETL status:', e);
+                console.error('Failed to fetch data time:', e);
             }
         }
 

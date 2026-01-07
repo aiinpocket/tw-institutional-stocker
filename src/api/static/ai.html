@@ -252,6 +252,7 @@
         <div id="content"></div>
 
         <footer>
+            <div id="dataDate" style="color: #00d4ff; margin-bottom: 5px;">資料基準日：載入中...</div>
             <div>AI 分析由 GPT-4o-mini 提供 | 本分析僅供參考，不構成投資建議</div>
         </footer>
     </div>
@@ -490,7 +491,21 @@
             });
         });
 
+        // Load data date
+        async function loadDataDate() {
+            try {
+                const resp = await fetch('/api/v1/system/daily-summary');
+                const data = await resp.json();
+                if (data.date) {
+                    document.getElementById('dataDate').textContent = `資料基準日：${data.date}`;
+                }
+            } catch (e) {
+                document.getElementById('dataDate').textContent = '資料基準日：載入失敗';
+            }
+        }
+
         showMarketTab();
+        loadDataDate();
     </script>
 </body>
 </html>

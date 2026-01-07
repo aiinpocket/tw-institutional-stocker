@@ -476,9 +476,26 @@ def run_etl():
 
 
 if __name__ == "__main__":
+    etl_started = False
+    etl_error = None
     try:
-        run_etl()
+        # Check if this is a backfill job (doesn't need status tracking)
+        if os.environ.get("BACKFILL_TPEX_START"):
+            run_tpex_backfill()
+        else:
+            etl_started = True
+            run_etl()
     except Exception as e:
-        # 發生錯誤時更新狀態
-        update_etl_status("error", f"更新失敗: {str(e)[:100]}", is_end=True)
+        etl_error = e
         raise
+    finally:
+        # Always ensure status is updated at the end
+        if etl_started:
+            try:
+                if etl_error:
+                    update_etl_status("error", f"更新失敗: {str(etl_error)[:100]}", is_end=True)
+                else:
+                    # Double-check status is set to completed
+                    update_etl_status("completed", "資料更新完成", is_end=True)
+            except Exception as status_err:
+                print(f"[CRITICAL] Failed to update final ETL status: {status_err}")

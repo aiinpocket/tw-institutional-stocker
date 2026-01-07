@@ -291,6 +291,13 @@ def run_etl():
     print("Taiwan Institutional Stock Tracker - ETL Pipeline")
     print("=" * 60)
 
+    # 檢查是否需要修復股票名稱
+    if os.environ.get("FIX_STOCK_NAMES"):
+        print("\n[INFO] Fixing corrupted stock names...")
+        from src.etl.fix_stock_names import fix_stock_names
+        fix_stock_names()
+        print("[INFO] Stock names fixed\n")
+
     # 檢查是否需要強制重新抓取
     if os.environ.get("FORCE_REFETCH_DAYS"):
         days = int(os.environ.get("FORCE_REFETCH_DAYS", "30"))

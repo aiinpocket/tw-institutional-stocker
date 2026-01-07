@@ -22,14 +22,11 @@ def add_change_metrics(merged: pd.DataFrame, windows: List[int] = None) -> pd.Da
 
     merged = merged.sort_values(["code", "date"])
 
-    def add_all(group: pd.DataFrame) -> pd.DataFrame:
-        g = group.copy()
-        for w in windows:
-            col = f"three_inst_ratio_change_{w}"
-            g[col] = g["three_inst_ratio_est"].diff(periods=w)
-        return g
+    # Vectorized diff operations - much faster than groupby().apply()
+    for w in windows:
+        col = f"three_inst_ratio_change_{w}"
+        merged[col] = merged.groupby("code")["three_inst_ratio_est"].diff(periods=w)
 
-    merged = merged.groupby("code", group_keys=False).apply(add_all)
     return merged
 
 
@@ -97,36 +94,33 @@ def compute_ratios_from_db() -> pd.DataFrame:
 
     df["date"] = df["trade_date"]
 
-    # Compute cumulative holdings estimation
+    # Compute cumulative holdings estimation - vectorized operations
     df = df.sort_values(["code", "date"])
 
-    def compute_cumsum(group: pd.DataFrame) -> pd.DataFrame:
-        g = group.copy()
-        g["trust_net"] = g["trust_net"].astype(float)
-        g["dealer_net"] = g["dealer_net"].astype(float)
+    # Convert to float first
+    df["trust_net"] = df["trust_net"].astype(float)
+    df["dealer_net"] = df["dealer_net"].astype(float)
 
-        g["trust_shares_est"] = g["trust_net"].cumsum()
-        g["dealer_shares_est"] = g["dealer_net"].cumsum()
+    # Vectorized cumsum - much faster than groupby().apply()
+    df["trust_shares_est"] = df.groupby("code")["trust_net"].cumsum()
+    df["dealer_shares_est"] = df.groupby("code")["dealer_net"].cumsum()
 
-        denom = g["total_shares"].astype(float)
-        valid = denom > 0
+    # Calculate ratios
+    denom = df["total_shares"].astype(float)
+    valid = denom > 0
 
-        g["trust_ratio_est"] = 0.0
-        g["dealer_ratio_est"] = 0.0
+    df["trust_ratio_est"] = 0.0
+    df["dealer_ratio_est"] = 0.0
 
-        g.loc[valid, "trust_ratio_est"] = g.loc[valid, "trust_shares_est"] / denom[valid] * 100.0
-        g.loc[valid, "dealer_ratio_est"] = g.loc[valid, "dealer_shares_est"] / denom[valid] * 100.0
+    df.loc[valid, "trust_ratio_est"] = df.loc[valid, "trust_shares_est"] / denom[valid] * 100.0
+    df.loc[valid, "dealer_ratio_est"] = df.loc[valid, "dealer_shares_est"] / denom[valid] * 100.0
 
-        g["foreign_ratio"] = g["foreign_ratio"].fillna(0.0)
-        g["three_inst_ratio_est"] = g["foreign_ratio"] + g["trust_ratio_est"] + g["dealer_ratio_est"]
+    df["foreign_ratio"] = df["foreign_ratio"].fillna(0.0)
+    df["three_inst_ratio_est"] = df["foreign_ratio"] + df["trust_ratio_est"] + df["dealer_ratio_est"]
 
-        # Add change metrics
-        for w in settings.windows:
-            col = f"three_inst_ratio_change_{w}"
-            g[col] = g["three_inst_ratio_est"].diff(periods=w)
-
-        return g
-
-    df = df.groupby("code", group_keys=False).apply(compute_cumsum)
+    # Add change metrics - vectorized diff
+    for w in settings.windows:
+        col = f"three_inst_ratio_change_{w}"
+        df[col] = df.groupby("code")["three_inst_ratio_est"].diff(periods=w)
 
     return df

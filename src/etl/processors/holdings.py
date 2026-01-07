@@ -71,35 +71,38 @@ def build_estimated_holdings(
     merged = merged.sort_values(["code", "date"])
     merged["total_shares"] = pd.to_numeric(merged["total_shares"], errors="coerce").fillna(0.0)
 
-    def accumulate(group: pd.DataFrame) -> pd.DataFrame:
-        g = group.copy()
-        g["trust_net"] = g["trust_net"].astype(float)
-        g["dealer_net"] = g["dealer_net"].astype(float)
+    # Vectorized operations - much faster than groupby().apply()
+    merged["trust_net"] = merged["trust_net"].astype(float)
+    merged["dealer_net"] = merged["dealer_net"].astype(float)
 
-        g["trust_cum"] = g["trust_net"].cumsum()
-        g["dealer_cum"] = g["dealer_net"].cumsum()
+    # Vectorized cumsum
+    merged["trust_cum"] = merged.groupby("code")["trust_net"].cumsum()
+    merged["dealer_cum"] = merged.groupby("code")["dealer_net"].cumsum()
 
-        base_trust = pd.to_numeric(g["trust_shares_base"], errors="coerce").fillna(0.0)
-        base_dealer = pd.to_numeric(g["dealer_shares_base"], errors="coerce").fillna(0.0)
+    # Process baseline values using transform (faster than apply)
+    merged["_base_trust"] = pd.to_numeric(merged["trust_shares_base"], errors="coerce").fillna(0.0)
+    merged["_base_dealer"] = pd.to_numeric(merged["dealer_shares_base"], errors="coerce").fillna(0.0)
+    merged["_base_trust_ff"] = merged.groupby("code")["_base_trust"].transform(lambda x: x.ffill().fillna(0.0))
+    merged["_base_dealer_ff"] = merged.groupby("code")["_base_dealer"].transform(lambda x: x.ffill().fillna(0.0))
 
-        base_trust_ff = base_trust.ffill().fillna(0.0)
-        base_dealer_ff = base_dealer.ffill().fillna(0.0)
+    # Get cumsum at baseline points
+    merged["_trust_cum_at_base"] = merged["trust_cum"].where(merged["trust_shares_base"].notna())
+    merged["_dealer_cum_at_base"] = merged["dealer_cum"].where(merged["dealer_shares_base"].notna())
+    merged["_trust_cum_at_base"] = merged.groupby("code")["_trust_cum_at_base"].transform(lambda x: x.ffill().fillna(0.0))
+    merged["_dealer_cum_at_base"] = merged.groupby("code")["_dealer_cum_at_base"].transform(lambda x: x.ffill().fillna(0.0))
 
-        trust_cum_at_base = g["trust_cum"].where(g["trust_shares_base"].notna()).ffill().fillna(0.0)
-        dealer_cum_at_base = g["dealer_cum"].where(g["dealer_shares_base"].notna()).ffill().fillna(0.0)
+    # Calculate estimated shares
+    merged["trust_shares_est"] = merged["_base_trust_ff"] + (merged["trust_cum"] - merged["_trust_cum_at_base"])
+    merged["dealer_shares_est"] = merged["_base_dealer_ff"] + (merged["dealer_cum"] - merged["_dealer_cum_at_base"])
 
-        g["trust_shares_est"] = base_trust_ff + (g["trust_cum"] - trust_cum_at_base)
-        g["dealer_shares_est"] = base_dealer_ff + (g["dealer_cum"] - dealer_cum_at_base)
+    # Fallback to pure cumsum where no baseline exists
+    no_baseline_mask = (merged["_base_trust_ff"] == 0.0) & (merged["_base_dealer_ff"] == 0.0)
+    merged.loc[no_baseline_mask, "trust_shares_est"] = merged.loc[no_baseline_mask, "trust_cum"]
+    merged.loc[no_baseline_mask, "dealer_shares_est"] = merged.loc[no_baseline_mask, "dealer_cum"]
 
-        # Fallback to pure cumsum if no baseline
-        mask_no_base = (base_trust_ff == 0.0) & (base_dealer_ff == 0.0)
-        if mask_no_base.all():
-            g["trust_shares_est"] = g["trust_cum"]
-            g["dealer_shares_est"] = g["dealer_cum"]
-
-        return g
-
-    merged = merged.groupby("code", group_keys=False).apply(accumulate)
+    # Clean up temp columns
+    merged = merged.drop(columns=["_base_trust", "_base_dealer", "_base_trust_ff", "_base_dealer_ff",
+                                   "_trust_cum_at_base", "_dealer_cum_at_base"])
 
     # Calculate ratios
     denom = merged["total_shares"].astype("float64")

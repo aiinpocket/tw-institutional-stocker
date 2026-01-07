@@ -309,6 +309,14 @@ def run_etl():
     # 清除所有快取
     clear_all_caches()
 
+    # 建立資料庫索引 (如果不存在)
+    print("\n[STEP 0.5] Ensuring database indexes exist...")
+    try:
+        from src.etl.create_indexes import create_indexes
+        create_indexes()
+    except Exception as e:
+        print(f"  [WARN] Index creation failed: {e}")
+
     target_date = get_target_trade_date()
     print(f"\n[INFO] Target trade date: {target_date}")
 

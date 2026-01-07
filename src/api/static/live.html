@@ -364,22 +364,27 @@
                         loadHotIndustries();
                     }
 
-                    // Rankings from cache
-                    if (data.foreign_buy_top10) {
+                    // Rankings from cache (only use if not empty)
+                    const hasForeignBuy = data.foreign_buy_top10 && data.foreign_buy_top10.length > 0;
+                    const hasForeignSell = data.foreign_sell_top10 && data.foreign_sell_top10.length > 0;
+                    const hasTrustBuy = data.trust_buy_top10 && data.trust_buy_top10.length > 0;
+                    const hasTrustSell = data.trust_sell_top10 && data.trust_sell_top10.length > 0;
+
+                    if (hasForeignBuy) {
                         document.getElementById('foreignBuy').innerHTML = renderRankingTable(data.foreign_buy_top10, 'net', true);
                     }
-                    if (data.foreign_sell_top10) {
+                    if (hasForeignSell) {
                         document.getElementById('foreignSell').innerHTML = renderRankingTable(data.foreign_sell_top10, 'net', false);
                     }
-                    if (data.trust_buy_top10) {
+                    if (hasTrustBuy) {
                         document.getElementById('trustBuy').innerHTML = renderRankingTable(data.trust_buy_top10, 'net', true);
                     }
-                    if (data.trust_sell_top10) {
+                    if (hasTrustSell) {
                         document.getElementById('trustSell').innerHTML = renderRankingTable(data.trust_sell_top10, 'net', false);
                     }
 
-                    // If rankings not in cache, load separately
-                    if (!data.foreign_buy_top10) {
+                    // If any rankings not in cache or empty, load separately
+                    if (!hasForeignBuy || !hasForeignSell || !hasTrustBuy || !hasTrustSell) {
                         loadRankings();
                     }
 

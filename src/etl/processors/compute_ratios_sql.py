@@ -127,7 +127,7 @@ def compute_ratios_in_postgresql(db, lookback_days: int = 180):
     # Step 3: Upsert to institutional_ratios table
     logger.info("  Upserting to institutional_ratios...")
 
-    # First ensure the table exists
+    # First ensure the table exists with all required columns
     db.execute(text("""
         CREATE TABLE IF NOT EXISTS institutional_ratios (
             id SERIAL PRIMARY KEY,
@@ -147,6 +147,20 @@ def compute_ratios_in_postgresql(db, lookback_days: int = 180):
             UNIQUE(stock_id, trade_date)
         )
     """))
+    db.commit()
+
+    # Add missing columns if they don't exist (for existing tables)
+    alter_statements = [
+        "ALTER TABLE institutional_ratios ADD COLUMN IF NOT EXISTS three_inst_ratio_change_5 NUMERIC(10, 4)",
+        "ALTER TABLE institutional_ratios ADD COLUMN IF NOT EXISTS three_inst_ratio_change_20 NUMERIC(10, 4)",
+        "ALTER TABLE institutional_ratios ADD COLUMN IF NOT EXISTS three_inst_ratio_change_60 NUMERIC(10, 4)",
+        "ALTER TABLE institutional_ratios ADD COLUMN IF NOT EXISTS three_inst_ratio_change_120 NUMERIC(10, 4)",
+    ]
+    for stmt in alter_statements:
+        try:
+            db.execute(text(stmt))
+        except Exception:
+            pass  # Column already exists
     db.commit()
 
     # Upsert data

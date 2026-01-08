@@ -389,84 +389,17 @@ def run_etl():
     else:
         print("  No prices to upsert")
 
-    # Compute and store ratios
-    print("\n[STEP 4] Computing institutional ratios...")
-
-    # Only load recent data for ratio computation (last 180 days for memory efficiency)
-    ratio_start_date = target_date - timedelta(days=180)
-    print(f"  Loading data from {ratio_start_date} to {target_date}...")
-
-    from sqlalchemy import text
-    from concurrent.futures import ThreadPoolExecutor
-
-    def load_flows(start_date):
-        """Load flows data in a separate thread."""
+    # Compute and store ratios - now using pure PostgreSQL for speed
+    print("\n[STEP 4] Computing institutional ratios (PostgreSQL mode)...")
+    try:
+        from src.etl.processors.compute_ratios_sql import compute_ratios_in_postgresql
         with get_db_session() as session:
-            flows_query = text("""
-                SELECT f.trade_date as date, s.code, s.name, s.market,
-                       f.foreign_net, f.trust_net, f.dealer_net
-                FROM institutional_flows f
-                JOIN stocks s ON f.stock_id = s.id
-                WHERE f.trade_date >= :start_date
-                ORDER BY s.code, f.trade_date
-            """)
-            flows_result = session.execute(flows_query, {"start_date": start_date})
-            return pd.DataFrame(flows_result.fetchall(), columns=[
-                "date", "code", "name", "market", "foreign_net", "trust_net", "dealer_net"
-            ])
-
-    def load_foreign(start_date):
-        """Load foreign holdings data in a separate thread."""
-        with get_db_session() as session:
-            foreign_query = text("""
-                SELECT h.trade_date as date, s.code, s.name, s.market,
-                       h.total_shares, h.foreign_shares, h.foreign_ratio
-                FROM foreign_holdings h
-                JOIN stocks s ON h.stock_id = s.id
-                WHERE h.trade_date >= :start_date
-                ORDER BY s.code, h.trade_date
-            """)
-            foreign_result = session.execute(foreign_query, {"start_date": start_date})
-            return pd.DataFrame(foreign_result.fetchall(), columns=[
-                "date", "code", "name", "market", "total_shares", "foreign_shares", "foreign_ratio"
-            ])
-
-    # Load flows and foreign holdings in parallel
-    with ThreadPoolExecutor(max_workers=2) as executor:
-        flows_future = executor.submit(load_flows, ratio_start_date)
-        foreign_future = executor.submit(load_foreign, ratio_start_date)
-
-        flows_data = flows_future.result()
-        foreign_data = foreign_future.result()
-
-    print(f"  Loaded {len(flows_data)} flow records")
-    print(f"  Loaded {len(foreign_data)} foreign holding records")
-
-    if flows_data.empty or foreign_data.empty:
-        print("  [WARN] Insufficient data for ratio computation")
-        update_etl_status("completed", f"資料更新完成，但無足夠資料計算比率 ({target_date})", is_end=True)
-        return
-
-    # Build foreign master with forward-fill
-    foreign_master = build_foreign_master(
-        foreign_data[foreign_data["market"] == "TWSE"],
-        foreign_data[foreign_data["market"] == "TPEX"]
-    )
-
-    # Load baseline
-    baseline = load_baseline()
-    if baseline is not None:
-        print(f"  Loaded {len(baseline)} baseline records")
-
-    # Compute estimated holdings
-    merged = build_estimated_holdings(flows_data, foreign_master, baseline=baseline)
-
-    # Add change metrics
-    merged = add_change_metrics(merged, windows=settings.windows)
-
-    # Upsert ratios
-    count = upsert_ratios(merged)
-    print(f"  Upserted {count} ratio records to database")
+            count = compute_ratios_in_postgresql(session, lookback_days=180)
+        print(f"  Computed {count} ratio records in PostgreSQL")
+    except Exception as e:
+        print(f"  [WARN] PostgreSQL ratio computation failed: {e}")
+        import traceback
+        traceback.print_exc()
 
     # Compute pre-calculated strategies
     print("\n[STEP 5] Computing strategy rankings...")

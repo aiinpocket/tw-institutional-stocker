@@ -117,7 +117,8 @@ def get_target_trade_date() -> date:
     today = now.date()
 
     # After 15:30 on a weekday, try today's data
-    if not is_weekend(today) and now.hour >= 15 and now.minute >= 30:
+    # Logic: (hour == 15 and minute >= 30) OR (hour > 15)
+    if not is_weekend(today) and (now.hour > 15 or (now.hour == 15 and now.minute >= 30)):
         return today
 
     # Otherwise, use yesterday (skip weekends)

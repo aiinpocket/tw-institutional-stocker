@@ -108,15 +108,15 @@ def compute_ratios_in_postgresql(db, lookback_days: int = 180):
             trust_ratio_est,
             dealer_ratio_est,
             three_inst_ratio_est,
-            -- Change metrics using LAG window function
+            -- Change metrics using LAG window function (column names match model: change_Xd)
             three_inst_ratio_est - LAG(three_inst_ratio_est, 5) OVER (PARTITION BY stock_id ORDER BY trade_date)
-                as three_inst_ratio_change_5,
+                as change_5d,
             three_inst_ratio_est - LAG(three_inst_ratio_est, 20) OVER (PARTITION BY stock_id ORDER BY trade_date)
-                as three_inst_ratio_change_20,
+                as change_20d,
             three_inst_ratio_est - LAG(three_inst_ratio_est, 60) OVER (PARTITION BY stock_id ORDER BY trade_date)
-                as three_inst_ratio_change_60,
+                as change_60d,
             three_inst_ratio_est - LAG(three_inst_ratio_est, 120) OVER (PARTITION BY stock_id ORDER BY trade_date)
-                as three_inst_ratio_change_120
+                as change_120d
         FROM temp_holdings_calc
     """))
     db.commit()
@@ -138,10 +138,10 @@ def compute_ratios_in_postgresql(db, lookback_days: int = 180):
             trust_ratio_est NUMERIC(10, 4),
             dealer_ratio_est NUMERIC(10, 4),
             three_inst_ratio_est NUMERIC(10, 4),
-            three_inst_ratio_change_5 NUMERIC(10, 4),
-            three_inst_ratio_change_20 NUMERIC(10, 4),
-            three_inst_ratio_change_60 NUMERIC(10, 4),
-            three_inst_ratio_change_120 NUMERIC(10, 4),
+            change_5d NUMERIC(10, 4),
+            change_20d NUMERIC(10, 4),
+            change_60d NUMERIC(10, 4),
+            change_120d NUMERIC(10, 4),
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             UNIQUE(stock_id, trade_date)
@@ -150,11 +150,12 @@ def compute_ratios_in_postgresql(db, lookback_days: int = 180):
     db.commit()
 
     # Add missing columns if they don't exist (for existing tables)
+    # Column names match the SQLAlchemy model: change_5d, change_20d, etc.
     alter_statements = [
-        "ALTER TABLE institutional_ratios ADD COLUMN IF NOT EXISTS three_inst_ratio_change_5 NUMERIC(10, 4)",
-        "ALTER TABLE institutional_ratios ADD COLUMN IF NOT EXISTS three_inst_ratio_change_20 NUMERIC(10, 4)",
-        "ALTER TABLE institutional_ratios ADD COLUMN IF NOT EXISTS three_inst_ratio_change_60 NUMERIC(10, 4)",
-        "ALTER TABLE institutional_ratios ADD COLUMN IF NOT EXISTS three_inst_ratio_change_120 NUMERIC(10, 4)",
+        "ALTER TABLE institutional_ratios ADD COLUMN IF NOT EXISTS change_5d NUMERIC(10, 4)",
+        "ALTER TABLE institutional_ratios ADD COLUMN IF NOT EXISTS change_20d NUMERIC(10, 4)",
+        "ALTER TABLE institutional_ratios ADD COLUMN IF NOT EXISTS change_60d NUMERIC(10, 4)",
+        "ALTER TABLE institutional_ratios ADD COLUMN IF NOT EXISTS change_120d NUMERIC(10, 4)",
         "ALTER TABLE institutional_ratios ADD COLUMN IF NOT EXISTS created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
         "ALTER TABLE institutional_ratios ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
     ]
@@ -181,16 +182,14 @@ def compute_ratios_in_postgresql(db, lookback_days: int = 180):
             stock_id, trade_date,
             trust_shares_est, dealer_shares_est,
             trust_ratio_est, dealer_ratio_est, three_inst_ratio_est,
-            three_inst_ratio_change_5, three_inst_ratio_change_20,
-            three_inst_ratio_change_60, three_inst_ratio_change_120,
+            change_5d, change_20d, change_60d, change_120d,
             updated_at
         )
         SELECT
             stock_id, trade_date,
             trust_shares_est, dealer_shares_est,
             trust_ratio_est, dealer_ratio_est, three_inst_ratio_est,
-            three_inst_ratio_change_5, three_inst_ratio_change_20,
-            three_inst_ratio_change_60, three_inst_ratio_change_120,
+            change_5d, change_20d, change_60d, change_120d,
             CURRENT_TIMESTAMP
         FROM temp_ratios_final
     """))

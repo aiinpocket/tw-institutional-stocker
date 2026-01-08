@@ -106,23 +106,14 @@ def is_weekend(d: date) -> bool:
 
 
 def get_target_trade_date() -> date:
-    """Get target trading date based on current Taipei time.
+    """Get today's date as target (skip weekends).
 
-    - After 15:30 on weekdays: try today first (data usually available by 15:00-16:00)
-    - Before 15:30 or on weekends: use yesterday (skip weekends)
+    ETL will fetch data from (last_db_date + 1) to target_date.
+    If exchange has no data yet (holiday or not published), fetch returns empty.
     """
-    from datetime import datetime
-    tz = ZoneInfo("Asia/Taipei")
-    now = datetime.now(tz)
-    today = now.date()
-
-    # After 15:30 on a weekday, try today's data
-    # Logic: (hour == 15 and minute >= 30) OR (hour > 15)
-    if not is_weekend(today) and (now.hour > 15 or (now.hour == 15 and now.minute >= 30)):
-        return today
-
-    # Otherwise, use yesterday (skip weekends)
-    target = today - timedelta(days=1)
+    today = get_taipei_today()
+    # If today is weekend, use last Friday
+    target = today
     while is_weekend(target):
         target -= timedelta(days=1)
     return target

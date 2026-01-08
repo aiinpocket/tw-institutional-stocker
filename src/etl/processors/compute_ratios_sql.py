@@ -163,7 +163,17 @@ def compute_ratios_in_postgresql(db, lookback_days: int = 180):
             pass  # Column already exists
     db.commit()
 
-    # Upsert data
+    # Delete existing records in date range first (faster than UPSERT, avoids lock contention)
+    logger.info("  Deleting existing records in date range...")
+    delete_result = db.execute(text("""
+        DELETE FROM institutional_ratios
+        WHERE trade_date >= CURRENT_DATE - :lookback_days
+    """), {"lookback_days": lookback_days})
+    deleted = delete_result.rowcount
+    logger.info(f"  Deleted {deleted} existing records")
+
+    # Insert new records (no conflict handling needed)
+    logger.info("  Inserting new ratio records...")
     result = db.execute(text("""
         INSERT INTO institutional_ratios (
             stock_id, trade_date,
@@ -181,17 +191,6 @@ def compute_ratios_in_postgresql(db, lookback_days: int = 180):
             three_inst_ratio_change_60, three_inst_ratio_change_120,
             CURRENT_TIMESTAMP
         FROM temp_ratios_final
-        ON CONFLICT (stock_id, trade_date) DO UPDATE SET
-            trust_shares_est = EXCLUDED.trust_shares_est,
-            dealer_shares_est = EXCLUDED.dealer_shares_est,
-            trust_ratio_est = EXCLUDED.trust_ratio_est,
-            dealer_ratio_est = EXCLUDED.dealer_ratio_est,
-            three_inst_ratio_est = EXCLUDED.three_inst_ratio_est,
-            three_inst_ratio_change_5 = EXCLUDED.three_inst_ratio_change_5,
-            three_inst_ratio_change_20 = EXCLUDED.three_inst_ratio_change_20,
-            three_inst_ratio_change_60 = EXCLUDED.three_inst_ratio_change_60,
-            three_inst_ratio_change_120 = EXCLUDED.three_inst_ratio_change_120,
-            updated_at = CURRENT_TIMESTAMP
     """))
     db.commit()
 

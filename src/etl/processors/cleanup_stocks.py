@@ -52,16 +52,40 @@ def cleanup_inactive_stocks(db):
     """
     logger.info("Starting stock cleanup...")
 
-    # Fetch current trading stocks
-    current_stocks = set()
-    current_stocks.update(fetch_current_twse_stocks())
-    current_stocks.update(fetch_current_tpex_stocks())
+    # Fetch current trading stocks from both exchanges
+    twse_stocks = fetch_current_twse_stocks()
+    tpex_stocks = fetch_current_tpex_stocks()
+
+    current_stocks = twse_stocks | tpex_stocks
 
     if not current_stocks:
         logger.warning("No current stocks fetched, skipping cleanup")
         return
 
-    logger.info(f"Total current trading stocks: {len(current_stocks)}")
+    # Safety check: require minimum stocks to prevent accidental mass deactivation
+    # TWSE typically has ~1000 stocks, TPEX ~800 stocks
+    MIN_EXPECTED_STOCKS = 1500  # Should have at least this many total
+    MIN_TWSE_STOCKS = 800  # TWSE should have at least this many
+    MIN_TPEX_STOCKS = 500  # TPEX should have at least this many
+
+    if len(current_stocks) < MIN_EXPECTED_STOCKS:
+        logger.warning(f"Only fetched {len(current_stocks)} stocks (expected >= {MIN_EXPECTED_STOCKS})")
+
+        # Check which source failed
+        if len(twse_stocks) == 0 and len(tpex_stocks) > 0:
+            logger.error("TWSE fetch failed but TPEX succeeded. Skipping cleanup to avoid marking all TWSE stocks inactive.")
+            return
+        elif len(tpex_stocks) == 0 and len(twse_stocks) > 0:
+            logger.error("TPEX fetch failed but TWSE succeeded. Skipping cleanup to avoid marking all TPEX stocks inactive.")
+            return
+        elif len(twse_stocks) < MIN_TWSE_STOCKS:
+            logger.error(f"TWSE returned only {len(twse_stocks)} stocks (expected >= {MIN_TWSE_STOCKS}). Skipping cleanup.")
+            return
+        elif len(tpex_stocks) < MIN_TPEX_STOCKS:
+            logger.error(f"TPEX returned only {len(tpex_stocks)} stocks (expected >= {MIN_TPEX_STOCKS}). Skipping cleanup.")
+            return
+
+    logger.info(f"Total current trading stocks: {len(current_stocks)} (TWSE: {len(twse_stocks)}, TPEX: {len(tpex_stocks)})")
 
     # Get all stocks from database
     db_stocks = db.execute(text("""

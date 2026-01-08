@@ -397,36 +397,50 @@ def run_etl():
     print(f"  Loading data from {ratio_start_date} to {target_date}...")
 
     from sqlalchemy import text
-    with get_db_session() as session:
-        # Load flows (recent only)
-        flows_query = text("""
-            SELECT f.trade_date as date, s.code, s.name, s.market,
-                   f.foreign_net, f.trust_net, f.dealer_net
-            FROM institutional_flows f
-            JOIN stocks s ON f.stock_id = s.id
-            WHERE f.trade_date >= :start_date
-            ORDER BY s.code, f.trade_date
-        """)
-        flows_result = session.execute(flows_query, {"start_date": ratio_start_date})
-        flows_data = pd.DataFrame(flows_result.fetchall(), columns=[
-            "date", "code", "name", "market", "foreign_net", "trust_net", "dealer_net"
-        ])
-        print(f"  Loaded {len(flows_data)} flow records")
+    from concurrent.futures import ThreadPoolExecutor
 
-        # Load foreign holdings (recent only)
-        foreign_query = text("""
-            SELECT h.trade_date as date, s.code, s.name, s.market,
-                   h.total_shares, h.foreign_shares, h.foreign_ratio
-            FROM foreign_holdings h
-            JOIN stocks s ON h.stock_id = s.id
-            WHERE h.trade_date >= :start_date
-            ORDER BY s.code, h.trade_date
-        """)
-        foreign_result = session.execute(foreign_query, {"start_date": ratio_start_date})
-        foreign_data = pd.DataFrame(foreign_result.fetchall(), columns=[
-            "date", "code", "name", "market", "total_shares", "foreign_shares", "foreign_ratio"
-        ])
-        print(f"  Loaded {len(foreign_data)} foreign holding records")
+    def load_flows(start_date):
+        """Load flows data in a separate thread."""
+        with get_db_session() as session:
+            flows_query = text("""
+                SELECT f.trade_date as date, s.code, s.name, s.market,
+                       f.foreign_net, f.trust_net, f.dealer_net
+                FROM institutional_flows f
+                JOIN stocks s ON f.stock_id = s.id
+                WHERE f.trade_date >= :start_date
+                ORDER BY s.code, f.trade_date
+            """)
+            flows_result = session.execute(flows_query, {"start_date": start_date})
+            return pd.DataFrame(flows_result.fetchall(), columns=[
+                "date", "code", "name", "market", "foreign_net", "trust_net", "dealer_net"
+            ])
+
+    def load_foreign(start_date):
+        """Load foreign holdings data in a separate thread."""
+        with get_db_session() as session:
+            foreign_query = text("""
+                SELECT h.trade_date as date, s.code, s.name, s.market,
+                       h.total_shares, h.foreign_shares, h.foreign_ratio
+                FROM foreign_holdings h
+                JOIN stocks s ON h.stock_id = s.id
+                WHERE h.trade_date >= :start_date
+                ORDER BY s.code, h.trade_date
+            """)
+            foreign_result = session.execute(foreign_query, {"start_date": start_date})
+            return pd.DataFrame(foreign_result.fetchall(), columns=[
+                "date", "code", "name", "market", "total_shares", "foreign_shares", "foreign_ratio"
+            ])
+
+    # Load flows and foreign holdings in parallel
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        flows_future = executor.submit(load_flows, ratio_start_date)
+        foreign_future = executor.submit(load_foreign, ratio_start_date)
+
+        flows_data = flows_future.result()
+        foreign_data = foreign_future.result()
+
+    print(f"  Loaded {len(flows_data)} flow records")
+    print(f"  Loaded {len(foreign_data)} foreign holding records")
 
     if flows_data.empty or foreign_data.empty:
         print("  [WARN] Insufficient data for ratio computation")

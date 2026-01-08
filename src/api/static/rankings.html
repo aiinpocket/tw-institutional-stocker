@@ -220,7 +220,7 @@
 
         async function loadToday() {
             try {
-                const resp = await fetch('/api/v1/institutional/flows?limit=2000');
+                const resp = await fetch('/api/v1/institutional/flows?limit=1000');
                 const data = await resp.json();
 
                 // 取得資料日期

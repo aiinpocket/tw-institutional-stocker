@@ -155,6 +155,8 @@ def compute_ratios_in_postgresql(db, lookback_days: int = 180):
         "ALTER TABLE institutional_ratios ADD COLUMN IF NOT EXISTS three_inst_ratio_change_20 NUMERIC(10, 4)",
         "ALTER TABLE institutional_ratios ADD COLUMN IF NOT EXISTS three_inst_ratio_change_60 NUMERIC(10, 4)",
         "ALTER TABLE institutional_ratios ADD COLUMN IF NOT EXISTS three_inst_ratio_change_120 NUMERIC(10, 4)",
+        "ALTER TABLE institutional_ratios ADD COLUMN IF NOT EXISTS created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
+        "ALTER TABLE institutional_ratios ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
     ]
     for stmt in alter_statements:
         try:

@@ -7,13 +7,18 @@ from src.common.config import settings
 
 
 def fetch_twse_stock_day_all() -> pd.DataFrame:
-    """Fetch all TWSE stock daily prices using OpenAPI.
+    """Fetch all TWSE stock daily prices using official www.twse.com.tw API.
+
+    Uses the regular API instead of OpenAPI because OpenAPI updates slower
+    (may lag by 1 day).
 
     Returns:
         DataFrame with columns: date, code, name, market, open_price, high_price,
                                 low_price, close_price, volume, turnover, change_amount, transactions
     """
-    url = "https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL"
+    # Use the regular www.twse.com.tw API which updates faster than OpenAPI
+    url = "https://www.twse.com.tw/exchangeReport/STOCK_DAY_ALL"
+    params = {"response": "json"}
 
     empty_result = pd.DataFrame(columns=[
         "date", "code", "name", "market", "open_price", "high_price",
@@ -21,60 +26,56 @@ def fetch_twse_stock_day_all() -> pd.DataFrame:
     ])
 
     try:
-        resp = requests.get(url, timeout=settings.request_timeout)
+        resp = requests.get(url, params=params, timeout=settings.request_timeout)
         resp.raise_for_status()
         data = resp.json()
     except Exception:
         return empty_result
 
-    if not data:
+    if data.get("stat") != "OK" or not data.get("data"):
         return empty_result
 
-    df = pd.DataFrame(data)
+    # Parse trade date from API's "date" field (format: "20260108")
+    trade_date = None
+    date_str = data.get("date", "")
+    if len(date_str) == 8:
+        try:
+            trade_date = date(int(date_str[:4]), int(date_str[4:6]), int(date_str[6:8]))
+        except (ValueError, IndexError):
+            trade_date = date.today()
+    else:
+        trade_date = date.today()
 
-    # Rename columns
-    column_map = {
-        "Code": "code",
-        "Name": "name",
-        "TradeVolume": "volume",
-        "TradeValue": "turnover",
-        "OpeningPrice": "open_price",
-        "HighestPrice": "high_price",
-        "LowestPrice": "low_price",
-        "ClosingPrice": "close_price",
-        "Change": "change_amount",
-        "Transaction": "transactions",
-    }
-    df = df.rename(columns=column_map)
+    # Data format: [代號, 名稱, 成交股數, 成交金額, 開盤價, 最高價, 最低價, 收盤價, 漲跌價差, 成交筆數]
+    rows = []
+    for row in data["data"]:
+        try:
+            code = str(row[0]).strip()
+            # Filter valid stock codes (4-5 digits)
+            if not code.isdigit() or len(code) < 4 or len(code) > 5:
+                continue
 
-    # Convert numeric columns
-    numeric_cols = ["volume", "turnover", "open_price", "high_price",
-                    "low_price", "close_price", "change_amount", "transactions"]
+            rows.append({
+                "date": trade_date,
+                "code": code,
+                "name": str(row[1]).strip(),
+                "market": "TWSE",
+                "volume": int(str(row[2]).replace(",", "")) if row[2] not in ("--", "") else None,
+                "turnover": int(str(row[3]).replace(",", "")) if row[3] not in ("--", "") else None,
+                "open_price": float(str(row[4]).replace(",", "")) if row[4] not in ("--", "") else None,
+                "high_price": float(str(row[5]).replace(",", "")) if row[5] not in ("--", "") else None,
+                "low_price": float(str(row[6]).replace(",", "")) if row[6] not in ("--", "") else None,
+                "close_price": float(str(row[7]).replace(",", "")) if row[7] not in ("--", "") else None,
+                "change_amount": float(str(row[8]).replace(",", "").replace("+", "")) if row[8] not in ("--", "X", "") else None,
+                "transactions": int(str(row[9]).replace(",", "")) if row[9] not in ("--", "") else None,
+            })
+        except (ValueError, IndexError):
+            continue
 
-    for col in numeric_cols:
-        if col in df.columns:
-            df[col] = pd.to_numeric(
-                df[col].astype(str).str.replace(",", "").str.replace("--", ""),
-                errors="coerce"
-            )
+    if not rows:
+        return empty_result
 
-    # Filter valid stock codes (4-5 digits)
-    df["code"] = df["code"].astype(str).str.strip()
-    mask = df["code"].str.match(r"^\d{4,5}$")
-    df = df[mask].copy()
-
-    df["market"] = "TWSE"
-    df["date"] = date.today()
-
-    result_cols = ["date", "code", "name", "market", "open_price", "high_price",
-                   "low_price", "close_price", "volume", "turnover", "change_amount", "transactions"]
-
-    # Ensure all columns exist
-    for col in result_cols:
-        if col not in df.columns:
-            df[col] = None
-
-    return df[result_cols].reset_index(drop=True)
+    return pd.DataFrame(rows)
 
 
 def fetch_twse_stock_day(stock_code: str, trade_date: date) -> pd.DataFrame:

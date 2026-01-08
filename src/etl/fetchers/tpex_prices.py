@@ -33,6 +33,24 @@ def fetch_tpex_quotes() -> pd.DataFrame:
 
     df = pd.DataFrame(data)
 
+    # Parse trade date from API's Date field (ROC format: "1150108" = Year 115, Month 01, Day 08)
+    # This is critical - we must use the actual data date, not today's date
+    trade_date = None
+    if "Date" in df.columns and len(df) > 0:
+        date_str = str(df["Date"].iloc[0])
+        if len(date_str) == 7:  # Format: YYYMMDD (ROC year)
+            try:
+                roc_year = int(date_str[:3])
+                month = int(date_str[3:5])
+                day = int(date_str[5:7])
+                trade_date = date(roc_year + 1911, month, day)
+            except (ValueError, IndexError):
+                trade_date = date.today()
+        else:
+            trade_date = date.today()
+    else:
+        trade_date = date.today()
+
     # TPEX OpenAPI columns (Chinese names)
     column_map = {
         "SecuritiesCompanyCode": "code",
@@ -84,7 +102,7 @@ def fetch_tpex_quotes() -> pd.DataFrame:
         df = df[mask].copy()
 
     df["market"] = "TPEX"
-    df["date"] = date.today()
+    df["date"] = trade_date
 
     result_cols = ["date", "code", "name", "market", "open_price", "high_price",
                    "low_price", "close_price", "volume", "turnover", "change_amount", "transactions"]

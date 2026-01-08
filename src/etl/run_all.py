@@ -106,8 +106,21 @@ def is_weekend(d: date) -> bool:
 
 
 def get_target_trade_date() -> date:
-    """Get yesterday's trading date (skip weekends)."""
-    today = get_taipei_today()
+    """Get target trading date based on current Taipei time.
+
+    - After 15:30 on weekdays: try today first (data usually available by 15:00-16:00)
+    - Before 15:30 or on weekends: use yesterday (skip weekends)
+    """
+    from datetime import datetime
+    tz = ZoneInfo("Asia/Taipei")
+    now = datetime.now(tz)
+    today = now.date()
+
+    # After 15:30 on a weekday, try today's data
+    if not is_weekend(today) and now.hour >= 15 and now.minute >= 30:
+        return today
+
+    # Otherwise, use yesterday (skip weekends)
     target = today - timedelta(days=1)
     while is_weekend(target):
         target -= timedelta(days=1)

@@ -262,6 +262,22 @@ def force_refetch_flows(days: int = 30):
         print(f"  [WARN] Failed to clear flows: {e}")
 
 
+def force_clear_prices(days: int = 30):
+    """Force clear recent stock price data to allow re-fetch with correct dates."""
+    from sqlalchemy import text
+    print(f"\n[FORCE CLEAR PRICES] Clearing last {days} days of stock prices...")
+    try:
+        with get_db_session() as session:
+            result = session.execute(text(f"""
+                DELETE FROM stock_prices
+                WHERE trade_date >= CURRENT_DATE - {days}
+            """))
+            deleted = result.rowcount
+            print(f"  Deleted {deleted} price records")
+    except Exception as e:
+        print(f"  [WARN] Failed to clear prices: {e}")
+
+
 def run_tpex_backfill():
     """Run TPEX historical data backfill."""
     from src.etl.backfill_tpex import run_backfill
@@ -307,6 +323,11 @@ def run_etl():
     if os.environ.get("FORCE_REFETCH_DAYS"):
         days = int(os.environ.get("FORCE_REFETCH_DAYS", "30"))
         force_refetch_flows(days)
+
+    # 檢查是否需要清除錯誤的股價資料
+    if os.environ.get("FORCE_CLEAR_PRICES_DAYS"):
+        days = int(os.environ.get("FORCE_CLEAR_PRICES_DAYS", "30"))
+        force_clear_prices(days)
 
     # 更新狀態：開始執行
     update_etl_status("running", "資料更新中...", is_start=True)

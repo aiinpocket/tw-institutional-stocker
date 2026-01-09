@@ -340,6 +340,15 @@ def run_etl():
     # 清除所有快取
     clear_all_caches()
 
+    # 確保所有資料表存在
+    print("\n[STEP 0.4] Ensuring all database tables exist...")
+    try:
+        from src.common.database import create_tables
+        create_tables()
+        print("  Database tables verified")
+    except Exception as e:
+        print(f"  [WARN] Table creation failed: {e}")
+
     # 建立資料庫索引 (如果不存在)
     print("\n[STEP 0.5] Ensuring database indexes exist...")
     try:

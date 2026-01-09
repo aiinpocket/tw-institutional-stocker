@@ -35,3 +35,9 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+def create_tables():
+    """Create all database tables if they don't exist."""
+    from . import models  # Import models to register them with Base
+    Base.metadata.create_all(bind=engine)

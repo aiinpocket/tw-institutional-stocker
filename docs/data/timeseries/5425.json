@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.46310216874716204,
     "three_inst_ratio_change_20": -0.0022137841778502865
+  },
+  {
+    "date": "2025-12-15",
+    "code": "5425",
+    "name": "台半",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.46310216874716204,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.46310216874716204,
+    "three_inst_ratio_change_20": -0.0022137841778502865
+  },
+  {
+    "date": "2025-12-16",
+    "code": "5425",
+    "name": "台半",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4615358585633821,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4615358585633821,
+    "three_inst_ratio_change_20": -0.0037800943616302374
+  },
+  {
+    "date": "2025-12-17",
+    "code": "5425",
+    "name": "台半",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4615358585633821,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4615358585633821,
+    "three_inst_ratio_change_20": -0.0026733920364782615
+  },
+  {
+    "date": "2025-12-18",
+    "code": "5425",
+    "name": "台半",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4615358585633821,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4615358585633821,
+    "three_inst_ratio_change_20": -0.0026733920364782615
+  },
+  {
+    "date": "2025-12-19",
+    "code": "5425",
+    "name": "台半",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4615358585633821,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4615358585633821,
+    "three_inst_ratio_change_20": -0.0026733920364782615
+  },
+  {
+    "date": "2025-12-22",
+    "code": "5425",
+    "name": "台半",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4615358585633821,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4615358585633821,
+    "three_inst_ratio_change_20": -0.0026733920364782615
+  },
+  {
+    "date": "2025-12-23",
+    "code": "5425",
+    "name": "台半",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4615358585633821,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4615358585633821,
+    "three_inst_ratio_change_20": -0.0026733920364782615
+  },
+  {
+    "date": "2025-12-24",
+    "code": "5425",
+    "name": "台半",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4615358585633821,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4615358585633821,
+    "three_inst_ratio_change_20": -0.0026733920364782615
+  },
+  {
+    "date": "2025-12-26",
+    "code": "5425",
+    "name": "台半",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4615358585633821,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4615358585633821,
+    "three_inst_ratio_change_20": -0.0026733920364782615
+  },
+  {
+    "date": "2025-12-29",
+    "code": "5425",
+    "name": "台半",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.45584294536815584,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.45584294536815584,
+    "three_inst_ratio_change_20": -0.008366305231704507
+  },
+  {
+    "date": "2025-12-30",
+    "code": "5425",
+    "name": "台半",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.45090908726562645,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.45090908726562645,
+    "three_inst_ratio_change_20": -0.013300163334233894
+  },
+  {
+    "date": "2025-12-31",
+    "code": "5425",
+    "name": "台半",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4465293393807657,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4465293393807657,
+    "three_inst_ratio_change_20": -0.017679911219094624
+  },
+  {
+    "date": "2026-01-02",
+    "code": "5425",
+    "name": "台半",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.44491444967105326,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.44491444967105326,
+    "three_inst_ratio_change_20": -0.019294800928807088
+  },
+  {
+    "date": "2026-01-05",
+    "code": "5425",
+    "name": "台半",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.44491444967105326,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.44491444967105326,
+    "three_inst_ratio_change_20": -0.019294800928807088
+  },
+  {
+    "date": "2026-01-06",
+    "code": "5425",
+    "name": "台半",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4439743599387482,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4439743599387482,
+    "three_inst_ratio_change_20": -0.02023489066111217
+  },
+  {
+    "date": "2026-01-07",
+    "code": "5425",
+    "name": "台半",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4439743599387482,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4439743599387482,
+    "three_inst_ratio_change_20": -0.02023489066111217
+  },
+  {
+    "date": "2026-01-08",
+    "code": "5425",
+    "name": "台半",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4439743599387482,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4439743599387482,
+    "three_inst_ratio_change_20": -0.02023489066111217
   }
 ]

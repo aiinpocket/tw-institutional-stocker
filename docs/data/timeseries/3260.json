@@ -680,5 +680,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 8.745696802457056,
     "three_inst_ratio_change_20": -0.3407148248593206
+  },
+  {
+    "date": "2025-12-15",
+    "code": "3260",
+    "name": "威剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 8.619233281878643,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 8.619233281878643,
+    "three_inst_ratio_change_20": -0.42451225475715226
+  },
+  {
+    "date": "2025-12-16",
+    "code": "3260",
+    "name": "威剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 8.573674491639975,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 8.573674491639975,
+    "three_inst_ratio_change_20": -0.4538333745137848
+  },
+  {
+    "date": "2025-12-17",
+    "code": "3260",
+    "name": "威剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 9.33798072037845,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.33798072037845,
+    "three_inst_ratio_change_20": 0.3700212110019052
+  },
+  {
+    "date": "2025-12-18",
+    "code": "3260",
+    "name": "威剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 9.954643858344552,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.954643858344552,
+    "three_inst_ratio_change_20": 0.9988088855283159
+  },
+  {
+    "date": "2025-12-19",
+    "code": "3260",
+    "name": "威剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 10.059620858436343,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 10.059620858436343,
+    "three_inst_ratio_change_20": 1.1732180418211673
+  },
+  {
+    "date": "2025-12-22",
+    "code": "3260",
+    "name": "威剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 10.436862768122921,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 10.436862768122921,
+    "three_inst_ratio_change_20": 1.5602823608730603
+  },
+  {
+    "date": "2025-12-23",
+    "code": "3260",
+    "name": "威剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 10.506540484558116,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 10.506540484558116,
+    "three_inst_ratio_change_20": 1.6299600773082545
+  },
+  {
+    "date": "2025-12-24",
+    "code": "3260",
+    "name": "威剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 10.72570299352168,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 10.72570299352168,
+    "three_inst_ratio_change_20": 1.818181996771079
+  },
+  {
+    "date": "2025-12-26",
+    "code": "3260",
+    "name": "威剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 10.035687944117171,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 10.035687944117171,
+    "three_inst_ratio_change_20": 1.3034355644788889
+  },
+  {
+    "date": "2025-12-29",
+    "code": "3260",
+    "name": "威剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 10.692223925100592,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 10.692223925100592,
+    "three_inst_ratio_change_20": 1.9611993466329718
+  },
+  {
+    "date": "2025-12-30",
+    "code": "3260",
+    "name": "威剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 10.969357066337066,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 10.969357066337066,
+    "three_inst_ratio_change_20": 2.2165390170901578
+  },
+  {
+    "date": "2025-12-31",
+    "code": "3260",
+    "name": "威剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 11.11814139829757,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.11814139829757,
+    "three_inst_ratio_change_20": 2.5875553609408843
+  },
+  {
+    "date": "2026-01-02",
+    "code": "3260",
+    "name": "威剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 11.161881815002484,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.161881815002484,
+    "three_inst_ratio_change_20": 2.631295777645798
+  },
+  {
+    "date": "2026-01-05",
+    "code": "3260",
+    "name": "威剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 11.319911489778088,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.319911489778088,
+    "three_inst_ratio_change_20": 2.9688913736310436
+  },
+  {
+    "date": "2026-01-06",
+    "code": "3260",
+    "name": "威剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 11.379343205444089,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.379343205444089,
+    "three_inst_ratio_change_20": 3.400837964476568
+  },
+  {
+    "date": "2026-01-07",
+    "code": "3260",
+    "name": "威剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 11.425078799051331,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.425078799051331,
+    "three_inst_ratio_change_20": 3.309520252408417
+  },
+  {
+    "date": "2026-01-08",
+    "code": "3260",
+    "name": "威剛",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 11.448360978750053,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.448360978750053,
+    "three_inst_ratio_change_20": 3.3535522718913633
   }
 ]

@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.6888186818251836,
     "three_inst_ratio_change_20": -1.0839045415544084
+  },
+  {
+    "date": "2025-12-15",
+    "code": "4966",
+    "name": "譜瑞-KY",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.6451002618258701,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.6451002618258701,
+    "three_inst_ratio_change_20": -1.1338684501250522
+  },
+  {
+    "date": "2025-12-16",
+    "code": "4966",
+    "name": "譜瑞-KY",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.7175479292533039,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.7175479292533039,
+    "three_inst_ratio_change_20": -0.842828682701051
+  },
+  {
+    "date": "2025-12-17",
+    "code": "4966",
+    "name": "譜瑞-KY",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8112302578232613,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8112302578232613,
+    "three_inst_ratio_change_20": -0.5180632769918649
+  },
+  {
+    "date": "2025-12-18",
+    "code": "4966",
+    "name": "譜瑞-KY",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.9423855178212018,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.9423855178212018,
+    "three_inst_ratio_change_20": -0.14776825959767959
+  },
+  {
+    "date": "2025-12-19",
+    "code": "4966",
+    "name": "譜瑞-KY",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.0747898755334084,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.0747898755334084,
+    "three_inst_ratio_change_20": -0.01786209731400512
+  },
+  {
+    "date": "2025-12-22",
+    "code": "4966",
+    "name": "譜瑞-KY",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.207194233245615,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.207194233245615,
+    "three_inst_ratio_change_20": 0.10704767411260452
+  },
+  {
+    "date": "2025-12-23",
+    "code": "4966",
+    "name": "譜瑞-KY",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.1822122789602931,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.1822122789602931,
+    "three_inst_ratio_change_20": 0.08456391525581508
+  },
+  {
+    "date": "2025-12-24",
+    "code": "4966",
+    "name": "譜瑞-KY",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.180963181246027,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.180963181246027,
+    "three_inst_ratio_change_20": 0.08331481754154901
+  },
+  {
+    "date": "2025-12-26",
+    "code": "4966",
+    "name": "譜瑞-KY",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.5906672315253076,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.5906672315253076,
+    "three_inst_ratio_change_20": 0.49714089027790775
+  },
+  {
+    "date": "2025-12-29",
+    "code": "4966",
+    "name": "譜瑞-KY",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.145266616659456,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.145266616659456,
+    "three_inst_ratio_change_20": 1.0579857639833863
+  },
+  {
+    "date": "2025-12-30",
+    "code": "4966",
+    "name": "譜瑞-KY",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.697367806365072,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.697367806365072,
+    "three_inst_ratio_change_20": 1.8574083011136902
+  },
+  {
+    "date": "2025-12-31",
+    "code": "4966",
+    "name": "譜瑞-KY",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.381873353782895,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.381873353782895,
+    "three_inst_ratio_change_20": 2.545661141674312
+  },
+  {
+    "date": "2026-01-02",
+    "code": "4966",
+    "name": "譜瑞-KY",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.917736273203052,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.917736273203052,
+    "three_inst_ratio_change_20": 3.0852713542372667
+  },
+  {
+    "date": "2026-01-05",
+    "code": "4966",
+    "name": "譜瑞-KY",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.444855508623346,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.444855508623346,
+    "three_inst_ratio_change_20": 3.6136396873718266
+  },
+  {
+    "date": "2026-01-06",
+    "code": "4966",
+    "name": "譜瑞-KY",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.95873430827242,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.95873430827242,
+    "three_inst_ratio_change_20": 4.131265780163699
+  },
+  {
+    "date": "2026-01-07",
+    "code": "4966",
+    "name": "譜瑞-KY",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.472113468835786,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.472113468835786,
+    "three_inst_ratio_change_20": 4.699605240154774
+  },
+  {
+    "date": "2026-01-08",
+    "code": "4966",
+    "name": "譜瑞-KY",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.831853610544424,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.831853610544424,
+    "three_inst_ratio_change_20": 5.06933816357754
   }
 ]

@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 5.682290758078131,
     "three_inst_ratio_change_20": 5.141894175461626
+  },
+  {
+    "date": "2025-12-15",
+    "code": "3293",
+    "name": "鈊象",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.682290758078131,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.682290758078131,
+    "three_inst_ratio_change_20": 4.701513362807502
+  },
+  {
+    "date": "2025-12-16",
+    "code": "3293",
+    "name": "鈊象",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.682645617717659,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.682645617717659,
+    "three_inst_ratio_change_20": 4.13054420280711
+  },
+  {
+    "date": "2025-12-17",
+    "code": "3293",
+    "name": "鈊象",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.67909702132238,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.67909702132238,
+    "three_inst_ratio_change_20": 3.323948242160192
+  },
+  {
+    "date": "2025-12-18",
+    "code": "3293",
+    "name": "鈊象",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.679451880961908,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.679451880961908,
+    "three_inst_ratio_change_20": 2.4436301914013536
+  },
+  {
+    "date": "2025-12-19",
+    "code": "3293",
+    "name": "鈊象",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.671999828531822,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.671999828531822,
+    "three_inst_ratio_change_20": 1.4124080789332751
+  },
+  {
+    "date": "2025-12-22",
+    "code": "3293",
+    "name": "鈊象",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.661354039345985,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.661354039345985,
+    "three_inst_ratio_change_20": 0.4482590515112834
+  },
+  {
+    "date": "2025-12-23",
+    "code": "3293",
+    "name": "鈊象",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.654256846555427,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.654256846555427,
+    "three_inst_ratio_change_20": -0.06770686436228424
+  },
+  {
+    "date": "2025-12-24",
+    "code": "3293",
+    "name": "鈊象",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.6386430224162,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.6386430224162,
+    "three_inst_ratio_change_20": -0.15287317784897958
+  },
+  {
+    "date": "2025-12-26",
+    "code": "3293",
+    "name": "鈊象",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.625513215753667,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.625513215753667,
+    "three_inst_ratio_change_20": -0.20652795534559854
+  },
+  {
+    "date": "2025-12-29",
+    "code": "3293",
+    "name": "鈊象",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.625513215753667,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.625513215753667,
+    "three_inst_ratio_change_20": -0.20652795534559854
+  },
+  {
+    "date": "2025-12-30",
+    "code": "3293",
+    "name": "鈊象",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.623738917556028,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.623738917556028,
+    "three_inst_ratio_change_20": -0.20830225354323773
+  },
+  {
+    "date": "2025-12-31",
+    "code": "3293",
+    "name": "鈊象",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.669515811055128,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.669515811055128,
+    "three_inst_ratio_change_20": -0.1625253600441381
+  },
+  {
+    "date": "2026-01-02",
+    "code": "3293",
+    "name": "鈊象",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.6737741267294615,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.6737741267294615,
+    "three_inst_ratio_change_20": -0.1582670443698042
+  },
+  {
+    "date": "2026-01-05",
+    "code": "3293",
+    "name": "鈊象",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.694001126182552,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.694001126182552,
+    "three_inst_ratio_change_20": -0.12491023825418157
+  },
+  {
+    "date": "2026-01-06",
+    "code": "3293",
+    "name": "鈊象",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.679451880961908,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.679451880961908,
+    "three_inst_ratio_change_20": -0.13945948347482506
+  },
+  {
+    "date": "2026-01-07",
+    "code": "3293",
+    "name": "鈊象",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.690807389426801,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.690807389426801,
+    "three_inst_ratio_change_20": -0.013839171081947654
+  },
+  {
+    "date": "2026-01-08",
+    "code": "3293",
+    "name": "鈊象",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.632610408544226,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.632610408544226,
+    "three_inst_ratio_change_20": -0.05322859106954514
   }
 ]

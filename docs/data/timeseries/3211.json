@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 10.917968219238187,
     "three_inst_ratio_change_20": -1.9090457202777955
+  },
+  {
+    "date": "2025-12-15",
+    "code": "3211",
+    "name": "順達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 10.925121247569296,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 10.925121247569296,
+    "three_inst_ratio_change_20": -2.0521062868999955
+  },
+  {
+    "date": "2025-12-16",
+    "code": "3211",
+    "name": "順達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 10.626644883571165,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 10.626644883571165,
+    "three_inst_ratio_change_20": -2.5235558814504184
+  },
+  {
+    "date": "2025-12-17",
+    "code": "3211",
+    "name": "順達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 11.974015311031131,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 11.974015311031131,
+    "three_inst_ratio_change_20": -1.2717759235061923
+  },
+  {
+    "date": "2025-12-18",
+    "code": "3211",
+    "name": "順達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 12.79531301850311,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 12.79531301850311,
+    "three_inst_ratio_change_20": -0.18597873660885433
+  },
+  {
+    "date": "2025-12-19",
+    "code": "3211",
+    "name": "順達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 14.512690093272305,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 14.512690093272305,
+    "three_inst_ratio_change_20": 1.7687488236926203
+  },
+  {
+    "date": "2025-12-22",
+    "code": "3211",
+    "name": "順達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 16.279488091056436,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 16.279488091056436,
+    "three_inst_ratio_change_20": 3.989438982850814
+  },
+  {
+    "date": "2025-12-23",
+    "code": "3211",
+    "name": "順達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 16.25477762954897,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 16.25477762954897,
+    "three_inst_ratio_change_20": 4.270357913672587
+  },
+  {
+    "date": "2025-12-24",
+    "code": "3211",
+    "name": "順達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 16.053907588505346,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 16.053907588505346,
+    "three_inst_ratio_change_20": 4.049329338241291
+  },
+  {
+    "date": "2025-12-26",
+    "code": "3211",
+    "name": "順達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 15.689103143618743,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 15.689103143618743,
+    "three_inst_ratio_change_20": 3.657213330635903
+  },
+  {
+    "date": "2025-12-29",
+    "code": "3211",
+    "name": "順達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 16.196968155127543,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 16.196968155127543,
+    "three_inst_ratio_change_20": 4.185887151835205
+  },
+  {
+    "date": "2025-12-30",
+    "code": "3211",
+    "name": "順達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 16.325072389784694,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 16.325072389784694,
+    "three_inst_ratio_change_20": 4.836162454663375
+  },
+  {
+    "date": "2025-12-31",
+    "code": "3211",
+    "name": "順達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 16.423914235814575,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 16.423914235814575,
+    "three_inst_ratio_change_20": 5.117081385485145
+  },
+  {
+    "date": "2026-01-02",
+    "code": "3211",
+    "name": "順達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 16.2652470619245,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 16.2652470619245,
+    "three_inst_ratio_change_20": 4.957113660989414
+  },
+  {
+    "date": "2026-01-05",
+    "code": "3211",
+    "name": "順達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 15.92060115142557,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 15.92060115142557,
+    "three_inst_ratio_change_20": 5.653558510318382
+  },
+  {
+    "date": "2026-01-06",
+    "code": "3211",
+    "name": "順達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 16.060105362416603,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 16.060105362416603,
+    "three_inst_ratio_change_20": 5.827527312359308
+  },
+  {
+    "date": "2026-01-07",
+    "code": "3211",
+    "name": "順達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 16.070509767261854,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 16.070509767261854,
+    "three_inst_ratio_change_20": 6.0843860569764345
+  },
+  {
+    "date": "2026-01-08",
+    "code": "3211",
+    "name": "順達",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 15.284326926142597,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 15.284326926142597,
+    "three_inst_ratio_change_20": 5.701373903610643
   }
 ]

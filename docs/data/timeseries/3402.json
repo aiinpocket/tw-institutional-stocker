@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.0556622651404236,
     "three_inst_ratio_change_20": -0.004168509526625425
+  },
+  {
+    "date": "2025-12-15",
+    "code": "3402",
+    "name": "漢科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0556622651404236,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0556622651404236,
+    "three_inst_ratio_change_20": -0.004168509526625425
+  },
+  {
+    "date": "2025-12-16",
+    "code": "3402",
+    "name": "漢科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.05271213770860824,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.05271213770860824,
+    "three_inst_ratio_change_20": -0.007118636958440783
+  },
+  {
+    "date": "2025-12-17",
+    "code": "3402",
+    "name": "漢科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.05271213770860824,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.05271213770860824,
+    "three_inst_ratio_change_20": -0.005035066679451
+  },
+  {
+    "date": "2025-12-18",
+    "code": "3402",
+    "name": "漢科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.05271213770860824,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.05271213770860824,
+    "three_inst_ratio_change_20": -0.005035066679451
+  },
+  {
+    "date": "2025-12-19",
+    "code": "3402",
+    "name": "漢科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.05271213770860824,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.05271213770860824,
+    "three_inst_ratio_change_20": -0.005035066679451
+  },
+  {
+    "date": "2025-12-22",
+    "code": "3402",
+    "name": "漢科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.05271213770860824,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.05271213770860824,
+    "three_inst_ratio_change_20": -0.005035066679451
+  },
+  {
+    "date": "2025-12-23",
+    "code": "3402",
+    "name": "漢科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.05271213770860824,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.05271213770860824,
+    "three_inst_ratio_change_20": -0.005035066679451
+  },
+  {
+    "date": "2025-12-24",
+    "code": "3402",
+    "name": "漢科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.05271213770860824,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.05271213770860824,
+    "three_inst_ratio_change_20": -0.005035066679451
+  },
+  {
+    "date": "2025-12-26",
+    "code": "3402",
+    "name": "漢科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.05271213770860824,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.05271213770860824,
+    "three_inst_ratio_change_20": -0.005035066679451
+  },
+  {
+    "date": "2025-12-29",
+    "code": "3402",
+    "name": "漢科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.018474231875799718,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.018474231875799718,
+    "three_inst_ratio_change_20": -0.07622143626385897
+  },
+  {
+    "date": "2025-12-30",
+    "code": "3402",
+    "name": "漢科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.08555369552264568,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.08555369552264568,
+    "three_inst_ratio_change_20": -0.1433008999107049
+  },
+  {
+    "date": "2025-12-31",
+    "code": "3402",
+    "name": "漢科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.15615277755798226,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.15615277755798226,
+    "three_inst_ratio_change_20": -0.2138999819460415
+  },
+  {
+    "date": "2026-01-02",
+    "code": "3402",
+    "name": "漢科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.15615277755798226,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.15615277755798226,
+    "three_inst_ratio_change_20": -0.2138999819460415
+  },
+  {
+    "date": "2026-01-05",
+    "code": "3402",
+    "name": "漢科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.15615277755798226,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.15615277755798226,
+    "three_inst_ratio_change_20": -0.2138999819460415
+  },
+  {
+    "date": "2026-01-06",
+    "code": "3402",
+    "name": "漢科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.15615277755798226,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.15615277755798226,
+    "three_inst_ratio_change_20": -0.2138999819460415
+  },
+  {
+    "date": "2026-01-07",
+    "code": "3402",
+    "name": "漢科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.15615277755798226,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.15615277755798226,
+    "three_inst_ratio_change_20": -0.2138999819460415
+  },
+  {
+    "date": "2026-01-08",
+    "code": "3402",
+    "name": "漢科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.15615277755798226,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.15615277755798226,
+    "three_inst_ratio_change_20": -0.2138999819460415
   }
 ]

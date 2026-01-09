@@ -1,9 +1,14 @@
-name: Update TW Institutional Data
+name: Update TW Institutional Data (DISABLED)
+
+# DISABLED: This workflow is no longer needed.
+# The main system now runs on GCP Cloud Run with PostgreSQL.
+# ETL is handled by Cloud Scheduler triggering tw-stocker-etl job.
+# Keeping this file for reference only.
 
 on:
-  schedule:
-    - cron: "10 0 * * *"  # 00:10 UTC ~ 08:10 Taipei
-  workflow_dispatch: {}
+  workflow_dispatch: {}  # Manual trigger only, schedule disabled
+  # schedule:
+  #   - cron: "10 0 * * *"  # 00:10 UTC ~ 08:10 Taipei (DISABLED)
 
 permissions:
   contents: write

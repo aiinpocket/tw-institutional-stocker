@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.197217218590201,
     "three_inst_ratio_change_20": 3.1962332371541478
+  },
+  {
+    "date": "2025-12-15",
+    "code": "6188",
+    "name": "廣明",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.2352975516393565,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.2352975516393565,
+    "three_inst_ratio_change_20": 3.2343135702033035
+  },
+  {
+    "date": "2025-12-16",
+    "code": "6188",
+    "name": "廣明",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.266552164613664,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.266552164613664,
+    "three_inst_ratio_change_20": 2.8466845196368964
+  },
+  {
+    "date": "2025-12-17",
+    "code": "6188",
+    "name": "廣明",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.296729032312995,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.296729032312995,
+    "three_inst_ratio_change_20": 2.4543852395455925
+  },
+  {
+    "date": "2025-12-18",
+    "code": "6188",
+    "name": "廣明",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.3330131232371905,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.3330131232371905,
+    "three_inst_ratio_change_20": 2.0908258334536516
+  },
+  {
+    "date": "2025-12-19",
+    "code": "6188",
+    "name": "廣明",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.4152810125603663,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.4152810125603663,
+    "three_inst_ratio_change_20": 1.9963434976807457
+  },
+  {
+    "date": "2025-12-22",
+    "code": "6188",
+    "name": "廣明",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.4152810125603663,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.4152810125603663,
+    "three_inst_ratio_change_20": 1.7754057163106434
+  },
+  {
+    "date": "2025-12-23",
+    "code": "6188",
+    "name": "廣明",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.4152810125603663,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.4152810125603663,
+    "three_inst_ratio_change_20": 1.5537494380905568
+  },
+  {
+    "date": "2025-12-24",
+    "code": "6188",
+    "name": "廣明",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.4152810125603663,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.4152810125603663,
+    "three_inst_ratio_change_20": 1.3831064362193395
+  },
+  {
+    "date": "2025-12-26",
+    "code": "6188",
+    "name": "廣明",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.7368083529282394,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.7368083529282394,
+    "three_inst_ratio_change_20": 1.3543665622199774
+  },
+  {
+    "date": "2025-12-29",
+    "code": "6188",
+    "name": "廣明",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.2979543927658,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.2979543927658,
+    "three_inst_ratio_change_20": 1.7854646722104208
+  },
+  {
+    "date": "2025-12-30",
+    "code": "6188",
+    "name": "廣明",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.856226445203425,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.856226445203425,
+    "three_inst_ratio_change_20": 2.25284687312506
+  },
+  {
+    "date": "2025-12-31",
+    "code": "6188",
+    "name": "廣明",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.414139249216057,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.414139249216057,
+    "three_inst_ratio_change_20": 2.7331620173394127
+  },
+  {
+    "date": "2026-01-02",
+    "code": "6188",
+    "name": "廣明",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.945826918204271,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.945826918204271,
+    "three_inst_ratio_change_20": 3.1944369950291875
+  },
+  {
+    "date": "2026-01-05",
+    "code": "6188",
+    "name": "廣明",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 6.482184816717382,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 6.482184816717382,
+    "three_inst_ratio_change_20": 3.667926419168692
+  },
+  {
+    "date": "2026-01-06",
+    "code": "6188",
+    "name": "廣明",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 7.005969020355771,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 7.005969020355771,
+    "three_inst_ratio_change_20": 4.191710622807081
+  },
+  {
+    "date": "2026-01-07",
+    "code": "6188",
+    "name": "廣明",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 7.526879236594223,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 7.526879236594223,
+    "three_inst_ratio_change_20": 4.712620839045534
+  },
+  {
+    "date": "2026-01-08",
+    "code": "6188",
+    "name": "廣明",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 7.526879236594223,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 7.526879236594223,
+    "three_inst_ratio_change_20": 4.712620839045534
   }
 ]

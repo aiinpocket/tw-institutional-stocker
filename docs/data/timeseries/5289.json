@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 3.9208449024992995,
     "three_inst_ratio_change_20": -2.856423423217206
+  },
+  {
+    "date": "2025-12-15",
+    "code": "5289",
+    "name": "宜鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.9208449024992995,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.9208449024992995,
+    "three_inst_ratio_change_20": -2.829687518971441
+  },
+  {
+    "date": "2025-12-16",
+    "code": "5289",
+    "name": "宜鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.9155622386184135,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.9155622386184135,
+    "three_inst_ratio_change_20": -2.916247331759454
+  },
+  {
+    "date": "2025-12-17",
+    "code": "5289",
+    "name": "宜鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.9155622386184135,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.9155622386184135,
+    "three_inst_ratio_change_20": -2.970788576420815
+  },
+  {
+    "date": "2025-12-18",
+    "code": "5289",
+    "name": "宜鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.9155622386184135,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.9155622386184135,
+    "three_inst_ratio_change_20": -3.1084250114780145
+  },
+  {
+    "date": "2025-12-19",
+    "code": "5289",
+    "name": "宜鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.9134491730660597,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.9134491730660597,
+    "three_inst_ratio_change_20": -2.7358789455173196
+  },
+  {
+    "date": "2025-12-22",
+    "code": "5289",
+    "name": "宜鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.8162481576577654,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.8162481576577654,
+    "three_inst_ratio_change_20": -2.100902747034874
+  },
+  {
+    "date": "2025-12-23",
+    "code": "5289",
+    "name": "宜鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.8627355998095583,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.8627355998095583,
+    "three_inst_ratio_change_20": -2.0850547553922185
+  },
+  {
+    "date": "2025-12-24",
+    "code": "5289",
+    "name": "宜鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.8849227881092774,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.8849227881092774,
+    "three_inst_ratio_change_20": -1.8283172907811802
+  },
+  {
+    "date": "2025-12-26",
+    "code": "5289",
+    "name": "宜鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.9049969108566422,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.9049969108566422,
+    "three_inst_ratio_change_20": -1.7928199025671816
+  },
+  {
+    "date": "2025-12-29",
+    "code": "5289",
+    "name": "宜鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.8954881158710486,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.8954881158710486,
+    "three_inst_ratio_change_20": -1.990391531712301
+  },
+  {
+    "date": "2025-12-30",
+    "code": "5289",
+    "name": "宜鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.911336107513705,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.911336107513705,
+    "three_inst_ratio_change_20": -1.934395294574914
+  },
+  {
+    "date": "2025-12-31",
+    "code": "5289",
+    "name": "宜鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.912392640289882,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.912392640289882,
+    "three_inst_ratio_change_20": -1.4283160947860774
+  },
+  {
+    "date": "2026-01-02",
+    "code": "5289",
+    "name": "宜鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.065589892835564,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.065589892835564,
+    "three_inst_ratio_change_20": -0.6443687748626594
+  },
+  {
+    "date": "2026-01-05",
+    "code": "5289",
+    "name": "宜鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.320214291894247,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.320214291894247,
+    "three_inst_ratio_change_20": 0.11739135676103896
+  },
+  {
+    "date": "2026-01-06",
+    "code": "5289",
+    "name": "宜鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.617733921665723,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.617733921665723,
+    "three_inst_ratio_change_20": 0.5679920204728157
+  },
+  {
+    "date": "2026-01-07",
+    "code": "5289",
+    "name": "宜鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.485667324643583,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.485667324643583,
+    "three_inst_ratio_change_20": 0.47713020172158416
+  },
+  {
+    "date": "2026-01-08",
+    "code": "5289",
+    "name": "宜鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.597659798918357,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.597659798918357,
+    "three_inst_ratio_change_20": 0.6366666509243277
   }
 ]

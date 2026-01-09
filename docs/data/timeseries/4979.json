@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 7.9573873844206275,
     "three_inst_ratio_change_20": 1.5016707564908813
+  },
+  {
+    "date": "2025-12-15",
+    "code": "4979",
+    "name": "華星光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 7.546992009942871,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 7.546992009942871,
+    "three_inst_ratio_change_20": 0.5268042354563498
+  },
+  {
+    "date": "2025-12-16",
+    "code": "4979",
+    "name": "華星光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.815947160502095,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.815947160502095,
+    "three_inst_ratio_change_20": -1.2042406139844264
+  },
+  {
+    "date": "2025-12-17",
+    "code": "4979",
+    "name": "華星光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.767665351740006,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.767665351740006,
+    "three_inst_ratio_change_20": -1.252522422746515
+  },
+  {
+    "date": "2025-12-18",
+    "code": "4979",
+    "name": "華星光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.767665351740006,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.767665351740006,
+    "three_inst_ratio_change_20": -1.2590901687913574
+  },
+  {
+    "date": "2025-12-19",
+    "code": "4979",
+    "name": "華星光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.716543436580148,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.716543436580148,
+    "three_inst_ratio_change_20": -1.3102120839512157
+  },
+  {
+    "date": "2025-12-22",
+    "code": "4979",
+    "name": "華星光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 6.219952295584869,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 6.219952295584869,
+    "three_inst_ratio_change_20": -0.8068032249464947
+  },
+  {
+    "date": "2025-12-23",
+    "code": "4979",
+    "name": "華星光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 6.945599480215088,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 6.945599480215088,
+    "three_inst_ratio_change_20": 0.018957710205115497
+  },
+  {
+    "date": "2025-12-24",
+    "code": "4979",
+    "name": "華星光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 8.041880549754284,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 8.041880549754284,
+    "three_inst_ratio_change_20": 1.1407997373242402
+  },
+  {
+    "date": "2025-12-26",
+    "code": "4979",
+    "name": "華星光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 8.199506454830514,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 8.199506454830514,
+    "three_inst_ratio_change_20": 0.6785724210871811
+  },
+  {
+    "date": "2025-12-29",
+    "code": "4979",
+    "name": "華星光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 8.32944132252849,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 8.32944132252849,
+    "three_inst_ratio_change_20": 0.8582091507461316
+  },
+  {
+    "date": "2025-12-30",
+    "code": "4979",
+    "name": "華星光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 8.494877520198587,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 8.494877520198587,
+    "three_inst_ratio_change_20": 0.6785724210871811
+  },
+  {
+    "date": "2025-12-31",
+    "code": "4979",
+    "name": "華星光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 9.30430784356302,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.30430784356302,
+    "three_inst_ratio_change_20": 1.4745122390622063
+  },
+  {
+    "date": "2026-01-02",
+    "code": "4979",
+    "name": "華星光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 9.77008529279729,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.77008529279729,
+    "three_inst_ratio_change_20": 1.937449581898707
+  },
+  {
+    "date": "2026-01-05",
+    "code": "4979",
+    "name": "華星光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 9.81623702176105,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.81623702176105,
+    "three_inst_ratio_change_20": 1.7720133842286074
+  },
+  {
+    "date": "2026-01-06",
+    "code": "4979",
+    "name": "華星光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 9.702385676593648,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.702385676593648,
+    "three_inst_ratio_change_20": 1.6936633690333291
+  },
+  {
+    "date": "2026-01-07",
+    "code": "4979",
+    "name": "華星光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 9.421925169813866,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.421925169813866,
+    "three_inst_ratio_change_20": 0.9090839766493826
+  },
+  {
+    "date": "2026-01-08",
+    "code": "4979",
+    "name": "華星光",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 9.432575568805504,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 9.432575568805504,
+    "three_inst_ratio_change_20": 0.8998536308566312
   }
 ]

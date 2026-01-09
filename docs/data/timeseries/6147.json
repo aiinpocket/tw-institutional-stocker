@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": -0.4907975705655432,
     "three_inst_ratio_change_20": -2.3662445451329654
+  },
+  {
+    "date": "2025-12-15",
+    "code": "6147",
+    "name": "頎邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.4916033793304242,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.4916033793304242,
+    "three_inst_ratio_change_20": -2.3655730378288977
+  },
+  {
+    "date": "2025-12-16",
+    "code": "6147",
+    "name": "頎邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.42254153913629383,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.42254153913629383,
+    "three_inst_ratio_change_20": -1.9844010491742932
+  },
+  {
+    "date": "2025-12-17",
+    "code": "6147",
+    "name": "頎邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.5882870009700688,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.5882870009700688,
+    "three_inst_ratio_change_20": -1.8147633967046817
+  },
+  {
+    "date": "2025-12-18",
+    "code": "6147",
+    "name": "頎邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.5886184569753565,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.5886184569753565,
+    "three_inst_ratio_change_20": -1.519971690219031
+  },
+  {
+    "date": "2025-12-19",
+    "code": "6147",
+    "name": "頎邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.5904986774267457,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.5904986774267457,
+    "three_inst_ratio_change_20": -1.2306863436267341
+  },
+  {
+    "date": "2025-12-22",
+    "code": "6147",
+    "name": "頎邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.5926119109126463,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.5926119109126463,
+    "three_inst_ratio_change_20": -0.8499061123333224
+  },
+  {
+    "date": "2025-12-23",
+    "code": "6147",
+    "name": "頎邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.5918240985435143,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.5918240985435143,
+    "three_inst_ratio_change_20": -0.5921367523442881
+  },
+  {
+    "date": "2025-12-24",
+    "code": "6147",
+    "name": "頎邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.6149780732921455,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.6149780732921455,
+    "three_inst_ratio_change_20": -0.35170047318930603
+  },
+  {
+    "date": "2025-12-26",
+    "code": "6147",
+    "name": "頎邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.8476063341183517,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.8476063341183517,
+    "three_inst_ratio_change_20": -0.3207036960335482
+  },
+  {
+    "date": "2025-12-29",
+    "code": "6147",
+    "name": "頎邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -1.0842455080717535,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -1.0842455080717535,
+    "three_inst_ratio_change_20": -0.5556964683788372
+  },
+  {
+    "date": "2025-12-30",
+    "code": "6147",
+    "name": "頎邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -1.318198652808885,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -1.318198652808885,
+    "three_inst_ratio_change_20": -0.8342376981060534
+  },
+  {
+    "date": "2025-12-31",
+    "code": "6147",
+    "name": "頎邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -1.5490773685050738,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -1.5490773685050738,
+    "three_inst_ratio_change_20": -1.100169095074568
+  },
+  {
+    "date": "2026-01-02",
+    "code": "6147",
+    "name": "頎邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -1.7831132429420666,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -1.7831132429420666,
+    "three_inst_ratio_change_20": -1.3330329206630414
+  },
+  {
+    "date": "2026-01-05",
+    "code": "6147",
+    "name": "頎邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -2.0183478922182805,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -2.0183478922182805,
+    "three_inst_ratio_change_20": -1.5657072468903064
+  },
+  {
+    "date": "2026-01-06",
+    "code": "6147",
+    "name": "頎邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -2.2712309621585365,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -2.2712309621585365,
+    "three_inst_ratio_change_20": -1.8177497239873306
+  },
+  {
+    "date": "2026-01-07",
+    "code": "6147",
+    "name": "頎邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -2.5019628863580565,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -2.5019628863580565,
+    "three_inst_ratio_change_20": -2.0444351451725398
+  },
+  {
+    "date": "2026-01-08",
+    "code": "6147",
+    "name": "頎邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -2.4520666704307787,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -2.4520666704307787,
+    "three_inst_ratio_change_20": -1.9873712602816451
   }
 ]

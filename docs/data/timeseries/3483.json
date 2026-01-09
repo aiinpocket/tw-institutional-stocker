@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.5169650086320183,
     "three_inst_ratio_change_20": 0.09591187544193291
+  },
+  {
+    "date": "2025-12-15",
+    "code": "3483",
+    "name": "力致",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.5169650086320183,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.5169650086320183,
+    "three_inst_ratio_change_20": 0.09591187544193291
+  },
+  {
+    "date": "2025-12-16",
+    "code": "3483",
+    "name": "力致",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.5169650086320183,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.5169650086320183,
+    "three_inst_ratio_change_20": 0.09591187544193291
+  },
+  {
+    "date": "2025-12-17",
+    "code": "3483",
+    "name": "力致",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.5169650086320183,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.5169650086320183,
+    "three_inst_ratio_change_20": 0.09591187544193291
+  },
+  {
+    "date": "2025-12-18",
+    "code": "3483",
+    "name": "力致",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.5169650086320183,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.5169650086320183,
+    "three_inst_ratio_change_20": 0.09591187544193291
+  },
+  {
+    "date": "2025-12-19",
+    "code": "3483",
+    "name": "力致",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.5169650086320183,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.5169650086320183,
+    "three_inst_ratio_change_20": 0.09591187544193291
+  },
+  {
+    "date": "2025-12-22",
+    "code": "3483",
+    "name": "力致",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.5169650086320183,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.5169650086320183,
+    "three_inst_ratio_change_20": 0.09591187544193291
+  },
+  {
+    "date": "2025-12-23",
+    "code": "3483",
+    "name": "力致",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.5169650086320183,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.5169650086320183,
+    "three_inst_ratio_change_20": 0.09591187544193291
+  },
+  {
+    "date": "2025-12-24",
+    "code": "3483",
+    "name": "力致",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.5169650086320183,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.5169650086320183,
+    "three_inst_ratio_change_20": 0.09591187544193291
+  },
+  {
+    "date": "2025-12-26",
+    "code": "3483",
+    "name": "力致",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.5169650086320183,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.5169650086320183,
+    "three_inst_ratio_change_20": 0.09591187544193291
+  },
+  {
+    "date": "2025-12-29",
+    "code": "3483",
+    "name": "力致",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.5694641404528659,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.5694641404528659,
+    "three_inst_ratio_change_20": 0.14841100726278045
+  },
+  {
+    "date": "2025-12-30",
+    "code": "3483",
+    "name": "力致",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.6209536735848508,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.6209536735848508,
+    "three_inst_ratio_change_20": 0.19990054039476535
+  },
+  {
+    "date": "2025-12-31",
+    "code": "3483",
+    "name": "力致",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.6700221890609437,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.6700221890609437,
+    "three_inst_ratio_change_20": 0.24896905587085827
+  },
+  {
+    "date": "2026-01-02",
+    "code": "3483",
+    "name": "力致",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.6734659301886535,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.6734659301886535,
+    "three_inst_ratio_change_20": 0.2524127969985681
+  },
+  {
+    "date": "2026-01-05",
+    "code": "3483",
+    "name": "力致",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.6734659301886535,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.6734659301886535,
+    "three_inst_ratio_change_20": 0.23121122453245657
+  },
+  {
+    "date": "2026-01-06",
+    "code": "3483",
+    "name": "力致",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.671906100214361,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.671906100214361,
+    "three_inst_ratio_change_20": 0.21046901946977759
+  },
+  {
+    "date": "2026-01-07",
+    "code": "3483",
+    "name": "力致",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.671906100214361,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.671906100214361,
+    "three_inst_ratio_change_20": 0.1922962430702534
+  },
+  {
+    "date": "2026-01-08",
+    "code": "3483",
+    "name": "力致",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.6638293107034614,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.6638293107034614,
+    "three_inst_ratio_change_20": 0.16503707847096727
   }
 ]

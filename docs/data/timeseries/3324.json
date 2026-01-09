@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 4.120362520509385,
     "three_inst_ratio_change_20": -1.9683038358530487
+  },
+  {
+    "date": "2025-12-15",
+    "code": "3324",
+    "name": "雙鴻",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.038640428121775,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.038640428121775,
+    "three_inst_ratio_change_20": -2.1208517416432535
+  },
+  {
+    "date": "2025-12-16",
+    "code": "3324",
+    "name": "雙鴻",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.021206381745752,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.021206381745752,
+    "three_inst_ratio_change_20": -1.7264064423857226
+  },
+  {
+    "date": "2025-12-17",
+    "code": "3324",
+    "name": "雙鴻",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.021206381745752,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.021206381745752,
+    "three_inst_ratio_change_20": -1.0966015170518757
+  },
+  {
+    "date": "2025-12-18",
+    "code": "3324",
+    "name": "雙鴻",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.054984846599297,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.054984846599297,
+    "three_inst_ratio_change_20": -0.923023792820592
+  },
+  {
+    "date": "2025-12-19",
+    "code": "3324",
+    "name": "雙鴻",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.284896333183107,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.284896333183107,
+    "three_inst_ratio_change_20": -0.5525503073300939
+  },
+  {
+    "date": "2025-12-22",
+    "code": "3324",
+    "name": "雙鴻",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.575826982082997,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.575826982082997,
+    "three_inst_ratio_change_20": -0.23764784466317046
+  },
+  {
+    "date": "2025-12-23",
+    "code": "3324",
+    "name": "雙鴻",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.611784702733546,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.611784702733546,
+    "three_inst_ratio_change_20": 0.3322275462530966
+  },
+  {
+    "date": "2025-12-24",
+    "code": "3324",
+    "name": "雙鴻",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.810096980260814,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.810096980260814,
+    "three_inst_ratio_change_20": 0.5817523350099334
+  },
+  {
+    "date": "2025-12-26",
+    "code": "3324",
+    "name": "雙鴻",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.929956049095974,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.929956049095974,
+    "three_inst_ratio_change_20": 0.5501531259533898
+  },
+  {
+    "date": "2025-12-29",
+    "code": "3324",
+    "name": "雙鴻",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.998057792752316,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.998057792752316,
+    "three_inst_ratio_change_20": 0.8601522630770582
+  },
+  {
+    "date": "2025-12-30",
+    "code": "3324",
+    "name": "雙鴻",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.0263881181133545,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.0263881181133545,
+    "three_inst_ratio_change_20": 0.8873929605395947
+  },
+  {
+    "date": "2025-12-31",
+    "code": "3324",
+    "name": "雙鴻",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.232327790930132,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.232327790930132,
+    "three_inst_ratio_change_20": 1.0922430054578705
+  },
+  {
+    "date": "2026-01-02",
+    "code": "3324",
+    "name": "雙鴻",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.2900780695507095,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.2900780695507095,
+    "three_inst_ratio_change_20": 1.1499932840784481
+  },
+  {
+    "date": "2026-01-05",
+    "code": "3324",
+    "name": "雙鴻",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.300974348535724,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.300974348535724,
+    "three_inst_ratio_change_20": 1.1489036561799466
+  },
+  {
+    "date": "2026-01-06",
+    "code": "3324",
+    "name": "雙鴻",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.851668463844441,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.851668463844441,
+    "three_inst_ratio_change_20": 0.7170318178646866
+  },
+  {
+    "date": "2026-01-07",
+    "code": "3324",
+    "name": "雙鴻",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.7252716276182705,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.7252716276182705,
+    "three_inst_ratio_change_20": 0.6843429809096424
+  },
+  {
+    "date": "2026-01-08",
+    "code": "3324",
+    "name": "雙鴻",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.7252716276182705,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.7252716276182705,
+    "three_inst_ratio_change_20": 0.6930600040976538
   }
 ]

@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.1273526201443997,
     "three_inst_ratio_change_20": -0.00806647130541549
+  },
+  {
+    "date": "2025-12-15",
+    "code": "3680",
+    "name": "家登",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.1273526201443997,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.1273526201443997,
+    "three_inst_ratio_change_20": -0.00806647130541549
+  },
+  {
+    "date": "2025-12-16",
+    "code": "3680",
+    "name": "家登",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.1273526201443997,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.1273526201443997,
+    "three_inst_ratio_change_20": -0.0011536917782883904
+  },
+  {
+    "date": "2025-12-17",
+    "code": "3680",
+    "name": "家登",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.1273526201443997,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.1273526201443997,
+    "three_inst_ratio_change_20": -0.0011536917782883904
+  },
+  {
+    "date": "2025-12-18",
+    "code": "3680",
+    "name": "家登",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.1273526201443997,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.1273526201443997,
+    "three_inst_ratio_change_20": -0.0006747222674468034
+  },
+  {
+    "date": "2025-12-19",
+    "code": "3680",
+    "name": "家登",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.1263113820773523,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.1263113820773523,
+    "three_inst_ratio_change_20": -0.001715960334494282
+  },
+  {
+    "date": "2025-12-22",
+    "code": "3680",
+    "name": "家登",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.1263113820773523,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.1263113820773523,
+    "three_inst_ratio_change_20": -0.001715960334494282
+  },
+  {
+    "date": "2025-12-23",
+    "code": "3680",
+    "name": "家登",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.1263113820773523,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.1263113820773523,
+    "three_inst_ratio_change_20": -0.001715960334494282
+  },
+  {
+    "date": "2025-12-24",
+    "code": "3680",
+    "name": "家登",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.1252701440103052,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.1252701440103052,
+    "three_inst_ratio_change_20": -0.0027571984015413165
+  },
+  {
+    "date": "2025-12-26",
+    "code": "3680",
+    "name": "家登",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.4626312777336363,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.4626312777336363,
+    "three_inst_ratio_change_20": 0.3346039353217898
+  },
+  {
+    "date": "2025-12-29",
+    "code": "3680",
+    "name": "家登",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.026982310073283,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.026982310073283,
+    "three_inst_ratio_change_20": 0.8989549676614363
+  },
+  {
+    "date": "2025-12-30",
+    "code": "3680",
+    "name": "家登",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.584044675943598,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.584044675943598,
+    "three_inst_ratio_change_20": 1.4551843430781137
+  },
+  {
+    "date": "2025-12-31",
+    "code": "3680",
+    "name": "家登",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.140065803746866,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.140065803746866,
+    "three_inst_ratio_change_20": 2.0112054708813814
+  },
+  {
+    "date": "2026-01-02",
+    "code": "3680",
+    "name": "家登",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 3.6815095986114716,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 3.6815095986114716,
+    "three_inst_ratio_change_20": 2.5526492657459876
+  },
+  {
+    "date": "2026-01-05",
+    "code": "3680",
+    "name": "家登",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 4.782098235480487,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 4.782098235480487,
+    "three_inst_ratio_change_20": 3.653237902615003
+  },
+  {
+    "date": "2026-01-06",
+    "code": "3680",
+    "name": "家登",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 5.987851917121281,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 5.987851917121281,
+    "three_inst_ratio_change_20": 4.858991584255797
+  },
+  {
+    "date": "2026-01-07",
+    "code": "3680",
+    "name": "家登",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 6.584481329539395,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 6.584481329539395,
+    "three_inst_ratio_change_20": 5.455620996673911
+  },
+  {
+    "date": "2026-01-08",
+    "code": "3680",
+    "name": "家登",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 6.584481329539395,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 6.584481329539395,
+    "three_inst_ratio_change_20": 5.455620996673911
   }
 ]

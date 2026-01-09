@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": -0.039187512523482994,
     "three_inst_ratio_change_20": -0.9920169936284935
+  },
+  {
+    "date": "2025-12-15",
+    "code": "8436",
+    "name": "大江",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.039187512523482994,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.039187512523482994,
+    "three_inst_ratio_change_20": -0.9911675840148925
+  },
+  {
+    "date": "2025-12-16",
+    "code": "8436",
+    "name": "大江",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.04112756408094772,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.04112756408094772,
+    "three_inst_ratio_change_20": -0.8875090324094786
+  },
+  {
+    "date": "2025-12-17",
+    "code": "8436",
+    "name": "大江",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.04201859476561518,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.04201859476561518,
+    "three_inst_ratio_change_20": -0.6794452981482956
+  },
+  {
+    "date": "2025-12-18",
+    "code": "8436",
+    "name": "大江",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.04306846504802604,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.04306846504802604,
+    "three_inst_ratio_change_20": -0.4450082447944144
+  },
+  {
+    "date": "2025-12-19",
+    "code": "8436",
+    "name": "大江",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.04306846504802604,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.04306846504802604,
+    "three_inst_ratio_change_20": -0.28107218936941786
+  },
+  {
+    "date": "2025-12-22",
+    "code": "8436",
+    "name": "大江",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.04590209551899904,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.04590209551899904,
+    "three_inst_ratio_change_20": -0.28390581984039087
+  },
+  {
+    "date": "2025-12-23",
+    "code": "8436",
+    "name": "大江",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.046793975613280116,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.046793975613280116,
+    "three_inst_ratio_change_20": -0.21579506056417955
+  },
+  {
+    "date": "2025-12-24",
+    "code": "8436",
+    "name": "大江",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.04947046530573693,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.04947046530573693,
+    "three_inst_ratio_change_20": -0.14590563755708774
+  },
+  {
+    "date": "2025-12-26",
+    "code": "8436",
+    "name": "大江",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.052061164627220026,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.052061164627220026,
+    "three_inst_ratio_change_20": -0.10477552524729924
+  },
+  {
+    "date": "2025-12-29",
+    "code": "8436",
+    "name": "大江",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.052061164627220026,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.052061164627220026,
+    "three_inst_ratio_change_20": -0.10299431328757791
+  },
+  {
+    "date": "2025-12-30",
+    "code": "8436",
+    "name": "大江",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.052061164627220026,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.052061164627220026,
+    "three_inst_ratio_change_20": -0.04778268840351169
+  },
+  {
+    "date": "2025-12-31",
+    "code": "8436",
+    "name": "大江",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.01137529354534484,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.01137529354534484,
+    "three_inst_ratio_change_20": 0.003096098041575712
+  },
+  {
+    "date": "2026-01-02",
+    "code": "8436",
+    "name": "大江",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0426998212757232,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0426998212757232,
+    "three_inst_ratio_change_20": 0.06000229510477595
+  },
+  {
+    "date": "2026-01-05",
+    "code": "8436",
+    "name": "大江",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.14058493573749098,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.14058493573749098,
+    "three_inst_ratio_change_20": 0.16257615063362135
+  },
+  {
+    "date": "2026-01-06",
+    "code": "8436",
+    "name": "大江",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.21786422238291164,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.21786422238291164,
+    "three_inst_ratio_change_20": 0.24163664923876335
+  },
+  {
+    "date": "2026-01-07",
+    "code": "8436",
+    "name": "大江",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.3355635149011504,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.3355635149011504,
+    "three_inst_ratio_change_20": 0.36022697244166957
+  },
+  {
+    "date": "2026-01-08",
+    "code": "8436",
+    "name": "大江",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.3978473242280587,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.3978473242280587,
+    "three_inst_ratio_change_20": 0.4264418494603234
   }
 ]

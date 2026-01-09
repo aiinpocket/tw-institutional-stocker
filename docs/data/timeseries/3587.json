@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.408151652682259,
     "three_inst_ratio_change_20": -0.044750582182698784
+  },
+  {
+    "date": "2025-12-15",
+    "code": "3587",
+    "name": "閎康",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.408151652682259,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.408151652682259,
+    "three_inst_ratio_change_20": -0.044750582182698784
+  },
+  {
+    "date": "2025-12-16",
+    "code": "3587",
+    "name": "閎康",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.408151652682259,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.408151652682259,
+    "three_inst_ratio_change_20": -0.044750582182698784
+  },
+  {
+    "date": "2025-12-17",
+    "code": "3587",
+    "name": "閎康",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.408151652682259,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.408151652682259,
+    "three_inst_ratio_change_20": -0.044750582182698784
+  },
+  {
+    "date": "2025-12-18",
+    "code": "3587",
+    "name": "閎康",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.408151652682259,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.408151652682259,
+    "three_inst_ratio_change_20": -0.044750582182698784
+  },
+  {
+    "date": "2025-12-19",
+    "code": "3587",
+    "name": "閎康",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.408151652682259,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.408151652682259,
+    "three_inst_ratio_change_20": -0.044750582182698784
+  },
+  {
+    "date": "2025-12-22",
+    "code": "3587",
+    "name": "閎康",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.2291493239514633,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.2291493239514633,
+    "three_inst_ratio_change_20": -0.22375291091349458
+  },
+  {
+    "date": "2025-12-23",
+    "code": "3587",
+    "name": "閎康",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.0262800180565614,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.0262800180565614,
+    "three_inst_ratio_change_20": -0.4266222168083964
+  },
+  {
+    "date": "2025-12-24",
+    "code": "3587",
+    "name": "閎康",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.7473347224510717,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.7473347224510717,
+    "three_inst_ratio_change_20": -0.7055675124138862
+  },
+  {
+    "date": "2025-12-26",
+    "code": "3587",
+    "name": "閎康",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.34905454102505146,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.34905454102505146,
+    "three_inst_ratio_change_20": -1.1038476938399064
+  },
+  {
+    "date": "2025-12-29",
+    "code": "3587",
+    "name": "閎康",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.34905454102505146,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.34905454102505146,
+    "three_inst_ratio_change_20": -1.1038476938399064
+  },
+  {
+    "date": "2025-12-30",
+    "code": "3587",
+    "name": "閎康",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.2356863994955476,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.2356863994955476,
+    "three_inst_ratio_change_20": -1.2172158353694102
+  },
+  {
+    "date": "2025-12-31",
+    "code": "3587",
+    "name": "閎康",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.09546790865642434,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.09546790865642434,
+    "three_inst_ratio_change_20": -1.3574343262085335
+  },
+  {
+    "date": "2026-01-02",
+    "code": "3587",
+    "name": "閎康",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.09546790865642434,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.09546790865642434,
+    "three_inst_ratio_change_20": -1.3574343262085335
+  },
+  {
+    "date": "2026-01-05",
+    "code": "3587",
+    "name": "閎康",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.06563418720129173,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.06563418720129173,
+    "three_inst_ratio_change_20": -1.387268047663666
+  },
+  {
+    "date": "2026-01-06",
+    "code": "3587",
+    "name": "閎康",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.06563418720129173,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.06563418720129173,
+    "three_inst_ratio_change_20": -1.387268047663666
+  },
+  {
+    "date": "2026-01-07",
+    "code": "3587",
+    "name": "閎康",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.06563418720129173,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.06563418720129173,
+    "three_inst_ratio_change_20": -1.387268047663666
+  },
+  {
+    "date": "2026-01-08",
+    "code": "3587",
+    "name": "閎康",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.06563418720129173,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.06563418720129173,
+    "three_inst_ratio_change_20": -1.3425174654809673
   }
 ]

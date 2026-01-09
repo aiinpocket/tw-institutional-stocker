@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.36387190574472134,
     "three_inst_ratio_change_20": -0.8800408345095969
+  },
+  {
+    "date": "2025-12-15",
+    "code": "1815",
+    "name": "富喬",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.36387190574472134,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.36387190574472134,
+    "three_inst_ratio_change_20": -0.8800408345095969
+  },
+  {
+    "date": "2025-12-16",
+    "code": "1815",
+    "name": "富喬",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.36905991939794386,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.36905991939794386,
+    "three_inst_ratio_change_20": -0.8748528208563744
+  },
+  {
+    "date": "2025-12-17",
+    "code": "1815",
+    "name": "富喬",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.36905991939794386,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.36905991939794386,
+    "three_inst_ratio_change_20": -0.866974726049629
+  },
+  {
+    "date": "2025-12-18",
+    "code": "1815",
+    "name": "富喬",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.36905991939794386,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.36905991939794386,
+    "three_inst_ratio_change_20": -0.86639828008816
+  },
+  {
+    "date": "2025-12-19",
+    "code": "1815",
+    "name": "富喬",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.36905991939794386,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.36905991939794386,
+    "three_inst_ratio_change_20": -0.876774307394605
+  },
+  {
+    "date": "2025-12-22",
+    "code": "1815",
+    "name": "富喬",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.7735328356954769,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.7735328356954769,
+    "three_inst_ratio_change_20": -0.34125600918974763
+  },
+  {
+    "date": "2025-12-23",
+    "code": "1815",
+    "name": "富喬",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.9086133393330854,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.9086133393330854,
+    "three_inst_ratio_change_20": -0.20617550555213915
+  },
+  {
+    "date": "2025-12-24",
+    "code": "1815",
+    "name": "富喬",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.2521751323687098,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.2521751323687098,
+    "three_inst_ratio_change_20": 0.13738628748348525
+  },
+  {
+    "date": "2025-12-26",
+    "code": "1815",
+    "name": "富喬",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.4865964900328381,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.4865964900328381,
+    "three_inst_ratio_change_20": 0.37180764514761355
+  },
+  {
+    "date": "2025-12-29",
+    "code": "1815",
+    "name": "富喬",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.9700753644314575,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.9700753644314575,
+    "three_inst_ratio_change_20": 1.4966787260075942
+  },
+  {
+    "date": "2025-12-30",
+    "code": "1815",
+    "name": "富喬",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.9700753644314575,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.9700753644314575,
+    "three_inst_ratio_change_20": 1.4955258340846558
+  },
+  {
+    "date": "2025-12-31",
+    "code": "1815",
+    "name": "富喬",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.9888824400376488,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.9888824400376488,
+    "three_inst_ratio_change_20": 1.616171696217067
+  },
+  {
+    "date": "2026-01-02",
+    "code": "1815",
+    "name": "富喬",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.49241865068690777,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.49241865068690777,
+    "three_inst_ratio_change_20": 0.1381541776333392
+  },
+  {
+    "date": "2026-01-05",
+    "code": "1815",
+    "name": "富喬",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.45172697801169387,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.45172697801169387,
+    "three_inst_ratio_change_20": 0.0974625049581253
+  },
+  {
+    "date": "2026-01-06",
+    "code": "1815",
+    "name": "富喬",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.449675297036473,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.449675297036473,
+    "three_inst_ratio_change_20": 0.09541082398290446
+  },
+  {
+    "date": "2026-01-07",
+    "code": "1815",
+    "name": "富喬",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.3676080580276383,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.3676080580276383,
+    "three_inst_ratio_change_20": 0.013343584974069733
+  },
+  {
+    "date": "2026-01-08",
+    "code": "1815",
+    "name": "富喬",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.3720533668072835,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.3720533668072835,
+    "three_inst_ratio_change_20": 0.01778889375371495
   }
 ]

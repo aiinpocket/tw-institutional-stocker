@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.43002714832675304,
     "three_inst_ratio_change_20": -0.0013797662513158615
+  },
+  {
+    "date": "2025-12-15",
+    "code": "5508",
+    "name": "永信建",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.42956722624298116,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.42956722624298116,
+    "three_inst_ratio_change_20": -0.0013797662513157505
+  },
+  {
+    "date": "2025-12-16",
+    "code": "5508",
+    "name": "永信建",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.8214208416166642,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.8214208416166642,
+    "three_inst_ratio_change_20": -1.2523678341109612
+  },
+  {
+    "date": "2025-12-17",
+    "code": "5508",
+    "name": "永信建",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -2.0724089094763096,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -2.0724089094763096,
+    "three_inst_ratio_change_20": -2.5033559019706066
+  },
+  {
+    "date": "2025-12-18",
+    "code": "5508",
+    "name": "永信建",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -3.323396977335955,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -3.323396977335955,
+    "three_inst_ratio_change_20": -3.75388404774648
+  },
+  {
+    "date": "2025-12-19",
+    "code": "5508",
+    "name": "永信建",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -4.5743850451956005,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -4.5743850451956005,
+    "three_inst_ratio_change_20": -5.004872115606125
+  },
+  {
+    "date": "2025-12-22",
+    "code": "5508",
+    "name": "永信建",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -5.825833035139018,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -5.825833035139018,
+    "three_inst_ratio_change_20": -6.256320105549543
+  },
+  {
+    "date": "2025-12-23",
+    "code": "5508",
+    "name": "永信建",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -7.076821102998664,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -7.076821102998664,
+    "three_inst_ratio_change_20": -7.507308173409188
+  },
+  {
+    "date": "2025-12-24",
+    "code": "5508",
+    "name": "永信建",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -8.327809170858307,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -8.327809170858307,
+    "three_inst_ratio_change_20": -8.758296241268832
+  },
+  {
+    "date": "2025-12-26",
+    "code": "5508",
+    "name": "永信建",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -9.570058719126287,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -9.570058719126287,
+    "three_inst_ratio_change_20": -10.000545789536812
+  },
+  {
+    "date": "2025-12-29",
+    "code": "5508",
+    "name": "永信建",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -9.57051864121006,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -9.57051864121006,
+    "three_inst_ratio_change_20": -10.001005711620584
+  },
+  {
+    "date": "2025-12-30",
+    "code": "5508",
+    "name": "永信建",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -9.57051864121006,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -9.57051864121006,
+    "three_inst_ratio_change_20": -10.001005711620584
+  },
+  {
+    "date": "2025-12-31",
+    "code": "5508",
+    "name": "永信建",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -9.57051864121006,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -9.57051864121006,
+    "three_inst_ratio_change_20": -10.001005711620584
+  },
+  {
+    "date": "2026-01-02",
+    "code": "5508",
+    "name": "永信建",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -9.57051864121006,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -9.57051864121006,
+    "three_inst_ratio_change_20": -10.001005711620584
+  },
+  {
+    "date": "2026-01-05",
+    "code": "5508",
+    "name": "永信建",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -9.57051864121006,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -9.57051864121006,
+    "three_inst_ratio_change_20": -10.001005711620584
+  },
+  {
+    "date": "2026-01-06",
+    "code": "5508",
+    "name": "永信建",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -9.570978563293831,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -9.570978563293831,
+    "three_inst_ratio_change_20": -10.001465633704356
+  },
+  {
+    "date": "2026-01-07",
+    "code": "5508",
+    "name": "永信建",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -9.570978563293831,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -9.570978563293831,
+    "three_inst_ratio_change_20": -10.001465633704356
+  },
+  {
+    "date": "2026-01-08",
+    "code": "5508",
+    "name": "永信建",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -9.570978563293831,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -9.570978563293831,
+    "three_inst_ratio_change_20": -10.001465633704356
   }
 ]

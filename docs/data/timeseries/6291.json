@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.0,
     "three_inst_ratio_change_20": -0.15
+  },
+  {
+    "date": "2025-12-15",
+    "code": "6291",
+    "name": "沛亨",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0,
+    "three_inst_ratio_change_20": -0.15
+  },
+  {
+    "date": "2025-12-16",
+    "code": "6291",
+    "name": "沛亨",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0,
+    "three_inst_ratio_change_20": -0.15
+  },
+  {
+    "date": "2025-12-17",
+    "code": "6291",
+    "name": "沛亨",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0,
+    "three_inst_ratio_change_20": -0.15
+  },
+  {
+    "date": "2025-12-18",
+    "code": "6291",
+    "name": "沛亨",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0,
+    "three_inst_ratio_change_20": -0.15
+  },
+  {
+    "date": "2025-12-19",
+    "code": "6291",
+    "name": "沛亨",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0,
+    "three_inst_ratio_change_20": -0.15
+  },
+  {
+    "date": "2025-12-22",
+    "code": "6291",
+    "name": "沛亨",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0,
+    "three_inst_ratio_change_20": -0.15
+  },
+  {
+    "date": "2025-12-23",
+    "code": "6291",
+    "name": "沛亨",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0,
+    "three_inst_ratio_change_20": -0.15
+  },
+  {
+    "date": "2025-12-24",
+    "code": "6291",
+    "name": "沛亨",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.023809523809523808,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.023809523809523808,
+    "three_inst_ratio_change_20": -0.1738095238095238
+  },
+  {
+    "date": "2025-12-26",
+    "code": "6291",
+    "name": "沛亨",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.047619047619047616,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.047619047619047616,
+    "three_inst_ratio_change_20": -0.1976190476190476
+  },
+  {
+    "date": "2025-12-29",
+    "code": "6291",
+    "name": "沛亨",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.047619047619047616,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.047619047619047616,
+    "three_inst_ratio_change_20": -0.1976190476190476
+  },
+  {
+    "date": "2025-12-30",
+    "code": "6291",
+    "name": "沛亨",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.05952380952380953,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.05952380952380953,
+    "three_inst_ratio_change_20": -0.20952380952380953
+  },
+  {
+    "date": "2025-12-31",
+    "code": "6291",
+    "name": "沛亨",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.07142857142857142,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.07142857142857142,
+    "three_inst_ratio_change_20": -0.22142857142857142
+  },
+  {
+    "date": "2026-01-02",
+    "code": "6291",
+    "name": "沛亨",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.08333333333333334,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.08333333333333334,
+    "three_inst_ratio_change_20": -0.23333333333333334
+  },
+  {
+    "date": "2026-01-05",
+    "code": "6291",
+    "name": "沛亨",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.08333333333333334,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.08333333333333334,
+    "three_inst_ratio_change_20": -0.23333333333333334
+  },
+  {
+    "date": "2026-01-06",
+    "code": "6291",
+    "name": "沛亨",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.08333333333333334,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.08333333333333334,
+    "three_inst_ratio_change_20": -0.23333333333333334
+  },
+  {
+    "date": "2026-01-07",
+    "code": "6291",
+    "name": "沛亨",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.08333333333333334,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.08333333333333334,
+    "three_inst_ratio_change_20": -0.23333333333333334
+  },
+  {
+    "date": "2026-01-08",
+    "code": "6291",
+    "name": "沛亨",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.08333333333333334,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.08333333333333334,
+    "three_inst_ratio_change_20": -0.23333333333333334
   }
 ]

@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.0,
     "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-15",
+    "code": "6803",
+    "name": "崑鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0,
+    "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-16",
+    "code": "6803",
+    "name": "崑鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0,
+    "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-17",
+    "code": "6803",
+    "name": "崑鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0,
+    "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-18",
+    "code": "6803",
+    "name": "崑鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0,
+    "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-19",
+    "code": "6803",
+    "name": "崑鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0,
+    "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-22",
+    "code": "6803",
+    "name": "崑鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0,
+    "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-23",
+    "code": "6803",
+    "name": "崑鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0,
+    "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-24",
+    "code": "6803",
+    "name": "崑鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0,
+    "three_inst_ratio_change_20": 0.0
+  },
+  {
+    "date": "2025-12-26",
+    "code": "6803",
+    "name": "崑鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0068998607069920195,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0068998607069920195,
+    "three_inst_ratio_change_20": 0.0068998607069920195
+  },
+  {
+    "date": "2025-12-29",
+    "code": "6803",
+    "name": "崑鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.019319609979577653,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.019319609979577653,
+    "three_inst_ratio_change_20": 0.019319609979577653
+  },
+  {
+    "date": "2025-12-30",
+    "code": "6803",
+    "name": "崑鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.05933880208013137,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.05933880208013137,
+    "three_inst_ratio_change_20": 0.05933880208013137
+  },
+  {
+    "date": "2025-12-31",
+    "code": "6803",
+    "name": "崑鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.07865841205970903,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.07865841205970903,
+    "three_inst_ratio_change_20": 0.07865841205970903
+  },
+  {
+    "date": "2026-01-02",
+    "code": "6803",
+    "name": "崑鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.15731682411941805,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.15731682411941805,
+    "three_inst_ratio_change_20": 0.15731682411941805
+  },
+  {
+    "date": "2026-01-05",
+    "code": "6803",
+    "name": "崑鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.1766364340989957,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.1766364340989957,
+    "three_inst_ratio_change_20": 0.1766364340989957
+  },
+  {
+    "date": "2026-01-06",
+    "code": "6803",
+    "name": "崑鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.3146336482388361,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.3146336482388361,
+    "three_inst_ratio_change_20": 0.3146336482388361
+  },
+  {
+    "date": "2026-01-07",
+    "code": "6803",
+    "name": "崑鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.3877721717329515,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.3877721717329515,
+    "three_inst_ratio_change_20": 0.3877721717329515
+  },
+  {
+    "date": "2026-01-08",
+    "code": "6803",
+    "name": "崑鼎",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.3877721717329515,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.3877721717329515,
+    "three_inst_ratio_change_20": 0.3877721717329515
   }
 ]

@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.11468506406236,
     "three_inst_ratio_change_20": -0.029119254547083598
+  },
+  {
+    "date": "2025-12-15",
+    "code": "5903",
+    "name": "全家",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.11110115581041125,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.11110115581041125,
+    "three_inst_ratio_change_20": -0.031359197204551575
+  },
+  {
+    "date": "2025-12-16",
+    "code": "5903",
+    "name": "全家",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.1075172475584625,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.1075172475584625,
+    "three_inst_ratio_change_20": -0.034943105456500326
+  },
+  {
+    "date": "2025-12-17",
+    "code": "5903",
+    "name": "全家",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.10258937371203297,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.10258937371203297,
+    "three_inst_ratio_change_20": -0.03987097930292985
+  },
+  {
+    "date": "2025-12-18",
+    "code": "5903",
+    "name": "全家",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.09900546546008422,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.09900546546008422,
+    "three_inst_ratio_change_20": -0.04300689902338502
+  },
+  {
+    "date": "2025-12-19",
+    "code": "5903",
+    "name": "全家",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.09497356867664188,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.09497356867664188,
+    "three_inst_ratio_change_20": -0.04703879580682736
+  },
+  {
+    "date": "2025-12-22",
+    "code": "5903",
+    "name": "全家",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.09094167189319953,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.09094167189319953,
+    "three_inst_ratio_change_20": -0.05107069259026971
+  },
+  {
+    "date": "2025-12-23",
+    "code": "5903",
+    "name": "全家",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.09094167189319953,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.09094167189319953,
+    "three_inst_ratio_change_20": -0.05107069259026971
+  },
+  {
+    "date": "2025-12-24",
+    "code": "5903",
+    "name": "全家",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.08959770629871876,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.08959770629871876,
+    "three_inst_ratio_change_20": -0.05241465818475048
+  },
+  {
+    "date": "2025-12-26",
+    "code": "5903",
+    "name": "全家",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.08959770629871876,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.08959770629871876,
+    "three_inst_ratio_change_20": -0.05151868112176326
+  },
+  {
+    "date": "2025-12-29",
+    "code": "5903",
+    "name": "全家",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.08063793566884687,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.08063793566884687,
+    "three_inst_ratio_change_20": -0.060478451751635146
+  },
+  {
+    "date": "2025-12-30",
+    "code": "5903",
+    "name": "全家",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.07391810769644297,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.07391810769644297,
+    "three_inst_ratio_change_20": -0.06719827972403905
+  },
+  {
+    "date": "2025-12-31",
+    "code": "5903",
+    "name": "全家",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.060478451751635166,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.060478451751635166,
+    "three_inst_ratio_change_20": -0.08063793566884686
+  },
+  {
+    "date": "2026-01-02",
+    "code": "5903",
+    "name": "全家",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.043006899023385003,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.043006899023385003,
+    "three_inst_ratio_change_20": -0.09766149986560343
+  },
+  {
+    "date": "2026-01-05",
+    "code": "5903",
+    "name": "全家",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.020607472448705314,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.020607472448705314,
+    "three_inst_ratio_change_20": -0.1155810411253472
+  },
+  {
+    "date": "2026-01-06",
+    "code": "5903",
+    "name": "全家",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.0026879311889615627,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.0026879311889615627,
+    "three_inst_ratio_change_20": -0.13842845623152047
+  },
+  {
+    "date": "2026-01-07",
+    "code": "5903",
+    "name": "全家",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.026879311889615624,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.026879311889615624,
+    "three_inst_ratio_change_20": -0.1581399516172386
+  },
+  {
+    "date": "2026-01-08",
+    "code": "5903",
+    "name": "全家",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.04479885314935938,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.04479885314935938,
+    "three_inst_ratio_change_20": -0.1724755846250336
   }
 ]

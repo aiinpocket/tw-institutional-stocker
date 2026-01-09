@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.06468713668120023,
     "three_inst_ratio_change_20": -0.004844463663259371
+  },
+  {
+    "date": "2025-12-15",
+    "code": "3213",
+    "name": "茂訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.06468713668120023,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.06468713668120023,
+    "three_inst_ratio_change_20": -0.004844463663259371
+  },
+  {
+    "date": "2025-12-16",
+    "code": "3213",
+    "name": "茂訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.061258694581137675,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.061258694581137675,
+    "three_inst_ratio_change_20": -0.008272905763321924
+  },
+  {
+    "date": "2025-12-17",
+    "code": "3213",
+    "name": "茂訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.061258694581137675,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.061258694581137675,
+    "three_inst_ratio_change_20": -0.005851525930226052
+  },
+  {
+    "date": "2025-12-18",
+    "code": "3213",
+    "name": "茂訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.061258694581137675,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.061258694581137675,
+    "three_inst_ratio_change_20": -0.005851525930226052
+  },
+  {
+    "date": "2025-12-19",
+    "code": "3213",
+    "name": "茂訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.061258694581137675,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.061258694581137675,
+    "three_inst_ratio_change_20": -0.005851525930226052
+  },
+  {
+    "date": "2025-12-22",
+    "code": "3213",
+    "name": "茂訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.061258694581137675,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.061258694581137675,
+    "three_inst_ratio_change_20": -0.005851525930226052
+  },
+  {
+    "date": "2025-12-23",
+    "code": "3213",
+    "name": "茂訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.061258694581137675,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.061258694581137675,
+    "three_inst_ratio_change_20": -0.005851525930226052
+  },
+  {
+    "date": "2025-12-24",
+    "code": "3213",
+    "name": "茂訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.061258694581137675,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.061258694581137675,
+    "three_inst_ratio_change_20": -0.005851525930226052
+  },
+  {
+    "date": "2025-12-26",
+    "code": "3213",
+    "name": "茂訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.061258694581137675,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.061258694581137675,
+    "three_inst_ratio_change_20": -0.005851525930226052
+  },
+  {
+    "date": "2025-12-29",
+    "code": "3213",
+    "name": "茂訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.0629626916487632,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.0629626916487632,
+    "three_inst_ratio_change_20": -0.00414752886260053
+  },
+  {
+    "date": "2025-12-30",
+    "code": "3213",
+    "name": "茂訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.06637068578401424,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.06637068578401424,
+    "three_inst_ratio_change_20": -0.0007395347273494862
+  },
+  {
+    "date": "2025-12-31",
+    "code": "3213",
+    "name": "茂訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.07169226862620877,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.07169226862620877,
+    "three_inst_ratio_change_20": 0.0045820481148450415
+  },
+  {
+    "date": "2026-01-02",
+    "code": "3213",
+    "name": "茂訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.06813943474020955,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.06813943474020955,
+    "three_inst_ratio_change_20": 0.0010292142288458178
+  },
+  {
+    "date": "2026-01-05",
+    "code": "3213",
+    "name": "茂訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.06813943474020955,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.06813943474020955,
+    "three_inst_ratio_change_20": 0.0010292142288458178
+  },
+  {
+    "date": "2026-01-06",
+    "code": "3213",
+    "name": "茂訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.06565159902147627,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.06565159902147627,
+    "three_inst_ratio_change_20": -0.0014586214898874572
+  },
+  {
+    "date": "2026-01-07",
+    "code": "3213",
+    "name": "茂訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.06565159902147627,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.06565159902147627,
+    "three_inst_ratio_change_20": -0.0014586214898874572
+  },
+  {
+    "date": "2026-01-08",
+    "code": "3213",
+    "name": "茂訊",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.06565159902147627,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.06565159902147627,
+    "three_inst_ratio_change_20": -0.0014586214898874572
   }
 ]

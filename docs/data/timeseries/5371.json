@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 2.0948776783614944,
     "three_inst_ratio_change_20": 0.275234524757475
+  },
+  {
+    "date": "2025-12-15",
+    "code": "5371",
+    "name": "中光電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.1664923914099075,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.1664923914099075,
+    "three_inst_ratio_change_20": 0.34684923780588806
+  },
+  {
+    "date": "2025-12-16",
+    "code": "5371",
+    "name": "中光電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.165608205470592,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.165608205470592,
+    "three_inst_ratio_change_20": 0.4290892723691946
+  },
+  {
+    "date": "2025-12-17",
+    "code": "5371",
+    "name": "中光電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.165608205470592,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.165608205470592,
+    "three_inst_ratio_change_20": 0.432783056961499
+  },
+  {
+    "date": "2025-12-18",
+    "code": "5371",
+    "name": "中光電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.165608205470592,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.165608205470592,
+    "three_inst_ratio_change_20": 0.4332945906261305
+  },
+  {
+    "date": "2025-12-19",
+    "code": "5371",
+    "name": "中光電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.4160039343077213,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.4160039343077213,
+    "three_inst_ratio_change_20": 0.68369031946326
+  },
+  {
+    "date": "2025-12-22",
+    "code": "5371",
+    "name": "中光電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.43237301157593,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.43237301157593,
+    "three_inst_ratio_change_20": 0.7000593967314688
+  },
+  {
+    "date": "2025-12-23",
+    "code": "5371",
+    "name": "中光電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.5881350124562283,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.5881350124562283,
+    "three_inst_ratio_change_20": 0.8251293777338757
+  },
+  {
+    "date": "2025-12-24",
+    "code": "5371",
+    "name": "中光電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.5807177743190715,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.5807177743190715,
+    "three_inst_ratio_change_20": 0.8177121395967188
+  },
+  {
+    "date": "2025-12-26",
+    "code": "5371",
+    "name": "中光電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.580462007486756,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.580462007486756,
+    "three_inst_ratio_change_20": 0.4542674708760228
+  },
+  {
+    "date": "2025-12-29",
+    "code": "5371",
+    "name": "中光電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.475086072572662,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.475086072572662,
+    "three_inst_ratio_change_20": 0.3573318414283495
+  },
+  {
+    "date": "2025-12-30",
+    "code": "5371",
+    "name": "中光電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.453601658658138,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.453601658658138,
+    "three_inst_ratio_change_20": 0.33380129285529936
+  },
+  {
+    "date": "2025-12-31",
+    "code": "5371",
+    "name": "中光電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.4337032548708044,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.4337032548708044,
+    "three_inst_ratio_change_20": 0.3139028890679656
+  },
+  {
+    "date": "2026-01-02",
+    "code": "5371",
+    "name": "中光電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.4337032548708044,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.4337032548708044,
+    "three_inst_ratio_change_20": 0.3139028890679656
+  },
+  {
+    "date": "2026-01-05",
+    "code": "5371",
+    "name": "中光電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.4337032548708044,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.4337032548708044,
+    "three_inst_ratio_change_20": 0.3139028890679656
+  },
+  {
+    "date": "2026-01-06",
+    "code": "5371",
+    "name": "中光電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.4337032548708044,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.4337032548708044,
+    "three_inst_ratio_change_20": 0.3139028890679656
+  },
+  {
+    "date": "2026-01-07",
+    "code": "5371",
+    "name": "中光電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.4337032548708044,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.4337032548708044,
+    "three_inst_ratio_change_20": 0.3139028890679656
+  },
+  {
+    "date": "2026-01-08",
+    "code": "5371",
+    "name": "中光電",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 2.4337032548708044,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 2.4337032548708044,
+    "three_inst_ratio_change_20": 0.3139028890679656
   }
 ]

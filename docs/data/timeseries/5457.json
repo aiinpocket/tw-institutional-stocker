@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": -0.2285465527561626,
     "three_inst_ratio_change_20": -0.24802169760255238
+  },
+  {
+    "date": "2025-12-15",
+    "code": "5457",
+    "name": "宣德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.2090714079097728,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.2090714079097728,
+    "three_inst_ratio_change_20": -0.2285465527561626
+  },
+  {
+    "date": "2025-12-16",
+    "code": "5457",
+    "name": "宣德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.21308099655461776,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.21308099655461776,
+    "three_inst_ratio_change_20": -0.23885692355719249
+  },
+  {
+    "date": "2025-12-17",
+    "code": "5457",
+    "name": "宣德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.21250819817678276,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.21250819817678276,
+    "three_inst_ratio_change_20": -0.2274009560004926
+  },
+  {
+    "date": "2025-12-18",
+    "code": "5457",
+    "name": "宣德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.21078980304327777,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.21078980304327777,
+    "three_inst_ratio_change_20": -0.05384304751648941
+  },
+  {
+    "date": "2025-12-19",
+    "code": "5457",
+    "name": "宣德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.21078980304327777,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.21078980304327777,
+    "three_inst_ratio_change_20": 0.030358314025254685
+  },
+  {
+    "date": "2025-12-22",
+    "code": "5457",
+    "name": "宣德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.21078980304327777,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.21078980304327777,
+    "three_inst_ratio_change_20": 0.030358314025254685
+  },
+  {
+    "date": "2025-12-23",
+    "code": "5457",
+    "name": "宣德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.21078980304327777,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.21078980304327777,
+    "three_inst_ratio_change_20": 0.08878374856442411
+  },
+  {
+    "date": "2025-12-24",
+    "code": "5457",
+    "name": "宣德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.21193539979894777,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.21193539979894777,
+    "three_inst_ratio_change_20": 0.08763815180875412
+  },
+  {
+    "date": "2025-12-26",
+    "code": "5457",
+    "name": "宣德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.21193539979894777,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.21193539979894777,
+    "three_inst_ratio_change_20": 0.08763815180875412
+  },
+  {
+    "date": "2025-12-29",
+    "code": "5457",
+    "name": "宣德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.21193539979894777,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.21193539979894777,
+    "three_inst_ratio_change_20": 0.08763815180875412
+  },
+  {
+    "date": "2025-12-30",
+    "code": "5457",
+    "name": "宣德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.21365379493245273,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.21365379493245273,
+    "three_inst_ratio_change_20": 0.08591975667524915
+  },
+  {
+    "date": "2025-12-31",
+    "code": "5457",
+    "name": "宣德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.21365379493245273,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.21365379493245273,
+    "three_inst_ratio_change_20": 0.07331819236287923
+  },
+  {
+    "date": "2026-01-02",
+    "code": "5457",
+    "name": "宣德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.21422659331028776,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.21422659331028776,
+    "three_inst_ratio_change_20": 0.06186222480617931
+  },
+  {
+    "date": "2026-01-05",
+    "code": "5457",
+    "name": "宣德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.21946550122654285,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.21946550122654285,
+    "three_inst_ratio_change_20": 0.04402175257755436
+  },
+  {
+    "date": "2026-01-06",
+    "code": "5457",
+    "name": "宣德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.225768687945843,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.225768687945843,
+    "three_inst_ratio_change_20": 0.03084498532423427
+  },
+  {
+    "date": "2026-01-07",
+    "code": "5457",
+    "name": "宣德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.23264489163962507,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.23264489163962507,
+    "three_inst_ratio_change_20": 0.022250386496947244
+  },
+  {
+    "date": "2026-01-08",
+    "code": "5457",
+    "name": "宣德",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": -0.23436394256307053,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": -0.23436394256307053,
+    "three_inst_ratio_change_20": 0.01995853719566676
   }
 ]

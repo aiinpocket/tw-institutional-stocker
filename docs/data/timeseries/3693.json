@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 1.449150832503425,
     "three_inst_ratio_change_20": 0.4396300278381178
+  },
+  {
+    "date": "2025-12-15",
+    "code": "3693",
+    "name": "營邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.4305421540764147,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.4305421540764147,
+    "three_inst_ratio_change_20": 0.42102134941110747
+  },
+  {
+    "date": "2025-12-16",
+    "code": "3693",
+    "name": "營邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.3956508820257705,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.3956508820257705,
+    "three_inst_ratio_change_20": 0.237260649944381
+  },
+  {
+    "date": "2025-12-17",
+    "code": "3693",
+    "name": "營邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.3770422035987602,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.3770422035987602,
+    "three_inst_ratio_change_20": 0.3372822964895612
+  },
+  {
+    "date": "2025-12-18",
+    "code": "3693",
+    "name": "營邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.3537813555649973,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.3537813555649973,
+    "three_inst_ratio_change_20": 0.23260848033762827
+  },
+  {
+    "date": "2025-12-19",
+    "code": "3693",
+    "name": "營邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.2793466418569563,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.2793466418569563,
+    "three_inst_ratio_change_20": -0.051173865674278174
+  },
+  {
+    "date": "2025-12-22",
+    "code": "3693",
+    "name": "營邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.1979336737387862,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.1979336737387862,
+    "three_inst_ratio_change_20": -0.1325868337924483
+  },
+  {
+    "date": "2025-12-23",
+    "code": "3693",
+    "name": "營邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.0025425502551784,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.0025425502551784,
+    "three_inst_ratio_change_20": -0.32797795727605616
+  },
+  {
+    "date": "2025-12-24",
+    "code": "3693",
+    "name": "營邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8566737722354518,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8566737722354518,
+    "three_inst_ratio_change_20": -0.4738467352957827
+  },
+  {
+    "date": "2025-12-26",
+    "code": "3693",
+    "name": "營邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8566737722354518,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8566737722354518,
+    "three_inst_ratio_change_20": -0.4738467352957827
+  },
+  {
+    "date": "2025-12-29",
+    "code": "3693",
+    "name": "營邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.7403695320666375,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.7403695320666375,
+    "three_inst_ratio_change_20": -0.6320205019253702
+  },
+  {
+    "date": "2025-12-30",
+    "code": "3693",
+    "name": "營邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.572891426223545,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.572891426223545,
+    "three_inst_ratio_change_20": -0.7994986077684626
+  },
+  {
+    "date": "2025-12-31",
+    "code": "3693",
+    "name": "營邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.4635654404648597,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.4635654404648597,
+    "three_inst_ratio_change_20": -0.908824593527148
+  },
+  {
+    "date": "2026-01-02",
+    "code": "3693",
+    "name": "營邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.36354379391967945,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.36354379391967945,
+    "three_inst_ratio_change_20": -1.0088462400723281
+  },
+  {
+    "date": "2026-01-05",
+    "code": "3693",
+    "name": "營邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.2937612498183909,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.2937612498183909,
+    "three_inst_ratio_change_20": -1.1251504802411425
+  },
+  {
+    "date": "2026-01-06",
+    "code": "3693",
+    "name": "營邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.24491346894748894,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.24491346894748894,
+    "three_inst_ratio_change_20": -1.2251721267863225
+  },
+  {
+    "date": "2026-01-07",
+    "code": "3693",
+    "name": "營邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.24491346894748894,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.24491346894748894,
+    "three_inst_ratio_change_20": -1.2716938228538484
+  },
+  {
+    "date": "2026-01-08",
+    "code": "3693",
+    "name": "營邦",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.24491346894748894,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.24491346894748894,
+    "three_inst_ratio_change_20": -1.3205416037247504
   }
 ]

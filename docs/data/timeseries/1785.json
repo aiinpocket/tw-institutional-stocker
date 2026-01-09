@@ -691,5 +691,192 @@
     "dealer_ratio": 0.0,
     "three_inst_ratio": 0.7934768795828172,
     "three_inst_ratio_change_20": 0.7510048069424007
+  },
+  {
+    "date": "2025-12-15",
+    "code": "1785",
+    "name": "光洋科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.7934768795828172,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.7934768795828172,
+    "three_inst_ratio_change_20": 0.7510048069424007
+  },
+  {
+    "date": "2025-12-16",
+    "code": "1785",
+    "name": "光洋科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.7946513718070017,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.7946513718070017,
+    "three_inst_ratio_change_20": 0.6922827090321126
+  },
+  {
+    "date": "2025-12-17",
+    "code": "1785",
+    "name": "光洋科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.7946513718070017,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.7946513718070017,
+    "three_inst_ratio_change_20": 0.6208088664023839
+  },
+  {
+    "date": "2025-12-18",
+    "code": "1785",
+    "name": "光洋科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8713289355859019,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8713289355859019,
+    "three_inst_ratio_change_20": 0.6300392829109764
+  },
+  {
+    "date": "2025-12-19",
+    "code": "1785",
+    "name": "光洋科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8691477357409877,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8691477357409877,
+    "three_inst_ratio_change_20": 0.6243347246265686
+  },
+  {
+    "date": "2025-12-22",
+    "code": "1785",
+    "name": "光洋科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8691477357409877,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8691477357409877,
+    "three_inst_ratio_change_20": 0.6243265094557705
+  },
+  {
+    "date": "2025-12-23",
+    "code": "1785",
+    "name": "光洋科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.8746846276550002,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.8746846276550002,
+    "three_inst_ratio_change_20": 0.629863401369783
+  },
+  {
+    "date": "2025-12-24",
+    "code": "1785",
+    "name": "光洋科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 0.9532078220719045,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 0.9532078220719045,
+    "three_inst_ratio_change_20": 0.7082188111832324
+  },
+  {
+    "date": "2025-12-26",
+    "code": "1785",
+    "name": "光洋科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.0800529822838267,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.0800529822838267,
+    "three_inst_ratio_change_20": 0.8347284021882447
+  },
+  {
+    "date": "2025-12-29",
+    "code": "1785",
+    "name": "光洋科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.1674687606838419,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.1674687606838419,
+    "three_inst_ratio_change_20": 0.9221441805882599
+  },
+  {
+    "date": "2025-12-30",
+    "code": "1785",
+    "name": "光洋科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.1656231300458377,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.1656231300458377,
+    "three_inst_ratio_change_20": 0.8859027062419964
+  },
+  {
+    "date": "2025-12-31",
+    "code": "1785",
+    "name": "光洋科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.2983407513786822,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.2983407513786822,
+    "three_inst_ratio_change_20": 1.018620327574841
+  },
+  {
+    "date": "2026-01-02",
+    "code": "1785",
+    "name": "光洋科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.2983407513786822,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.2983407513786822,
+    "three_inst_ratio_change_20": 1.018620327574841
+  },
+  {
+    "date": "2026-01-05",
+    "code": "1785",
+    "name": "光洋科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.2983407513786822,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.2983407513786822,
+    "three_inst_ratio_change_20": 0.9875801759356801
+  },
+  {
+    "date": "2026-01-06",
+    "code": "1785",
+    "name": "光洋科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.2936427824819443,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.2936427824819443,
+    "three_inst_ratio_change_20": 0.9515064861928715
+  },
+  {
+    "date": "2026-01-07",
+    "code": "1785",
+    "name": "光洋科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.2914615826370304,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.2914615826370304,
+    "three_inst_ratio_change_20": 0.9189562731226164
+  },
+  {
+    "date": "2026-01-08",
+    "code": "1785",
+    "name": "光洋科",
+    "market": "TPEX",
+    "foreign_ratio": 0.0,
+    "trust_ratio": 1.2914615826370304,
+    "dealer_ratio": 0.0,
+    "three_inst_ratio": 1.2914615826370304,
+    "three_inst_ratio_change_20": 0.711071149441966
   }
 ]

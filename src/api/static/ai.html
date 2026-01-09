@@ -396,11 +396,11 @@
                         </div>
                         <div style="background:rgba(255,255,255,0.05);padding:12px;border-radius:10px;text-align:center">
                             <div style="color:#888;font-size:0.8rem">外資5日</div>
-                            <div style="font-size:1.2rem;font-weight:600;color:${data.data_summary.foreign_5d >= 0 ? '#2ecc71' : '#e74c3c'}">${data.data_summary.foreign_5d}</div>
+                            <div style="font-size:1.2rem;font-weight:600;color:${data.data_summary.foreign_5d >= 0 ? '#ef5350' : '#26a69a'}">${data.data_summary.foreign_5d}</div>
                         </div>
                         <div style="background:rgba(255,255,255,0.05);padding:12px;border-radius:10px;text-align:center">
                             <div style="color:#888;font-size:0.8rem">投信5日</div>
-                            <div style="font-size:1.2rem;font-weight:600;color:${data.data_summary.trust_5d >= 0 ? '#2ecc71' : '#e74c3c'}">${data.data_summary.trust_5d}</div>
+                            <div style="font-size:1.2rem;font-weight:600;color:${data.data_summary.trust_5d >= 0 ? '#ef5350' : '#26a69a'}">${data.data_summary.trust_5d}</div>
                         </div>
                     </div>
                     <div class="ai-content">${data.analysis}</div>
@@ -463,9 +463,9 @@
                                 <tr style="border-bottom:1px solid rgba(255,255,255,0.1)">
                                     <td style="padding:12px 10px"><strong style="color:#00d4ff">${s.code}</strong> ${s.name}</td>
                                     <td style="padding:12px 10px;text-align:right">${s.price ? s.price.toFixed(1) : '-'}</td>
-                                    <td style="padding:12px 10px;text-align:right;color:${s.foreign_5d >= 0 ? '#2ecc71' : '#e74c3c'}">${s.foreign_5d}</td>
-                                    <td style="padding:12px 10px;text-align:right;color:${s.foreign_20d >= 0 ? '#2ecc71' : '#e74c3c'}">${s.foreign_20d}</td>
-                                    <td style="padding:12px 10px;text-align:right;color:${s.trust_5d >= 0 ? '#2ecc71' : '#e74c3c'}">${s.trust_5d}</td>
+                                    <td style="padding:12px 10px;text-align:right;color:${s.foreign_5d >= 0 ? '#ef5350' : '#26a69a'}">${s.foreign_5d}</td>
+                                    <td style="padding:12px 10px;text-align:right;color:${s.foreign_20d >= 0 ? '#ef5350' : '#26a69a'}">${s.foreign_20d}</td>
+                                    <td style="padding:12px 10px;text-align:right;color:${s.trust_5d >= 0 ? '#ef5350' : '#26a69a'}">${s.trust_5d}</td>
                                 </tr>
                             `).join('')}
                         </tbody>

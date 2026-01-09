@@ -127,8 +127,9 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
-        .badge-up { background: rgba(46,204,113,0.2); color: #2ecc71; }
-        .badge-down { background: rgba(231,76,60,0.2); color: #e74c3c; }
+        /* 台灣慣例：紅色=上漲/買超，綠色=下跌/賣超 */
+        .badge-up { background: rgba(239,83,80,0.2); color: #ef5350; }
+        .badge-down { background: rgba(38,166,154,0.2); color: #26a69a; }
         .badge-neutral { background: rgba(255,255,255,0.1); color: #888; }
         .market-summary {
             display: flex;
@@ -147,8 +148,9 @@
         tr:hover { background: rgba(0,212,255,0.05); }
         .stock-code { color: #00d4ff; font-weight: 600; }
         .stock-name { color: #aaa; font-size: 0.8rem; }
-        .positive { color: #2ecc71; }
-        .negative { color: #e74c3c; }
+        /* 台灣慣例：紅色=上漲/買超，綠色=下跌/賣超 */
+        .positive { color: #ef5350; }
+        .negative { color: #26a69a; }
         .neutral { color: #888; }
         .loading { text-align: center; padding: 30px; color: #888; }
         .flow-bar {
@@ -158,8 +160,8 @@
             overflow: hidden;
             background: rgba(255,255,255,0.1);
         }
-        .flow-buy { background: #2ecc71; }
-        .flow-sell { background: #e74c3c; }
+        .flow-buy { background: #ef5350; }
+        .flow-sell { background: #26a69a; }
         .industry-chip {
             display: inline-block;
             padding: 4px 10px;

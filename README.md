@@ -14,6 +14,8 @@
 | [/industry](https://stock-tw.aiinpocket.com/industry) | 產業熱力圖 - 資金流向分析 |
 | [/brokers](https://stock-tw.aiinpocket.com/brokers) | 券商追蹤 - 主力分點進出 |
 | [/ai](https://stock-tw.aiinpocket.com/ai) | AI 智能分析 - GPT 市場摘要與選股 |
+| [/margin](https://stock-tw.aiinpocket.com/margin) | 融資融券追蹤 - 券資比警示與排行 |
+| [/revenue](https://stock-tw.aiinpocket.com/revenue) | 營收追蹤 - 月營收年增率排行 |
 | [/stock/{code}](https://stock-tw.aiinpocket.com/stock/2330) | 個股分析 - 技術面與籌碼面 |
 
 ## 自動化部署
@@ -50,6 +52,8 @@ Cloud Run Jobs (ETL) ──► Cloud SQL (PostgreSQL)
 - **外資持股比例**：官方外資持股統計（MI_QFIIS / QFII）
 - **股價資料**：每日 OHLCV 收盤資料
 - **券商分點**：主力券商進出明細（透過 Playwright 爬蟲）
+- **融資融券**：每日融資餘額、融券餘額、券資比等散戶籌碼指標
+- **月營收**：上市櫃公司月營收、月增率、年增率（每月10號後更新）
 
 ### 分析功能
 - **技術指標**：MA、RSI、MACD、KD、支撐壓力
@@ -145,6 +149,22 @@ docker-compose exec etl-worker python -m src.etl.run_all
 | GET | `/api/v1/strategy/three-way-sync` | 三大法人同步 |
 | GET | `/api/v1/strategy/deviation` | 乖離過大股 |
 
+### 融資融券
+| 方法 | 端點 | 說明 |
+|------|------|------|
+| GET | `/api/v1/margin/summary` | 市場融資融券統計 |
+| GET | `/api/v1/margin/rankings` | 券資比/融資餘額排行 |
+| GET | `/api/v1/margin/alerts` | 高券資比警示（軋空潛力股） |
+| GET | `/api/v1/margin/stock/{code}` | 個股融資融券歷史 |
+
+### 營收追蹤
+| 方法 | 端點 | 說明 |
+|------|------|------|
+| GET | `/api/v1/revenue/latest` | 最新月營收資料 |
+| GET | `/api/v1/revenue/rankings` | 營收年增率/月增率排行 |
+| GET | `/api/v1/revenue/alerts` | 營收爆發/衰退警示 |
+| GET | `/api/v1/revenue/stock/{code}` | 個股營收歷史 |
+
 ## 資料來源
 
 | 來源 | 端點 | 資料類型 |
@@ -155,6 +175,9 @@ docker-compose exec etl-worker python -m src.etl.run_all
 | TPEX 櫃買中心 | `/web/stock/3itrade/3itrade_hedge.php` | 上櫃三大法人買賣超 |
 | TPEX 櫃買中心 | `/web/stock/exright/QFII.php` | 上櫃外資持股 |
 | TPEX 櫃買中心 | `/openapi/v1/tpex_mainboard_quotes` | 上櫃股價 |
+| TWSE 證交所 | `/exchangeReport/MI_MARGN` | 上市融資融券 |
+| TPEX 櫃買中心 | `/web/stock/margin_trading/margin_balance` | 上櫃融資融券 |
+| 公開資訊觀測站 | `/nas/t21/{sii,otc}/t21sc03_*` | 月營收資料 |
 
 ## 目錄結構
 
@@ -223,6 +246,25 @@ tw-institutional-stocker/
 感謝原作者 voidful 的貢獻！
 
 ## 更新紀錄
+
+### 2026-01-09
+- **新增**：融資融券追蹤頁面 (`/margin`)
+  - 市場融資融券整體統計
+  - 券資比排行榜（識別軋空潛力股）
+  - 高券資比警示（≥30% 自動標記）
+  - 個股融資融券歷史查詢
+- **新增**：營收追蹤頁面 (`/revenue`)
+  - 月營收年增率/月增率排行
+  - 營收爆發股（年增50%+）警示
+  - 營收衰退股（年減30%+）警示
+  - 個股營收歷史趨勢
+- **新增**：技術指標疊加（個股分析頁面）
+  - 新增 KD 指標（K值、D值）
+  - 新增 MACD 指標（DIF、MACD、柱狀圖）
+  - 重新設計技術指標區塊佈局
+- **新增**：ETL 自動抓取融資融券和營收資料
+  - 每日 21:30 自動更新融資融券
+  - 每月 10 號後自動抓取上月營收
 
 ### 2026-01-05
 - **新增**：法人排行榜新增「本日買賣超」分頁

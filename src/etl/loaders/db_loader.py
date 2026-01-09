@@ -8,7 +8,8 @@ from sqlalchemy.orm import Session
 from src.common.database import get_db_session
 from src.common.models import (
     Stock, InstitutionalFlow, ForeignHolding, StockPrice,
-    InstitutionalRatio, BrokerTrade, InstitutionalBaseline
+    InstitutionalRatio, BrokerTrade, InstitutionalBaseline,
+    MarginTrading, MonthlyRevenue
 )
 
 
@@ -356,6 +357,165 @@ def upsert_broker_trades(df: pd.DataFrame, trade_date: date) -> int:
                 side=str(row.get("side", "")).strip() or None,
             )
             session.add(broker_trade)
+            count += 1
+
+    return count
+
+
+def upsert_margin_trading(df: pd.DataFrame) -> int:
+    """Upsert margin trading data from DataFrame.
+
+    Expected columns: date, code, name (optional), margin_buy, margin_sell, margin_cash_repay,
+                      margin_balance, margin_limit, short_sell, short_buy, short_stock_repay,
+                      short_balance, short_limit, offset, market
+
+    Returns:
+        Number of records upserted
+    """
+    if df.empty:
+        return 0
+
+    count = 0
+    with get_db_session() as session:
+        stock_map: Dict[str, int] = {}
+
+        for _, row in df.iterrows():
+            code = str(row["code"]).strip()
+            trade_date = row["date"] if isinstance(row["date"], date) else pd.to_datetime(row["date"]).date()
+
+            if code not in stock_map:
+                name = str(row.get("name", "")).strip() or code
+                market = str(row.get("market", "TWSE")).strip()
+                stock = get_or_create_stock(session, code, name, market)
+                stock_map[code] = stock.id
+
+            stock_id = stock_map[code]
+
+            def safe_int(val):
+                if pd.isna(val):
+                    return 0
+                try:
+                    return int(val)
+                except (ValueError, TypeError):
+                    return 0
+
+            margin_balance = safe_int(row.get("margin_balance"))
+            margin_limit = safe_int(row.get("margin_limit"))
+            short_balance = safe_int(row.get("short_balance"))
+            short_limit = safe_int(row.get("short_limit"))
+
+            # 計算使用率和券資比
+            margin_utilization = (margin_balance / margin_limit * 100) if margin_limit > 0 else 0
+            short_utilization = (short_balance / short_limit * 100) if short_limit > 0 else 0
+            short_margin_ratio = (short_balance / margin_balance * 100) if margin_balance > 0 else 0
+
+            stmt = insert(MarginTrading).values(
+                stock_id=stock_id,
+                trade_date=trade_date,
+                margin_buy=safe_int(row.get("margin_buy")),
+                margin_sell=safe_int(row.get("margin_sell")),
+                margin_cash_repay=safe_int(row.get("margin_cash_repay")),
+                margin_balance=margin_balance,
+                margin_limit=margin_limit,
+                short_sell=safe_int(row.get("short_sell")),
+                short_buy=safe_int(row.get("short_buy")),
+                short_stock_repay=safe_int(row.get("short_stock_repay")),
+                short_balance=short_balance,
+                short_limit=short_limit,
+                offset=safe_int(row.get("offset")),
+                margin_utilization=margin_utilization,
+                short_utilization=short_utilization,
+                short_margin_ratio=short_margin_ratio,
+            ).on_conflict_do_update(
+                index_elements=["stock_id", "trade_date"],
+                set_=dict(
+                    margin_buy=safe_int(row.get("margin_buy")),
+                    margin_sell=safe_int(row.get("margin_sell")),
+                    margin_cash_repay=safe_int(row.get("margin_cash_repay")),
+                    margin_balance=margin_balance,
+                    margin_limit=margin_limit,
+                    short_sell=safe_int(row.get("short_sell")),
+                    short_buy=safe_int(row.get("short_buy")),
+                    short_stock_repay=safe_int(row.get("short_stock_repay")),
+                    short_balance=short_balance,
+                    short_limit=short_limit,
+                    offset=safe_int(row.get("offset")),
+                    margin_utilization=margin_utilization,
+                    short_utilization=short_utilization,
+                    short_margin_ratio=short_margin_ratio,
+                )
+            )
+            session.execute(stmt)
+            count += 1
+
+    return count
+
+
+def upsert_revenue(df: pd.DataFrame) -> int:
+    """Upsert monthly revenue data from DataFrame.
+
+    Expected columns: code, name (optional), year, month, revenue, mom_change, yoy_change,
+                      cumulative_revenue, cumulative_yoy_change, market
+
+    Returns:
+        Number of records upserted
+    """
+    if df.empty:
+        return 0
+
+    count = 0
+    with get_db_session() as session:
+        stock_map: Dict[str, int] = {}
+
+        for _, row in df.iterrows():
+            code = str(row["code"]).strip()
+            year = int(row["year"])
+            month = int(row["month"])
+
+            if code not in stock_map:
+                name = str(row.get("name", "")).strip() or code
+                market = str(row.get("market", "TWSE")).strip()
+                stock = get_or_create_stock(session, code, name, market)
+                stock_map[code] = stock.id
+
+            stock_id = stock_map[code]
+
+            def safe_int(val):
+                if pd.isna(val):
+                    return None
+                try:
+                    return int(val)
+                except (ValueError, TypeError):
+                    return None
+
+            def safe_float(val):
+                if pd.isna(val):
+                    return None
+                try:
+                    return float(val)
+                except (ValueError, TypeError):
+                    return None
+
+            stmt = insert(MonthlyRevenue).values(
+                stock_id=stock_id,
+                year=year,
+                month=month,
+                revenue=safe_int(row.get("revenue")),
+                mom_change=safe_float(row.get("mom_change")),
+                yoy_change=safe_float(row.get("yoy_change")),
+                cumulative_revenue=safe_int(row.get("cumulative_revenue")),
+                cumulative_yoy_change=safe_float(row.get("cumulative_yoy_change")),
+            ).on_conflict_do_update(
+                index_elements=["stock_id", "year", "month"],
+                set_=dict(
+                    revenue=safe_int(row.get("revenue")),
+                    mom_change=safe_float(row.get("mom_change")),
+                    yoy_change=safe_float(row.get("yoy_change")),
+                    cumulative_revenue=safe_int(row.get("cumulative_revenue")),
+                    cumulative_yoy_change=safe_float(row.get("cumulative_yoy_change")),
+                )
+            )
+            session.execute(stmt)
             count += 1
 
     return count

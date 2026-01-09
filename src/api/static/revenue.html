@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>營收追蹤 | Taiwan Stock Revenue Tracking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 0.95rem;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #00d4ff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid rgba(0,212,255,0.3);
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(0,212,255,0.1);
+            border-color: #00d4ff;
+        }
+
+        .alert-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .alert-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(180deg, #00d4ff, #7b2cbf);
+            border-radius: 2px;
+        }
+
+        .card-title.growth::before {
+            background: linear-gradient(180deg, #ef5350, #ff9800);
+        }
+
+        .card-title.decline::before {
+            background: linear-gradient(180deg, #26a69a, #00bcd4);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            color: #e0e0e0;
+        }
+
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .tab.active {
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            color: white;
+            border: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px 10px;
+            color: #888;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .stock-link {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .stock-link:hover {
+            text-decoration: underline;
+        }
+
+        .positive { color: #ef5350; }
+        .negative { color: #26a69a; }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            color: #888;
+        }
+
+        .loading::after {
+            content: '';
+            width: 24px;
+            height: 24px;
+            border: 2px solid #888;
+            border-top-color: #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .date-info {
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge.hot {
+            background: rgba(239, 83, 80, 0.2);
+            color: #ef5350;
+        }
+
+        .badge.cold {
+            background: rgba(38, 166, 154, 0.2);
+            color: #26a69a;
+        }
+
+        @media (max-width: 768px) {
+            table {
+                font-size: 0.8rem;
+            }
+            th, td {
+                padding: 8px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>營收追蹤</h1>
+            <p class="subtitle">追蹤上市櫃公司月營收表現，找出成長股與衰退股</p>
+            <div class="nav-links">
+                <a href="/dashboard">📊 策略儀表板</a>
+                <a href="/live">📈 今日總結</a>
+                <a href="/rankings">🏆 法人排行榜</a>
+                <a href="/industry">🏭 產業熱力圖</a>
+                <a href="/margin">💰 融資融券</a>
+                <a href="/revenue" class="active">📋 營收追蹤</a>
+                <a href="/ai">🤖 AI 分析</a>
+            </div>
+        </header>
+
+        <div class="alert-section">
+            <div class="card">
+                <div class="card-title growth">營收爆發股（年增50%+）</div>
+                <div id="growth-table">
+                    <div class="loading">載入中</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title decline">營收衰退股（年減30%+）</div>
+                <div id="decline-table">
+                    <div class="loading">載入中</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">營收排行榜</div>
+            <div class="date-info" id="ranking-date">-</div>
+            <div class="tabs">
+                <button class="tab active" data-sort="yoy_change">年增率</button>
+                <button class="tab" data-sort="mom_change">月增率</button>
+                <button class="tab" data-sort="revenue">營收金額</button>
+                <button class="tab" data-sort="cumulative_yoy_change">累計年增率</button>
+            </div>
+            <div id="rankings-table">
+                <div class="loading">載入中</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSort = 'yoy_change';
+
+        async function fetchAlerts() {
+            try {
+                const res = await fetch('/api/v1/revenue/alerts?yoy_min=50&yoy_max=-30');
+                const data = await res.json();
+
+                if (data.error) {
+                    document.getElementById('growth-table').innerHTML = '<div class="empty-state">暫無營收資料</div>';
+                    document.getElementById('decline-table').innerHTML = '<div class="empty-state">暫無營收資料</div>';
+                    return;
+                }
+
+                // Growth table
+                if (data.data.growth && data.data.growth.length > 0) {
+                    let html = `
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>股票</th>
+                                    <th>營收(千)</th>
+                                    <th>年增率</th>
+                                    <th>月增率</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+
+                    data.data.growth.forEach(item => {
+                        html += `
+                            <tr>
+                                <td>
+                                    <a href="/stock/${item.code}" class="stock-link">${item.code}</a>
+                                    <span style="color:#888;margin-left:5px;">${item.name}</span>
+                                </td>
+                                <td>${item.revenue ? item.revenue.toLocaleString() : '-'}</td>
+                                <td class="positive">${item.yoy_change ? '+' + item.yoy_change.toFixed(1) + '%' : '-'}</td>
+                                <td class="${item.mom_change >= 0 ? 'positive' : 'negative'}">${item.mom_change ? (item.mom_change >= 0 ? '+' : '') + item.mom_change.toFixed(1) + '%' : '-'}</td>
+                            </tr>
+                        `;
+                    });
+
+                    html += '</tbody></table>';
+                    document.getElementById('growth-table').innerHTML = html;
+                } else {
+                    document.getElementById('growth-table').innerHTML = '<div class="empty-state">目前無年增50%以上的股票</div>';
+                }
+
+                // Decline table
+                if (data.data.decline && data.data.decline.length > 0) {
+                    let html = `
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>股票</th>
+                                    <th>營收(千)</th>
+                                    <th>年增率</th>
+                                    <th>月增率</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+
+                    data.data.decline.forEach(item => {
+                        html += `
+                            <tr>
+                                <td>
+                                    <a href="/stock/${item.code}" class="stock-link">${item.code}</a>
+                                    <span style="color:#888;margin-left:5px;">${item.name}</span>
+                                </td>
+                                <td>${item.revenue ? item.revenue.toLocaleString() : '-'}</td>
+                                <td class="negative">${item.yoy_change ? item.yoy_change.toFixed(1) + '%' : '-'}</td>
+                                <td class="${item.mom_change >= 0 ? 'positive' : 'negative'}">${item.mom_change ? (item.mom_change >= 0 ? '+' : '') + item.mom_change.toFixed(1) + '%' : '-'}</td>
+                            </tr>
+                        `;
+                    });
+
+                    html += '</tbody></table>';
+                    document.getElementById('decline-table').innerHTML = html;
+                } else {
+                    document.getElementById('decline-table').innerHTML = '<div class="empty-state">目前無年減30%以上的股票</div>';
+                }
+            } catch (error) {
+                console.error('Failed to fetch alerts:', error);
+                document.getElementById('growth-table').innerHTML = '<div class="empty-state">載入失敗</div>';
+                document.getElementById('decline-table').innerHTML = '<div class="empty-state">載入失敗</div>';
+            }
+        }
+
+        async function fetchRankings(sortBy) {
+            try {
+                const res = await fetch(`/api/v1/revenue/rankings?sort_by=${sortBy}&limit=50`);
+                const data = await res.json();
+
+                document.getElementById('ranking-date').textContent = data.year && data.month ?
+                    `資料期間：${data.year}年${data.month}月` : '-';
+
+                if (data.error || !data.data || data.data.length === 0) {
+                    document.getElementById('rankings-table').innerHTML = '<div class="empty-state">暫無資料</div>';
+                    return;
+                }
+
+                let html = `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>股票</th>
+                                <th>股價</th>
+                                <th>營收(千)</th>
+                                <th>月增率</th>
+                                <th>年增率</th>
+                                <th>累計營收</th>
+                                <th>累計年增</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                data.data.forEach(item => {
+                    html += `
+                        <tr>
+                            <td>
+                                <a href="/stock/${item.code}" class="stock-link">${item.code}</a>
+                                <span style="color:#888;margin-left:5px;">${item.name}</span>
+                            </td>
+                            <td>${item.close_price ? item.close_price.toFixed(2) : '-'}</td>
+                            <td>${item.revenue ? item.revenue.toLocaleString() : '-'}</td>
+                            <td class="${item.mom_change >= 0 ? 'positive' : 'negative'}">${item.mom_change !== null ? (item.mom_change >= 0 ? '+' : '') + item.mom_change.toFixed(1) + '%' : '-'}</td>
+                            <td class="${item.yoy_change >= 0 ? 'positive' : 'negative'}">${item.yoy_change !== null ? (item.yoy_change >= 0 ? '+' : '') + item.yoy_change.toFixed(1) + '%' : '-'}</td>
+                            <td>${item.cumulative_revenue ? item.cumulative_revenue.toLocaleString() : '-'}</td>
+                            <td class="${item.cumulative_yoy_change >= 0 ? 'positive' : 'negative'}">${item.cumulative_yoy_change !== null ? (item.cumulative_yoy_change >= 0 ? '+' : '') + item.cumulative_yoy_change.toFixed(1) + '%' : '-'}</td>
+                        </tr>
+                    `;
+                });
+
+                html += '</tbody></table>';
+                document.getElementById('rankings-table').innerHTML = html;
+            } catch (error) {
+                console.error('Failed to fetch rankings:', error);
+                document.getElementById('rankings-table').innerHTML = '<div class="empty-state">載入失敗</div>';
+            }
+        }
+
+        // Tab click handlers
+        document.querySelectorAll('.tabs .tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentSort = tab.dataset.sort;
+                document.getElementById('rankings-table').innerHTML = '<div class="loading">載入中</div>';
+                fetchRankings(currentSort);
+            });
+        });
+
+        // Initialize
+        fetchAlerts();
+        fetchRankings(currentSort);
+    </script>
+</body>
+</html>

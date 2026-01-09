@@ -24,6 +24,8 @@ class Stock(Base):
     ratios = relationship("InstitutionalRatio", back_populates="stock", cascade="all, delete-orphan")
     broker_trades = relationship("BrokerTrade", back_populates="stock", cascade="all, delete-orphan")
     baselines = relationship("InstitutionalBaseline", back_populates="stock", cascade="all, delete-orphan")
+    margin_trading = relationship("MarginTrading", back_populates="stock", cascade="all, delete-orphan")
+    revenues = relationship("MonthlyRevenue", back_populates="stock", cascade="all, delete-orphan")
 
 
 class InstitutionalFlow(Base):
@@ -130,3 +132,53 @@ class InstitutionalBaseline(Base):
     created_at = Column(DateTime, server_default=func.now())
 
     stock = relationship("Stock", back_populates="baselines")
+
+
+class MarginTrading(Base):
+    """融資融券資料表"""
+    __tablename__ = "margin_trading"
+    __table_args__ = (UniqueConstraint('stock_id', 'trade_date'),)
+
+    id = Column(Integer, primary_key=True)
+    stock_id = Column(Integer, ForeignKey("stocks.id", ondelete="CASCADE"), nullable=False)
+    trade_date = Column(Date, nullable=False, index=True)
+    # 融資
+    margin_buy = Column(BigInteger, default=0)  # 融資買進
+    margin_sell = Column(BigInteger, default=0)  # 融資賣出
+    margin_cash_repay = Column(BigInteger, default=0)  # 融資現金償還
+    margin_balance = Column(BigInteger, default=0)  # 融資餘額
+    margin_limit = Column(BigInteger, default=0)  # 融資限額
+    # 融券
+    short_sell = Column(BigInteger, default=0)  # 融券賣出
+    short_buy = Column(BigInteger, default=0)  # 融券買進(回補)
+    short_stock_repay = Column(BigInteger, default=0)  # 融券現券償還
+    short_balance = Column(BigInteger, default=0)  # 融券餘額
+    short_limit = Column(BigInteger, default=0)  # 融券限額
+    # 資券互抵
+    offset = Column(BigInteger, default=0)  # 資券互抵
+    # 計算欄位
+    margin_utilization = Column(Numeric(8, 4))  # 融資使用率
+    short_utilization = Column(Numeric(8, 4))  # 融券使用率
+    short_margin_ratio = Column(Numeric(8, 4))  # 券資比
+    created_at = Column(DateTime, server_default=func.now())
+
+    stock = relationship("Stock", back_populates="margin_trading")
+
+
+class MonthlyRevenue(Base):
+    """月營收資料表"""
+    __tablename__ = "monthly_revenue"
+    __table_args__ = (UniqueConstraint('stock_id', 'year', 'month'),)
+
+    id = Column(Integer, primary_key=True)
+    stock_id = Column(Integer, ForeignKey("stocks.id", ondelete="CASCADE"), nullable=False)
+    year = Column(Integer, nullable=False)  # 西元年
+    month = Column(Integer, nullable=False)  # 月份 1-12
+    revenue = Column(BigInteger)  # 當月營收（千元）
+    mom_change = Column(Numeric(10, 4))  # 月增率 (%)
+    yoy_change = Column(Numeric(10, 4))  # 年增率 (%)
+    cumulative_revenue = Column(BigInteger)  # 年累計營收
+    cumulative_yoy_change = Column(Numeric(10, 4))  # 年累計年增率
+    created_at = Column(DateTime, server_default=func.now())
+
+    stock = relationship("Stock", back_populates="revenues")

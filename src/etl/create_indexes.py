@@ -28,6 +28,15 @@ def create_indexes():
         # Strategy rankings indexes
         ("idx_rankings_metric", "strategy_rankings", "(metric_type)"),
         ("idx_rankings_tier_metric", "strategy_rankings", "(price_tier, metric_type)"),
+
+        # Margin trading indexes
+        ("idx_margin_stock_date", "margin_trading", "(stock_id, trade_date)"),
+        ("idx_margin_date", "margin_trading", "(trade_date)"),
+        ("idx_margin_ratio", "margin_trading", "(short_margin_ratio DESC)"),
+
+        # Monthly revenue indexes
+        ("idx_revenue_stock_year_month", "monthly_revenue", "(stock_id, year, month)"),
+        ("idx_revenue_year_month", "monthly_revenue", "(year, month)"),
     ]
 
     with get_db_session() as session:

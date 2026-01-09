@@ -6,7 +6,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, RedirectResponse
 import os
 
-from src.api.routes import stocks, institutional, prices, rankings, brokers, strategy, analysis, system, industry, ai_analysis
+from src.api.routes import stocks, institutional, prices, rankings, brokers, strategy, analysis, system, industry, ai_analysis, margin, revenue
 
 app = FastAPI(
     title="Taiwan Stock Institutional Tracker API",
@@ -36,6 +36,8 @@ app.include_router(analysis.router, prefix="/api/v1/analysis", tags=["Analysis"]
 app.include_router(system.router, prefix="/api/v1/system", tags=["System"])
 app.include_router(industry.router, prefix="/api/v1/industry", tags=["Industry"])
 app.include_router(ai_analysis.router, prefix="/api/v1/ai", tags=["AI Analysis"])
+app.include_router(margin.router, prefix="/api/v1/margin", tags=["Margin Trading"])
+app.include_router(revenue.router, prefix="/api/v1/revenue", tags=["Revenue"])
 
 # Serve static files
 static_dir = os.path.join(os.path.dirname(__file__), "static")
@@ -104,6 +106,24 @@ def live_page():
     if os.path.exists(html_path):
         return FileResponse(html_path)
     return {"error": "Live page not found"}
+
+
+@app.get("/margin")
+def margin_page():
+    """Serve the margin trading page."""
+    html_path = os.path.join(static_dir, "margin.html")
+    if os.path.exists(html_path):
+        return FileResponse(html_path)
+    return {"error": "Margin page not found"}
+
+
+@app.get("/revenue")
+def revenue_page():
+    """Serve the revenue tracking page."""
+    html_path = os.path.join(static_dir, "revenue.html")
+    if os.path.exists(html_path):
+        return FileResponse(html_path)
+    return {"error": "Revenue page not found"}
 
 
 @app.get("/health")

@@ -24,12 +24,17 @@ from src.etl.fetchers.twse_prices import fetch_twse_stock_day_all
 from src.etl.fetchers.tpex_flows import fetch_tpex_flows
 from src.etl.fetchers.tpex_foreign import fetch_tpex_qfii
 from src.etl.fetchers.tpex_prices import fetch_tpex_quotes
+from src.etl.fetchers.twse_margin import fetch_twse_margin
+from src.etl.fetchers.tpex_margin import fetch_tpex_margin
+from src.etl.fetchers.revenue import fetch_all_revenue
 
 from src.etl.loaders.db_loader import (
     upsert_flows,
     upsert_foreign_holdings,
     upsert_prices,
     upsert_ratios,
+    upsert_margin_trading,
+    upsert_revenue,
 )
 from src.etl.processors.holdings import build_estimated_holdings, build_foreign_master
 from src.etl.processors.ratios import add_change_metrics
@@ -414,6 +419,66 @@ def run_etl():
         print(f"  Upserted {count} price records to database")
     else:
         print("  No prices to upsert")
+
+    # Fetch and store margin trading data
+    print("\n[STEP 3.5] Fetching margin trading data...")
+    try:
+        all_margin = []
+        print(f"  Fetching TWSE margin for {target_date}...")
+        twse_margin = fetch_twse_margin(target_date)
+        if not twse_margin.empty:
+            all_margin.append(twse_margin)
+            print(f"    Got {len(twse_margin)} TWSE records")
+
+        print(f"  Fetching TPEX margin for {target_date}...")
+        tpex_margin = fetch_tpex_margin(target_date)
+        if not tpex_margin.empty:
+            all_margin.append(tpex_margin)
+            print(f"    Got {len(tpex_margin)} TPEX records")
+
+        if all_margin:
+            margin_df = pd.concat(all_margin, ignore_index=True)
+            count = upsert_margin_trading(margin_df)
+            print(f"  Upserted {count} margin trading records to database")
+        else:
+            print("  No margin data to upsert")
+    except Exception as e:
+        print(f"  [WARN] Margin trading fetch failed: {e}")
+
+    # Fetch and store monthly revenue (only on specific days or when needed)
+    print("\n[STEP 3.6] Checking for monthly revenue updates...")
+    try:
+        today = get_taipei_today()
+        # Fetch revenue if it's after the 10th of the month (revenue data is usually available)
+        if today.day >= 10:
+            # Fetch previous month's revenue
+            if today.month == 1:
+                rev_year, rev_month = today.year - 1, 12
+            else:
+                rev_year, rev_month = today.year, today.month - 1
+
+            # Check if we already have this month's revenue
+            from sqlalchemy import text
+            with get_db_session() as session:
+                existing = session.execute(text("""
+                    SELECT COUNT(*) FROM monthly_revenue
+                    WHERE year = :year AND month = :month
+                """), {"year": rev_year, "month": rev_month}).scalar()
+
+            if existing == 0:
+                print(f"  Fetching revenue for {rev_year}/{rev_month}...")
+                revenue_df = fetch_all_revenue(rev_year, rev_month)
+                if not revenue_df.empty:
+                    count = upsert_revenue(revenue_df)
+                    print(f"  Upserted {count} revenue records to database")
+                else:
+                    print("  No revenue data available")
+            else:
+                print(f"  Revenue for {rev_year}/{rev_month} already exists ({existing} records)")
+        else:
+            print("  Skipping revenue fetch (data not yet available)")
+    except Exception as e:
+        print(f"  [WARN] Revenue fetch failed: {e}")
 
     # Compute and store ratios - now using pure PostgreSQL for speed
     print("\n[STEP 4] Computing institutional ratios (PostgreSQL mode)...")

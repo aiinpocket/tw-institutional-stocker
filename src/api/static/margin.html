@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>融資融券追蹤 | Taiwan Stock Margin Trading</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 0.95rem;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #00d4ff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid rgba(0,212,255,0.3);
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(0,212,255,0.1);
+            border-color: #00d4ff;
+        }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .summary-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .summary-card .label {
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .summary-card .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .summary-card .value.positive { color: #ef5350; }
+        .summary-card .value.negative { color: #26a69a; }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(180deg, #00d4ff, #7b2cbf);
+            border-radius: 2px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            color: #e0e0e0;
+        }
+
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .tab.active {
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            color: white;
+            border: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px 10px;
+            color: #888;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .stock-link {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .stock-link:hover {
+            text-decoration: underline;
+        }
+
+        .positive { color: #ef5350; }
+        .negative { color: #26a69a; }
+
+        .alert-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .alert-badge.high {
+            background: rgba(239, 83, 80, 0.2);
+            color: #ef5350;
+        }
+
+        .alert-badge.medium {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            color: #888;
+        }
+
+        .loading::after {
+            content: '';
+            width: 24px;
+            height: 24px;
+            border: 2px solid #888;
+            border-top-color: #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .date-info {
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            flex: 1;
+            max-width: 300px;
+            padding: 10px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #00d4ff;
+        }
+
+        @media (max-width: 768px) {
+            .summary-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            table {
+                font-size: 0.8rem;
+            }
+            th, td {
+                padding: 8px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>融資融券追蹤</h1>
+            <p class="subtitle">追蹤市場散戶籌碼動向，識別軋空潛力股</p>
+            <div class="nav-links">
+                <a href="/dashboard">📊 策略儀表板</a>
+                <a href="/live">📈 今日總結</a>
+                <a href="/rankings">🏆 法人排行榜</a>
+                <a href="/industry">🏭 產業熱力圖</a>
+                <a href="/margin" class="active">💰 融資融券</a>
+                <a href="/revenue">📋 營收追蹤</a>
+                <a href="/ai">🤖 AI 分析</a>
+            </div>
+        </header>
+
+        <div class="summary-cards" id="summary-cards">
+            <div class="loading">載入中</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">券資比警示（潛在軋空標的）</div>
+            <div class="date-info" id="alert-date">-</div>
+            <div id="alerts-table">
+                <div class="loading">載入中</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">融資融券排行榜</div>
+            <div class="tabs">
+                <button class="tab active" data-sort="short_margin_ratio">券資比</button>
+                <button class="tab" data-sort="margin_balance">融資餘額</button>
+                <button class="tab" data-sort="short_balance">融券餘額</button>
+                <button class="tab" data-sort="margin_utilization">融資使用率</button>
+            </div>
+            <div id="rankings-table">
+                <div class="loading">載入中</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSort = 'short_margin_ratio';
+
+        async function fetchSummary() {
+            try {
+                const res = await fetch('/api/v1/margin/summary');
+                const data = await res.json();
+
+                if (data.error || !data.data) {
+                    document.getElementById('summary-cards').innerHTML = '<div class="empty-state">暫無融資融券資料</div>';
+                    return;
+                }
+
+                const d = data.data;
+                const marginNet = d.margin.net;
+                const shortNet = d.short.net;
+
+                document.getElementById('summary-cards').innerHTML = `
+                    <div class="summary-card">
+                        <div class="label">資料日期</div>
+                        <div class="value" style="font-size:1.1rem;">${data.date}</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">融資餘額</div>
+                        <div class="value">${(d.margin.balance / 1000000).toFixed(0)}M</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">融資增減</div>
+                        <div class="value ${marginNet >= 0 ? 'positive' : 'negative'}">${marginNet >= 0 ? '+' : ''}${(marginNet / 1000).toFixed(0)}K</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">融券餘額</div>
+                        <div class="value">${(d.short.balance / 1000000).toFixed(0)}M</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">融券增減</div>
+                        <div class="value ${shortNet >= 0 ? 'negative' : 'positive'}">${shortNet >= 0 ? '+' : ''}${(shortNet / 1000).toFixed(0)}K</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">資券互抵</div>
+                        <div class="value">${(d.offset / 1000).toFixed(0)}K</div>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Failed to fetch summary:', error);
+                document.getElementById('summary-cards').innerHTML = '<div class="empty-state">載入失敗</div>';
+            }
+        }
+
+        async function fetchAlerts() {
+            try {
+                const res = await fetch('/api/v1/margin/alerts?min_short_margin_ratio=30');
+                const data = await res.json();
+
+                document.getElementById('alert-date').textContent = `資料日期：${data.date || '-'}`;
+
+                if (data.error || !data.data || data.data.length === 0) {
+                    document.getElementById('alerts-table').innerHTML = '<div class="empty-state">目前無券資比超過30%的股票</div>';
+                    return;
+                }
+
+                let html = `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>股票</th>
+                                <th>股價</th>
+                                <th>融資餘額</th>
+                                <th>融券餘額</th>
+                                <th>券資比</th>
+                                <th>風險等級</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                data.data.forEach(item => {
+                    const ratio = item.short_margin_ratio;
+                    const alertClass = ratio >= 50 ? 'high' : 'medium';
+                    const alertText = ratio >= 50 ? '高軋空風險' : '觀察中';
+
+                    html += `
+                        <tr>
+                            <td>
+                                <a href="/stock/${item.code}" class="stock-link">${item.code}</a>
+                                <span style="color:#888;margin-left:5px;">${item.name}</span>
+                            </td>
+                            <td>${item.close_price ? item.close_price.toFixed(2) : '-'}</td>
+                            <td>${(item.margin_balance / 1000).toFixed(0)}K</td>
+                            <td>${(item.short_balance / 1000).toFixed(0)}K</td>
+                            <td class="positive">${ratio.toFixed(1)}%</td>
+                            <td><span class="alert-badge ${alertClass}">${alertText}</span></td>
+                        </tr>
+                    `;
+                });
+
+                html += '</tbody></table>';
+                document.getElementById('alerts-table').innerHTML = html;
+            } catch (error) {
+                console.error('Failed to fetch alerts:', error);
+                document.getElementById('alerts-table').innerHTML = '<div class="empty-state">載入失敗</div>';
+            }
+        }
+
+        async function fetchRankings(sortBy) {
+            try {
+                const res = await fetch(`/api/v1/margin/rankings?sort_by=${sortBy}&limit=50`);
+                const data = await res.json();
+
+                if (data.error || !data.data || data.data.length === 0) {
+                    document.getElementById('rankings-table').innerHTML = '<div class="empty-state">暫無資料</div>';
+                    return;
+                }
+
+                let html = `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>股票</th>
+                                <th>股價</th>
+                                <th>融資買</th>
+                                <th>融資賣</th>
+                                <th>融資餘額</th>
+                                <th>融券賣</th>
+                                <th>融券買</th>
+                                <th>融券餘額</th>
+                                <th>券資比</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                data.data.forEach(item => {
+                    const marginNet = item.margin.buy - item.margin.sell;
+                    const shortNet = item.short.sell - item.short.buy;
+
+                    html += `
+                        <tr>
+                            <td>
+                                <a href="/stock/${item.code}" class="stock-link">${item.code}</a>
+                                <span style="color:#888;margin-left:5px;">${item.name}</span>
+                            </td>
+                            <td>${item.close_price ? item.close_price.toFixed(2) : '-'}</td>
+                            <td class="positive">${item.margin.buy.toLocaleString()}</td>
+                            <td class="negative">${item.margin.sell.toLocaleString()}</td>
+                            <td>${(item.margin.balance / 1000).toFixed(0)}K</td>
+                            <td class="negative">${item.short.sell.toLocaleString()}</td>
+                            <td class="positive">${item.short.buy.toLocaleString()}</td>
+                            <td>${(item.short.balance / 1000).toFixed(0)}K</td>
+                            <td class="${item.short_margin_ratio >= 30 ? 'positive' : ''}">${item.short_margin_ratio.toFixed(1)}%</td>
+                        </tr>
+                    `;
+                });
+
+                html += '</tbody></table>';
+                document.getElementById('rankings-table').innerHTML = html;
+            } catch (error) {
+                console.error('Failed to fetch rankings:', error);
+                document.getElementById('rankings-table').innerHTML = '<div class="empty-state">載入失敗</div>';
+            }
+        }
+
+        // Tab click handlers
+        document.querySelectorAll('.tabs .tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentSort = tab.dataset.sort;
+                document.getElementById('rankings-table').innerHTML = '<div class="loading">載入中</div>';
+                fetchRankings(currentSort);
+            });
+        });
+
+        // Initialize
+        fetchSummary();
+        fetchAlerts();
+        fetchRankings(currentSort);
+    </script>
+</body>
+</html>

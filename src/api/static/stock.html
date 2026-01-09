@@ -199,7 +199,19 @@
         .tech-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 10px;
+        }
+
+        .tech-section {
+            margin-bottom: 15px;
+        }
+
+        .tech-section-title {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 8px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .tech-item {
@@ -885,27 +897,142 @@
             `).join('');
         }
 
-        function renderTechnicals(technicals) {
+        // Calculate KD values
+        function calculateKD(prices, period = 9) {
+            if (prices.length < period) return { k: null, d: null };
+
+            const rsv = [];
+            for (let i = period - 1; i < prices.length; i++) {
+                const slice = prices.slice(i - period + 1, i + 1);
+                const high = Math.max(...slice.map(p => p.high));
+                const low = Math.min(...slice.map(p => p.low));
+                const close = prices[i].close;
+                if (high !== low) {
+                    rsv.push((close - low) / (high - low) * 100);
+                } else {
+                    rsv.push(50);
+                }
+            }
+
+            // Calculate K and D with smoothing
+            let k = 50, d = 50;
+            for (let i = 0; i < rsv.length; i++) {
+                k = (2/3) * k + (1/3) * rsv[i];
+                d = (2/3) * d + (1/3) * k;
+            }
+
+            return { k: k.toFixed(1), d: d.toFixed(1) };
+        }
+
+        // Calculate MACD values
+        function calculateMACD(prices) {
+            if (prices.length < 26) return { macd: null, signal: null, histogram: null };
+
+            const closes = prices.map(p => p.close);
+
+            // Calculate EMA
+            function ema(data, period) {
+                const k = 2 / (period + 1);
+                let emaVal = data.slice(0, period).reduce((a, b) => a + b, 0) / period;
+                const result = [emaVal];
+                for (let i = period; i < data.length; i++) {
+                    emaVal = data[i] * k + emaVal * (1 - k);
+                    result.push(emaVal);
+                }
+                return result;
+            }
+
+            const ema12 = ema(closes, 12);
+            const ema26 = ema(closes, 26);
+
+            // Align lengths
+            const diff = ema12.length - ema26.length;
+            const dif = ema12.slice(diff).map((v, i) => v - ema26[i]);
+
+            if (dif.length < 9) return { macd: null, signal: null, histogram: null };
+
+            const signal = ema(dif, 9);
+            const macdVal = dif[dif.length - 1];
+            const signalVal = signal[signal.length - 1];
+            const histogram = macdVal - signalVal;
+
+            return {
+                macd: macdVal.toFixed(2),
+                signal: signalVal.toFixed(2),
+                histogram: histogram.toFixed(2)
+            };
+        }
+
+        function renderTechnicals(technicals, pricesData = null) {
             const container = document.getElementById('technicals');
             const ma = technicals.ma;
             const rsi = technicals.rsi;
 
+            // Calculate KD and MACD from prices data if available
+            let kd = { k: null, d: null };
+            let macd = { macd: null, signal: null, histogram: null };
+
+            if (pricesData && pricesData.length >= 9) {
+                kd = calculateKD(pricesData);
+            }
+            if (pricesData && pricesData.length >= 26) {
+                macd = calculateMACD(pricesData);
+            }
+
+            const kdColor = kd.k > 80 ? 'negative' : kd.k < 20 ? 'positive' : '';
+            const macdColor = macd.histogram > 0 ? 'positive' : macd.histogram < 0 ? 'negative' : '';
+
             container.innerHTML = `
-                <div class="tech-item">
-                    <div class="tech-label">MA5</div>
-                    <div class="tech-value">${ma.ma5 ? ma.ma5.toFixed(1) : '-'}</div>
+                <div class="tech-section">
+                    <div class="tech-section-title">均線 MA</div>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <div class="tech-label">MA5</div>
+                            <div class="tech-value">${ma.ma5 ? ma.ma5.toFixed(1) : '-'}</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-label">MA20</div>
+                            <div class="tech-value">${ma.ma20 ? ma.ma20.toFixed(1) : '-'}</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-label">MA60</div>
+                            <div class="tech-value">${ma.ma60 ? ma.ma60.toFixed(1) : '-'}</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="tech-item">
-                    <div class="tech-label">MA20</div>
-                    <div class="tech-value">${ma.ma20 ? ma.ma20.toFixed(1) : '-'}</div>
+                <div class="tech-section">
+                    <div class="tech-section-title">動能指標</div>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <div class="tech-label">RSI(14)</div>
+                            <div class="tech-value ${rsi > 70 ? 'negative' : rsi < 30 ? 'positive' : ''}">${rsi ? rsi : '-'}</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-label">K值</div>
+                            <div class="tech-value ${kdColor}">${kd.k || '-'}</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-label">D值</div>
+                            <div class="tech-value ${kdColor}">${kd.d || '-'}</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="tech-item">
-                    <div class="tech-label">MA60</div>
-                    <div class="tech-value">${ma.ma60 ? ma.ma60.toFixed(1) : '-'}</div>
-                </div>
-                <div class="tech-item">
-                    <div class="tech-label">RSI(14)</div>
-                    <div class="tech-value ${rsi > 70 ? 'negative' : rsi < 30 ? 'positive' : ''}">${rsi ? rsi : '-'}</div>
+                <div class="tech-section">
+                    <div class="tech-section-title">MACD</div>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <div class="tech-label">DIF</div>
+                            <div class="tech-value">${macd.macd || '-'}</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-label">MACD</div>
+                            <div class="tech-value">${macd.signal || '-'}</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-label">柱狀</div>
+                            <div class="tech-value ${macdColor}">${macd.histogram || '-'}</div>
+                        </div>
+                    </div>
                 </div>
             `;
         }
@@ -1052,7 +1179,7 @@
             // Re-render
             createCharts(analysis);
             renderSignals(analysis.signals);
-            renderTechnicals(analysis.technicals);
+            renderTechnicals(analysis.technicals, analysis.chart_data.prices);
             renderLevels(analysis.technicals.support_resistance);
             renderFlowSummary(analysis.institutional);
         }
@@ -1131,7 +1258,7 @@
             renderHeader(analysis);
             createCharts(analysis);
             renderSignals(analysis.signals);
-            renderTechnicals(analysis.technicals);
+            renderTechnicals(analysis.technicals, analysis.chart_data.prices);
             renderLevels(analysis.technicals.support_resistance);
             renderFlowSummary(analysis.institutional);
             renderBrokers(brokers, 'buy');

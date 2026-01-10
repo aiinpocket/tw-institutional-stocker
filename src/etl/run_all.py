@@ -323,20 +323,32 @@ def verify_etl_results(target_date: date) -> list:
             errors.append(f"No margin data for {target_date} (check API availability)")
 
         # Check 4: Revenue data (only if after 10th of month)
+        # Check for either previous month or 2 months ago (whichever is available)
         today = get_taipei_today()
         if today.day >= 10:
+            months_to_check = []
             if today.month == 1:
-                rev_year, rev_month = today.year - 1, 12
+                months_to_check.append((today.year - 1, 12))
+                months_to_check.append((today.year - 1, 11))
+            elif today.month == 2:
+                months_to_check.append((today.year, 1))
+                months_to_check.append((today.year - 1, 12))
             else:
-                rev_year, rev_month = today.year, today.month - 1
+                months_to_check.append((today.year, today.month - 1))
+                months_to_check.append((today.year, today.month - 2))
 
-            revenue_count = session.execute(text("""
-                SELECT COUNT(*) FROM monthly_revenue WHERE year = :year AND month = :month
-            """), {"year": rev_year, "month": rev_month}).scalar()
+            has_revenue = False
+            for rev_year, rev_month in months_to_check:
+                revenue_count = session.execute(text("""
+                    SELECT COUNT(*) FROM monthly_revenue WHERE year = :year AND month = :month
+                """), {"year": rev_year, "month": rev_month}).scalar()
+                print(f"    Revenue records ({rev_year}/{rev_month}): {revenue_count}")
+                if revenue_count > 0:
+                    has_revenue = True
+                    break
 
-            print(f"    Revenue records ({rev_year}/{rev_month}): {revenue_count}")
-            if revenue_count == 0:
-                errors.append(f"No revenue data for {rev_year}/{rev_month}")
+            if not has_revenue:
+                errors.append(f"No revenue data for recent months")
 
         # Check 5: Strategy rankings exist
         ranking_count = session.execute(text("""
@@ -540,30 +552,44 @@ def run_etl():
         today = get_taipei_today()
         # Fetch revenue if it's after the 10th of the month (revenue data is usually available)
         if today.day >= 10:
-            # Fetch previous month's revenue
-            if today.month == 1:
-                rev_year, rev_month = today.year - 1, 12
-            else:
-                rev_year, rev_month = today.year, today.month - 1
-
-            # Check if we already have this month's revenue
             from sqlalchemy import text
-            with get_db_session() as session:
-                existing = session.execute(text("""
-                    SELECT COUNT(*) FROM monthly_revenue
-                    WHERE year = :year AND month = :month
-                """), {"year": rev_year, "month": rev_month}).scalar()
 
-            if existing == 0:
-                print(f"  Fetching revenue for {rev_year}/{rev_month}...")
-                revenue_df = fetch_all_revenue(rev_year, rev_month)
-                if not revenue_df.empty:
-                    count = upsert_revenue(revenue_df)
-                    print(f"  Upserted {count} revenue records to database")
-                else:
-                    print("  No revenue data available")
+            # Try to fetch previous month's revenue first, then fallback to 2 months ago
+            # This handles cases where the latest month's data isn't published yet
+            months_to_try = []
+
+            # Previous month
+            if today.month == 1:
+                months_to_try.append((today.year - 1, 12))
             else:
-                print(f"  Revenue for {rev_year}/{rev_month} already exists ({existing} records)")
+                months_to_try.append((today.year, today.month - 1))
+
+            # Two months ago (fallback)
+            if today.month <= 2:
+                months_to_try.append((today.year - 1, 12 + today.month - 2))
+            else:
+                months_to_try.append((today.year, today.month - 2))
+
+            for rev_year, rev_month in months_to_try:
+                # Check if we already have this month's revenue
+                with get_db_session() as session:
+                    existing = session.execute(text("""
+                        SELECT COUNT(*) FROM monthly_revenue
+                        WHERE year = :year AND month = :month
+                    """), {"year": rev_year, "month": rev_month}).scalar()
+
+                if existing == 0:
+                    print(f"  Fetching revenue for {rev_year}/{rev_month}...")
+                    revenue_df = fetch_all_revenue(rev_year, rev_month)
+                    if not revenue_df.empty:
+                        count = upsert_revenue(revenue_df)
+                        print(f"  Upserted {count} revenue records to database")
+                        break  # Stop after successfully fetching one month
+                    else:
+                        print(f"  No revenue data available for {rev_year}/{rev_month}, trying earlier month...")
+                else:
+                    print(f"  Revenue for {rev_year}/{rev_month} already exists ({existing} records)")
+                    break  # Data exists, no need to try earlier months
         else:
             print("  Skipping revenue fetch (data not yet available)")
     except Exception as e:

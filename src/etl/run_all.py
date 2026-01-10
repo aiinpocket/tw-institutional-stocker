@@ -441,13 +441,14 @@ def run_etl():
     except Exception as e:
         print(f"  [WARN] Table creation failed: {e}")
 
-    # 建立資料庫索引 (如果不存在)
-    print("\n[STEP 0.5] Ensuring database indexes exist...")
+    # 建立資料庫索引 (如果不存在) 和執行欄位遷移
+    print("\n[STEP 0.5] Ensuring database indexes exist and running migrations...")
     try:
-        from src.etl.create_indexes import create_indexes
+        from src.etl.create_indexes import create_indexes, migrate_revenue_columns
         create_indexes()
+        migrate_revenue_columns()
     except Exception as e:
-        print(f"  [WARN] Index creation failed: {e}")
+        print(f"  [WARN] Index creation/migration failed: {e}")
 
     # 清理下市/失效股票
     print("\n[STEP 0.6] Cleaning up inactive stocks...")

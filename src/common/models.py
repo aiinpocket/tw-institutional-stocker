@@ -175,10 +175,10 @@ class MonthlyRevenue(Base):
     year = Column(Integer, nullable=False)  # 西元年
     month = Column(Integer, nullable=False)  # 月份 1-12
     revenue = Column(BigInteger)  # 當月營收（千元）
-    mom_change = Column(Numeric(10, 4))  # 月增率 (%)
-    yoy_change = Column(Numeric(10, 4))  # 年增率 (%)
+    mom_change = Column(Numeric(15, 4))  # 月增率 (%) - 允許極端值
+    yoy_change = Column(Numeric(15, 4))  # 年增率 (%) - 允許極端值
     cumulative_revenue = Column(BigInteger)  # 年累計營收
-    cumulative_yoy_change = Column(Numeric(10, 4))  # 年累計年增率
+    cumulative_yoy_change = Column(Numeric(15, 4))  # 年累計年增率 - 允許極端值
     created_at = Column(DateTime, server_default=func.now())
 
     stock = relationship("Stock", back_populates="revenues")

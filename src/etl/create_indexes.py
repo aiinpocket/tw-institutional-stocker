@@ -66,6 +66,44 @@ def create_indexes():
     logger.info("Index creation completed")
 
 
+def migrate_revenue_columns():
+    """Migrate revenue columns to allow larger values."""
+    migrations = [
+        ("mom_change", "NUMERIC(15, 4)"),
+        ("yoy_change", "NUMERIC(15, 4)"),
+        ("cumulative_yoy_change", "NUMERIC(15, 4)"),
+    ]
+
+    with get_db_session() as session:
+        for column, new_type in migrations:
+            try:
+                # Check current column type
+                check_sql = text("""
+                    SELECT data_type, numeric_precision
+                    FROM information_schema.columns
+                    WHERE table_name = 'monthly_revenue' AND column_name = :col
+                """)
+                result = session.execute(check_sql, {"col": column}).fetchone()
+
+                if result and result[1] and result[1] >= 15:
+                    logger.info(f"  Column {column} already has precision >= 15, skipping")
+                    continue
+
+                # Alter column type
+                alter_sql = text(f"ALTER TABLE monthly_revenue ALTER COLUMN {column} TYPE {new_type}")
+                session.execute(alter_sql)
+                session.commit()
+                logger.info(f"  Migrated column {column} to {new_type}")
+
+            except Exception as e:
+                logger.error(f"  Failed to migrate column {column}: {e}")
+                session.rollback()
+
+    logger.info("Revenue column migration completed")
+
+
 if __name__ == "__main__":
     logger.info("Creating database indexes...")
     create_indexes()
+    logger.info("Migrating revenue columns...")
+    migrate_revenue_columns()

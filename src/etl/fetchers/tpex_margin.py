@@ -36,17 +36,21 @@ def fetch_tpex_margin(trade_date: date) -> pd.DataFrame:
         "short_stock_repay", "short_balance", "short_limit", "offset", "market"
     ])
 
-    # 資料在 aaData 中
-    raw_data = data.get("aaData", [])
+    # 資料在 tables[0]["data"] 中
+    tables = data.get("tables", [])
+    if not tables:
+        return empty_result
+
+    raw_data = tables[0].get("data", [])
     if not raw_data:
         return empty_result
 
-    # TPEX 欄位順序：
-    # 股票代號, 股票名稱, 融資前日餘額, 融資買進, 融資賣出, 融資現金償還, 融資今日餘額, 融資限額,
-    # 融券前日餘額, 融券賣出, 融券買進, 融券現券償還, 融券今日餘額, 融券限額, 資券相抵, 備註
+    # TPEX 欄位順序（根據實際 API 回傳）：
+    # 代號, 名稱, 前資餘額(張), 資買, 資賣, 現償, 資餘額, 資屬證金, 資使用率(%), 資限額,
+    # 前券餘額(張), 券賣, 券買, 券償, 券餘額, 券屬證金, 券使用率(%), 券限額, 資券相抵(張), 備註
     records = []
     for row in raw_data:
-        if len(row) < 15:
+        if len(row) < 19:
             continue
 
         code = str(row[0]).strip()
@@ -68,17 +72,17 @@ def fetch_tpex_margin(trade_date: date) -> pd.DataFrame:
             "date": trade_date,
             "code": code,
             "name": name,
-            "margin_buy": parse_num(row[3]),
-            "margin_sell": parse_num(row[4]),
-            "margin_cash_repay": parse_num(row[5]),
-            "margin_balance": parse_num(row[6]),  # 今日餘額
-            "margin_limit": parse_num(row[7]),
-            "short_sell": parse_num(row[9]),
-            "short_buy": parse_num(row[10]),
-            "short_stock_repay": parse_num(row[11]),
-            "short_balance": parse_num(row[12]),  # 今日餘額
-            "short_limit": parse_num(row[13]),
-            "offset": parse_num(row[14]),
+            "margin_buy": parse_num(row[3]),      # 資買
+            "margin_sell": parse_num(row[4]),     # 資賣
+            "margin_cash_repay": parse_num(row[5]),  # 現償
+            "margin_balance": parse_num(row[6]),  # 資餘額
+            "margin_limit": parse_num(row[9]),    # 資限額
+            "short_sell": parse_num(row[11]),     # 券賣
+            "short_buy": parse_num(row[12]),      # 券買
+            "short_stock_repay": parse_num(row[13]),  # 券償
+            "short_balance": parse_num(row[14]),  # 券餘額
+            "short_limit": parse_num(row[17]),    # 券限額
+            "offset": parse_num(row[18]),         # 資券相抵
             "market": "TPEX",
         })
 

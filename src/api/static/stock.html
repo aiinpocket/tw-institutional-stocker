@@ -124,14 +124,34 @@
         }
 
         #volume-chart {
-            height: 100px;
+            height: 80px;
             width: 100%;
             margin-top: -10px;
         }
 
-        #flow-chart {
-            height: 200px;
+        #kd-chart {
+            height: 120px;
             width: 100%;
+            margin-top: 10px;
+        }
+
+        #macd-chart {
+            height: 120px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        #flow-chart {
+            height: 180px;
+            width: 100%;
+        }
+
+        .chart-label {
+            font-size: 0.75rem;
+            color: #888;
+            padding: 5px 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 5px;
         }
 
         .sidebar {
@@ -520,6 +540,10 @@
                 <div class="card-title">股價走勢圖</div>
                 <div id="price-chart"></div>
                 <div id="volume-chart"></div>
+                <div class="chart-label">KD 指標 (K:黃色, D:紫色)</div>
+                <div id="kd-chart"></div>
+                <div class="chart-label">MACD 指標 (DIF:藍色, Signal:橘色, 柱狀圖)</div>
+                <div id="macd-chart"></div>
             </div>
 
             <div class="card">
@@ -562,8 +586,9 @@
 
     <script>
         const stockCode = window.location.pathname.split('/').pop();
-        let priceChart, volumeChart, flowChart;
+        let priceChart, volumeChart, flowChart, kdChart, macdChart;
         let priceSeries, volumeSeries, foreignSeries, trustSeries;
+        let kdKSeries, kdDSeries, macdDifSeries, macdSignalSeries, macdHistSeries;
         let availableDateRange = null;
         let currentBrokers = null;
 
@@ -718,6 +743,8 @@
         function createCharts(data) {
             const chartContainer = document.getElementById('price-chart');
             const volumeContainer = document.getElementById('volume-chart');
+            const kdContainer = document.getElementById('kd-chart');
+            const macdContainer = document.getElementById('macd-chart');
             const flowContainer = document.getElementById('flow-chart');
 
             const prices = data.chart_data.prices || [];
@@ -726,6 +753,8 @@
             if (prices.length < 2) {
                 chartContainer.innerHTML = '<div class="no-chart-data">股價資料不足，無法繪製走勢圖</div>';
                 volumeContainer.innerHTML = '';
+                kdContainer.innerHTML = '<div class="no-chart-data">資料不足</div>';
+                macdContainer.innerHTML = '<div class="no-chart-data">資料不足</div>';
                 flowContainer.innerHTML = '<div class="no-chart-data">籌碼資料不足，無法繪製圖表</div>';
                 return;
             }
@@ -776,6 +805,59 @@
             volumeSeries = volumeChart.addHistogramSeries({
                 priceFormat: { type: 'volume' },
             });
+
+            // KD Chart
+            if (prices.length >= 9) {
+                kdChart = LightweightCharts.createChart(kdContainer, {
+                    layout: {
+                        background: { type: 'solid', color: 'transparent' },
+                        textColor: '#888',
+                    },
+                    grid: {
+                        vertLines: { color: 'rgba(255, 255, 255, 0.03)' },
+                        horzLines: { color: 'rgba(255, 255, 255, 0.03)' },
+                    },
+                    rightPriceScale: {
+                        borderColor: 'rgba(255, 255, 255, 0.1)',
+                        scaleMargins: { top: 0.1, bottom: 0.1 },
+                    },
+                    timeScale: { visible: false },
+                });
+
+                kdKSeries = kdChart.addLineSeries({ color: '#ffc107', lineWidth: 1, title: 'K' });
+                kdDSeries = kdChart.addLineSeries({ color: '#9c27b0', lineWidth: 1, title: 'D' });
+
+                // Add overbought/oversold reference lines
+                const kdRefSeries80 = kdChart.addLineSeries({ color: 'rgba(239, 83, 80, 0.3)', lineWidth: 1, lineStyle: 2 });
+                const kdRefSeries20 = kdChart.addLineSeries({ color: 'rgba(38, 166, 154, 0.3)', lineWidth: 1, lineStyle: 2 });
+            } else {
+                kdContainer.innerHTML = '<div class="no-chart-data">需要至少9天資料</div>';
+            }
+
+            // MACD Chart
+            if (prices.length >= 26) {
+                macdChart = LightweightCharts.createChart(macdContainer, {
+                    layout: {
+                        background: { type: 'solid', color: 'transparent' },
+                        textColor: '#888',
+                    },
+                    grid: {
+                        vertLines: { color: 'rgba(255, 255, 255, 0.03)' },
+                        horzLines: { color: 'rgba(255, 255, 255, 0.03)' },
+                    },
+                    rightPriceScale: {
+                        borderColor: 'rgba(255, 255, 255, 0.1)',
+                        scaleMargins: { top: 0.1, bottom: 0.1 },
+                    },
+                    timeScale: { visible: false },
+                });
+
+                macdHistSeries = macdChart.addHistogramSeries({ title: 'Histogram' });
+                macdDifSeries = macdChart.addLineSeries({ color: '#2196f3', lineWidth: 1, title: 'DIF' });
+                macdSignalSeries = macdChart.addLineSeries({ color: '#ff9800', lineWidth: 1, title: 'Signal' });
+            } else {
+                macdContainer.innerHTML = '<div class="no-chart-data">需要至少26天資料</div>';
+            }
 
             // Flow chart
             flowChart = LightweightCharts.createChart(flowContainer, {
@@ -858,17 +940,122 @@
             foreignSeries.setData(foreignData);
             trustSeries.setData(trustData);
 
+            // Calculate and set KD data
+            if (kdChart && prices.length >= 9) {
+                const kdData = calculateKDSeries(prices, 9);
+                kdKSeries.setData(kdData.k);
+                kdDSeries.setData(kdData.d);
+
+                // Set reference lines (80 and 20)
+                if (kdData.k.length > 0) {
+                    const refData80 = kdData.k.map(d => ({ time: d.time, value: 80 }));
+                    const refData20 = kdData.k.map(d => ({ time: d.time, value: 20 }));
+                    kdChart.timeScale().fitContent();
+                }
+            }
+
+            // Calculate and set MACD data
+            if (macdChart && prices.length >= 26) {
+                const macdData = calculateMACDSeries(prices);
+                macdDifSeries.setData(macdData.dif);
+                macdSignalSeries.setData(macdData.signal);
+                macdHistSeries.setData(macdData.histogram);
+                macdChart.timeScale().fitContent();
+            }
+
             // Sync time scales
             priceChart.timeScale().fitContent();
             volumeChart.timeScale().fitContent();
             flowChart.timeScale().fitContent();
 
-            // Sync scroll
+            // Sync scroll across all charts
             priceChart.timeScale().subscribeVisibleLogicalRangeChange(range => {
                 if (range) {
                     volumeChart.timeScale().setVisibleLogicalRange(range);
+                    if (kdChart) kdChart.timeScale().setVisibleLogicalRange(range);
+                    if (macdChart) macdChart.timeScale().setVisibleLogicalRange(range);
                 }
             });
+        }
+
+        // Calculate KD series data for charting
+        function calculateKDSeries(prices, period = 9) {
+            const kData = [], dData = [];
+            let k = 50, d = 50;
+
+            for (let i = period - 1; i < prices.length; i++) {
+                const slice = prices.slice(i - period + 1, i + 1);
+                const high = Math.max(...slice.map(p => p.high));
+                const low = Math.min(...slice.map(p => p.low));
+                const close = prices[i].close;
+
+                let rsv = 50;
+                if (high !== low) {
+                    rsv = (close - low) / (high - low) * 100;
+                }
+
+                k = (2/3) * k + (1/3) * rsv;
+                d = (2/3) * d + (1/3) * k;
+
+                kData.push({ time: prices[i].date, value: k });
+                dData.push({ time: prices[i].date, value: d });
+            }
+
+            return { k: kData, d: dData };
+        }
+
+        // Calculate MACD series data for charting
+        function calculateMACDSeries(prices) {
+            const closes = prices.map(p => p.close);
+
+            function ema(data, period) {
+                const k = 2 / (period + 1);
+                let emaVal = data.slice(0, period).reduce((a, b) => a + b, 0) / period;
+                const result = [emaVal];
+                for (let i = period; i < data.length; i++) {
+                    emaVal = data[i] * k + emaVal * (1 - k);
+                    result.push(emaVal);
+                }
+                return result;
+            }
+
+            const ema12 = ema(closes, 12);
+            const ema26 = ema(closes, 26);
+
+            const difData = [], signalData = [], histData = [];
+            const offset = 26 - 1; // Index offset for EMA26
+
+            // Calculate DIF (EMA12 - EMA26)
+            const dif = [];
+            for (let i = 0; i < ema26.length; i++) {
+                const ema12Idx = i + (ema12.length - ema26.length);
+                dif.push(ema12[ema12Idx] - ema26[i]);
+            }
+
+            // Calculate Signal (9-period EMA of DIF)
+            const signal = ema(dif, 9);
+
+            // Build chart data
+            for (let i = 0; i < signal.length; i++) {
+                const priceIdx = offset + (dif.length - signal.length) + 9 - 1 + i;
+                if (priceIdx < prices.length) {
+                    const date = prices[priceIdx].date;
+                    const difIdx = dif.length - signal.length + i;
+                    const difVal = dif[difIdx];
+                    const sigVal = signal[i];
+                    const hist = difVal - sigVal;
+
+                    difData.push({ time: date, value: difVal });
+                    signalData.push({ time: date, value: sigVal });
+                    histData.push({
+                        time: date,
+                        value: hist,
+                        color: hist >= 0 ? 'rgba(239, 83, 80, 0.7)' : 'rgba(38, 166, 154, 0.7)'
+                    });
+                }
+            }
+
+            return { dif: difData, signal: signalData, histogram: histData };
         }
 
         function renderSignals(signals) {
@@ -1166,6 +1353,14 @@
                 volumeChart.remove();
                 volumeChart = null;
             }
+            if (kdChart) {
+                kdChart.remove();
+                kdChart = null;
+            }
+            if (macdChart) {
+                macdChart.remove();
+                macdChart = null;
+            }
             if (flowChart) {
                 flowChart.remove();
                 flowChart = null;
@@ -1174,6 +1369,8 @@
             // Clear containers
             document.getElementById('price-chart').innerHTML = '';
             document.getElementById('volume-chart').innerHTML = '';
+            document.getElementById('kd-chart').innerHTML = '';
+            document.getElementById('macd-chart').innerHTML = '';
             document.getElementById('flow-chart').innerHTML = '';
 
             // Re-render

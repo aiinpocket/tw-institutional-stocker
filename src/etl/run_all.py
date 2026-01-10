@@ -283,6 +283,86 @@ def force_clear_prices(days: int = 30):
         print(f"  [WARN] Failed to clear prices: {e}")
 
 
+def verify_etl_results(target_date: date) -> list:
+    """Verify ETL results after completion.
+
+    Returns list of error messages. Empty list means all checks passed.
+    """
+    from sqlalchemy import text
+    errors = []
+
+    with get_db_session() as session:
+        # Check 1: Price data for target date
+        price_count = session.execute(text("""
+            SELECT COUNT(*) FROM stock_prices WHERE trade_date = :date
+        """), {"date": target_date}).scalar()
+
+        if price_count == 0:
+            errors.append(f"No price data for {target_date}")
+        else:
+            print(f"    Price records: {price_count}")
+
+        # Check 2: Flow data for target date
+        flow_count = session.execute(text("""
+            SELECT COUNT(*) FROM institutional_flows WHERE trade_date = :date
+        """), {"date": target_date}).scalar()
+
+        if flow_count == 0:
+            errors.append(f"No flow data for {target_date}")
+        else:
+            print(f"    Flow records: {flow_count}")
+
+        # Check 3: Margin trading data (should have data on trading days)
+        margin_count = session.execute(text("""
+            SELECT COUNT(*) FROM margin_trading WHERE trade_date = :date
+        """), {"date": target_date}).scalar()
+
+        # Only warn if margin table exists but has no data (not critical)
+        print(f"    Margin records: {margin_count}")
+        if margin_count == 0:
+            errors.append(f"No margin data for {target_date} (check API availability)")
+
+        # Check 4: Revenue data (only if after 10th of month)
+        today = get_taipei_today()
+        if today.day >= 10:
+            if today.month == 1:
+                rev_year, rev_month = today.year - 1, 12
+            else:
+                rev_year, rev_month = today.year, today.month - 1
+
+            revenue_count = session.execute(text("""
+                SELECT COUNT(*) FROM monthly_revenue WHERE year = :year AND month = :month
+            """), {"year": rev_year, "month": rev_month}).scalar()
+
+            print(f"    Revenue records ({rev_year}/{rev_month}): {revenue_count}")
+            if revenue_count == 0:
+                errors.append(f"No revenue data for {rev_year}/{rev_month}")
+
+        # Check 5: Strategy rankings exist
+        ranking_count = session.execute(text("""
+            SELECT COUNT(*) FROM strategy_rankings
+        """)).scalar()
+
+        if ranking_count == 0:
+            errors.append("No strategy rankings computed")
+        else:
+            print(f"    Strategy rankings: {ranking_count}")
+
+        # Check 6: Verify some key stocks have data (2330, 2317)
+        key_stocks = ['2330', '2317']
+        for code in key_stocks:
+            stock_price = session.execute(text("""
+                SELECT COUNT(*) FROM stock_prices sp
+                JOIN stocks s ON sp.stock_id = s.id
+                WHERE s.code = :code AND sp.trade_date = :date
+            """), {"code": code, "date": target_date}).scalar()
+
+            if stock_price == 0:
+                errors.append(f"Key stock {code} has no price data for {target_date}")
+
+    return errors
+
+
 def run_tpex_backfill():
     """Run TPEX historical data backfill."""
     from src.etl.backfill_tpex import run_backfill
@@ -530,6 +610,16 @@ def run_etl():
         print("  AI analysis pre-computed successfully")
     except Exception as e:
         print(f"  [WARN] AI pre-computation failed: {e}")
+
+    # Post-ETL verification
+    print("\n[STEP 8] Verifying ETL results...")
+    verification_errors = verify_etl_results(target_date)
+    if verification_errors:
+        print("  [WARN] Verification issues found:")
+        for err in verification_errors:
+            print(f"    - {err}")
+    else:
+        print("  All verifications passed!")
 
     # 更新狀態：完成
     update_etl_status("completed", f"資料更新完成 ({target_date})", is_end=True)

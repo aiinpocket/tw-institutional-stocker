@@ -38,8 +38,12 @@ def fetch_twse_margin(trade_date: date) -> pd.DataFrame:
     if data.get("stat") != "OK":
         return empty_result
 
-    # 資料在 data["data"] 中
-    raw_data = data.get("data", [])
+    # 資料在 tables[1]["data"] 中（第一個是統計摘要，第二個是個股明細）
+    tables = data.get("tables", [])
+    if len(tables) < 2:
+        return empty_result
+
+    raw_data = tables[1].get("data", [])
     if not raw_data:
         return empty_result
 

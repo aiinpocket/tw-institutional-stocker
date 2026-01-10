@@ -32,7 +32,7 @@ def get_margin_summary(
             SUM(short_sell) as total_short_sell,
             SUM(short_buy) as total_short_buy,
             SUM(short_balance) as total_short_balance,
-            SUM(offset) as total_offset
+            SUM("offset") as total_offset
         FROM margin_trading
         WHERE trade_date = :trade_date
     """)
@@ -105,7 +105,7 @@ def get_margin_rankings(
             m.short_limit,
             m.short_utilization,
             m.short_margin_ratio,
-            m.offset,
+            m."offset" as offset_val,
             p.close_price
         FROM margin_trading m
         JOIN stocks s ON m.stock_id = s.id
@@ -143,7 +143,7 @@ def get_margin_rankings(
                     "utilization": float(r["short_utilization"]) if r["short_utilization"] else 0,
                 },
                 "short_margin_ratio": float(r["short_margin_ratio"]) if r["short_margin_ratio"] else 0,
-                "offset": r["offset"],
+                "offset": r["offset_val"],
             }
             for r in results
         ]
@@ -173,7 +173,7 @@ def get_stock_margin(
             m.short_limit,
             m.short_utilization,
             m.short_margin_ratio,
-            m.offset
+            m."offset" as offset_val
         FROM margin_trading m
         JOIN stocks s ON m.stock_id = s.id
         WHERE s.code = :code
@@ -228,7 +228,7 @@ def get_stock_margin(
                     "utilization": float(r["short_utilization"]) if r["short_utilization"] else 0,
                 },
                 "short_margin_ratio": float(r["short_margin_ratio"]) if r["short_margin_ratio"] else 0,
-                "offset": r["offset"],
+                "offset": r["offset_val"],
             }
             for r in results
         ]

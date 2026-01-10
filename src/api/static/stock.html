@@ -118,9 +118,53 @@
             border-radius: 2px;
         }
 
+        .chart-wrapper {
+            position: relative;
+        }
+
         #price-chart {
             height: 400px;
             width: 100%;
+        }
+
+        .ma-legend {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            z-index: 10;
+            display: flex;
+            gap: 12px;
+            pointer-events: none;
+        }
+
+        .ma-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .ma-legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .ma-legend-dot.ma5 { background: #ffc107; }
+        .ma-legend-dot.ma20 { background: #2196f3; }
+        .ma-legend-dot.ma60 { background: #9c27b0; }
+
+        .ma-legend-label {
+            color: #888;
+        }
+
+        .ma-legend-value {
+            color: #fff;
+            font-weight: 500;
+            min-width: 50px;
         }
 
         #volume-chart {
@@ -538,7 +582,26 @@
             </div>
             <div class="card">
                 <div class="card-title">股價走勢圖</div>
-                <div id="price-chart"></div>
+                <div class="chart-wrapper">
+                    <div class="ma-legend" id="ma-legend">
+                        <div class="ma-legend-item">
+                            <span class="ma-legend-dot ma5"></span>
+                            <span class="ma-legend-label">MA5</span>
+                            <span class="ma-legend-value" id="ma5-value">-</span>
+                        </div>
+                        <div class="ma-legend-item">
+                            <span class="ma-legend-dot ma20"></span>
+                            <span class="ma-legend-label">MA20</span>
+                            <span class="ma-legend-value" id="ma20-value">-</span>
+                        </div>
+                        <div class="ma-legend-item">
+                            <span class="ma-legend-dot ma60"></span>
+                            <span class="ma-legend-label">MA60</span>
+                            <span class="ma-legend-value" id="ma60-value">-</span>
+                        </div>
+                    </div>
+                    <div id="price-chart"></div>
+                </div>
                 <div id="volume-chart"></div>
                 <div class="chart-label">KD 指標 (K:黃色, D:紫色)</div>
                 <div id="kd-chart"></div>
@@ -591,6 +654,32 @@
         let kdKSeries, kdDSeries, macdDifSeries, macdSignalSeries, macdHistSeries;
         let availableDateRange = null;
         let currentBrokers = null;
+        let maData = { ma5: [], ma20: [], ma60: [] };
+
+        // Update MA legend values
+        function updateMALegend(time) {
+            const ma5El = document.getElementById('ma5-value');
+            const ma20El = document.getElementById('ma20-value');
+            const ma60El = document.getElementById('ma60-value');
+
+            if (!time) {
+                // Show latest values
+                ma5El.textContent = maData.ma5.length > 0 ? maData.ma5[maData.ma5.length - 1].value.toFixed(1) : '-';
+                ma20El.textContent = maData.ma20.length > 0 ? maData.ma20[maData.ma20.length - 1].value.toFixed(1) : '-';
+                ma60El.textContent = maData.ma60.length > 0 ? maData.ma60[maData.ma60.length - 1].value.toFixed(1) : '-';
+                return;
+            }
+
+            // Find values at specific time
+            const findValue = (arr, t) => {
+                const item = arr.find(d => d.time === t);
+                return item ? item.value.toFixed(1) : '-';
+            };
+
+            ma5El.textContent = findValue(maData.ma5, time);
+            ma20El.textContent = findValue(maData.ma20, time);
+            ma60El.textContent = findValue(maData.ma60, time);
+        }
 
         // Initialize date selectors
         function initDateSelectors(minDate, maxDate) {
@@ -788,6 +877,15 @@
             const ma20Series = priceChart.addLineSeries({ color: '#2196f3', lineWidth: 1, title: 'MA20' });
             const ma60Series = priceChart.addLineSeries({ color: '#9c27b0', lineWidth: 1, title: 'MA60' });
 
+            // Subscribe to crosshair move for MA legend updates
+            priceChart.subscribeCrosshairMove((param) => {
+                if (param.time) {
+                    updateMALegend(param.time);
+                } else {
+                    updateMALegend(); // Show latest when crosshair leaves
+                }
+            });
+
             // Volume chart
             volumeChart = LightweightCharts.createChart(volumeContainer, {
                 layout: {
@@ -939,6 +1037,10 @@
             ma60Series.setData(ma60Data);
             foreignSeries.setData(foreignData);
             trustSeries.setData(trustData);
+
+            // Store MA data for legend updates
+            maData = { ma5: ma5Data, ma20: ma20Data, ma60: ma60Data };
+            updateMALegend(); // Show latest values
 
             // Calculate and set KD data
             if (kdChart && prices.length >= 9) {

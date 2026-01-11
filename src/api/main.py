@@ -6,7 +6,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, RedirectResponse
 import os
 
-from src.api.routes import stocks, institutional, prices, rankings, brokers, strategy, analysis, system, industry, ai_analysis, margin, revenue
+from src.api.routes import stocks, institutional, prices, rankings, brokers, strategy, analysis, system, industry, ai_analysis, margin, revenue, financial
 
 app = FastAPI(
     title="Taiwan Stock Institutional Tracker API",
@@ -38,6 +38,7 @@ app.include_router(industry.router, prefix="/api/v1/industry", tags=["Industry"]
 app.include_router(ai_analysis.router, prefix="/api/v1/ai", tags=["AI Analysis"])
 app.include_router(margin.router, prefix="/api/v1/margin", tags=["Margin Trading"])
 app.include_router(revenue.router, prefix="/api/v1/revenue", tags=["Revenue"])
+app.include_router(financial.router, prefix="/api/v1/financial", tags=["Financial"])
 
 # Serve static files
 static_dir = os.path.join(os.path.dirname(__file__), "static")

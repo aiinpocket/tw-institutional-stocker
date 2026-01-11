@@ -540,6 +540,147 @@
             border-color: rgba(0, 212, 255, 0.3);
             color: #00d4ff;
         }
+
+        /* Main page tabs */
+        .main-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .main-tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: #888;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .main-tab:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .main-tab.active {
+            color: #00d4ff;
+            border-bottom-color: #00d4ff;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Financial info styles */
+        .financial-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 1200px) {
+            .financial-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .financial-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .financial-card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .financial-card-title::before {
+            content: '';
+            width: 4px;
+            height: 18px;
+            background: linear-gradient(180deg, #00d4ff, #7b2cbf);
+            border-radius: 2px;
+        }
+
+        .financial-table {
+            width: 100%;
+            font-size: 0.85rem;
+            border-collapse: collapse;
+        }
+
+        .financial-table th {
+            text-align: left;
+            padding: 10px 8px;
+            color: #888;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .financial-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .financial-table tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .eps-positive { color: #ef5350; }
+        .eps-negative { color: #26a69a; }
+
+        .dividend-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .dividend-badge.cash {
+            background: rgba(0, 212, 255, 0.15);
+            color: #00d4ff;
+        }
+
+        .dividend-badge.stock {
+            background: rgba(255, 193, 7, 0.15);
+            color: #ffc107;
+        }
+
+        .financial-empty {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .info-label {
+            color: #888;
+        }
+
+        .info-value {
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -576,12 +717,20 @@
 
     <div class="container">
         <div class="main-content">
-            <div id="data-warning" class="data-warning" style="display:none;">
-                <span class="data-warning-icon">⚠️</span>
-                <span class="data-warning-text" id="data-warning-text">資料載入中...</span>
+            <!-- Main Page Tabs -->
+            <div class="main-tabs">
+                <button class="main-tab active" data-tab="technical">技術分析</button>
+                <button class="main-tab" data-tab="financial">財報資訊</button>
             </div>
-            <div class="card">
-                <div class="card-title">股價走勢圖</div>
+
+            <!-- Technical Analysis Tab -->
+            <div id="tab-technical" class="tab-content active">
+                <div id="data-warning" class="data-warning" style="display:none;">
+                    <span class="data-warning-icon">⚠️</span>
+                    <span class="data-warning-text" id="data-warning-text">資料載入中...</span>
+                </div>
+                <div class="card">
+                    <div class="card-title">股價走勢圖</div>
                 <div class="chart-wrapper">
                     <div class="ma-legend" id="ma-legend">
                         <div class="ma-legend-item">
@@ -614,6 +763,25 @@
                 <div id="flow-chart"></div>
                 <div class="flow-summary" id="flow-summary"></div>
             </div>
+            </div><!-- End of tab-technical -->
+
+            <!-- Financial Info Tab -->
+            <div id="tab-financial" class="tab-content">
+                <div class="financial-grid">
+                    <div class="financial-card">
+                        <div class="financial-card-title">EPS 每股盈餘</div>
+                        <div id="eps-content">
+                            <div class="loading">載入中</div>
+                        </div>
+                    </div>
+                    <div class="financial-card">
+                        <div class="financial-card-title">除權息資訊</div>
+                        <div id="dividend-content">
+                            <div class="loading">載入中</div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End of tab-financial -->
         </div>
 
         <div class="sidebar">
@@ -655,6 +823,125 @@
         let availableDateRange = null;
         let currentBrokers = null;
         let maData = { ma5: [], ma20: [], ma60: [] };
+        let financialDataLoaded = false;
+
+        // Main tab switching
+        document.querySelectorAll('.main-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.dataset.tab;
+
+                // Update tab buttons
+                document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Update tab content
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                document.getElementById('tab-' + tabId).classList.add('active');
+
+                // Load financial data if switching to financial tab
+                if (tabId === 'financial' && !financialDataLoaded) {
+                    loadFinancialData();
+                }
+            });
+        });
+
+        // Load financial data
+        async function loadFinancialData() {
+            try {
+                const response = await fetch(`/api/v1/financial/summary/${stockCode}`);
+                const data = await response.json();
+
+                renderEpsData(data.eps_history || []);
+                renderDividendData(data.dividends || []);
+                financialDataLoaded = true;
+            } catch (error) {
+                console.error('Failed to load financial data:', error);
+                document.getElementById('eps-content').innerHTML = '<div class="financial-empty">無法載入 EPS 資料</div>';
+                document.getElementById('dividend-content').innerHTML = '<div class="financial-empty">無法載入除權息資料</div>';
+            }
+        }
+
+        // Render EPS data
+        function renderEpsData(epsHistory) {
+            const container = document.getElementById('eps-content');
+
+            if (!epsHistory || epsHistory.length === 0) {
+                container.innerHTML = '<div class="financial-empty">暫無 EPS 資料</div>';
+                return;
+            }
+
+            let html = `
+                <table class="financial-table">
+                    <thead>
+                        <tr>
+                            <th>年度/季</th>
+                            <th>EPS (元)</th>
+                            <th>營收 (千元)</th>
+                            <th>稅後淨利 (千元)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            epsHistory.forEach(item => {
+                const epsClass = item.eps >= 0 ? 'eps-positive' : 'eps-negative';
+                const revenue = item.revenue ? (item.revenue / 1000).toLocaleString() : '-';
+                const netIncome = item.net_income ? (item.net_income / 1000).toLocaleString() : '-';
+
+                html += `
+                    <tr>
+                        <td>${item.year || '-'}Q${item.quarter || '-'}</td>
+                        <td class="${epsClass}">${item.eps !== null ? item.eps.toFixed(2) : '-'}</td>
+                        <td>${revenue}</td>
+                        <td>${netIncome}</td>
+                    </tr>
+                `;
+            });
+
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        // Render dividend data
+        function renderDividendData(dividends) {
+            const container = document.getElementById('dividend-content');
+
+            if (!dividends || dividends.length === 0) {
+                container.innerHTML = '<div class="financial-empty">暫無除權息資料</div>';
+                return;
+            }
+
+            let html = `
+                <table class="financial-table">
+                    <thead>
+                        <tr>
+                            <th>除息日</th>
+                            <th>類型</th>
+                            <th>股利</th>
+                            <th>參考價</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            dividends.forEach(item => {
+                const typeClass = item.type === '除息' ? 'cash' : 'stock';
+                const dividend = item.cash_dividend || item.dividend_value || '-';
+                const refPrice = item.ref_price ? item.ref_price.toFixed(2) : '-';
+
+                html += `
+                    <tr>
+                        <td>${item.ex_date || '-'}</td>
+                        <td><span class="dividend-badge ${typeClass}">${item.type || '-'}</span></td>
+                        <td>${dividend}</td>
+                        <td>${refPrice}</td>
+                    </tr>
+                `;
+            });
+
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
 
         // Update MA legend values
         function updateMALegend(time) {

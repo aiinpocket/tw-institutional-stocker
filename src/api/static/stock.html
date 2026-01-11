@@ -769,13 +769,19 @@
             <div id="tab-financial" class="tab-content">
                 <div class="financial-grid">
                     <div class="financial-card">
-                        <div class="financial-card-title">EPS 每股盈餘</div>
-                        <div id="eps-content">
+                        <div class="financial-card-title">月營收 (近12個月)</div>
+                        <div id="revenue-content">
                             <div class="loading">載入中</div>
                         </div>
                     </div>
                     <div class="financial-card">
-                        <div class="financial-card-title">除權息資訊</div>
+                        <div class="financial-card-title">EPS 每股盈餘 (最新一季)</div>
+                        <div id="eps-content">
+                            <div class="loading">載入中</div>
+                        </div>
+                    </div>
+                    <div class="financial-card" style="grid-column: span 2;">
+                        <div class="financial-card-title">除權息資訊 (即將到來)</div>
                         <div id="dividend-content">
                             <div class="loading">載入中</div>
                         </div>
@@ -851,14 +857,59 @@
                 const response = await fetch(`/api/v1/financial/summary/${stockCode}`);
                 const data = await response.json();
 
+                renderRevenueData(data.revenue_history || []);
                 renderEpsData(data.eps_history || []);
                 renderDividendData(data.dividends || []);
                 financialDataLoaded = true;
             } catch (error) {
                 console.error('Failed to load financial data:', error);
+                document.getElementById('revenue-content').innerHTML = '<div class="financial-empty">無法載入營收資料</div>';
                 document.getElementById('eps-content').innerHTML = '<div class="financial-empty">無法載入 EPS 資料</div>';
                 document.getElementById('dividend-content').innerHTML = '<div class="financial-empty">無法載入除權息資料</div>';
             }
+        }
+
+        // Render revenue data
+        function renderRevenueData(revenueHistory) {
+            const container = document.getElementById('revenue-content');
+
+            if (!revenueHistory || revenueHistory.length === 0) {
+                container.innerHTML = '<div class="financial-empty">暫無營收資料</div>';
+                return;
+            }
+
+            let html = `
+                <table class="financial-table">
+                    <thead>
+                        <tr>
+                            <th>月份</th>
+                            <th>營收 (千元)</th>
+                            <th>月增率</th>
+                            <th>年增率</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            revenueHistory.slice(0, 6).forEach(item => {
+                const revenue = item.revenue ? item.revenue.toLocaleString() : '-';
+                const momClass = item.mom_change >= 0 ? 'eps-positive' : 'eps-negative';
+                const yoyClass = item.yoy_change >= 0 ? 'eps-positive' : 'eps-negative';
+                const momChange = item.mom_change !== null ? `${item.mom_change >= 0 ? '+' : ''}${item.mom_change.toFixed(1)}%` : '-';
+                const yoyChange = item.yoy_change !== null ? `${item.yoy_change >= 0 ? '+' : ''}${item.yoy_change.toFixed(1)}%` : '-';
+
+                html += `
+                    <tr>
+                        <td>${item.year}/${String(item.month).padStart(2, '0')}</td>
+                        <td>${revenue}</td>
+                        <td class="${momClass}">${momChange}</td>
+                        <td class="${yoyClass}">${yoyChange}</td>
+                    </tr>
+                `;
+            });
+
+            html += '</tbody></table>';
+            container.innerHTML = html;
         }
 
         // Render EPS data
@@ -907,7 +958,7 @@
             const container = document.getElementById('dividend-content');
 
             if (!dividends || dividends.length === 0) {
-                container.innerHTML = '<div class="financial-empty">暫無除權息資料</div>';
+                container.innerHTML = '<div class="financial-empty">近期無預定除權息事件</div>';
                 return;
             }
 

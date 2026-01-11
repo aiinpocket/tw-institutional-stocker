@@ -1,8 +1,12 @@
 """Financial data routes - dividends and EPS from TWSE/TPEx OpenAPI."""
 import requests
 from typing import Optional
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Depends
+from sqlalchemy.orm import Session
 from datetime import datetime
+
+from src.api.dependencies import get_db
+from src.common.models import Stock, MonthlyRevenue
 
 router = APIRouter()
 
@@ -167,16 +171,54 @@ def get_eps_info(code: str):
     }
 
 
-@router.get("/summary/{code}")
-def get_financial_summary(code: str):
-    """Get combined financial summary for a stock."""
-    dividend_info = get_dividend_info(code, limit=5)
-    eps_info = get_eps_info(code)
+@router.get("/revenue/{code}")
+def get_revenue_history(
+    code: str,
+    limit: int = Query(12, description="Number of months to return", le=36),
+    db: Session = Depends(get_db)
+):
+    """Get monthly revenue history from database."""
+    stock = db.query(Stock).filter(Stock.code == code).first()
+    if not stock:
+        return {"code": code, "revenue_history": []}
+
+    revenues = (
+        db.query(MonthlyRevenue)
+        .filter(MonthlyRevenue.stock_id == stock.id)
+        .order_by(MonthlyRevenue.year.desc(), MonthlyRevenue.month.desc())
+        .limit(limit)
+        .all()
+    )
 
     return {
         "code": code,
-        "name": eps_info.get("name"),
+        "name": stock.name,
+        "revenue_history": [
+            {
+                "year": r.year,
+                "month": r.month,
+                "revenue": int(r.revenue) if r.revenue else None,
+                "mom_change": float(r.mom_change) if r.mom_change else None,
+                "yoy_change": float(r.yoy_change) if r.yoy_change else None,
+                "cumulative_revenue": int(r.cumulative_revenue) if r.cumulative_revenue else None,
+            }
+            for r in revenues
+        ]
+    }
+
+
+@router.get("/summary/{code}")
+def get_financial_summary(code: str, db: Session = Depends(get_db)):
+    """Get combined financial summary for a stock."""
+    dividend_info = get_dividend_info(code, limit=5)
+    eps_info = get_eps_info(code)
+    revenue_info = get_revenue_history(code, limit=12, db=db)
+
+    return {
+        "code": code,
+        "name": eps_info.get("name") or revenue_info.get("name"),
         "industry": eps_info.get("industry"),
         "dividends": dividend_info.get("dividends", []),
-        "eps_history": eps_info.get("eps_history", [])
+        "eps_history": eps_info.get("eps_history", []),
+        "revenue_history": revenue_info.get("revenue_history", [])
     }

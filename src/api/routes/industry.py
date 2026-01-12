@@ -292,9 +292,11 @@ def get_industry_stocks(
     else:
         industry_condition = "s.industry = :industry"
 
+    # Optimized query: avoid LATERAL JOIN for better performance
     query = text(f"""
     WITH stock_flows AS (
         SELECT
+            s.id as stock_id,
             s.code,
             s.name,
             SUM(f.foreign_net) as foreign_net,
@@ -305,26 +307,29 @@ def get_industry_stocks(
         JOIN stocks s ON f.stock_id = s.id
         WHERE {industry_condition}
           AND f.trade_date >= CURRENT_DATE - :days
-        GROUP BY s.code, s.name
+        GROUP BY s.id, s.code, s.name
+        ORDER BY ABS(SUM(f.foreign_net + f.trust_net + f.dealer_net)) DESC
+        LIMIT :limit
     ),
-    with_prices AS (
-        SELECT
-            sf.*,
-            lp.close_price as current_price,
-            lp.change_percent
-        FROM stock_flows sf
-        LEFT JOIN LATERAL (
-            SELECT close_price, change_percent
-            FROM stock_prices sp
-            JOIN stocks s ON sp.stock_id = s.id
-            WHERE s.code = sf.code
-            ORDER BY sp.trade_date DESC
-            LIMIT 1
-        ) lp ON true
+    latest_prices AS (
+        SELECT DISTINCT ON (stock_id)
+            stock_id, close_price, change_percent
+        FROM stock_prices
+        WHERE stock_id IN (SELECT stock_id FROM stock_flows)
+        ORDER BY stock_id, trade_date DESC
     )
-    SELECT * FROM with_prices
-    ORDER BY ABS(total_net) DESC
-    LIMIT :limit
+    SELECT
+        sf.code,
+        sf.name,
+        sf.foreign_net,
+        sf.trust_net,
+        sf.dealer_net,
+        sf.total_net,
+        lp.close_price as current_price,
+        lp.change_percent
+    FROM stock_flows sf
+    LEFT JOIN latest_prices lp ON sf.stock_id = lp.stock_id
+    ORDER BY ABS(sf.total_net) DESC
     """)
 
     results = db.execute(query, {

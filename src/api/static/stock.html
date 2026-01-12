@@ -1385,13 +1385,6 @@
                 const kdData = calculateKDSeries(prices, 9);
                 kdKSeries.setData(kdData.k);
                 kdDSeries.setData(kdData.d);
-
-                // Set reference lines (80 and 20)
-                if (kdData.k.length > 0) {
-                    const refData80 = kdData.k.map(d => ({ time: d.time, value: 80 }));
-                    const refData20 = kdData.k.map(d => ({ time: d.time, value: 20 }));
-                    kdChart.timeScale().fitContent();
-                }
             }
 
             // Calculate and set MACD data
@@ -1400,13 +1393,22 @@
                 macdDifSeries.setData(macdData.dif);
                 macdSignalSeries.setData(macdData.signal);
                 macdHistSeries.setData(macdData.histogram);
-                macdChart.timeScale().fitContent();
             }
 
-            // Sync time scales
+            // Sync time scales - fit price chart first, then sync others
             priceChart.timeScale().fitContent();
             volumeChart.timeScale().fitContent();
             flowChart.timeScale().fitContent();
+
+            // Get the visible range from price chart and apply to all other charts
+            setTimeout(() => {
+                const range = priceChart.timeScale().getVisibleLogicalRange();
+                if (range) {
+                    volumeChart.timeScale().setVisibleLogicalRange(range);
+                    if (kdChart) kdChart.timeScale().setVisibleLogicalRange(range);
+                    if (macdChart) macdChart.timeScale().setVisibleLogicalRange(range);
+                }
+            }, 50);
 
             // Sync scroll across all charts
             priceChart.timeScale().subscribeVisibleLogicalRangeChange(range => {

@@ -286,7 +286,13 @@ def get_industry_stocks(
     """
     ensure_industry_column(db)
 
-    query = text("""
+    # 對於「其他業」，需要同時匹配 industry = '其他業' 和 industry IS NULL
+    if industry == "其他業":
+        industry_condition = "(s.industry = '其他業' OR s.industry IS NULL)"
+    else:
+        industry_condition = "s.industry = :industry"
+
+    query = text(f"""
     WITH stock_flows AS (
         SELECT
             s.code,
@@ -297,7 +303,7 @@ def get_industry_stocks(
             SUM(f.foreign_net + f.trust_net + f.dealer_net) as total_net
         FROM institutional_flows f
         JOIN stocks s ON f.stock_id = s.id
-        WHERE s.industry = :industry
+        WHERE {industry_condition}
           AND f.trade_date >= CURRENT_DATE - :days
         GROUP BY s.code, s.name
     ),

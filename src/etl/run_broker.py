@@ -146,6 +146,7 @@ TOP_50_STOCKS = HOT_STOCKS + [
     "2801",  # 彰銀
     "2890",  # 永豐金
     "2887",  # 台新金
+    "2451",  # 創見 (user requested)
 ]
 
 

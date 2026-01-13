@@ -23,33 +23,63 @@ def safe_float(value, default=0.0):
 router = APIRouter()
 
 
-def get_rankings_from_cache(db, metric_type: str):
+def is_etf_code(code: str) -> bool:
+    """判斷股票代碼是否為 ETF。
+    ETF 代碼通常以 00 開頭，或是 006xxx 格式。
+    """
+    if not code:
+        return False
+    # 00xx 開頭 (如 0050, 0056)
+    if code.startswith('00'):
+        return True
+    return False
+
+
+def get_rankings_from_cache(db, metric_type: str, exclude_etf: bool = False):
     """Get pre-computed rankings from cache table."""
-    query = text("""
-        SELECT
-            s.code, s.name,
-            sr.current_price, sr.signal_count, sr.avg_return,
-            sr.win_rate, sr.correlation, sr.data_points,
-            sr.price_tier, sr.rank_in_tier
-        FROM strategy_rankings sr
-        JOIN stocks s ON sr.stock_id = s.id
-        WHERE sr.metric_type = :metric_type
-        ORDER BY sr.price_tier, sr.rank_in_tier
-    """)
+    if exclude_etf:
+        query = text("""
+            SELECT
+                s.code, s.name,
+                sr.current_price, sr.signal_count, sr.avg_return,
+                sr.win_rate, sr.correlation, sr.data_points,
+                sr.price_tier, sr.rank_in_tier
+            FROM strategy_rankings sr
+            JOIN stocks s ON sr.stock_id = s.id
+            WHERE sr.metric_type = :metric_type
+              AND s.code NOT LIKE '00%'
+            ORDER BY sr.price_tier, sr.rank_in_tier
+        """)
+    else:
+        query = text("""
+            SELECT
+                s.code, s.name,
+                sr.current_price, sr.signal_count, sr.avg_return,
+                sr.win_rate, sr.correlation, sr.data_points,
+                sr.price_tier, sr.rank_in_tier
+            FROM strategy_rankings sr
+            JOIN stocks s ON sr.stock_id = s.id
+            WHERE sr.metric_type = :metric_type
+            ORDER BY sr.price_tier, sr.rank_in_tier
+        """)
     return db.execute(query, {"metric_type": metric_type}).fetchall()
 
 
 @router.get("/win-rate-rankings")
 def get_win_rate_rankings(
     holding_days: int = 10,
+    exclude_etf: bool = False,
     db: Session = Depends(get_db),
 ):
     """
     Get top stocks by win rate after foreign consecutive buying,
     segmented by price range. Uses pre-computed data for fast response.
+
+    Args:
+        exclude_etf: 是否排除 ETF (代碼以 00 開頭的標的)
     """
     metric_type = f"win_rate_{holding_days}d"
-    rows = get_rankings_from_cache(db, metric_type)
+    rows = get_rankings_from_cache(db, metric_type, exclude_etf=exclude_etf)
 
     rankings = {"high": [], "mid": [], "low": []}
 
@@ -73,13 +103,17 @@ def get_win_rate_rankings(
 
 @router.get("/correlation-rankings")
 def get_correlation_rankings(
+    exclude_etf: bool = False,
     db: Session = Depends(get_db),
 ):
     """
     Get top stocks by correlation between foreign net buying and stock returns.
     Uses pre-computed data for fast response.
+
+    Args:
+        exclude_etf: 是否排除 ETF (代碼以 00 開頭的標的)
     """
-    rows = get_rankings_from_cache(db, "correlation")
+    rows = get_rankings_from_cache(db, "correlation", exclude_etf=exclude_etf)
 
     rankings = {"high": [], "mid": [], "low": []}
 
@@ -101,13 +135,17 @@ def get_correlation_rankings(
 
 @router.get("/below-cost-rankings")
 def get_below_cost_rankings(
+    exclude_etf: bool = False,
     db: Session = Depends(get_db),
 ):
     """
     取得現價低於三大法人三個月平均成本的股票。
     顯示折價幅度最大的股票，按股價區間分類。
+
+    Args:
+        exclude_etf: 是否排除 ETF (代碼以 00 開頭的標的)
     """
-    rows = get_rankings_from_cache(db, "below_cost")
+    rows = get_rankings_from_cache(db, "below_cost", exclude_etf=exclude_etf)
 
     rankings = {"high": [], "mid": [], "low": []}
 
@@ -130,12 +168,12 @@ def get_below_cost_rankings(
 
 
 @router.get("/consecutive-buying")
-def get_consecutive_buying_rankings(db: Session = Depends(get_db)):
+def get_consecutive_buying_rankings(exclude_etf: bool = False, db: Session = Depends(get_db)):
     """
     取得外資連續買超排行。
     顯示外資連續買超天數最多的股票。
     """
-    rows = get_rankings_from_cache(db, "consecutive_buying")
+    rows = get_rankings_from_cache(db, "consecutive_buying", exclude_etf=exclude_etf)
 
     rankings = {"high": [], "mid": [], "low": []}
 
@@ -157,12 +195,12 @@ def get_consecutive_buying_rankings(db: Session = Depends(get_db)):
 
 
 @router.get("/trust-accumulation")
-def get_trust_accumulation_rankings(db: Session = Depends(get_db)):
+def get_trust_accumulation_rankings(exclude_etf: bool = False, db: Session = Depends(get_db)):
     """
     取得投信認養股排行。
     顯示投信近期持續加碼的股票。
     """
-    rows = get_rankings_from_cache(db, "trust_accumulation")
+    rows = get_rankings_from_cache(db, "trust_accumulation", exclude_etf=exclude_etf)
 
     rankings = {"high": [], "mid": [], "low": []}
 
@@ -185,12 +223,12 @@ def get_trust_accumulation_rankings(db: Session = Depends(get_db)):
 
 
 @router.get("/synchronized-buying")
-def get_synchronized_buying_rankings(db: Session = Depends(get_db)):
+def get_synchronized_buying_rankings(exclude_etf: bool = False, db: Session = Depends(get_db)):
     """
     取得三大法人同步買超排行。
     顯示外資、投信、自營商同時買超的股票。
     """
-    rows = get_rankings_from_cache(db, "synchronized_buying")
+    rows = get_rankings_from_cache(db, "synchronized_buying", exclude_etf=exclude_etf)
 
     rankings = {"high": [], "mid": [], "low": []}
 
@@ -214,12 +252,12 @@ def get_synchronized_buying_rankings(db: Session = Depends(get_db)):
 
 
 @router.get("/price-deviation")
-def get_price_deviation_rankings(db: Session = Depends(get_db)):
+def get_price_deviation_rankings(exclude_etf: bool = False, db: Session = Depends(get_db)):
     """
     取得股價乖離過大排行。
     顯示股價大幅偏離法人平均成本的股票。
     """
-    rows = get_rankings_from_cache(db, "price_deviation")
+    rows = get_rankings_from_cache(db, "price_deviation", exclude_etf=exclude_etf)
 
     rankings = {"high": [], "mid": [], "low": []}
 
@@ -241,31 +279,35 @@ def get_price_deviation_rankings(db: Session = Depends(get_db)):
 
 
 @router.get("/summary")
-def get_strategy_summary(db: Session = Depends(get_db)):
-    """Get summary of all strategy rankings for display. Uses pre-computed data."""
+def get_strategy_summary(exclude_etf: bool = False, db: Session = Depends(get_db)):
+    """Get summary of all strategy rankings for display. Uses pre-computed data.
+
+    Args:
+        exclude_etf: 是否排除 ETF (代碼以 00 開頭的標的)
+    """
     results = {}
 
     for days in [5, 10, 30]:
-        win_data = get_win_rate_rankings(holding_days=days, db=db)
+        win_data = get_win_rate_rankings(holding_days=days, exclude_etf=exclude_etf, db=db)
         results[f"win_rate_{days}d"] = win_data["rankings"]
 
-    corr_data = get_correlation_rankings(db=db)
+    corr_data = get_correlation_rankings(exclude_etf=exclude_etf, db=db)
     results["correlation"] = corr_data["rankings"]
 
-    below_cost_data = get_below_cost_rankings(db=db)
+    below_cost_data = get_below_cost_rankings(exclude_etf=exclude_etf, db=db)
     results["below_cost"] = below_cost_data["rankings"]
 
     # 新增策略
-    consecutive_data = get_consecutive_buying_rankings(db=db)
+    consecutive_data = get_consecutive_buying_rankings(exclude_etf=exclude_etf, db=db)
     results["consecutive_buying"] = consecutive_data["rankings"]
 
-    trust_data = get_trust_accumulation_rankings(db=db)
+    trust_data = get_trust_accumulation_rankings(exclude_etf=exclude_etf, db=db)
     results["trust_accumulation"] = trust_data["rankings"]
 
-    sync_data = get_synchronized_buying_rankings(db=db)
+    sync_data = get_synchronized_buying_rankings(exclude_etf=exclude_etf, db=db)
     results["synchronized_buying"] = sync_data["rankings"]
 
-    deviation_data = get_price_deviation_rankings(db=db)
+    deviation_data = get_price_deviation_rankings(exclude_etf=exclude_etf, db=db)
     results["price_deviation"] = deviation_data["rankings"]
 
     return results

@@ -117,6 +117,62 @@
             box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
         }
 
+        .filter-bar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            gap: 10px;
+        }
+
+        .toggle-switch input {
+            display: none;
+        }
+
+        .toggle-switch .slider {
+            width: 44px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .toggle-switch .slider::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s;
+        }
+
+        .toggle-switch input:checked + .slider {
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+        }
+
+        .toggle-switch input:checked + .slider::before {
+            transform: translateX(20px);
+        }
+
+        .toggle-label {
+            color: #aaa;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .toggle-switch input:checked ~ .toggle-label {
+            color: #00d4ff;
+        }
+
         .tabs {
             display: flex;
             justify-content: center;
@@ -477,6 +533,14 @@
             <span id="etl-message">資料更新中，請稍候...</span>
         </div>
 
+        <div class="filter-bar">
+            <label class="toggle-switch">
+                <input type="checkbox" id="exclude-etf">
+                <span class="slider"></span>
+                <span class="toggle-label">排除 ETF</span>
+            </label>
+        </div>
+
         <div class="tabs">
             <div class="tab active" data-tab="win5">勝率 5日</div>
             <div class="tab" data-tab="win10">勝率 10日</div>
@@ -501,6 +565,7 @@
     <script>
         const API_BASE = '/api/v1/strategy';
         let cachedData = null;
+        let excludeEtf = false;
 
         const tierLabels = {
             'high': '股價 ≥ 500元',
@@ -516,7 +581,12 @@
 
         async function fetchData() {
             try {
-                const response = await fetch(`${API_BASE}/summary`);
+                const params = new URLSearchParams();
+                if (excludeEtf) {
+                    params.append('exclude_etf', 'true');
+                }
+                const url = `${API_BASE}/summary${params.toString() ? '?' + params.toString() : ''}`;
+                const response = await fetch(url);
                 cachedData = await response.json();
                 return cachedData;
             } catch (error) {
@@ -707,6 +777,17 @@
                 tab.classList.add('active');
                 showTab(tab.dataset.tab);
             });
+        });
+
+        // ETF toggle handler
+        document.getElementById('exclude-etf').addEventListener('change', async (e) => {
+            excludeEtf = e.target.checked;
+            document.getElementById('content').innerHTML = '<div class="loading">載入資料中</div>';
+            await fetchData();
+            const activeTab = document.querySelector('.tab.active');
+            if (activeTab && cachedData) {
+                showTab(activeTab.dataset.tab);
+            }
         });
 
         // Fetch and display ETL completion time and data date

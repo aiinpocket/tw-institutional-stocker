@@ -292,7 +292,7 @@ def get_industry_stocks(
     else:
         industry_condition = "s.industry = :industry"
 
-    # Optimized query: avoid LATERAL JOIN for better performance
+    # Optimized query: compute flows first, then get latest prices only for matched stocks
     query = text(f"""
     WITH stock_flows AS (
         SELECT
@@ -311,12 +311,15 @@ def get_industry_stocks(
         ORDER BY ABS(SUM(f.foreign_net + f.trust_net + f.dealer_net)) DESC
         LIMIT :limit
     ),
-    latest_prices AS (
-        SELECT DISTINCT ON (stock_id)
-            stock_id, close_price, change_percent
-        FROM stock_prices
-        WHERE stock_id IN (SELECT stock_id FROM stock_flows)
-        ORDER BY stock_id, trade_date DESC
+    ranked_prices AS (
+        SELECT
+            sp.stock_id,
+            sp.close_price,
+            sp.change_percent,
+            ROW_NUMBER() OVER (PARTITION BY sp.stock_id ORDER BY sp.trade_date DESC) as rn
+        FROM stock_prices sp
+        INNER JOIN stock_flows sf ON sp.stock_id = sf.stock_id
+        WHERE sp.trade_date >= CURRENT_DATE - 30
     )
     SELECT
         sf.code,
@@ -325,10 +328,10 @@ def get_industry_stocks(
         sf.trust_net,
         sf.dealer_net,
         sf.total_net,
-        lp.close_price as current_price,
-        lp.change_percent
+        rp.close_price as current_price,
+        rp.change_percent
     FROM stock_flows sf
-    LEFT JOIN latest_prices lp ON sf.stock_id = lp.stock_id
+    LEFT JOIN ranked_prices rp ON sf.stock_id = rp.stock_id AND rp.rn = 1
     ORDER BY ABS(sf.total_net) DESC
     """)
 

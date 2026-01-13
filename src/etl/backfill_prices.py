@@ -274,6 +274,110 @@ def fill_gap_since_last_update():
         run_full_backfill(months_back=min(months, 12))
 
 
+def find_missing_trading_days(lookback_days: int = 90):
+    """Find missing trading days within the recent period.
+
+    This detects gaps WITHIN the data (not just at the end), by comparing
+    with institutional_flows which has more complete data.
+
+    Returns:
+        List of missing dates that should have price data
+    """
+    db = SessionLocal()
+    try:
+        # Get dates that have institutional flows but no prices
+        query = text("""
+            WITH flow_dates AS (
+                SELECT DISTINCT trade_date
+                FROM institutional_flows
+                WHERE trade_date >= CURRENT_DATE - :lookback_days
+            ),
+            price_dates AS (
+                SELECT DISTINCT trade_date
+                FROM stock_prices
+                WHERE trade_date >= CURRENT_DATE - :lookback_days
+            )
+            SELECT fd.trade_date
+            FROM flow_dates fd
+            LEFT JOIN price_dates pd ON fd.trade_date = pd.trade_date
+            WHERE pd.trade_date IS NULL
+            ORDER BY fd.trade_date
+        """)
+        result = db.execute(query, {"lookback_days": lookback_days}).fetchall()
+        return [row.trade_date for row in result]
+    finally:
+        db.close()
+
+
+def fill_missing_date_gaps(lookback_days: int = 90):
+    """Fill missing price data gaps by checking against institutional flows.
+
+    This is more thorough than fill_gap_since_last_update() as it can detect
+    and fill gaps WITHIN the data series, not just at the end.
+    """
+    missing_dates = find_missing_trading_days(lookback_days)
+
+    if not missing_dates:
+        logger.info("No missing price dates found within the lookback period")
+        return 0
+
+    logger.info(f"Found {len(missing_dates)} missing price dates: {missing_dates}")
+
+    # Group dates by month for efficient TWSE fetching
+    stock_id_map = get_stock_id_map()
+    total_records = 0
+
+    # Fetch TPEX data for missing dates
+    logger.info("Fetching TPEX data for missing dates...")
+    for missing_date in missing_dates:
+        count = backfill_tpex_date(missing_date, stock_id_map)
+        if count > 0:
+            logger.info(f"  TPEX {missing_date}: {count} records")
+            total_records += count
+        # Rate limiting
+        time.sleep(0.3)
+
+    # For TWSE, we need to fetch the entire month and it will upsert missing dates
+    # Get unique months from missing dates
+    months_to_fetch = set()
+    for d in missing_dates:
+        months_to_fetch.add((d.year, d.month))
+
+    logger.info(f"Fetching TWSE data for months: {months_to_fetch}")
+    stocks = get_all_stocks()
+    twse_stocks = [s for s in stocks if s.market == "TWSE"]
+
+    for year, month in months_to_fetch:
+        target_date = date(year, month, 1)
+        logger.info(f"  Processing TWSE month: {year}-{month:02d}")
+
+        for stock in twse_stocks:
+            try:
+                df = fetch_twse_stock_day(stock.code, target_date)
+                if not df.empty:
+                    db = SessionLocal()
+                    try:
+                        count = 0
+                        for _, row in df.iterrows():
+                            row_date = row.get("date")
+                            if row_date in missing_dates:
+                                if upsert_price_record(db, stock.id, row.to_dict()):
+                                    count += 1
+                        if count > 0:
+                            db.commit()
+                            total_records += count
+                    finally:
+                        db.close()
+            except Exception as e:
+                logger.debug(f"Error fetching TWSE {stock.code} {target_date}: {e}")
+
+            # Rate limiting
+            time.sleep(0.2)
+
+    logger.info(f"Filled {total_records} price records for missing dates")
+    return total_records
+
+
 def run_incremental_update(days_back: int = 7):
     """Run incremental update for recent days."""
     logger.info(f"Running incremental update for last {days_back} days")

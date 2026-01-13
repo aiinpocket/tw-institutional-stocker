@@ -516,19 +516,21 @@ def run_etl():
     # Fetch and store prices - with gap filling
     print("\n[STEP 3] Fetching stock prices...")
 
-    # Check for price data gap and fill if needed
-    if last_price_date is not None:
-        days_gap = (target_date - last_price_date).days
-        if days_gap > 1:
-            print(f"  [INFO] Detected price data gap: {last_price_date} -> {target_date} ({days_gap} days)")
-            print(f"  [INFO] Running backfill to fill gap...")
-            try:
-                from src.etl.backfill_prices import run_incremental_update
-                # Backfill with some buffer days
-                run_incremental_update(days_back=days_gap + 5)
-                print(f"  [INFO] Backfill completed")
-            except Exception as e:
-                print(f"  [WARN] Backfill failed: {e}")
+    # Check for price data gaps WITHIN the data series (not just at the end)
+    # This uses institutional_flows as reference to find missing trading days
+    if os.environ.get("SKIP_PRICE_BACKFILL") != "true":
+        try:
+            from src.etl.backfill_prices import fill_missing_date_gaps
+            print("  [INFO] Checking for missing price dates (comparing with flows)...")
+            filled_count = fill_missing_date_gaps(lookback_days=90)
+            if filled_count > 0:
+                print(f"  [INFO] Filled {filled_count} missing price records")
+            else:
+                print("  [INFO] No missing price dates found")
+        except Exception as e:
+            print(f"  [WARN] Price gap fill failed: {e}")
+            import traceback
+            traceback.print_exc()
 
     # Always try to fetch today's prices
     prices_df = fetch_prices_for_today()

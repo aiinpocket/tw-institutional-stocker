@@ -180,6 +180,11 @@
         table { width: 100%; border-collapse: collapse; }
         th, td { padding: 12px 10px; text-align: left; }
         th { color: #888; font-size: 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        th.sortable { cursor: pointer; user-select: none; transition: color 0.3s; }
+        th.sortable:hover { color: #00d4ff; }
+        th.sortable::after { content: ' ↕'; opacity: 0.3; font-size: 0.7rem; }
+        th.sortable.asc::after { content: ' ↑'; opacity: 1; color: #00d4ff; }
+        th.sortable.desc::after { content: ' ↓'; opacity: 1; color: #00d4ff; }
         td { border-bottom: 1px solid rgba(255,255,255,0.05); }
         tr:hover { background: rgba(255,255,255,0.03); }
         .stock-code { color: #00d4ff; cursor: pointer; }
@@ -323,41 +328,74 @@
             }
         }
 
+        // Store summary data for sorting
+        let summaryData = [];
+        let summarySort = { column: 'total_net', direction: 'desc' };
+
         async function loadSummary() {
             try {
                 const resp = await fetch(`${API_BASE}/summary?days=${currentDays}`);
                 const data = await resp.json();
-
-                const html = `
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>產業</th>
-                                <th>外資</th>
-                                <th>投信</th>
-                                <th>自營商</th>
-                                <th>合計</th>
-                                <th>股票數</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${data.items.map(item => `
-                                <tr onclick="showIndustryStocks('${item.industry}')" style="cursor:pointer">
-                                    <td><strong>${item.industry}</strong></td>
-                                    <td class="${item.foreign_net >= 0 ? 'positive' : 'negative'}">${formatNumber(item.foreign_net)}</td>
-                                    <td class="${item.trust_net >= 0 ? 'positive' : 'negative'}">${formatNumber(item.trust_net)}</td>
-                                    <td class="${item.dealer_net >= 0 ? 'positive' : 'negative'}">${formatNumber(item.dealer_net)}</td>
-                                    <td class="${item.total_net >= 0 ? 'positive' : 'negative'}"><strong>${formatNumber(item.total_net)}</strong></td>
-                                    <td>${item.stock_count}</td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
-                `;
-                document.getElementById('content').innerHTML = html;
+                summaryData = data.items;
+                renderSummaryTable();
             } catch (e) {
                 document.getElementById('content').innerHTML = '<div class="loading">載入失敗</div>';
             }
+        }
+
+        function renderSummaryTable() {
+            // Sort data
+            const sorted = [...summaryData].sort((a, b) => {
+                let aVal = a[summarySort.column];
+                let bVal = b[summarySort.column];
+                if (summarySort.column === 'industry') {
+                    return summarySort.direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                }
+                return summarySort.direction === 'asc' ? aVal - bVal : bVal - aVal;
+            });
+
+            const getSortClass = (col) => {
+                if (summarySort.column === col) return `sortable ${summarySort.direction}`;
+                return 'sortable';
+            };
+
+            const html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="${getSortClass('industry')}" onclick="sortSummary('industry')">產業</th>
+                            <th class="${getSortClass('foreign_net')}" onclick="sortSummary('foreign_net')">外資</th>
+                            <th class="${getSortClass('trust_net')}" onclick="sortSummary('trust_net')">投信</th>
+                            <th class="${getSortClass('dealer_net')}" onclick="sortSummary('dealer_net')">自營商</th>
+                            <th class="${getSortClass('total_net')}" onclick="sortSummary('total_net')">合計</th>
+                            <th class="${getSortClass('stock_count')}" onclick="sortSummary('stock_count')">股票數</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${sorted.map(item => `
+                            <tr onclick="showIndustryStocks('${item.industry}')" style="cursor:pointer">
+                                <td><strong>${item.industry}</strong></td>
+                                <td class="${item.foreign_net >= 0 ? 'positive' : 'negative'}">${formatNumber(item.foreign_net)}</td>
+                                <td class="${item.trust_net >= 0 ? 'positive' : 'negative'}">${formatNumber(item.trust_net)}</td>
+                                <td class="${item.dealer_net >= 0 ? 'positive' : 'negative'}">${formatNumber(item.dealer_net)}</td>
+                                <td class="${item.total_net >= 0 ? 'positive' : 'negative'}"><strong>${formatNumber(item.total_net)}</strong></td>
+                                <td>${item.stock_count}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            document.getElementById('content').innerHTML = html;
+        }
+
+        function sortSummary(column) {
+            if (summarySort.column === column) {
+                summarySort.direction = summarySort.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                summarySort.column = column;
+                summarySort.direction = column === 'industry' ? 'asc' : 'desc';
+            }
+            renderSummaryTable();
         }
 
         async function showIndustryStocks(industry) {

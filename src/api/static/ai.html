@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI 智能分析中心 | AI Analysis Center</title>
+    <script src="https://unpkg.com/lightweight-charts@4.1.0/dist/lightweight-charts.standalone.production.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -148,6 +149,30 @@
             white-space: pre-wrap;
             line-height: 1.8;
             font-size: 0.95rem;
+        }
+        .stock-analysis-layout {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .stock-analysis-text {
+            min-width: 0;
+        }
+        .stock-analysis-chart {
+            min-height: 300px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        @media (max-width: 900px) {
+            .stock-analysis-layout {
+                grid-template-columns: 1fr;
+            }
+            .stock-analysis-chart {
+                order: -1;
+                height: 250px;
+            }
         }
         .recommendation-grid {
             display: grid;
@@ -381,9 +406,15 @@
             document.getElementById('analyze-btn').disabled = true;
 
             try {
-                const resp = await fetch(`${API_BASE}/stock/${code}`);
-                if (!resp.ok) throw new Error('股票不存在');
-                const data = await resp.json();
+                // Fetch AI analysis and price data in parallel
+                const [analysisResp, priceResp] = await Promise.all([
+                    fetch(`${API_BASE}/stock/${code}`),
+                    fetch(`/api/v1/stocks/${code}/prices?limit=60`)
+                ]);
+
+                if (!analysisResp.ok) throw new Error('股票不存在');
+                const data = await analysisResp.json();
+                const priceData = priceResp.ok ? await priceResp.json() : { data: [] };
 
                 const html = `
                     <div style="margin-bottom:15px">
@@ -405,14 +436,69 @@
                             <div style="font-size:1.2rem;font-weight:600;color:${data.data_summary.trust_5d >= 0 ? '#ef5350' : '#26a69a'}">${data.data_summary.trust_5d}</div>
                         </div>
                     </div>
-                    <div class="ai-content">${data.analysis}</div>
-                    <div class="disclaimer">${data.disclaimer}</div>
+                    <div class="stock-analysis-layout">
+                        <div class="stock-analysis-text">
+                            <div class="ai-content">${data.analysis}</div>
+                            <div class="disclaimer">${data.disclaimer}</div>
+                        </div>
+                        <div class="stock-analysis-chart" id="ai-stock-chart"></div>
+                    </div>
                 `;
                 document.getElementById('stock-content').innerHTML = html;
+
+                // Render K-line chart if price data available
+                if (priceData.data && priceData.data.length > 0) {
+                    renderAIStockChart(priceData.data);
+                }
             } catch (e) {
                 document.getElementById('stock-content').innerHTML = '<div class="loading" style="color:#e74c3c">分析失敗：' + e.message + '</div>';
             }
             document.getElementById('analyze-btn').disabled = false;
+        }
+
+        function renderAIStockChart(prices) {
+            const container = document.getElementById('ai-stock-chart');
+            if (!container || !prices.length) return;
+
+            const chart = LightweightCharts.createChart(container, {
+                layout: {
+                    background: { type: 'solid', color: 'transparent' },
+                    textColor: '#888',
+                },
+                grid: {
+                    vertLines: { color: 'rgba(255, 255, 255, 0.05)' },
+                    horzLines: { color: 'rgba(255, 255, 255, 0.05)' },
+                },
+                rightPriceScale: { borderColor: 'rgba(255, 255, 255, 0.1)' },
+                timeScale: { borderColor: 'rgba(255, 255, 255, 0.1)', timeVisible: true },
+                crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+            });
+
+            const candlestickSeries = chart.addCandlestickSeries({
+                upColor: '#ef5350',
+                downColor: '#26a69a',
+                borderUpColor: '#ef5350',
+                borderDownColor: '#26a69a',
+                wickUpColor: '#ef5350',
+                wickDownColor: '#26a69a',
+            });
+
+            const candleData = prices.map(p => ({
+                time: p.trade_date,
+                open: p.open_price,
+                high: p.high_price,
+                low: p.low_price,
+                close: p.close_price,
+            })).filter(d => d.open && d.high && d.low && d.close);
+
+            candlestickSeries.setData(candleData);
+            chart.timeScale().fitContent();
+
+            // Resize handler
+            const resizeObserver = new ResizeObserver(() => {
+                chart.applyOptions({ width: container.clientWidth, height: container.clientHeight });
+            });
+            resizeObserver.observe(container);
         }
 
         function showCompareTab() {

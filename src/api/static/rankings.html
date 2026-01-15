@@ -317,7 +317,8 @@
             try {
                 const resp = await fetch(`${API_BASE}/consecutive-buying?limit=30`);
                 const data = await resp.json();
-                const items = flattenRankings(data);
+                // 合併後按連續天數重新排序
+                const items = flattenRankings(data).sort((a, b) => (b.consecutive_days || 0) - (a.consecutive_days || 0));
 
                 if (items.length === 0) {
                     document.getElementById('content').innerHTML = '<div class="card"><div class="loading">暫無外資連續買超資料，請稍後再試</div></div>';
@@ -367,7 +368,8 @@
             try {
                 const resp = await fetch(`${API_BASE}/trust-accumulation?limit=30`);
                 const data = await resp.json();
-                const items = flattenRankings(data);
+                // 合併後按買超天數重新排序
+                const items = flattenRankings(data).sort((a, b) => (b.buy_days || 0) - (a.buy_days || 0));
 
                 if (items.length === 0) {
                     document.getElementById('content').innerHTML = '<div class="card"><div class="loading">暫無投信認養資料，請稍後再試</div></div>';
@@ -417,7 +419,8 @@
             try {
                 const resp = await fetch(`${API_BASE}/synchronized-buying?limit=30`);
                 const data = await resp.json();
-                const items = flattenRankings(data);
+                // 合併後按同步天數重新排序
+                const items = flattenRankings(data).sort((a, b) => (b.sync_days || 0) - (a.sync_days || 0));
 
                 if (items.length === 0) {
                     document.getElementById('content').innerHTML = '<div class="card"><div class="loading">暫無三大法人同步買超資料，請稍後再試</div></div>';

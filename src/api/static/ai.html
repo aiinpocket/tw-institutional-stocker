@@ -89,9 +89,14 @@
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
+            position: relative;
+        }
+        .search-box-wrapper {
+            flex: 1;
+            position: relative;
         }
         .search-box input {
-            flex: 1;
+            width: 100%;
             padding: 15px 20px;
             font-size: 1.1rem;
             border: 2px solid rgba(255,255,255,0.1);
@@ -103,6 +108,31 @@
             outline: none;
             border-color: #00d4ff;
         }
+        .autocomplete-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 300px;
+            overflow-y: auto;
+            background: #1a1a2e;
+            border: 1px solid rgba(0,212,255,0.3);
+            border-radius: 15px;
+            margin-top: 5px;
+            z-index: 1000;
+            display: none;
+        }
+        .autocomplete-dropdown.show { display: block; }
+        .autocomplete-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .autocomplete-item:last-child { border-bottom: none; }
+        .autocomplete-item:hover { background: rgba(0,212,255,0.1); }
+        .autocomplete-item .code { color: #00d4ff; font-weight: 600; }
+        .autocomplete-item .name { color: #aaa; margin-left: 10px; }
         .search-box button {
             padding: 15px 30px;
             border: none;
@@ -383,23 +413,92 @@
                 <div class="card">
                     <div class="card-title"><span class="icon">🔍</span> AI 個股分析</div>
                     <div class="search-box">
-                        <input type="text" id="stock-code" placeholder="輸入股票代號 (例如: 2330)" maxlength="6">
+                        <div class="search-box-wrapper">
+                            <input type="text" id="stock-code" placeholder="輸入股票代號或公司名稱 (例如: 2330 或 台積電)" autocomplete="off">
+                            <div id="autocomplete-dropdown" class="autocomplete-dropdown"></div>
+                        </div>
                         <button id="analyze-btn" onclick="analyzeStock()">開始分析</button>
                     </div>
                     <div id="stock-content"></div>
                 </div>
             `;
 
-            document.getElementById('stock-code').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') analyzeStock();
+            const input = document.getElementById('stock-code');
+            const dropdown = document.getElementById('autocomplete-dropdown');
+            let debounceTimer;
+
+            input.addEventListener('input', (e) => {
+                clearTimeout(debounceTimer);
+                const query = e.target.value.trim();
+                if (query.length < 2) {
+                    dropdown.classList.remove('show');
+                    return;
+                }
+                debounceTimer = setTimeout(() => searchStocks(query), 300);
+            });
+
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    dropdown.classList.remove('show');
+                    analyzeStock();
+                }
+            });
+
+            input.addEventListener('blur', () => {
+                setTimeout(() => dropdown.classList.remove('show'), 200);
             });
         }
 
+        async function searchStocks(query) {
+            const dropdown = document.getElementById('autocomplete-dropdown');
+            try {
+                const resp = await fetch(`/api/v1/stocks?search=${encodeURIComponent(query)}&limit=10`);
+                const data = await resp.json();
+                if (data.items && data.items.length > 0) {
+                    dropdown.innerHTML = data.items.map(s => `
+                        <div class="autocomplete-item" onclick="selectStock('${s.code}', '${s.name}')">
+                            <span class="code">${s.code}</span>
+                            <span class="name">${s.name}</span>
+                        </div>
+                    `).join('');
+                    dropdown.classList.add('show');
+                } else {
+                    dropdown.classList.remove('show');
+                }
+            } catch (e) {
+                dropdown.classList.remove('show');
+            }
+        }
+
+        function selectStock(code, name) {
+            document.getElementById('stock-code').value = code;
+            document.getElementById('autocomplete-dropdown').classList.remove('show');
+        }
+
         async function analyzeStock() {
-            const code = document.getElementById('stock-code').value.trim();
-            if (!code || !/^[0-9]{4,6}$/.test(code)) {
-                alert('請輸入有效的股票代號');
+            let input = document.getElementById('stock-code').value.trim();
+            if (!input) {
+                alert('請輸入股票代號或公司名稱');
                 return;
+            }
+
+            let code = input;
+
+            // 如果不是純數字代號，嘗試搜尋公司名稱
+            if (!/^[0-9]{4,6}$/.test(input)) {
+                try {
+                    const searchResp = await fetch(`/api/v1/stocks?search=${encodeURIComponent(input)}&limit=1`);
+                    const searchData = await searchResp.json();
+                    if (searchData.items && searchData.items.length > 0) {
+                        code = searchData.items[0].code;
+                    } else {
+                        alert('找不到符合的股票，請確認名稱或代號');
+                        return;
+                    }
+                } catch (e) {
+                    alert('搜尋失敗，請稍後再試');
+                    return;
+                }
             }
 
             document.getElementById('stock-content').innerHTML = '<div class="loading">AI 分析中，這可能需要 10-20 秒</div>';

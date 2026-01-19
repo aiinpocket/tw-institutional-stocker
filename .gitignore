@@ -29,5 +29,4 @@ github-actions-key.json
 openaiKEY.txt
 *.key
 *.secret
-CLAUDE.md
 .claude/

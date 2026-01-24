@@ -316,6 +316,29 @@
             border-left: 3px solid #00d4ff;
         }
         footer { text-align: center; margin-top: 40px; padding: 20px; color: #666; font-size: 0.85rem; }
+
+        /* 資料更新時段提示 */
+        .update-period-banner {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, rgba(230, 126, 34, 0.2), rgba(211, 84, 0, 0.2));
+            border: 2px solid rgba(230, 126, 34, 0.6);
+            color: #e67e22;
+            font-weight: 600;
+            font-size: 1rem;
+            animation: slideDown 0.3s ease;
+        }
+        .update-period-banner.show { display: flex; }
+        .update-period-banner::before { content: '⚠️'; font-size: 1.3rem; }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -339,6 +362,11 @@
             <div class="tab" data-tab="recommend">💡 智能選股</div>
             <div class="tab" data-tab="stock">🔍 個股分析</div>
             <div class="tab" data-tab="compare">⚖️ 股票比較</div>
+        </div>
+
+        <!-- 資料更新時段提示 -->
+        <div id="update-period-banner" class="update-period-banner">
+            <span>目前為資料更新時段（21:00-23:00），資料可能正在更新中，請留意資料時間</span>
         </div>
 
         <div id="content"></div>
@@ -732,6 +760,19 @@
             }
         }
 
+        // 檢查是否在資料更新時段（台北時間 21:00-23:00）
+        function checkUpdatePeriod() {
+            const banner = document.getElementById('update-period-banner');
+            const now = new Date();
+            const taipeiHour = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Taipei' })).getHours();
+            if (taipeiHour >= 21 && taipeiHour < 23) {
+                banner.classList.add('show');
+            } else {
+                banner.classList.remove('show');
+            }
+        }
+
+        checkUpdatePeriod();
         showMarketTab();
         loadDataDate();
     </script>

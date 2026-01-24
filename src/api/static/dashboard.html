@@ -514,6 +514,21 @@
             font-size: 1.2rem;
         }
 
+        .etl-banner.update-period {
+            display: flex;
+            background: linear-gradient(90deg, rgba(230, 126, 34, 0.2), rgba(211, 84, 0, 0.2));
+            border: 2px solid rgba(230, 126, 34, 0.6);
+            color: #e67e22;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 15px 25px;
+        }
+
+        .etl-banner.update-period::before {
+            content: '⚠️';
+            font-size: 1.3rem;
+        }
+
         .etl-spinner {
             width: 16px;
             height: 16px;
@@ -921,14 +936,11 @@
         // ========== 閒置檢測與頁面可見性管理 ==========
         const IDLE_TIMEOUT = 10 * 60 * 1000; // 10 分鐘
         const IDLE_REDIRECT_URL = 'https://aiinpocket.com';
-        const ETL_POLL_INTERVAL = 30000; // 30 秒
         const DATA_REFRESH_INTERVAL = 300000; // 5 分鐘
 
         let lastActivityTime = Date.now();
         let idleCheckInterval = null;
         let dataRefreshInterval = null;
-        let etlPollInterval = null;
-        let lastEtlStatus = null;
         let isPageVisible = !document.hidden;
 
         // 重置閒置計時器
@@ -985,40 +997,22 @@
             }, 5000);
         }
 
-        async function checkEtlStatus() {
-            if (!isPageVisible) return;
+        // 檢查是否在資料更新時段（台北時間 21:00-23:00）
+        function checkUpdatePeriod() {
+            const banner = document.getElementById('etl-banner');
+            const message = document.getElementById('etl-message');
 
-            try {
-                const response = await fetch('/api/v1/system/etl-status');
-                const data = await response.json();
+            // 取得台北時間（UTC+8）
+            const now = new Date();
+            const taipeiHour = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Taipei' })).getHours();
 
-                const banner = document.getElementById('etl-banner');
-                const message = document.getElementById('etl-message');
-
-                if (data.status === 'running') {
-                    banner.classList.add('running');
-                    message.textContent = data.message || '資料更新中，請稍候...';
-                } else {
-                    banner.classList.remove('running');
-
-                    if (lastEtlStatus === 'running' && data.status === 'completed') {
-                        showToast(data.message || '資料已更新完成！', 'success');
-                        await fetchData();
-                        const activeTab = document.querySelector('.tab.active');
-                        if (activeTab) {
-                            showTab(activeTab.dataset.tab);
-                        }
-                        await updateDataTime();
-                    }
-
-                    if (lastEtlStatus === 'running' && data.status === 'error') {
-                        showToast(data.message || '資料更新失敗', 'error');
-                    }
-                }
-
-                lastEtlStatus = data.status;
-            } catch (error) {
-                console.error('Failed to check ETL status:', error);
+            if (taipeiHour >= 21 && taipeiHour < 23) {
+                banner.classList.remove('running');
+                banner.classList.add('update-period');
+                message.textContent = '目前為資料更新時段（21:00-23:00），資料可能正在更新中，請留意資料時間';
+            } else {
+                banner.classList.remove('update-period');
+                banner.classList.remove('running');
             }
         }
 
@@ -1039,11 +1033,8 @@
                 idleCheckInterval = setInterval(checkIdleTimeout, 30000);
             }
 
-            // ETL 狀態輪詢（每 30 秒）
-            if (!etlPollInterval) {
-                checkEtlStatus();
-                etlPollInterval = setInterval(checkEtlStatus, ETL_POLL_INTERVAL);
-            }
+            // 檢查是否在資料更新時段（頁面載入時檢查一次即可）
+            checkUpdatePeriod();
 
             // 資料刷新（每 5 分鐘）
             if (!dataRefreshInterval) {
@@ -1055,10 +1046,6 @@
             if (idleCheckInterval) {
                 clearInterval(idleCheckInterval);
                 idleCheckInterval = null;
-            }
-            if (etlPollInterval) {
-                clearInterval(etlPollInterval);
-                etlPollInterval = null;
             }
             if (dataRefreshInterval) {
                 clearInterval(dataRefreshInterval);

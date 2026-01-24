@@ -607,11 +607,70 @@
             updateTime();
         }
 
+        // ========== 閒置檢測與頁面可見性管理 ==========
+        const IDLE_TIMEOUT = 10 * 60 * 1000; // 10 分鐘
+        const IDLE_REDIRECT_URL = 'https://aiinpocket.com';
+        const DATA_REFRESH_INTERVAL = 300000; // 5 分鐘
+
+        let lastActivityTime = Date.now();
+        let idleCheckInterval = null;
+        let dataRefreshInterval = null;
+        let isPageVisible = !document.hidden;
+
+        function resetIdleTimer() {
+            lastActivityTime = Date.now();
+        }
+
+        function checkIdleTimeout() {
+            if (Date.now() - lastActivityTime > IDLE_TIMEOUT) {
+                stopAllPolling();
+                window.location.href = IDLE_REDIRECT_URL;
+            }
+        }
+
+        ['mousemove', 'mousedown', 'keydown', 'scroll', 'wheel', 'touchstart'].forEach(event => {
+            document.addEventListener(event, resetIdleTimer, { passive: true });
+        });
+
+        document.addEventListener('visibilitychange', () => {
+            isPageVisible = !document.hidden;
+            if (isPageVisible) {
+                resetIdleTimer();
+                startAllPolling();
+            } else {
+                stopAllPolling();
+            }
+        });
+
+        function startAllPolling() {
+            if (!idleCheckInterval) {
+                idleCheckInterval = setInterval(checkIdleTimeout, 30000);
+            }
+            if (!dataRefreshInterval) {
+                dataRefreshInterval = setInterval(() => {
+                    if (isPageVisible) refreshAll();
+                }, DATA_REFRESH_INTERVAL);
+            }
+        }
+
+        function stopAllPolling() {
+            if (idleCheckInterval) {
+                clearInterval(idleCheckInterval);
+                idleCheckInterval = null;
+            }
+            if (dataRefreshInterval) {
+                clearInterval(dataRefreshInterval);
+                dataRefreshInterval = null;
+            }
+        }
+
         // Initial load
         refreshAll();
 
-        // Auto refresh every 5 minutes
-        setInterval(refreshAll, 5 * 60 * 1000);
+        // 頁面載入時啟動輪詢
+        if (isPageVisible) {
+            startAllPolling();
+        }
     </script>
 </body>
 </html>

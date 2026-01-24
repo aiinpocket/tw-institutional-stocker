@@ -849,22 +849,53 @@
             }
         });
 
-        // Auto refresh every 5 minutes
-        setInterval(async () => {
-            await fetchData();
-            const activeTab = document.querySelector('.tab.active');
-            if (activeTab) {
-                showTab(activeTab.dataset.tab);
-            }
-            await updateDataTime();
-        }, 300000);
+        // ========== 閒置檢測與頁面可見性管理 ==========
+        const IDLE_TIMEOUT = 10 * 60 * 1000; // 10 分鐘
+        const IDLE_REDIRECT_URL = 'https://aiinpocket.com';
+        const ETL_POLL_INTERVAL = 30000; // 30 秒
+        const DATA_REFRESH_INTERVAL = 300000; // 5 分鐘
 
-        // ========== ETL 狀態監控 ==========
-        let lastEtlStatus = null;
+        let lastActivityTime = Date.now();
+        let idleCheckInterval = null;
+        let dataRefreshInterval = null;
         let etlPollInterval = null;
+        let lastEtlStatus = null;
+        let isPageVisible = !document.hidden;
+
+        // 重置閒置計時器
+        function resetIdleTimer() {
+            lastActivityTime = Date.now();
+        }
+
+        // 檢查是否閒置超時
+        function checkIdleTimeout() {
+            if (Date.now() - lastActivityTime > IDLE_TIMEOUT) {
+                // 停止所有輪詢
+                stopAllPolling();
+                // 導向指定頁面
+                window.location.href = IDLE_REDIRECT_URL;
+            }
+        }
+
+        // 監聽用戶活動事件
+        ['mousemove', 'mousedown', 'keydown', 'scroll', 'wheel', 'touchstart'].forEach(event => {
+            document.addEventListener(event, resetIdleTimer, { passive: true });
+        });
+
+        // 頁面可見性變化處理
+        document.addEventListener('visibilitychange', () => {
+            isPageVisible = !document.hidden;
+            if (isPageVisible) {
+                // 頁面變為可見，重置閒置計時器並啟動輪詢
+                resetIdleTimer();
+                startAllPolling();
+            } else {
+                // 頁面不可見，停止輪詢以節省資源
+                stopAllPolling();
+            }
+        });
 
         function showToast(message, type = 'success') {
-            // 移除現有的 toast
             const existingToast = document.querySelector('.toast');
             if (existingToast) {
                 existingToast.remove();
@@ -878,7 +909,6 @@
             `;
             document.body.appendChild(toast);
 
-            // 5秒後自動移除
             setTimeout(() => {
                 if (toast.parentNode) {
                     toast.remove();
@@ -887,6 +917,8 @@
         }
 
         async function checkEtlStatus() {
+            if (!isPageVisible) return;
+
             try {
                 const response = await fetch('/api/v1/system/etl-status');
                 const data = await response.json();
@@ -900,10 +932,8 @@
                 } else {
                     banner.classList.remove('running');
 
-                    // 如果之前是 running，現在變成 completed，顯示通知
                     if (lastEtlStatus === 'running' && data.status === 'completed') {
                         showToast(data.message || '資料已更新完成！', 'success');
-                        // 重新載入資料
                         await fetchData();
                         const activeTab = document.querySelector('.tab.active');
                         if (activeTab) {
@@ -923,14 +953,54 @@
             }
         }
 
-        // 每 10 秒檢查一次 ETL 狀態
-        function startEtlPolling() {
-            checkEtlStatus(); // 立即檢查一次
-            etlPollInterval = setInterval(checkEtlStatus, 10000);
+        async function refreshData() {
+            if (!isPageVisible) return;
+
+            await fetchData();
+            const activeTab = document.querySelector('.tab.active');
+            if (activeTab) {
+                showTab(activeTab.dataset.tab);
+            }
+            await updateDataTime();
         }
 
-        // 頁面載入時開始輪詢
-        startEtlPolling();
+        function startAllPolling() {
+            // 閒置檢測（每 30 秒檢查一次）
+            if (!idleCheckInterval) {
+                idleCheckInterval = setInterval(checkIdleTimeout, 30000);
+            }
+
+            // ETL 狀態輪詢（每 30 秒）
+            if (!etlPollInterval) {
+                checkEtlStatus();
+                etlPollInterval = setInterval(checkEtlStatus, ETL_POLL_INTERVAL);
+            }
+
+            // 資料刷新（每 5 分鐘）
+            if (!dataRefreshInterval) {
+                dataRefreshInterval = setInterval(refreshData, DATA_REFRESH_INTERVAL);
+            }
+        }
+
+        function stopAllPolling() {
+            if (idleCheckInterval) {
+                clearInterval(idleCheckInterval);
+                idleCheckInterval = null;
+            }
+            if (etlPollInterval) {
+                clearInterval(etlPollInterval);
+                etlPollInterval = null;
+            }
+            if (dataRefreshInterval) {
+                clearInterval(dataRefreshInterval);
+                dataRefreshInterval = null;
+            }
+        }
+
+        // 頁面載入時啟動輪詢
+        if (isPageVisible) {
+            startAllPolling();
+        }
     </script>
 </body>
 </html>

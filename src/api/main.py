@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse, RedirectResponse
+from fastapi.responses import FileResponse, RedirectResponse, PlainTextResponse, Response
 import os
 
 from src.api.routes import stocks, institutional, prices, rankings, brokers, strategy, analysis, system, industry, ai_analysis, margin, revenue, financial
@@ -125,6 +125,68 @@ def revenue_page():
     if os.path.exists(html_path):
         return FileResponse(html_path)
     return {"error": "Revenue page not found"}
+
+
+@app.get("/robots.txt", response_class=PlainTextResponse)
+def robots_txt():
+    """Serve robots.txt for search engine crawlers."""
+    return """User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /docs
+Disallow: /redoc
+
+Sitemap: https://stock-tw.aiinpocket.com/sitemap.xml
+"""
+
+
+@app.get("/sitemap.xml")
+def sitemap_xml():
+    """Serve sitemap.xml for search engines."""
+    sitemap = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://stock-tw.aiinpocket.com/dashboard</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://stock-tw.aiinpocket.com/live</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://stock-tw.aiinpocket.com/rankings</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://stock-tw.aiinpocket.com/industry</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://stock-tw.aiinpocket.com/brokers</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://stock-tw.aiinpocket.com/ai</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://stock-tw.aiinpocket.com/margin</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://stock-tw.aiinpocket.com/revenue</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+</urlset>"""
+    return Response(content=sitemap, media_type="application/xml")
 
 
 @app.get("/health")

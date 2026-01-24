@@ -1,5 +1,6 @@
 """System status routes - ETL status and system health."""
 import json
+import os
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from fastapi import APIRouter, Depends
@@ -11,6 +12,18 @@ from src.api.dependencies import get_db
 TAIPEI_TZ = ZoneInfo("Asia/Taipei")
 
 router = APIRouter()
+
+
+@router.get("/config")
+def get_public_config():
+    """
+    取得公開的前端設定。
+    這些設定不含機敏資料，可安全提供給前端使用。
+    """
+    return {
+        "ga_measurement_id": os.environ.get("GA_MEASUREMENT_ID", ""),
+        "github_url": "https://github.com/aiinpocket/tw-institutional-stocker",
+    }
 
 
 @router.get("/daily-summary")

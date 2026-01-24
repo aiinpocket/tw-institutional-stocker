@@ -35,7 +35,7 @@ steps:
       - '--set-env-vars=DB_HOST=/cloudsql/$PROJECT_ID:asia-east1:tw-stocker-db'
       - '--set-env-vars=DB_NAME=tw_stocker'
       - '--set-env-vars=DB_USER=postgres'
-      - '--set-secrets=DB_PASSWORD=db-password:latest,OPENAI_API_KEY=openai-api-key:latest'
+      - '--set-secrets=DB_PASSWORD=db-password:latest,OPENAI_API_KEY=openai-api-key:latest,GA_MEASUREMENT_ID=ga-measurement-id:latest'
 
   # Update ETL Job
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'

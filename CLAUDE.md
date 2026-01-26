@@ -9,7 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `線上連結是https://stock-tw.aiinpocket.com`
 - `每次完成修改後都必須使用瀏覽器工具驗證功能並確認版面沒有跑板等問題`
 - `所有修改都必須先在本地 Docker 環境測試驗證後，才能部署到 GCP`
-- `每次修改完後都必須要自己commit到github，會自動觸發CICD到GCP (project name:<YOUR_GCP_PROJECT>)上部署，做完要自行確認上版是否成功`
+- `每次修改完後都必須要自己commit到github，會自動觸發CICD到GCP (project name:tw-stocker-20241201)上部署，做完要自行確認上版是否成功`
 - `不要把測試用的script以及AI提示詞等訊息同步到git上`
 - `每次改版都需要審視README.MD有沒有需要更新的`
 - `所有的時間都應該要用台北時間`
@@ -63,11 +63,11 @@ sleep 10 && docker-compose ps
 
 # 3. 從 GCP Cloud SQL 複製資料庫（需自行設定）
 # 3.1 取得資料庫密碼
-DB_PASSWORD=$(gcloud secrets versions access latest --secret=db-password --project=<YOUR_PROJECT>)
+DB_PASSWORD=$(gcloud secrets versions access latest --secret=db-password --project=tw-stocker-20241201)
 
 # 3.2 檢查/添加當前 IP 到 Cloud SQL 授權網路
 MY_IP=$(curl -s ifconfig.me)
-gcloud sql instances patch tw-stocker-db --project=<YOUR_PROJECT> \
+gcloud sql instances patch tw-stocker-db --project=tw-stocker-20241201 \
   --authorized-networks="${MY_IP}/32" --quiet
 
 # 3.3 匯出 GCP 資料庫
@@ -81,7 +81,7 @@ docker exec tw-stocker-db psql -U stocker -d tw_stocker -c \
   "DROP SCHEMA public CASCADE; CREATE SCHEMA public; GRANT ALL ON SCHEMA public TO stocker;"
 
 docker run --rm --network host -v /tmp:/backup \
-  -e PGPASSWORD="<YOUR_LOCAL_DB_PASSWORD>" postgres:16-alpine \
+  -e PGPASSWORD="stockerpass123" postgres:16-alpine \
   pg_restore -h localhost -U stocker -d tw_stocker \
   --no-owner --no-acl -j 4 /backup/tw_stocker_backup.dump
 
@@ -135,13 +135,15 @@ docker-compose exec etl-worker python -m src.etl.run_all
 
 | 路由 | 檔案 | 功能 |
 |------|------|------|
-| `/dashboard` | `static/dashboard.html` | 策略儀表板（首頁） |
-| `/live` | `static/live.html` | 即時看板 - 當日法人買賣超 |
-| `/rankings` | `static/rankings.html` | 法人排行榜 |
-| `/industry` | `static/industry.html` | 產業熱力圖 |
-| `/brokers` | `static/brokers.html` | 券商追蹤 |
-| `/ai` | `static/ai.html` | AI 智能分析 |
-| `/stock/{code}` | `static/stock.html` | 個股分析頁
+| `/dashboard` | `src/api/static/dashboard.html` | 策略儀表板（首頁） |
+| `/live` | `src/api/static/live.html` | 即時看板 - 當日法人買賣超 |
+| `/rankings` | `src/api/static/rankings.html` | 法人排行榜 |
+| `/industry` | `src/api/static/industry.html` | 產業熱力圖 |
+| `/brokers` | `src/api/static/brokers.html` | 券商追蹤 |
+| `/ai` | `src/api/static/ai.html` | AI 智能分析 |
+| `/margin` | `src/api/static/margin.html` | 融資融券追蹤 |
+| `/revenue` | `src/api/static/revenue.html` | 營收追蹤 |
+| `/stock/{code}` | `src/api/static/stock.html` | 個股分析頁 |
 
 ## GCP Commands
 
@@ -153,7 +155,7 @@ gcloud run jobs execute tw-stocker-etl --region=asia-east1 --wait
 gcloud run jobs executions list --job=tw-stocker-etl --region=asia-east1 --limit=5
 
 # 查看 ETL 日誌
-gcloud logging read "resource.type=\"cloud_run_job\" AND resource.labels.job_name=\"tw-stocker-etl\"" --limit=50 --format="table(timestamp.date(), textPayload)" --project=<YOUR_GCP_PROJECT>
+gcloud logging read "resource.type=\"cloud_run_job\" AND resource.labels.job_name=\"tw-stocker-etl\"" --limit=50 --format="table(timestamp.date(), textPayload)" --project=tw-stocker-20241201
 
 # 更新 ETL Job 環境變數
 gcloud run jobs update tw-stocker-etl --region=asia-east1 --set-env-vars="KEY=VALUE"
@@ -162,7 +164,7 @@ gcloud run jobs update tw-stocker-etl --region=asia-east1 --set-env-vars="KEY=VA
 gcloud run services describe tw-stocker-api --region=asia-east1
 
 # 查看 API 日誌
-gcloud logging read "resource.type=\"cloud_run_revision\" AND resource.labels.service_name=\"tw-stocker-api\"" --limit=50 --project=<YOUR_GCP_PROJECT>
+gcloud logging read "resource.type=\"cloud_run_revision\" AND resource.labels.service_name=\"tw-stocker-api\"" --limit=50 --project=tw-stocker-20241201
 
 # 重置 ETL 狀態（當 Dashboard 卡在"資料更新中..."時使用）
 curl -X POST -H "Content-Length: 0" "https://stock-tw.aiinpocket.com/api/v1/system/etl-status/reset"
@@ -183,14 +185,16 @@ curl -X POST -H "Content-Length: 0" "https://stock-tw.aiinpocket.com/api/v1/syst
 │  - flows    │  - 三大法人      │  GET /api/v1/prices        │
 │  - holdings │  - 外資持股      │  GET /api/v1/rankings      │
 │  - prices   │  - 股價成交量    │  GET /api/v1/strategy      │
-│  - brokers  │  - 策略計算      │  GET /api/v1/brokers       │
+│  - brokers  │  - 融資融券      │  GET /api/v1/brokers       │
+│  - margin   │  - 策略計算      │  GET /api/v1/margin        │
+│  - revenue  │  - 月營收        │  GET /api/v1/revenue       │
 └─────────────┴─────────────────┴─────────────────────────────┘
 ```
 
 ### Directory Structure
 
 ```
-tw-market-tracker/
+tw-institutional-stocker/
 ├── src/
 │   ├── common/
 │   │   ├── config.py           # Environment config
@@ -200,15 +204,47 @@ tw-market-tracker/
 │   ├── etl/
 │   │   ├── run_all.py          # Main ETL orchestrator
 │   │   ├── run_broker.py       # Broker ETL
+│   │   ├── backfill_prices.py  # Historical price backfill
+│   │   ├── create_indexes.py   # Database index creation
 │   │   ├── fetchers/           # Data fetchers
-│   │   ├── processors/         # Holdings/ratio/strategy computation
+│   │   │   ├── twse_flows.py       # TWSE institutional flows
+│   │   │   ├── tpex_flows.py       # TPEX institutional flows
+│   │   │   ├── twse_foreign.py     # TWSE foreign holdings
+│   │   │   ├── tpex_foreign.py     # TPEX foreign holdings
+│   │   │   ├── twse_prices.py      # TWSE stock prices
+│   │   │   ├── tpex_prices.py      # TPEX stock prices
+│   │   │   ├── twse_margin.py      # TWSE margin trading
+│   │   │   ├── tpex_margin.py      # TPEX margin trading
+│   │   │   ├── revenue.py          # Monthly revenue
+│   │   │   ├── broker.py           # Broker trades
+│   │   │   └── industry.py         # Industry data
+│   │   ├── processors/         # Data processors
 │   │   └── loaders/            # Database upsert
-│   └── api/
-│       ├── main.py             # FastAPI entry
-│       ├── dependencies.py     # DB session dependency
-│       ├── routes/             # API endpoints
-│       └── schemas/            # Pydantic models
-├── Dockerfile                  # Container image
+│   │       └── db_loader.py
+│   ├── api/
+│   │   ├── main.py             # FastAPI entry
+│   │   ├── dependencies.py     # DB session dependency
+│   │   ├── routes/             # API endpoints
+│   │   │   ├── stocks.py
+│   │   │   ├── institutional.py
+│   │   │   ├── prices.py
+│   │   │   ├── rankings.py
+│   │   │   ├── brokers.py
+│   │   │   ├── strategy.py
+│   │   │   ├── analysis.py
+│   │   │   ├── industry.py
+│   │   │   ├── ai_analysis.py
+│   │   │   ├── margin.py
+│   │   │   ├── revenue.py
+│   │   │   ├── financial.py
+│   │   │   └── system.py
+│   │   ├── schemas/            # Pydantic models
+│   │   └── static/             # Static HTML pages
+│   └── analysis/               # Backtesting tools
+├── docker/                     # Docker configs
+├── gcp/                        # GCP deployment configs
+├── cloudbuild.yaml             # Cloud Build CI/CD
+├── docker-compose.yml          # Docker Compose
 ├── requirements-etl.txt
 └── requirements-api.txt
 ```
@@ -221,6 +257,8 @@ TWSE/TPEX APIs
 fetchers/twse_flows.py + tpex_flows.py     → institutional flows
 fetchers/twse_foreign.py + tpex_foreign.py → foreign holdings
 fetchers/twse_prices.py + tpex_prices.py   → stock prices
+fetchers/twse_margin.py + tpex_margin.py   → margin trading
+fetchers/revenue.py                         → monthly revenue
     ↓
 processors/holdings.py        → estimate trust/dealer shares
 processors/ratios.py          → calculate ratio changes [5,20,60,120]d
@@ -245,16 +283,21 @@ FastAPI REST API (Cloud Run)
 
 | Table | Purpose |
 |-------|---------|
-| `stocks` | Stock master data (code, name, market, total_shares) |
+| `stocks` | Stock master data (code, name, market, industry, total_shares) |
 | `institutional_flows` | Daily buy/sell by foreign, trust, dealer |
 | `foreign_holdings` | Official foreign ownership ratio |
 | `stock_prices` | OHLCV price data |
 | `institutional_ratios` | Computed holdings ratios + change metrics |
 | `strategy_rankings` | Pre-computed strategy analysis results |
+| `broker_trades` | Broker trade details |
+| `institutional_baselines` | Baseline for holdings estimation |
+| `margin_trading` | Margin trading data (融資融券) |
+| `monthly_revenue` | Monthly revenue data (月營收) |
 | `system_status` | ETL status tracking |
 
 ## API Endpoints
 
+### 股票資料
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/health` | Health check |
@@ -262,9 +305,53 @@ FastAPI REST API (Cloud Run)
 | GET | `/api/v1/stocks/{code}` | Stock details |
 | GET | `/api/v1/stocks/{code}/institutional` | Institutional history |
 | GET | `/api/v1/stocks/{code}/prices` | Price history |
+
+### 法人資料
+| Method | Endpoint | Description |
+|--------|----------|-------------|
 | GET | `/api/v1/institutional/flows` | Institutional flows by date |
 | GET | `/api/v1/rankings/{window}` | Top movers (5/20/60/120 days) |
+
+### 策略分析
+| Method | Endpoint | Description |
+|--------|----------|-------------|
 | GET | `/api/v1/strategy/summary` | Strategy analysis summary |
+| GET | `/api/v1/strategy/consecutive-buying` | Foreign consecutive buying |
+| GET | `/api/v1/strategy/trust-adoption` | Trust adoption stocks |
+| GET | `/api/v1/strategy/three-way-sync` | Three-way institutional sync |
+| GET | `/api/v1/strategy/deviation` | High deviation stocks |
+| POST | `/api/v1/strategy/recompute` | Recompute strategy rankings |
+
+### 融資融券
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/v1/margin/summary` | Market margin trading summary |
+| GET | `/api/v1/margin/rankings` | Short ratio / margin balance rankings |
+| GET | `/api/v1/margin/alerts` | High short ratio alerts |
+| GET | `/api/v1/margin/stock/{code}` | Individual stock margin history |
+
+### 營收追蹤
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/v1/revenue/latest` | Latest monthly revenue |
+| GET | `/api/v1/revenue/rankings` | YoY/MoM revenue rankings |
+| GET | `/api/v1/revenue/alerts` | Revenue explosion/decline alerts |
+| GET | `/api/v1/revenue/stock/{code}` | Individual stock revenue history |
+
+### AI 分析
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/v1/ai/market-summary` | AI market summary |
+| GET | `/api/v1/ai/recommendations` | AI stock recommendations |
+| GET | `/api/v1/ai/stock/{code}` | AI individual stock analysis |
+| GET | `/api/v1/ai/compare` | AI stock comparison |
+
+### 其他
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/v1/brokers/trades` | Broker trade details |
+| GET | `/api/v1/industry/summary` | Industry fund flow |
+| GET | `/api/v1/analysis/{code}` | Technical analysis |
 | GET | `/api/v1/system/etl-status` | ETL execution status |
 | POST | `/api/v1/system/etl-status/reset` | Reset ETL status |
 | POST | `/api/v1/system/cleanup-stocks` | Mark delisted stocks as inactive |
@@ -291,25 +378,29 @@ dealer_shares_est = cumsum(dealer_net)
 | TWSE T86 | `/exchangeReport/MI_INDEX` | CP950 (Big5) |
 | TWSE Foreign | `/fund/MI_QFIIS` | CP950 |
 | TWSE Prices | `/openapi/v1/exchangeReport/STOCK_DAY_ALL` | UTF-8 JSON |
+| TWSE Margin | `/exchangeReport/MI_MARGN` | CP950 |
 | TPEX Flows | `/web/stock/3itrade/3itrade_hedge.php` | UTF-8 |
 | TPEX Foreign | `/web/stock/exright/QFII.php` | UTF-8 |
 | TPEX Prices | `/openapi/v1/tpex_mainboard_quotes` | UTF-8 JSON |
+| TPEX Margin | `/web/stock/margin_trading/margin_balance` | UTF-8 |
+| 公開資訊觀測站 | `/nas/t21/{sii,otc}/t21sc03_*` | UTF-8 (月營收) |
 
 ## Cloud Scheduler (Taipei Time)
 
 ```
-30 21 * * 1-5  # 21:30 Taipei - Main ETL (institutional + prices + strategy + AI)
+30 21 * * 1-5  # 21:30 Taipei - Main ETL (institutional + prices + margin + revenue + strategy + AI)
 0  22 * * 1-5  # 22:00 Taipei - Broker ETL
 ```
 
 ## Environment Variables (Cloud Run)
 
 ```bash
-DB_HOST=/cloudsql/<YOUR_GCP_PROJECT>:asia-east1:tw-stocker-db
+DB_HOST=/cloudsql/tw-stocker-20241201:asia-east1:tw-stocker-db
 DB_NAME=tw_stocker
 DB_USER=postgres
 DB_PASSWORD=<secret>
 OPENAI_API_KEY=<secret>
+GA_MEASUREMENT_ID=<secret>
 ```
 
 ## CI/CD (Cloud Build)

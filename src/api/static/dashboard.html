@@ -53,6 +53,7 @@
         "description": "台股三大法人籌碼分析平台，提供外資、投信、自營商每日買賣超數據，勝率排行榜，以及 AI 智能選股策略分析。",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "Web Browser",
+        "inLanguage": "zh-TW",
         "offers": {
             "@type": "Offer",
             "price": "0",
@@ -62,7 +63,40 @@
             "@type": "Organization",
             "name": "AI in Pocket",
             "url": "https://aiinpocket.com"
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://stock-tw.aiinpocket.com/stock/{search_term_string}",
+            "query-input": "required name=search_term_string"
         }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "台股法人籌碼分析",
+        "alternateName": "Taiwan Stock Institutional Tracker",
+        "url": "https://stock-tw.aiinpocket.com",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://stock-tw.aiinpocket.com/stock/{search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首頁",
+                "item": "https://stock-tw.aiinpocket.com/dashboard"
+            }
+        ]
     }
     </script>
     <style>

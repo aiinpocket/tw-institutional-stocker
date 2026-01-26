@@ -1209,7 +1209,75 @@
                     `<span class="${cls}">${sign}${change.toFixed(2)} (${sign}${changePct}%)</span>`;
             }
 
-            document.title = `${data.stock.code} ${data.stock.name} - 股票分析`;
+            // Dynamic SEO updates
+            const stockCode = data.stock.code;
+            const stockName = data.stock.name;
+            const pageTitle = `${stockCode} ${stockName} 股票分析 - 法人籌碼、技術指標、股價走勢`;
+            const pageDesc = `${stockCode} ${stockName} 個股詳細分析：即時股價、三大法人（外資、投信、自營商）持股變化、技術指標（MA、KD、MACD）、支撐壓力價位。`;
+            const pageUrl = `https://stock-tw.aiinpocket.com/stock/${stockCode}`;
+
+            document.title = pageTitle;
+
+            // Update meta tags
+            const updateMeta = (selector, content) => {
+                const el = document.querySelector(selector);
+                if (el) el.setAttribute('content', content);
+            };
+
+            updateMeta('meta[name="description"]', pageDesc);
+            updateMeta('meta[name="keywords"]', `${stockCode},${stockName},台股,個股分析,股價,法人持股,外資,投信,技術分析`);
+            updateMeta('link[rel="canonical"]', pageUrl);
+
+            // Open Graph
+            updateMeta('meta[property="og:title"]', pageTitle);
+            updateMeta('meta[property="og:description"]', pageDesc);
+            updateMeta('meta[property="og:url"]', pageUrl);
+
+            // Twitter
+            updateMeta('meta[name="twitter:title"]', pageTitle);
+            updateMeta('meta[name="twitter:description"]', pageDesc);
+
+            // Update canonical link href
+            const canonical = document.querySelector('link[rel="canonical"]');
+            if (canonical) canonical.setAttribute('href', pageUrl);
+
+            // Update or create JSON-LD structured data
+            let jsonLd = document.querySelector('script[type="application/ld+json"]');
+            if (!jsonLd) {
+                jsonLd = document.createElement('script');
+                jsonLd.type = 'application/ld+json';
+                document.head.appendChild(jsonLd);
+            }
+            jsonLd.textContent = JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "WebPage",
+                "name": pageTitle,
+                "description": pageDesc,
+                "url": pageUrl,
+                "inLanguage": "zh-TW",
+                "isPartOf": {
+                    "@type": "WebSite",
+                    "name": "台股法人籌碼分析",
+                    "url": "https://stock-tw.aiinpocket.com"
+                },
+                "breadcrumb": {
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                        {"@type": "ListItem", "position": 1, "name": "首頁", "item": "https://stock-tw.aiinpocket.com/dashboard"},
+                        {"@type": "ListItem", "position": 2, "name": "個股分析", "item": pageUrl}
+                    ]
+                },
+                "about": {
+                    "@type": "Corporation",
+                    "name": stockName,
+                    "tickerSymbol": stockCode
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "AI in Pocket",
+                    "url": "https://aiinpocket.com"
+                }
+            });
         }
 
         function checkDataSufficiency(data) {

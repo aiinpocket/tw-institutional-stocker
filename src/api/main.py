@@ -1,12 +1,19 @@
 """FastAPI application for Taiwan Stock Institutional Tracker."""
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, RedirectResponse, PlainTextResponse, Response
 import os
+from datetime import datetime
+from zoneinfo import ZoneInfo
+from sqlalchemy import text
+from sqlalchemy.orm import Session
 
 from src.api.routes import stocks, institutional, prices, rankings, brokers, strategy, analysis, system, industry, ai_analysis, margin, revenue, financial
+from src.api.dependencies import get_db
+
+TAIPEI_TZ = ZoneInfo("Asia/Taipei")
 
 # Cache-Control headers for HTML pages (no-cache forces revalidation)
 HTML_CACHE_HEADERS = {
@@ -137,62 +144,95 @@ def revenue_page():
 @app.get("/robots.txt", response_class=PlainTextResponse)
 def robots_txt():
     """Serve robots.txt for search engine crawlers."""
-    return """User-agent: *
+    return """# Taiwan Stock Institutional Tracker - robots.txt
+# https://stock-tw.aiinpocket.com
+
+User-agent: *
 Allow: /
+Allow: /dashboard
+Allow: /live
+Allow: /rankings
+Allow: /industry
+Allow: /brokers
+Allow: /ai
+Allow: /margin
+Allow: /revenue
+Allow: /stock/
+
+# Disallow API and documentation
 Disallow: /api/
 Disallow: /docs
 Disallow: /redoc
+Disallow: /static/
 
+# Crawl-delay for politeness
+Crawl-delay: 1
+
+# Sitemap location
 Sitemap: https://stock-tw.aiinpocket.com/sitemap.xml
 """
 
 
 @app.get("/sitemap.xml")
-def sitemap_xml():
-    """Serve sitemap.xml for search engines."""
-    sitemap = """<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
-        <loc>https://stock-tw.aiinpocket.com/dashboard</loc>
+def sitemap_xml(db: Session = Depends(get_db)):
+    """Serve dynamic sitemap.xml for search engines including popular stocks."""
+    today = datetime.now(TAIPEI_TZ).strftime("%Y-%m-%d")
+
+    # Static pages
+    sitemap_entries = [
+        ("https://stock-tw.aiinpocket.com/dashboard", "daily", "1.0"),
+        ("https://stock-tw.aiinpocket.com/live", "daily", "0.9"),
+        ("https://stock-tw.aiinpocket.com/rankings", "daily", "0.8"),
+        ("https://stock-tw.aiinpocket.com/industry", "daily", "0.8"),
+        ("https://stock-tw.aiinpocket.com/brokers", "daily", "0.7"),
+        ("https://stock-tw.aiinpocket.com/ai", "daily", "0.7"),
+        ("https://stock-tw.aiinpocket.com/margin", "daily", "0.6"),
+        ("https://stock-tw.aiinpocket.com/revenue", "monthly", "0.6"),
+    ]
+
+    # Get popular stocks (top 100 by recent trading volume)
+    try:
+        stock_query = text("""
+            SELECT DISTINCT s.code
+            FROM stocks s
+            JOIN stock_prices sp ON s.id = sp.stock_id
+            WHERE s.is_active = true
+            AND sp.trade_date >= CURRENT_DATE - INTERVAL '7 days'
+            AND sp.volume > 0
+            ORDER BY s.code
+            LIMIT 200
+        """)
+        stocks_result = db.execute(stock_query).fetchall()
+        stock_codes = [row[0] for row in stocks_result]
+    except Exception:
+        # Fallback to common Taiwan stocks
+        stock_codes = ["2330", "2317", "2454", "2308", "2881", "2882", "2412", "3008", "2303", "1301"]
+
+    # Build sitemap XML
+    sitemap_parts = ['<?xml version="1.0" encoding="UTF-8"?>']
+    sitemap_parts.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+
+    # Add static pages
+    for url, freq, priority in sitemap_entries:
+        sitemap_parts.append(f"""    <url>
+        <loc>{url}</loc>
+        <lastmod>{today}</lastmod>
+        <changefreq>{freq}</changefreq>
+        <priority>{priority}</priority>
+    </url>""")
+
+    # Add stock pages
+    for code in stock_codes:
+        sitemap_parts.append(f"""    <url>
+        <loc>https://stock-tw.aiinpocket.com/stock/{code}</loc>
+        <lastmod>{today}</lastmod>
         <changefreq>daily</changefreq>
-        <priority>1.0</priority>
-    </url>
-    <url>
-        <loc>https://stock-tw.aiinpocket.com/live</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://stock-tw.aiinpocket.com/rankings</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://stock-tw.aiinpocket.com/industry</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://stock-tw.aiinpocket.com/brokers</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://stock-tw.aiinpocket.com/ai</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://stock-tw.aiinpocket.com/margin</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://stock-tw.aiinpocket.com/revenue</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-</urlset>"""
+        <priority>0.5</priority>
+    </url>""")
+
+    sitemap_parts.append('</urlset>')
+    sitemap = '\n'.join(sitemap_parts)
+
     return Response(content=sitemap, media_type="application/xml")
 
 

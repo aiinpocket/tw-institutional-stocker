@@ -8,6 +8,13 @@ import os
 
 from src.api.routes import stocks, institutional, prices, rankings, brokers, strategy, analysis, system, industry, ai_analysis, margin, revenue, financial
 
+# Cache-Control headers for HTML pages (no-cache forces revalidation)
+HTML_CACHE_HEADERS = {
+    "Cache-Control": "no-cache, no-store, must-revalidate",
+    "Pragma": "no-cache",
+    "Expires": "0"
+}
+
 app = FastAPI(
     title="Taiwan Stock Institutional Tracker API",
     description="API for tracking institutional investor holdings in Taiwan stocks",
@@ -51,7 +58,7 @@ def dashboard():
     """Serve the strategy dashboard."""
     html_path = os.path.join(static_dir, "dashboard.html")
     if os.path.exists(html_path):
-        return FileResponse(html_path)
+        return FileResponse(html_path, headers=HTML_CACHE_HEADERS)
     return {"error": "Dashboard not found"}
 
 
@@ -60,7 +67,7 @@ def stock_detail(stock_code: str):
     """Serve the stock detail page."""
     html_path = os.path.join(static_dir, "stock.html")
     if os.path.exists(html_path):
-        return FileResponse(html_path)
+        return FileResponse(html_path, headers=HTML_CACHE_HEADERS)
     return {"error": "Stock page not found"}
 
 
@@ -69,7 +76,7 @@ def industry_page():
     """Serve the industry heatmap page."""
     html_path = os.path.join(static_dir, "industry.html")
     if os.path.exists(html_path):
-        return FileResponse(html_path)
+        return FileResponse(html_path, headers=HTML_CACHE_HEADERS)
     return {"error": "Industry page not found"}
 
 
@@ -78,7 +85,7 @@ def ai_page():
     """Serve the AI analysis page."""
     html_path = os.path.join(static_dir, "ai.html")
     if os.path.exists(html_path):
-        return FileResponse(html_path)
+        return FileResponse(html_path, headers=HTML_CACHE_HEADERS)
     return {"error": "AI page not found"}
 
 
@@ -87,7 +94,7 @@ def rankings_page():
     """Serve the institutional rankings page."""
     html_path = os.path.join(static_dir, "rankings.html")
     if os.path.exists(html_path):
-        return FileResponse(html_path)
+        return FileResponse(html_path, headers=HTML_CACHE_HEADERS)
     return {"error": "Rankings page not found"}
 
 
@@ -96,7 +103,7 @@ def brokers_page():
     """Serve the broker tracking page."""
     html_path = os.path.join(static_dir, "brokers.html")
     if os.path.exists(html_path):
-        return FileResponse(html_path)
+        return FileResponse(html_path, headers=HTML_CACHE_HEADERS)
     return {"error": "Brokers page not found"}
 
 
@@ -105,7 +112,7 @@ def live_page():
     """Serve the live dashboard page."""
     html_path = os.path.join(static_dir, "live.html")
     if os.path.exists(html_path):
-        return FileResponse(html_path)
+        return FileResponse(html_path, headers=HTML_CACHE_HEADERS)
     return {"error": "Live page not found"}
 
 
@@ -114,7 +121,7 @@ def margin_page():
     """Serve the margin trading page."""
     html_path = os.path.join(static_dir, "margin.html")
     if os.path.exists(html_path):
-        return FileResponse(html_path)
+        return FileResponse(html_path, headers=HTML_CACHE_HEADERS)
     return {"error": "Margin page not found"}
 
 
@@ -123,7 +130,7 @@ def revenue_page():
     """Serve the revenue tracking page."""
     html_path = os.path.join(static_dir, "revenue.html")
     if os.path.exists(html_path):
-        return FileResponse(html_path)
+        return FileResponse(html_path, headers=HTML_CACHE_HEADERS)
     return {"error": "Revenue page not found"}
 
 

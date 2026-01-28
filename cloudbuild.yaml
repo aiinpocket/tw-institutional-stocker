@@ -55,6 +55,7 @@ steps:
       - '--set-env-vars=DB_HOST=/cloudsql/$PROJECT_ID:asia-east1:tw-stocker-db'
       - '--set-env-vars=DB_NAME=tw_stocker'
       - '--set-env-vars=DB_USER=postgres'
+      - '--set-env-vars=THREADS_PUBLISH_ENABLED=false'
       - '--set-secrets=DB_PASSWORD=db-password:latest,OPENAI_API_KEY=openai-api-key:latest'
 
 images:

@@ -154,6 +154,17 @@ def compute_market_summary(db, client, data_date: date):
 
         set_cache(db, "market_summary", "market_summary", result, data_date)
         logger.info("  Market summary cached successfully")
+
+        # Publish to Threads (non-blocking, failure won't affect ETL)
+        try:
+            from src.etl.publishers.threads_publisher import publish_to_threads
+            if publish_to_threads(db, result):
+                logger.info("  Market summary published to Threads")
+            else:
+                logger.info("  Threads publishing skipped or failed (non-critical)")
+        except Exception as e:
+            logger.warning(f"  Threads publishing error (non-critical): {e}")
+
         return True
 
     except Exception as e:

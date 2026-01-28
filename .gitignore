@@ -30,3 +30,6 @@ openaiKEY.txt
 *.key
 *.secret
 .claude/
+
+# Setup scripts (may contain tokens)
+scripts/setup_*.py

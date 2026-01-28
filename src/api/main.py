@@ -236,6 +236,45 @@ def sitemap_xml(db: Session = Depends(get_db)):
     return Response(content=sitemap, media_type="application/xml")
 
 
+@app.get("/oauth/callback")
+def oauth_callback(code: str = None, error: str = None, error_description: str = None):
+    """OAuth callback endpoint for Threads authorization."""
+    if error:
+        return Response(
+            content=f"""<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>OAuth 錯誤</title></head>
+<body style="font-family: sans-serif; padding: 40px; text-align: center;">
+<h1>授權失敗</h1>
+<p>錯誤：{error}</p>
+<p>{error_description or ''}</p>
+</body></html>""",
+            media_type="text/html"
+        )
+
+    if code:
+        return Response(
+            content=f"""<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>OAuth 成功</title></head>
+<body style="font-family: sans-serif; padding: 40px; text-align: center;">
+<h1>授權成功！</h1>
+<p>你的授權碼 (code)：</p>
+<textarea style="width: 100%; max-width: 600px; height: 100px; font-size: 14px;" readonly onclick="this.select()">{code}</textarea>
+<p style="color: #666; margin-top: 20px;">請複製上面的授權碼，貼給開發者換取 Access Token</p>
+</body></html>""",
+            media_type="text/html"
+        )
+
+    return Response(
+        content="""<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>OAuth Callback</title></head>
+<body style="font-family: sans-serif; padding: 40px; text-align: center;">
+<h1>OAuth Callback</h1>
+<p>未收到授權碼</p>
+</body></html>""",
+        media_type="text/html"
+    )
+
+
 @app.get("/health")
 def health_check():
     """Health check endpoint."""

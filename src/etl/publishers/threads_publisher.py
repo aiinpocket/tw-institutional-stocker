@@ -134,9 +134,13 @@ class ThreadsPublisher:
         date_str = summary_data.get("date", "")
         summary = summary_data.get("summary", "")
 
-        # Header and footer
+        # Header and footer with hashtags
         header = f"📊 {date_str} 台股法人動向摘要\n\n"
-        footer = f"\n\n🔗 完整分析: {WEBSITE_URL}/ai"
+        footer = (
+            f"\n\n"
+            f"更多資訊請參考 {WEBSITE_URL}/dashboard\n\n"
+            f"#台股 #AI自動分析 #不推薦標的僅分享公開資訊與AI自動判斷資訊"
+        )
 
         # Calculate available space for summary
         available_chars = 500 - len(header) - len(footer)

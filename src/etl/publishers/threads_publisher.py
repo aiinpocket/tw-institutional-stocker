@@ -132,28 +132,73 @@ class ThreadsPublisher:
     def format_market_summary(self, summary_data: Dict[str, Any]) -> str:
         """Format market summary for Threads post (max 500 chars)."""
         date_str = summary_data.get("date", "")
-        summary = summary_data.get("summary", "")
+        threads_data = summary_data.get("threads_data", {})
 
-        # Header and footer with hashtags
-        header = f"📊 {date_str} 台股法人動向摘要\n\n"
-        footer = (
-            f"\n\n"
-            f"更多資訊請參考 {WEBSITE_URL}/dashboard\n\n"
-            f"#台股 #AI自動分析 #不推薦標的僅分享公開資訊與AI自動判斷資訊"
-        )
+        # 格式化日期 (2025-01-29 -> 01/29)
+        if date_str and len(date_str) >= 10:
+            date_display = f"{date_str[5:7]}/{date_str[8:10]}"
+        else:
+            date_display = date_str
 
-        # Calculate available space for summary
-        available_chars = 500 - len(header) - len(footer)
+        # 外資買賣超
+        daily_foreign = threads_data.get("daily_foreign", 0)
+        foreign_action = "買超" if daily_foreign >= 0 else "賣超"
+        foreign_amount = abs(daily_foreign)
 
-        # Truncate summary if needed, keeping complete sentences
-        if len(summary) > available_chars:
-            truncate_at = summary.rfind("。", 0, available_chars - 3)
-            if truncate_at > available_chars * 0.5:
-                summary = summary[:truncate_at + 1]
-            else:
-                summary = summary[:available_chars - 3] + "..."
+        # 買超王
+        foreign_top1 = threads_data.get("foreign_top1")
+        top1_line = ""
+        if foreign_top1 and daily_foreign > 0:
+            top1_line = f"🏆 買超王：{foreign_top1['name']} +{foreign_top1['net']:,}張\n"
 
-        post_text = f"{header}{summary}{footer}"
+        # 連續買超
+        consecutive = threads_data.get("consecutive_buying", [])
+        consecutive_line = ""
+        if consecutive:
+            consecutive_items = [f"{c['name']}({c['days']}天)" for c in consecutive[:3]]
+            consecutive_line = f"📈 連續買超：{', '.join(consecutive_items)}\n"
+
+        # 三大法人同步買超
+        three_way = threads_data.get("three_way_sync", [])
+        three_way_line = ""
+        if three_way:
+            three_way_names = [t['name'] for t in three_way[:5]]
+            three_way_line = f"\n⚡ 三大法人同步買超：\n{', '.join(three_way_names)}\n"
+
+        # 投信焦點
+        trust_new = threads_data.get("trust_new", [])
+        trust_line = ""
+        if trust_new:
+            trust_names = [t['name'] for t in trust_new[:3]]
+            trust_line = f"\n💡 投信焦點：{', '.join(trust_names)}\n"
+
+        # 組合貼文
+        post_lines = [
+            f"📊 {date_display} 台股法人快報\n",
+            f"\n🔥 外資今日{foreign_action} {foreign_amount:,} 張\n",
+            top1_line,
+            consecutive_line,
+            three_way_line,
+            trust_line,
+            f"\n👉 完整分析 {WEBSITE_URL}/dashboard\n",
+            f"\n#台股",
+        ]
+
+        post_text = "".join(post_lines)
+
+        # 確保不超過 500 字元
+        if len(post_text) > 500:
+            # 移除一些內容來縮短
+            post_lines = [
+                f"📊 {date_display} 台股法人快報\n",
+                f"\n🔥 外資今日{foreign_action} {foreign_amount:,} 張\n",
+                top1_line,
+                consecutive_line if len(consecutive_line) < 50 else "",
+                f"\n👉 {WEBSITE_URL}/dashboard\n",
+                f"\n#台股",
+            ]
+            post_text = "".join(post_lines)
+
         return post_text
 
     def create_media_container(self, text: str) -> Optional[str]:

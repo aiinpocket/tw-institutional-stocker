@@ -106,6 +106,90 @@ def compute_market_summary(db, client, data_date: date):
     total_foreign = sum(f['net'] for f in foreign_favorites)
     total_trust = sum(t['net'] for t in trust_favorites)
 
+    # === Threads 發文專用數據 ===
+    # 當日三大法人總買賣超
+    daily_total_query = text("""
+        SELECT
+            SUM(foreign_net) as foreign_total,
+            SUM(trust_net) as trust_total,
+            SUM(dealer_net) as dealer_total
+        FROM institutional_flows
+        WHERE trade_date = :data_date
+    """)
+    daily_total = db.execute(daily_total_query, {"data_date": data_date}).fetchone()
+
+    # 當日外資買超王
+    daily_foreign_top_query = text("""
+        SELECT s.code, s.name, f.foreign_net
+        FROM institutional_flows f
+        JOIN stocks s ON f.stock_id = s.id
+        WHERE f.trade_date = :data_date AND f.foreign_net > 0
+        ORDER BY f.foreign_net DESC
+        LIMIT 1
+    """)
+    daily_foreign_top = db.execute(daily_foreign_top_query, {"data_date": data_date}).fetchone()
+
+    # 外資連續買超股票（近10天內至少5天買超）
+    consecutive_query = text("""
+        WITH daily_data AS (
+            SELECT s.code, s.name, f.trade_date, f.foreign_net,
+                   ROW_NUMBER() OVER (PARTITION BY s.code ORDER BY f.trade_date DESC) as rn
+            FROM institutional_flows f
+            JOIN stocks s ON f.stock_id = s.id
+            WHERE f.trade_date <= :data_date AND f.trade_date >= :data_date - 10
+        ),
+        consecutive AS (
+            SELECT code, name, COUNT(*) as buy_days
+            FROM daily_data
+            WHERE foreign_net > 0
+            GROUP BY code, name
+            HAVING COUNT(*) >= 3
+        )
+        SELECT code, name, buy_days
+        FROM consecutive
+        ORDER BY buy_days DESC
+        LIMIT 5
+    """)
+    consecutive = db.execute(consecutive_query, {"data_date": data_date}).fetchall()
+
+    # 三大法人同步買超
+    three_way_query = text("""
+        SELECT s.code, s.name
+        FROM institutional_flows f
+        JOIN stocks s ON f.stock_id = s.id
+        WHERE f.trade_date = :data_date
+          AND f.foreign_net > 0 AND f.trust_net > 0 AND f.dealer_net > 0
+        ORDER BY (f.foreign_net + f.trust_net + f.dealer_net) DESC
+        LIMIT 5
+    """)
+    three_way = db.execute(three_way_query, {"data_date": data_date}).fetchall()
+
+    # 投信新進場（近5日開始買，之前沒有）
+    trust_new_query = text("""
+        SELECT s.code, s.name
+        FROM institutional_flows f
+        JOIN stocks s ON f.stock_id = s.id
+        WHERE f.trade_date = :data_date AND f.trust_net > 1000
+        ORDER BY f.trust_net DESC
+        LIMIT 3
+    """)
+    trust_new = db.execute(trust_new_query, {"data_date": data_date}).fetchall()
+
+    # Threads 專用數據
+    threads_data = {
+        "daily_foreign": int(daily_total.foreign_total) if daily_total and daily_total.foreign_total else 0,
+        "daily_trust": int(daily_total.trust_total) if daily_total and daily_total.trust_total else 0,
+        "daily_dealer": int(daily_total.dealer_total) if daily_total and daily_total.dealer_total else 0,
+        "foreign_top1": {
+            "name": daily_foreign_top.name,
+            "code": daily_foreign_top.code,
+            "net": int(daily_foreign_top.foreign_net)
+        } if daily_foreign_top else None,
+        "consecutive_buying": [{"name": c.name, "code": c.code, "days": c.buy_days} for c in consecutive],
+        "three_way_sync": [{"name": t.name, "code": t.code} for t in three_way],
+        "trust_new": [{"name": t.name, "code": t.code} for t in trust_new],
+    }
+
     prompt = f"""你是專業的台灣股市分析師。請根據以下法人動向數據，提供今日市場摘要分析。
 
 **產業資金流向**（近 5 日）
@@ -148,6 +232,7 @@ def compute_market_summary(db, client, data_date: date):
             "hot_industries": hot_industries[:5],
             "foreign_top5": foreign_favorites[:5],
             "trust_top5": trust_favorites[:5],
+            "threads_data": threads_data,
             "disclaimer": "本分析僅供參考，不構成投資建議。",
             "cached": False
         }

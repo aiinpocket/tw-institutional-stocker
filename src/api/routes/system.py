@@ -243,3 +243,65 @@ def cleanup_stocks(db: Session = Depends(get_db)):
             "success": False,
             "message": f"清理失敗: {str(e)}"
         }
+
+
+@router.post("/init-threads-token")
+def init_threads_token(
+    access_token: str,
+    user_id: str,
+    expires_in_days: int = 60,
+    db: Session = Depends(get_db)
+):
+    """
+    初始化 Threads Access Token。
+    將 token 存入資料庫供 ETL 發文使用。
+    """
+    from datetime import timedelta
+
+    try:
+        # 確保 social_tokens 表存在
+        db.execute(text("""
+            CREATE TABLE IF NOT EXISTS social_tokens (
+                id SERIAL PRIMARY KEY,
+                platform VARCHAR(50) NOT NULL,
+                user_id VARCHAR(100) NOT NULL,
+                access_token TEXT NOT NULL,
+                expires_at TIMESTAMP,
+                scopes VARCHAR(200),
+                is_active BOOLEAN DEFAULT TRUE,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                UNIQUE(platform, user_id)
+            )
+        """))
+        db.commit()
+
+        # 計算過期時間
+        expires_at = datetime.now(TAIPEI_TZ) + timedelta(days=expires_in_days)
+
+        # Upsert token
+        db.execute(text("""
+            INSERT INTO social_tokens (platform, user_id, access_token, expires_at, scopes, is_active)
+            VALUES ('threads', :user_id, :access_token, :expires_at, 'threads_basic,threads_content_publish', TRUE)
+            ON CONFLICT (platform, user_id) DO UPDATE SET
+                access_token = :access_token,
+                expires_at = :expires_at,
+                is_active = TRUE,
+                updated_at = CURRENT_TIMESTAMP
+        """), {
+            "user_id": user_id,
+            "access_token": access_token,
+            "expires_at": expires_at
+        })
+        db.commit()
+
+        return {
+            "success": True,
+            "message": f"Threads token 已設定，有效期至 {expires_at.strftime('%Y-%m-%d')}"
+        }
+    except Exception as e:
+        db.rollback()
+        return {
+            "success": False,
+            "message": f"設定失敗: {str(e)}"
+        }

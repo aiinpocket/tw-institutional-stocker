@@ -305,3 +305,117 @@ def init_threads_token(
             "success": False,
             "message": f"設定失敗: {str(e)}"
         }
+
+
+@router.post("/threads-engagement/collect")
+def collect_threads_engagement(
+    days_back: int = 7,
+    db: Session = Depends(get_db)
+):
+    """
+    收集 Threads 互動數據。
+    抓取貼文的觀看數、按讚數、回覆等，並對回覆進行情感分析。
+    """
+    try:
+        from src.etl.collectors.threads_engagement import collect_threads_engagement as collect
+        result = collect(db, days_back)
+        return result
+    except Exception as e:
+        return {
+            "success": False,
+            "message": f"收集失敗: {str(e)}"
+        }
+
+
+@router.get("/threads-engagement/stats")
+def get_threads_engagement_stats(db: Session = Depends(get_db)):
+    """
+    取得 Threads 互動統計數據。
+    """
+    try:
+        # 總覽統計
+        overview = db.execute(text("""
+            SELECT
+                COUNT(*) as total_posts,
+                SUM(views) as total_views,
+                SUM(likes) as total_likes,
+                SUM(replies_count) as total_replies,
+                SUM(reposts) as total_reposts,
+                SUM(quotes) as total_quotes
+            FROM threads_posts
+        """)).fetchone()
+
+        # 情感統計
+        sentiment = db.execute(text("""
+            SELECT
+                sentiment,
+                COUNT(*) as count
+            FROM threads_replies
+            WHERE sentiment IS NOT NULL
+            GROUP BY sentiment
+        """)).fetchall()
+
+        # 最近貼文表現
+        recent_posts = db.execute(text("""
+            SELECT
+                post_id, data_date, views, likes, replies_count, reposts, quotes,
+                permalink, posted_at
+            FROM threads_posts
+            ORDER BY posted_at DESC
+            LIMIT 10
+        """)).fetchall()
+
+        # 最近回覆
+        recent_replies = db.execute(text("""
+            SELECT
+                r.username, r.text, r.sentiment, r.sentiment_score, r.replied_at,
+                p.data_date
+            FROM threads_replies r
+            JOIN threads_posts p ON r.post_id = p.post_id
+            ORDER BY r.replied_at DESC
+            LIMIT 20
+        """)).fetchall()
+
+        return {
+            "overview": {
+                "total_posts": overview.total_posts or 0,
+                "total_views": overview.total_views or 0,
+                "total_likes": overview.total_likes or 0,
+                "total_replies": overview.total_replies or 0,
+                "total_reposts": overview.total_reposts or 0,
+                "total_quotes": overview.total_quotes or 0
+            } if overview else {},
+            "sentiment_distribution": {
+                row.sentiment: row.count for row in sentiment
+            } if sentiment else {},
+            "recent_posts": [
+                {
+                    "post_id": p.post_id,
+                    "data_date": str(p.data_date) if p.data_date else None,
+                    "views": p.views,
+                    "likes": p.likes,
+                    "replies": p.replies_count,
+                    "reposts": p.reposts,
+                    "quotes": p.quotes,
+                    "permalink": p.permalink,
+                    "posted_at": p.posted_at.isoformat() if p.posted_at else None
+                }
+                for p in recent_posts
+            ] if recent_posts else [],
+            "recent_replies": [
+                {
+                    "username": r.username,
+                    "text": r.text,
+                    "sentiment": r.sentiment,
+                    "score": r.sentiment_score,
+                    "replied_at": r.replied_at.isoformat() if r.replied_at else None,
+                    "post_date": str(r.data_date) if r.data_date else None
+                }
+                for r in recent_replies
+            ] if recent_replies else []
+        }
+    except Exception as e:
+        return {
+            "error": str(e),
+            "message": "統計資料尚未建立，請先執行 /threads-engagement/collect"
+        }

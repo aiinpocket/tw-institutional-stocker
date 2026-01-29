@@ -656,6 +656,20 @@ def run_etl():
     except Exception as e:
         print(f"  [WARN] AI pre-computation failed: {e}")
 
+    # Collect Threads engagement data (non-critical)
+    print("\n[STEP 7.5] Collecting Threads engagement data...")
+    try:
+        from src.etl.collectors.threads_engagement import collect_threads_engagement
+        with get_db_session() as session:
+            result = collect_threads_engagement(session, days_back=7)
+            if result.get("success"):
+                stats = result.get("stats", {})
+                print(f"  Collected: {stats.get('posts_processed', 0)} posts, {stats.get('new_replies', 0)} new replies")
+            else:
+                print(f"  Skipped: {result.get('reason', 'unknown')}")
+    except Exception as e:
+        print(f"  [WARN] Threads engagement collection failed (non-critical): {e}")
+
     # Post-ETL verification
     print("\n[STEP 8] Verifying ETL results...")
     verification_errors = verify_etl_results(target_date)

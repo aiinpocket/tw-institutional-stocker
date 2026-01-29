@@ -30,6 +30,17 @@ openaiKEY.txt
 *.key
 *.secret
 .claude/
+.env
+.env.*
+*.token
+credentials.json
 
 # Setup scripts (may contain tokens)
 scripts/setup_*.py
+scripts/test_*.py
+scripts/*_token*.py
+
+# AI prompts and test scripts
+prompts/
+*_prompt.txt
+*_test_*.sh

@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tw-stocker-ingress
+  namespace: tw-stocker
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - stock-tw.aiinpocket.com
+      secretName: cloudflare-origin-cert-aiinpocket
+  rules:
+    - host: stock-tw.aiinpocket.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tw-stocker-api
+                port:
+                  number: 80

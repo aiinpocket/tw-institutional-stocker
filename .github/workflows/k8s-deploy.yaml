@@ -1,0 +1,119 @@
+name: Build & Deploy to K8s
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '*.md'
+      - '.gitignore'
+      - 'gcp/**'
+
+env:
+  K8S_HOST: 211.20.120.111
+  K8S_USER: k8s
+  WORKERS: "192.168.40.114 192.168.40.115 192.168.40.118"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Set image tag
+        id: tag
+        run: echo "TAG=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build API image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: k8s/Dockerfile.api
+          platforms: linux/amd64
+          tags: docker.io/library/tw-stocker-api:${{ steps.tag.outputs.TAG }}
+          outputs: type=docker,dest=/tmp/tw-stocker-api.tar
+
+      - name: Build ETL image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: k8s/Dockerfile.etl
+          platforms: linux/amd64
+          tags: docker.io/library/tw-stocker-etl:${{ steps.tag.outputs.TAG }}
+          outputs: type=docker,dest=/tmp/tw-stocker-etl.tar
+
+      - name: Compress images
+        run: |
+          gzip /tmp/tw-stocker-api.tar
+          gzip /tmp/tw-stocker-etl.tar
+          ls -lh /tmp/tw-stocker-*.tar.gz
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.K8S_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          echo "StrictHostKeyChecking no" >> ~/.ssh/config
+
+      - name: Transfer images to K8s master
+        run: |
+          scp /tmp/tw-stocker-api.tar.gz /tmp/tw-stocker-etl.tar.gz \
+            ${{ env.K8S_USER }}@${{ env.K8S_HOST }}:/tmp/
+
+      - name: Import and distribute images
+        run: |
+          TAG=${{ steps.tag.outputs.TAG }}
+
+          ssh ${{ env.K8S_USER }}@${{ env.K8S_HOST }} << REMOTE_SCRIPT
+            set -e
+
+            # Decompress
+            gunzip -f /tmp/tw-stocker-api.tar.gz
+            gunzip -f /tmp/tw-stocker-etl.tar.gz
+
+            # Import to all worker nodes
+            for worker in ${{ env.WORKERS }}; do
+              echo "=== Deploying to \$worker ==="
+              scp -o StrictHostKeyChecking=no /tmp/tw-stocker-api.tar /tmp/tw-stocker-etl.tar k8s@\$worker:/tmp/
+              ssh -o StrictHostKeyChecking=no k8s@\$worker << 'WORKER_EOF'
+                echo 'p@ssw0rd' | sudo -S ctr -n k8s.io images import --all-platforms /tmp/tw-stocker-api.tar
+                echo 'p@ssw0rd' | sudo -S ctr -n k8s.io images import --all-platforms /tmp/tw-stocker-etl.tar
+
+                # Tag with specific version
+                echo 'p@ssw0rd' | sudo -S ctr -n k8s.io images tag docker.io/library/tw-stocker-api:${TAG} docker.io/library/tw-stocker-api:latest 2>/dev/null || true
+                echo 'p@ssw0rd' | sudo -S ctr -n k8s.io images tag docker.io/library/tw-stocker-etl:${TAG} docker.io/library/tw-stocker-etl:latest 2>/dev/null || true
+
+                rm -f /tmp/tw-stocker-api.tar /tmp/tw-stocker-etl.tar
+          WORKER_EOF
+            done
+
+            # Clean up master
+            rm -f /tmp/tw-stocker-api.tar /tmp/tw-stocker-etl.tar
+
+            # Restart API deployment to pick up new images
+            echo 'p@ssw0rd' | sudo -S kubectl rollout restart deployment/tw-stocker-api -n tw-stocker
+          REMOTE_SCRIPT
+
+      - name: Update image tags in manifests
+        run: |
+          TAG=${{ steps.tag.outputs.TAG }}
+          sed -i "s|image: docker.io/library/tw-stocker-api:.*|image: docker.io/library/tw-stocker-api:${TAG}|g" k8s/manifests/api.yaml
+          sed -i "s|image: docker.io/library/tw-stocker-etl:.*|image: docker.io/library/tw-stocker-etl:${TAG}|g" k8s/manifests/cronjob-etl-main.yaml
+          sed -i "s|image: docker.io/library/tw-stocker-etl:.*|image: docker.io/library/tw-stocker-etl:${TAG}|g" k8s/manifests/cronjob-etl-broker.yaml
+          sed -i "s|image: docker.io/library/tw-stocker-etl:.*|image: docker.io/library/tw-stocker-etl:${TAG}|g" k8s/manifests/cronjob-etl-backfill.yaml
+          # Also fix imagePullPolicy line if exists
+          sed -i '/imagePullPolicy:/d' k8s/manifests/api.yaml k8s/manifests/cronjob-etl-*.yaml
+
+      - name: Commit and push updated manifests
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add k8s/manifests/
+          git diff --cached --quiet && exit 0
+          git commit -m "ci: update image tags to ${{ steps.tag.outputs.TAG }} [skip ci]"
+          git push

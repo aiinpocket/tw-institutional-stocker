@@ -22,28 +22,38 @@
 
 ## 自動化部署
 
-本專案採用 **完全自動化** 的 CI/CD 與資料更新流程：
+本專案部署於 **Kubernetes 叢集**（3 Master + 3 Worker），採用 ArgoCD GitOps + GitHub Actions CI/CD：
 
 ```
 GitHub (push to main)
         │
         ▼
-Cloud Build ──────► Cloud Run (API)
+GitHub Actions ──► Build Docker Images
         │                  │
-        │                  ▼
-        │           https://stock-tw.aiinpocket.com
-        │
-Cloud Scheduler (21:30 Mon-Fri)
+        │              SSH + SCP
+        │                  │
+        ▼                  ▼
+ArgoCD (GitOps) ◄── K8s Worker Nodes (containerd)
         │
         ▼
-Cloud Run Jobs (ETL) ──► Cloud SQL (PostgreSQL)
+K8s Cluster
+├── tw-stocker-api (Deployment, 2 replicas)
+├── tw-stocker-postgres (Deployment + NFS PVC)
+├── CronJob: ETL Main (21:30 台北時間, 週一至週五)
+├── CronJob: ETL Broker (22:00 台北時間, 週一至週五)
+└── CronJob: ETL Backfill (22:30 台北時間, 週一至週五)
+        │
+        ▼
+Nginx Ingress ──► https://stock-tw.aiinpocket.com
 ```
 
 | 自動化項目 | 說明 | 排程 |
 |-----------|------|------|
-| CI/CD 部署 | push to `main` 自動觸發 Cloud Build | 即時 |
-| ETL 資料更新 | Cloud Scheduler 觸發 ETL Job | 週一至週五 21:30 (台北) |
-| API 擴展 | Cloud Run 自動擴展 0-2 instances | 依流量 |
+| CI/CD 部署 | push to `main` 觸發 GitHub Actions → 建構 Image → 部署到 K8s | 即時 |
+| 主 ETL 更新 | K8s CronJob 抓取法人買賣超、股價、融資融券、營收、AI 分析 | 週一至週五 21:30 (台北) |
+| 券商 ETL | K8s CronJob 抓取券商分點資料 | 週一至週五 22:00 (台北) |
+| 補價 ETL | K8s CronJob 補齊缺漏股價資料 | 週一至週五 22:30 (台北) |
+| GitOps 同步 | ArgoCD 自動同步 K8s manifests | 即時 |
 
 > **無需人工介入**：程式碼推送後自動部署，每日收盤後自動更新資料。
 

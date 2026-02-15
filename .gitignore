@@ -34,6 +34,7 @@ openaiKEY.txt
 .env.*
 *.token
 credentials.json
+k8s/secrets.yaml
 
 # Setup scripts (may contain tokens)
 scripts/setup_*.py

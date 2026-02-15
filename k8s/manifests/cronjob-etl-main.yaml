@@ -1,0 +1,52 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: tw-stocker-etl-main
+  namespace: tw-stocker
+  labels:
+    app: tw-stocker-etl
+    etl-type: main
+spec:
+  schedule: "30 21 * * 1-5"
+  timeZone: "Asia/Taipei"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  startingDeadlineSeconds: 300
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      activeDeadlineSeconds: 3600
+      template:
+        metadata:
+          labels:
+            app: tw-stocker-etl
+            etl-type: main
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: etl
+              image: docker.io/library/tw-stocker-etl:latest
+              imagePullPolicy: IfNotPresent
+              command: ["python", "-m", "src.etl.run_all"]
+              envFrom:
+                - configMapRef:
+                    name: tw-stocker-config
+              env:
+                - name: DB_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: tw-stocker-secrets
+                      key: DB_PASSWORD
+                - name: OPENAI_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: tw-stocker-secrets
+                      key: OPENAI_API_KEY
+              resources:
+                requests:
+                  cpu: "1"
+                  memory: 4Gi
+                limits:
+                  cpu: "4"
+                  memory: 8Gi

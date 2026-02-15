@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tw-stocker-config
+  namespace: tw-stocker
+data:
+  DB_HOST: "tw-stocker-postgres"
+  DB_PORT: "5432"
+  DB_NAME: "tw_stocker"
+  DB_USER: "postgres"
+  TZ: "Asia/Taipei"
+  PGTZ: "Asia/Taipei"
+  API_HOST: "0.0.0.0"
+  API_PORT: "8000"
+  THREADS_PUBLISH_ENABLED: "true"
+  THREADS_APP_ID: "1952849568648324"
+  THREADS_USER_ID: "34616726781251416"

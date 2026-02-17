@@ -6,7 +6,7 @@ metadata:
   labels:
     app: tw-stocker-api
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: tw-stocker-api

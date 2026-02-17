@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: tw-stocker-config
-  namespace: tw-stocker
+  namespace: app
 data:
   DB_HOST: "tw-stocker-postgres"
   DB_PORT: "5432"

@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: tw-stocker-etl-main
-  namespace: tw-stocker
+  namespace: app
   labels:
     app: tw-stocker-etl
     etl-type: main

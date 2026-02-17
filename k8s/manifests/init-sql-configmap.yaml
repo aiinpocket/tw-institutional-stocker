@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: tw-stocker-init-sql
-  namespace: tw-stocker
+  namespace: app
 data:
   init.sql: |
     -- Taiwan Stock Institutional Tracker - Database Schema
